@@ -1,0 +1,36 @@
+<div class="dashboard__screen">
+  <div class="dashboard_container">
+    <div class="dashboard__sidebar"></div>
+    <div class="dashboard__main_screen">
+      <div class="main_screen__topbar">
+        <div class="main_screen__topbar_left">
+          <img src="./assets/logostyle.jpg" alt="" />
+          <span>Welcome, Domnic</span>
+        </div>
+        <div class="main_screen__topbar_right">
+          <div class="topbar_right__search">
+            <input type="text" placeholder="Search something..." />
+          </div>
+          <div class="topbar_right__notification_bell">B</div>
+          <div class="topbar_right__profile">
+            <img src="./assets/avatar-1577909_960_720.png" alt="" />
+            <span>^</span>
+          </div>
+        </div>
+      </div>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <h3>Dashboard</h3>
+          <h3>Edit</h3>
+        </div>
+        <div class="main_container__charts_container">
+          <!-- <div class="charts_container__chart">Chart Container</div> -->
+          <!-- <div class="charts_container__chart">Chart Container</div> -->
+          <app-column-chart></app-column-chart>
+          <app-bar-chart [options]="barChartOptions"></app-bar-chart>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
