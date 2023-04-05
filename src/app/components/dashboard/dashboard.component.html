@@ -23,13 +23,22 @@
           <h3>Dashboard</h3>
           <h3>Edit</h3>
         </div>
-        <div class="main_container__charts_container">
+        <!-- <div class="main_container__charts_container"> -->
           <!-- <div class="charts_container__chart">Chart Container</div> -->
-          <!-- <div class="charts_container__chart">Chart Container</div> -->
-          <app-column-chart></app-column-chart>
-          <app-bar-chart [options]="barChartOptions"></app-bar-chart>
 
-        </div>
+          <!-- <div class="charts_container__chart">Chart Container</div> -->
+          <div class="col-md-12">
+              <div class="col-md-8">
+                <app-column-chart></app-column-chart>
+              </div>
+              <div class="col-md-4">
+                <app-bar-chart [options]="barChartOptions"></app-bar-chart>
+              </div>
+          </div>
+
+
+
+        <!-- </div> -->
       </div>
     </div>
   </div>
