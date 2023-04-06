@@ -14,8 +14,8 @@ export class ColumnChartComponent {
     this.chartOptions = {
       chart: {
         type: 'column',
-        height: (9 / 16) * 45 + '%',
-        width: 1200,      },
+        height: (9 / 16) * 90 + '%', // 16:9 ratio
+      },
       title: {
         text: 'By Brand',
       },
@@ -92,7 +92,7 @@ export class ColumnChartComponent {
             enabled: false,
           },
 
-          pointWidth: 40, // Reduce width of columns
+          pointWidth: 20, // Reduce width of columns
         },
       ],
     };

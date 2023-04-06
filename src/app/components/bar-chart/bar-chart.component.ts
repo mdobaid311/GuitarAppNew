@@ -16,8 +16,7 @@ export class BarChartComponent {
     this.chartOptions = {
       chart: {
         type: 'column',
-        height: (9 / 16) * 45 + '%',
-        width: 1200,
+        height: (9 / 16) * 90 + '%',
 
       },
 
@@ -97,7 +96,7 @@ export class BarChartComponent {
             // }
           },
           color: '#b39ddb', // Change color of columns
-          pointWidth: 50, // Reduce width of columns
+          pointWidth: 10, // Reduce width of columns
         },
       ],
       // chart: {
