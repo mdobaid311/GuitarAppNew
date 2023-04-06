@@ -4,20 +4,20 @@ import * as Highcharts from 'highcharts';
 @Component({
   selector: 'app-column-chart',
   templateUrl: './column-chart.component.html',
-  styleUrls: ['./column-chart.component.scss']
+  styleUrls: ['./column-chart.component.scss'],
 })
 export class ColumnChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   chartOptions: any;
 
   ngOnInit() {
-
     this.chartOptions = {
       chart: {
         type: 'column',
+        height: (9 / 16) * 90 + '%', // 16:9 ratio
       },
       title: {
-        text: 'By Brand'
+        text: 'By Brand',
       },
       subtitle: {
         // text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
@@ -28,21 +28,21 @@ export class ColumnChartComponent {
           rotation: 270,
           style: {
             fontSize: '13px',
-            fontFamily: 'Verdana, sans-serif'
-          }
-        }
+            fontFamily: 'Verdana, sans-serif',
+          },
+        },
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Dollars in 1000' + "'" + "s"
-        }
+          text: 'Dollars in 1000' + "'" + 's',
+        },
       },
       legend: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
-        pointFormat: 'Sales: <b>{point.y:.1f} millions</b>'
+        pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
       },
       plotOptions: {
         column: {
@@ -50,52 +50,51 @@ export class ColumnChartComponent {
           borderWidth: 0,
           colorByPoint: true,
           dataLabels: {
-            enabled: false
-          }
-        }
-      },
-      series: [{
-        name: 'Population',
-        colorByPoint: true,
-        data: [
-          ['Tokyo', 37.33],
-          ['Delhi', 31.18],
-          ['Shanghai', 27.79],
-          ['Sao Paulo', 22.23],
-          ['Mexico City', 21.91],
-          ['Dhaka', 21.74],
-          ['Cairo', 21.32],
-          ['Beijing', 20.89],
-          ['Mumbai', 20.67],
-          ['Osaka', 19.11],
-          ['Karachi', 16.45],
-          ['Chongqing', 16.38],
-          ['Istanbul', 15.41],
-          ['Buenos Aires', 15.25],
-          ['Kolkata', 14.974],
-          ['Kinshasa', 14.970],
-          ['Lagos', 14.86],
-          ['Manila', 14.16],
-          ['Tianjin', 13.79],
-          ['Guangzhou', 13.64],
-          ['Istanbul', 15.41],
-          ['Buenos Aires', 15.25],
-          ['Kolkata', 14.974],
-          ['Kinshasa', 14.970],
-          ['Lagos', 14.86],
-          ['Manila', 14.16],
-          ['Tianjin', 13.79],
-          ['Guangzhou', 13.64],
-
-        ],
-        dataLabels: {
-          enabled: false,
-
+            enabled: false,
+          },
         },
+      },
+      series: [
+        {
+          name: 'Population',
+          colorByPoint: true,
+          data: [
+            ['Tokyo', 37.33],
+            ['Delhi', 31.18],
+            ['Shanghai', 27.79],
+            ['Sao Paulo', 22.23],
+            ['Mexico City', 21.91],
+            ['Dhaka', 21.74],
+            ['Cairo', 21.32],
+            ['Beijing', 20.89],
+            ['Mumbai', 20.67],
+            ['Osaka', 19.11],
+            ['Karachi', 16.45],
+            ['Chongqing', 16.38],
+            ['Istanbul', 15.41],
+            ['Buenos Aires', 15.25],
+            ['Kolkata', 14.974],
+            ['Kinshasa', 14.97],
+            ['Lagos', 14.86],
+            ['Manila', 14.16],
+            ['Tianjin', 13.79],
+            ['Guangzhou', 13.64],
+            ['Istanbul', 15.41],
+            ['Buenos Aires', 15.25],
+            ['Kolkata', 14.974],
+            ['Kinshasa', 14.97],
+            ['Lagos', 14.86],
+            ['Manila', 14.16],
+            ['Tianjin', 13.79],
+            ['Guangzhou', 13.64],
+          ],
+          dataLabels: {
+            enabled: false,
+          },
 
-        pointWidth: 20 // Reduce width of columns
-      }]
-
+          pointWidth: 20, // Reduce width of columns
+        },
+      ],
     };
   }
 
@@ -103,7 +102,6 @@ export class ColumnChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 }
-
 
 // column single color
 
@@ -170,8 +168,6 @@ export class ColumnChartComponent {
 //     ['3:00', 14.16],
 //     ['4:00', 13.79],
 //     ['5:00', 13.64],
-
-
 
 //   ],
 //   dataLabels: {
