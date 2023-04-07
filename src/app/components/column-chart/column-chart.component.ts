@@ -12,9 +12,11 @@ export class ColumnChartComponent {
 
   ngOnInit() {
     this.chartOptions = {
+      colors: ['#2f7ed8'],
+
       chart: {
         type: 'column',
-        height: (9 / 16) * 90 + '%', // 16:9 ratio
+        height: (9 / 16) * 55 + '%', // 16:9 ratio
       },
       title: {
         text: 'By Brand',
@@ -57,7 +59,7 @@ export class ColumnChartComponent {
       series: [
         {
           name: 'Population',
-          colorByPoint: true,
+          colorByPoint: false,
           data: [
             ['Tokyo', 37.33],
             ['Delhi', 31.18],
