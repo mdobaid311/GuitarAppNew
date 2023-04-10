@@ -1,7 +1,6 @@
-
 .dashboard__screen {
   min-height: 100vh;
-  background: #e7131a;
+  background: var(--primary-background-1);
 
   .dashboard_container {
     width: 100%;
@@ -38,7 +37,7 @@
 
     .dashboard__main_screen {
       flex: 1;
-      background: #f2f2f2;
+      background: var(--primary-background-2);
       border-top-left-radius: 6px;
       border-bottom-left-radius: 6px;
       display: flex;
@@ -139,7 +138,7 @@
           h3 {
             font-size: 30px;
             font-weight: 700;
-            color: #000;
+            color: var(--primary-color-1);
           }
         }
 
@@ -147,8 +146,8 @@
           //   border: 1px solid blue;
           flex: 1;
           border-radius: 10px;
-          background: #fff;
-          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          background: var(--primary-background-3);
+          box-shadow: var(--primary-boxshadow);
           display: flex;
           flex-direction: column;
           .charts_container__chart {
@@ -176,14 +175,14 @@
               h1 {
                 font-size: 50px;
                 font-weight: 700;
-                color: #000;
+                color: var(--primary-color-1);
                 margin: 10px 0;
               }
 
               h3 {
                 font-size: 20px;
                 font-weight: 600;
-                color: #000;
+                color: var(--primary-color-1);
               }
 
               progress {
@@ -235,7 +234,7 @@
               height: 100%;
               flex: 2;
               margin: 10px;
-              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              box-shadow: var(--primary-boxshadow);
               border-radius: 10px;
               padding: 10px 15px;
 
@@ -260,7 +259,7 @@
               height: 100%;
               flex: 7;
               margin: 10px;
-              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              box-shadow: var(--primary-boxshadow);
               border-radius: 10px;
             }
             .chart_container_2_div_3 {

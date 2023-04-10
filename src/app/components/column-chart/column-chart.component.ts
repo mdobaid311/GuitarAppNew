@@ -9,6 +9,7 @@ import * as Highcharts from 'highcharts';
 export class ColumnChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   chartOptions: any;
+  theme = 'light';
 
   ngOnInit() {
     this.chartOptions = {
@@ -17,6 +18,7 @@ export class ColumnChartComponent {
       chart: {
         type: 'column',
         height: (9 / 16) * 55 + '%', // 16:9 ratio
+        backgroundColor: this.theme === 'dark' ? '#0B2447' : '#19376D',
       },
       title: {
         text: 'By Brand',
