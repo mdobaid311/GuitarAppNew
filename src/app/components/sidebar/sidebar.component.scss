@@ -18,10 +18,15 @@
     //   background: #fff;
     //   border-radius: 10px;
     // }
-    img {
-      width: 16px;
-      height: 17px;
-      object-fit: contain;
+
+    .icon{
+      color: white;
+    }
+
+    .icon.active{
+      color: #0B2447;
     }
   }
+
+
 }
