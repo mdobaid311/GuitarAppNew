@@ -1,4 +1,3 @@
-
 .login_screen {
   height: 100vh;
 }
@@ -55,11 +54,14 @@ label {
 //   cursor: pointer;
 // }
 .login-button {
-    background: #cd2418;
+  background: #cd2418;
   color: #fff;
   font-size: 14px;
   height: 38px;
   cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10px;
 }
 
 input {

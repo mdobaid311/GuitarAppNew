@@ -12,12 +12,32 @@ export class BarChartComponent {
   chartOptions: any;
   @Input() options: any;
 
+  theme = 'light';
+
+  constructor() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.target === document.body &&
+          mutation.attributeName === 'class'
+        ) {
+          console.log('Body class name has changed!');
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: true });
+  }
+
   ngOnInit() {
+    this.theme = document.body.classList.contains('dark-theme')
+      ? 'dark'
+      : 'light';
+
     this.chartOptions = {
       chart: {
         type: 'column',
-        height: (9 / 16) * 90 + '%',
-
+        height: (9 / 16) * 55 + '%',
+        backgroundColor: this.theme === 'dark' ? '#0B2447' : '#19376D',
       },
 
       title: {
@@ -95,8 +115,9 @@ export class BarChartComponent {
             //   fontFamily: 'Verdana, sans-serif'
             // }
           },
-          color: '#b39ddb', // Change color of columns
-          pointWidth: 10, // Reduce width of columns
+          color: '#2f7ed8', // Change color of columns
+          pointWidth: 25, // Reduce width of columns
+          backgroundColor: '#FCFFC5',
         },
       ],
       // chart: {
