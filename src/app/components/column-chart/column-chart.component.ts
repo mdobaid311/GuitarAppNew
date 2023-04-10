@@ -11,6 +11,20 @@ export class ColumnChartComponent {
   chartOptions: any;
   theme = 'light';
 
+  constructor() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.target === document.body &&
+          mutation.attributeName === 'class'
+        ) {
+           this.updateChartTheme();
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: true });
+  }
+
   ngOnInit() {
     this.chartOptions = {
       colors: ['#2f7ed8'],
@@ -18,7 +32,6 @@ export class ColumnChartComponent {
       chart: {
         type: 'column',
         height: (9 / 16) * 55 + '%', // 16:9 ratio
-        backgroundColor: this.theme === 'dark' ? '#0B2447' : '#19376D',
       },
       title: {
         text: 'By Brand',
@@ -40,6 +53,15 @@ export class ColumnChartComponent {
         min: 0,
         title: {
           text: 'Dollars in 1000' + "'" + 's',
+        },
+        labels: {
+          rotation: 0,
+          style: {
+            // height: '100px',
+            color: '#000',
+            fontSize: '13px',
+            fontFamily: 'Verdana, sans-serif',
+          },
         },
       },
       legend: {
@@ -100,6 +122,25 @@ export class ColumnChartComponent {
         },
       ],
     };
+  }
+
+  updateChartTheme() {
+    this.theme = document.body.classList.contains('dark-theme')
+      ? 'dark'
+      : 'light';
+
+    this.chartOptions.chart.backgroundColor =
+      this.theme === 'dark' ? '#19376D' : '#fff';
+    // this.chartOptions.series[0].color =
+    //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
+    // this.chartOptions.series[0].backgroundColor =
+    //   this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
+    this.chartOptions.xAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+    this.chartOptions.yAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+
+    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
   ngAfterViewInit() {

@@ -1,4 +1,9 @@
 <label id="switch" class="switch">
-  <input type="checkbox" (change)="toggleTheme()" id="slider">
+  <input
+    type="checkbox"
+    [checked]="currentTheme === 'light-theme' ? false : true"
+    (change)="toggleTheme()"
+    id="slider"
+  />
   <span class="slider round"></span>
 </label>
