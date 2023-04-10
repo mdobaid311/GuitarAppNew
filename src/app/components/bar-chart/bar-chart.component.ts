@@ -14,7 +14,6 @@ export class BarChartComponent {
 
   theme = 'light';
 
-
   constructor() {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -31,12 +30,10 @@ export class BarChartComponent {
   }
 
   ngOnInit() {
-
     this.chartOptions = {
       chart: {
         type: 'column',
         height: (9 / 16) * 55 + '%',
-        backgroundColor: this.theme === 'dark' ? '#0B2447' : '#19376D',
       },
 
       title: {
@@ -51,6 +48,7 @@ export class BarChartComponent {
           rotation: 0,
           style: {
             // height: '100px',
+            color: '#fff',
             fontSize: '13px',
             fontFamily: 'Verdana, sans-serif',
           },
@@ -158,9 +156,14 @@ export class BarChartComponent {
       ? 'dark'
       : 'light';
 
-    this.chartOptions.chart.backgroundColor = this.theme === 'dark' ? '#0B2447' : '#19376D';
-    this.chartOptions.series[0].color = this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
-    this.chartOptions.series[0].backgroundColor = this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
+    this.chartOptions.chart.backgroundColor =
+      this.theme === 'dark' ? '#19376D' : '#fff';
+    // this.chartOptions.series[0].color =
+    //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
+    // this.chartOptions.series[0].backgroundColor =
+    //   this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
+    this.chartOptions.xAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
 
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
