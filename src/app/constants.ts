@@ -2,13 +2,13 @@ export const APP_CONSTANTS = {
 
 
   // LOCAL SERVER
-  //URI: 'http://localhost:3001',
+  URI: 'http://localhost:3000',
 
   // PROD SERVER
   //URI:
 
   // DEV SERVER
-  URI: "https://backend-testing.merlinwms.co.uk",
+  // URI: "https://backend-testing.merlinwms.co.uk",
 
   IMAGE_BUCKET_PATH: '',
 

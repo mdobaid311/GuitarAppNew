@@ -5,6 +5,6 @@ export const environment = {
   production: false,
   SERVICE_APIS: {
 
-    LIST_ALL_PACKAGE_METHOD: APP_CONSTANTS.URI + '/api/v1/generalSettings/getAllpackagemethod',
+    query: APP_CONSTANTS.URI + '/query/',
   }
 }
