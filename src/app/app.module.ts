@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ColumnChartComponent } from './components/column-chart/column-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { ThemeSwitchComponent } from './components/theme-switch/theme-switch.component';
 import { AreaSplineChartComponent } from './components/area-spline-chart/area-spline-chart.component';
 import { CustomHeaderComponent } from './components/custom-header/custom-header.component';
 
@@ -21,9 +22,13 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
     LoginComponent,
     DashboardComponent,
     ColumnChartComponent,
+
+    BarChartComponent,
+    ThemeSwitchComponent
     BarChartComponent,
     AreaSplineChartComponent,
     CustomHeaderComponent
+
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,6 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
