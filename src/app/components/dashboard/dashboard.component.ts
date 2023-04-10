@@ -8,10 +8,17 @@ import { ChartService } from '../../services/chartData.service'
 })
 export class DashboardComponent implements OnInit{
 
+  dataRows = []
+
   constructor(private chartData: ChartService){}
 
   ngOnInit(): void {
-      this.chartData.getData()
+      this.chartData.getData().subscribe({
+        next: (resp:any) => {
+          this.dataRows = resp.rows
+          console.log('ROWS', this.dataRows)
+        }
+      })
   }
 
   barChartOptions = {

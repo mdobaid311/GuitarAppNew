@@ -30,3 +30,5 @@ body{
   background: var(--primary-background-2);
   color: var(--primary-color-1);
 }
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
