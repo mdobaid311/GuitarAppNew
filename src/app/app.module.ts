@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { AgGridModule } from 'ag-grid-angular';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,10 +21,8 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
     LoginComponent,
     DashboardComponent,
     ColumnChartComponent,
-
     BarChartComponent,
-    ThemeSwitchComponent
-    BarChartComponent,
+    ThemeSwitchComponent,
     AreaSplineChartComponent,
     CustomHeaderComponent
 
@@ -37,8 +34,7 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
     HighchartsChartModule,
     MatTableModule,
     MatCheckboxModule,
-    MatIconModule,
-    AgGridModule
+    MatIconModule
 
 
   ],
