@@ -7,33 +7,6 @@
     min-height: 100vh;
     display: flex;
 
-    .dashboard__sidebar {
-      width: 60px;
-      height: 100%;
-      //   border: 1px solid white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .sidebar__icon {
-        width: 100%;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        // &:hover {
-        //   background: #fff;
-        //   border-radius: 10px;
-        // }
-        img {
-          width: 16px;
-          height: 17px;
-          object-fit: contain;
-        }
-      }
-    }
 
     .dashboard__main_screen {
       flex: 1;
@@ -46,82 +19,7 @@
       width: 1292px;
       // border-radius: 6px;
 
-      .main_screen__topbar {
-        // border: 1px solid rgb(3, 2, 2);
-        border-bottom: 1px solid #ccc;
-        height: 80px;
-        display: flex;
-        border-top-left-radius: 20px;
-        margin: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
 
-        .main_screen__topbar_left {
-          display: flex;
-          align-items: center;
-          margin: 10px;
-          img {
-            width: 90px;
-            height: 48px;
-            border-top-left-radius: 20px;
-            padding-right: 15px;
-            margin: 10px;
-            border-right: 1px solid #ccc;
-            object-fit: contain;
-          }
-
-          span {
-            color: #817979;
-          }
-        }
-
-        .main_screen__topbar_right {
-          display: flex;
-          align-items: center;
-          margin: 10px;
-
-          .topbar_right__search {
-            display: flex;
-            align-items: center;
-
-            input {
-              border: none;
-              outline: none;
-              padding: 10px;
-              border-radius: 10px;
-              margin-right: 10px;
-              background: transparent;
-              width: 200px;
-              cursor: pointer;
-            }
-          }
-
-          .topbar_right__notification_bell {
-            width: 25px;
-            height: 25px;
-            margin: 10px;
-            cursor: pointer;
-            img {
-              object-fit: contain;
-              height: 100%;
-              width: 100%;
-            }
-          }
-
-          .topbar_right__profile {
-            width: 25px;
-            height: 25px;
-            margin: 10px;
-            cursor: pointer;
-            img {
-              object-fit: contain;
-              height: 100%;
-              width: 100%;
-            }
-          }
-        }
-      }
 
       .main_screen__main_container {
         // border: 1px solid red;

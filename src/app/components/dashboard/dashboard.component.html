@@ -1,45 +1,9 @@
 <div class="dashboard__screen">
   <div class="dashboard_container">
-    <div class="dashboard__sidebar">
-      <div class="sidebar__icon">
-        <img src="./assets/icons/Group 4ham.png" alt="" />
-      </div>
-      <div class="sidebar__icon" routerLink="/dashboard">
-        <img src="./assets/icons/Group 10home.png" alt="" />
-      </div>
-      <div class="sidebar__icon" routerLink="/area-chart">
-        <img src="./assets/icons/Group 9analysis.png" alt="" />
-      </div>
-      <div class="sidebar__icon">
-        <img src="./assets/icons/Group 8user.png" alt="" />
-      </div>
-      <div class="sidebar__icon">
-        <img src="./assets/icons/Group 7message.png" alt="" />
-      </div>
-      <div class="sidebar__icon">
-        <img src="./assets/icons/Group 6settings.png" alt="" />
-      </div>
-    </div>
+    <app-sidebar></app-sidebar>
     <div class="dashboard__main_screen">
-      <div class="main_screen__topbar">
-        <div class="main_screen__topbar_left">
-          <img src="./assets/11111 1 (1).png" alt="" />
-          <span>Welcome, Dominic</span>
-        </div>
-        <div class="main_screen__topbar_right">
-          <!-- <div class="topbar_right__search">
-            <input type="text" placeholder="Search something..." />
-          </div> -->
-          <app-theme-switch></app-theme-switch>
-          <div class="topbar_right__notification_bell">
-            <img src="./assets/icons/Layer 2bell.png" alt="" />
-          </div>
-          <div class="topbar_right__profile">
-            <img src="../../../assets/user.png" alt="" />
-            <!-- <span>^</span> -->
-          </div>
-        </div>
-      </div>
+      <!-- header -->
+      <app-custom-header></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Dashboard</h3>
@@ -47,7 +11,6 @@
         </div>
         <div class="main_container__charts_container">
           <div class="charts_container__chart">
-
             <div class="chart_container_1_div_1">
               <h1>$6.7M</h1>
               <h3>YTD</h3>
@@ -93,7 +56,6 @@
             </div>
             <!-- <app-column-chart></app-column-chart>
             <app-bar-chart [options]="barChartOptions"></app-bar-chart> -->
-
           </div>
 
           <div class="charts_container__chart">
@@ -144,4 +106,3 @@
     </div>
   </div>
 </div>
-

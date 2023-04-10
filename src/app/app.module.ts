@@ -14,6 +14,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ThemeSwitchComponent } from './components/theme-switch/theme-switch.component';
 import { AreaSplineChartComponent } from './components/area-spline-chart/area-spline-chart.component';
 import { CustomHeaderComponent } from './components/custom-header/custom-header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,8 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
     BarChartComponent,
     ThemeSwitchComponent,
     AreaSplineChartComponent,
-    CustomHeaderComponent
-
+    CustomHeaderComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,9 +35,7 @@ import { CustomHeaderComponent } from './components/custom-header/custom-header.
     HighchartsChartModule,
     MatTableModule,
     MatCheckboxModule,
-    MatIconModule
-
-
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
