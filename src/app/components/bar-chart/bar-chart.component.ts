@@ -149,7 +149,6 @@ export class BarChartComponent {
       // series: this.options.series
     };
   }
-
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
       ? 'dark'
