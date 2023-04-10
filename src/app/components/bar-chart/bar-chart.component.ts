@@ -14,6 +14,7 @@ export class BarChartComponent {
 
   theme = 'light';
 
+
   constructor() {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -22,6 +23,7 @@ export class BarChartComponent {
           mutation.attributeName === 'class'
         ) {
           console.log('Body class name has changed!');
+          this.updateChartTheme();
         }
       });
     });
@@ -29,9 +31,6 @@ export class BarChartComponent {
   }
 
   ngOnInit() {
-    this.theme = document.body.classList.contains('dark-theme')
-      ? 'dark'
-      : 'light';
 
     this.chartOptions = {
       chart: {
@@ -152,6 +151,18 @@ export class BarChartComponent {
       // },
       // series: this.options.series
     };
+  }
+
+  updateChartTheme() {
+    this.theme = document.body.classList.contains('dark-theme')
+      ? 'dark'
+      : 'light';
+
+    this.chartOptions.chart.backgroundColor = this.theme === 'dark' ? '#0B2447' : '#19376D';
+    this.chartOptions.series[0].color = this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
+    this.chartOptions.series[0].backgroundColor = this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
+
+    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
   ngAfterViewInit() {
