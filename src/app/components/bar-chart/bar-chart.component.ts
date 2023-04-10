@@ -21,8 +21,7 @@ export class BarChartComponent {
           mutation.target === document.body &&
           mutation.attributeName === 'class'
         ) {
-          console.log('Body class name has changed!');
-          this.updateChartTheme();
+           this.updateChartTheme();
         }
       });
     });

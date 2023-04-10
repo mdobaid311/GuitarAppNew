@@ -15,6 +15,7 @@ import { ThemeSwitchComponent } from './components/theme-switch/theme-switch.com
 import { AreaSplineChartComponent } from './components/area-spline-chart/area-spline-chart.component';
 import { CustomHeaderComponent } from './components/custom-header/custom-header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     MatTableModule,
     MatCheckboxModule,
     MatIconModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
