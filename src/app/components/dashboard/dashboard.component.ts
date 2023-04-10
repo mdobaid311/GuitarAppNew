@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartService } from '../../services/chartData.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ export class DashboardComponent implements OnInit{
 
   dataRows = []
 
-  constructor(private chartData: ChartService){}
+  constructor(private chartData: ChartService, private router: Router){}
 
   ngOnInit(): void {
       this.chartData.getData().subscribe({

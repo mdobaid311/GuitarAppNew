@@ -1,16 +1,1 @@
-<table>
-  <thead>
-    <tr>
-      <th (click)="onColumnHeaderClick('id')" [ngClass]="{ 'selected': selectedColumnHeader === 'id' }">ID</th>
-      <th (click)="onColumnHeaderClick('name')" [ngClass]="{ 'selected': selectedColumnHeader === 'name' }">Name</th>
-      <th (click)="onColumnHeaderClick('age')" [ngClass]="{ 'selected': selectedColumnHeader === 'age' }">Age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of data">
-      <td [ngClass]="{ 'selected': selectedColumnHeader === 'id' }">{{ row.id }}</td>
-      <td [ngClass]="{ 'selected': selectedColumnHeader === 'name' }">{{ row.name }}</td>
-      <td [ngClass]="{ 'selected': selectedColumnHeader === 'age' }">{{ row.age }}</td>
-    </tr>
-  </tbody>
-</table>
+
