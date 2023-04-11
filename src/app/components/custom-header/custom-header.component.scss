@@ -36,35 +36,39 @@
     .topbar_right__search {
       display: flex;
       align-items: center;
+      margin-right: 20px;
 
       input {
         border: none;
         outline: none;
         padding: 10px;
-        border-radius: 10px;
-        margin-right: 10px;
         background: transparent;
         width: 200px;
+        color: var(--primary-color-1);
         cursor: pointer;
+        border-bottom: 1px solid var(--primary-background-1);
       }
     }
 
     .topbar_right__notification_bell {
       width: 25px;
       height: 25px;
-      margin: 10px;
+      margin-left: 20px;
       cursor: pointer;
-      img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .bell_icon {
         object-fit: contain;
-        height: 100%;
-        width: 100%;
+        font-size: 20px;
       }
     }
 
     .topbar_right__profile {
       width: 25px;
       height: 25px;
-      margin: 10px;
+      margin-left: 20px;
       cursor: pointer;
       img {
         object-fit: contain;
