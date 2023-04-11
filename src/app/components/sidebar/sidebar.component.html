@@ -2,26 +2,18 @@
   <div class="sidebar__icon">
     <fa-icon [icon]="faBars" class="icon"></fa-icon>
   </div>
-  <div
-    class="sidebar__icon"
-    routerLink="/dashboard"
-    (click)="changeRoute('home')"
-  >
+  <div class="sidebar__icon" routerLink="/dashboard">
     <fa-icon
       [icon]="faHome"
       class="icon"
-      [ngClass]="currentRoute === 'home' ? 'active' : ''"
+      [ngClass]="currentRoute === '/dashboard' ? 'active' : ''"
     ></fa-icon>
   </div>
-  <div
-    class="sidebar__icon"
-    routerLink="/area-chart"
-    (click)="changeRoute('area-chart')"
-  >
+  <div class="sidebar__icon" routerLink="/area-chart">
     <fa-icon
       [icon]="faChartColumn"
       class="icon"
-      [ngClass]="currentRoute === 'area-chart' ? 'active' : ''"
+      [ngClass]="currentRoute === '/area-chart' ? 'active' : ''"
     ></fa-icon>
   </div>
   <div class="sidebar__icon">
