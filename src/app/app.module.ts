@@ -16,6 +16,8 @@ import { AreaSplineChartComponent } from './components/area-spline-chart/area-sp
 import { CustomHeaderComponent } from './components/custom-header/custom-header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OrgChartComponent } from './components/org-chart/org-chart.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AreaSplineChartComponent,
     CustomHeaderComponent,
     SidebarComponent,
+    OrgChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatCheckboxModule,
     MatIconModule,
     FontAwesomeModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -7,14 +7,14 @@
     routerLink="/dashboard"
     (click)="changeRoute('home')"
   >
-    <fa-icon
+    <fa-icon title="Home"
       [icon]="faHome"
       class="icon"
       [ngClass]="currentRoute === 'home' ? 'active' : ''"
     ></fa-icon>
   </div>
   <div
-    class="sidebar__icon"
+    class="sidebar__icon" title="Analysis"
     routerLink="/area-chart"
     (click)="changeRoute('area-chart')"
   >
@@ -24,8 +24,11 @@
       [ngClass]="currentRoute === 'area-chart' ? 'active' : ''"
     ></fa-icon>
   </div>
-  <div class="sidebar__icon">
-    <fa-icon [icon]="faSitemap" class="icon"></fa-icon>
+  <div class="sidebar__icon" title="Organization Chart"
+    routerLink="/org-chart"
+    (click)="changeRoute('org-chart')">
+    <fa-icon [icon]="faSitemap" class="icon"
+    [ngClass]="currentRoute === 'org-chart' ? 'active' : ''"></fa-icon>
   </div>
   <div class="sidebar__icon">
     <fa-icon [icon]="faUser" class="icon"></fa-icon>
