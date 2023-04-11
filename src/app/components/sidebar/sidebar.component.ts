@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faSitemap,
   faBars,
@@ -23,9 +24,9 @@ export class SidebarComponent {
   faMessage = faMessage;
   faGear = faGear;
 
-  currentRoute = 'home';
+  currentRoute: string;
 
-  changeRoute(route: string) {
-    this.currentRoute = route;
+  constructor(private router: Router) {
+    this.currentRoute = this.router.url;
   }
 }
