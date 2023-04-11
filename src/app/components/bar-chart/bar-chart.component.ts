@@ -21,7 +21,7 @@ export class BarChartComponent {
           mutation.target === document.body &&
           mutation.attributeName === 'class'
         ) {
-           this.updateChartTheme();
+          this.updateChartTheme();
         }
       });
     });
@@ -37,6 +37,10 @@ export class BarChartComponent {
 
       title: {
         text: 'Sales',
+        style: {
+          color: '#000',
+          fontFamily: 'Verdana, sans-serif',
+        },
       },
       // subtitle: {
       //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
@@ -46,9 +50,7 @@ export class BarChartComponent {
         labels: {
           rotation: 0,
           style: {
-            // height: '100px',
-            color: '#fff',
-            fontSize: '13px',
+            color: '#000',
             fontFamily: 'Verdana, sans-serif',
           },
         },
@@ -161,6 +163,8 @@ export class BarChartComponent {
     // this.chartOptions.series[0].backgroundColor =
     //   this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
     this.chartOptions.xAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+    this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
 
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);

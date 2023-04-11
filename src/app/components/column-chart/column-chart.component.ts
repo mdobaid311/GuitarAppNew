@@ -18,7 +18,7 @@ export class ColumnChartComponent {
           mutation.target === document.body &&
           mutation.attributeName === 'class'
         ) {
-           this.updateChartTheme();
+          this.updateChartTheme();
         }
       });
     });
@@ -35,6 +35,11 @@ export class ColumnChartComponent {
       },
       title: {
         text: 'By Brand',
+        style: {
+          color: '#000',
+          fontSize: '13px',
+          fontFamily: 'Verdana, sans-serif',
+        },
       },
       subtitle: {
         // text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
@@ -138,6 +143,8 @@ export class ColumnChartComponent {
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.yAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+    this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
 
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
