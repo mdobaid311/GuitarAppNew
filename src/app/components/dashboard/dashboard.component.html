@@ -63,28 +63,28 @@
               <h2>Orders</h2>
 
               <div class="div_1__orders_detail">
-                <h1>$7.1M</h1>
+                <h1>${{currentYearTotalAbbr}}</h1>
                 <div
                   class="positive_change"
                   *ngIf="percentChange >= 0; else otherDiv"
                 >
                   <span>
                     <fa-icon [icon]="faSortUp" class="icon"></fa-icon>
-                    2.5%</span
+                    {{percentChange}}%</span
                   >
                 </div>
                 <ng-template #otherDiv>
                   <div class="negative_change">
                     <span>
                       <fa-icon [icon]="faSortDown" class="icon"></fa-icon>
-                      2.5%</span
+                      {{percentChange}}%</span
                     >
                   </div>
                 </ng-template>
               </div>
               <p>Vs</p>
               <div class="div_1__orders_detail">
-                <h1>$1.02M</h1>
+                <h1>${{pickedYearTotalAbbr}}</h1>
                 <div class="change_comparision_date">
                   LY
                   <button>Change</button>

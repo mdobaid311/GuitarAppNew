@@ -16,11 +16,27 @@ export class DashboardComponent implements OnInit {
 
   dataRows = [];
 
-  percentChange = 20;
-
   selectedYear = '';
   selectedMonth = '';
   selectedDay = '';
+
+  currentYearTotal = 800000;
+
+  currentYearTotalAbbr = Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(this.currentYearTotal);
+
+  pickedYearTotal = 700000;
+
+  pickedYearTotalAbbr = Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(this.pickedYearTotal);
+
+  percentChange =
+    ((this.pickedYearTotal - this.currentYearTotal) / this.currentYearTotal) *
+    100;
 
   onSelectYearChange(event: any) {
     this.selectedYear = event.target.value;
