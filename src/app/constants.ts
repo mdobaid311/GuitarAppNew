@@ -10,7 +10,6 @@ export const APP_CONSTANTS = {
   // DEV SERVER
   // URI: "https://backend-testing.merlinwms.co.uk",
 
-  IMAGE_BUCKET_PATH: '',
 
   API_METHODS: {
       'GET': 'GET',

@@ -14,10 +14,10 @@ export class DashboardComponent implements OnInit{
   constructor(private chartData: ChartService, private router: Router){}
 
   ngOnInit(): void {
-      this.chartData.getData().subscribe({
+      this.chartData.getData(2021).subscribe({
         next: (resp:any) => {
-          this.dataRows = resp.rows
-          console.log('ROWS', this.dataRows)
+          // this.dataRows = resp.rows
+          console.log('ROWS', resp)
         }
       })
   }
