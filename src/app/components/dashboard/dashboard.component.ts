@@ -54,12 +54,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartData.getData().subscribe({
-      next: (resp: any) => {
-        this.dataRows = resp.rows;
-        console.log('ROWS', this.dataRows);
-      },
-    });
+
+      this.chartData.getData(2021).subscribe({
+        next: (resp:any) => {
+          // this.dataRows = resp.rows
+          console.log('ROWS', resp)
+        }
+      })
   }
 
   barChartOptions = {

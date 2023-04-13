@@ -5,6 +5,6 @@ export const environment = {
   production: false,
   SERVICE_APIS: {
 
-    query: APP_CONSTANTS.URI + '/query/',
+    ORIGINAL_TOTAL: APP_CONSTANTS.URI + '/alsd/original-order-total',
   }
 }
