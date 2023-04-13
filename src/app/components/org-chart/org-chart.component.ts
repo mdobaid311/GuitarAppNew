@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-org-chart',
@@ -6,41 +7,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./org-chart.component.scss']
 })
 export class OrgChartComponent {
+
   data = [
     {
       label: 'CEO',
       type: 'person',
       styleClass: 'ui-person',
       expanded: true,
-      data: { name: 'Walter White', avatar: 'walter.jpg' },
+      data: { name: 'John Doe', title: 'CEO', gender: 'male', image: 'https://randomuser.me/api/portraits/men/1.jpg' },
       children: [
         {
           label: 'CFO',
           type: 'person',
           styleClass: 'ui-person',
           expanded: true,
-          data: { name: 'Saul Goodman', avatar: 'saul.jpg' },
+          data: { name: 'Jane Smith', title: 'CFO', gender: 'female', image: 'https://randomuser.me/api/portraits/women/1.jpg' },
           children: [
             {
-              label: 'Tax',
-              styleClass: 'department-cfo'
+              label: 'Accountant',
+              type: 'person',
+              styleClass: 'ui-person',
+              expanded: true,
+              data: { name: 'Bob Johnson', title: 'Accountant', gender: 'male', image: 'https://randomuser.me/api/portraits/men/2.jpg' }
             },
             {
-              label: 'Legal',
-              styleClass: 'department-cfo'
-            }
-          ]
-        },
-        {
-          label: 'COO',
-          type: 'person',
-          styleClass: 'ui-person',
-          expanded: true,
-          data: { name: 'Mike E.', avatar: 'mike.jpg' },
-          children: [
-            {
-              label: 'Operations',
-              styleClass: 'department-coo'
+              label: 'Finance Manager',
+              type: 'person',
+              styleClass: 'ui-person',
+              expanded: true,
+              data: { name: 'Mary Brown', title: 'Finance Manager', gender: 'female', image: 'https://randomuser.me/api/portraits/women/2.jpg' }
             }
           ]
         },
@@ -49,34 +44,21 @@ export class OrgChartComponent {
           type: 'person',
           styleClass: 'ui-person',
           expanded: true,
-          data: { name: 'Jesse Pinkman', avatar: 'jesse.jpg' },
+          data: { name: 'Mark Lee', title: 'CTO', gender: 'male', image: 'https://randomuser.me/api/portraits/men/3.jpg' },
           children: [
             {
-              label: 'Development',
-              styleClass: 'department-cto',
+              label: 'Software Engineer',
+              type: 'person',
+              styleClass: 'ui-person',
               expanded: true,
-              children: [
-                {
-                  label: 'Analysis',
-                  styleClass: 'department-cto'
-                },
-                {
-                  label: 'Front End',
-                  styleClass: 'department-cto'
-                },
-                {
-                  label: 'Back End',
-                  styleClass: 'department-cto'
-                }
-              ]
+              data: { name: 'Tom Wilson', title: 'Software Engineer', gender: 'male', image: 'https://randomuser.me/api/portraits/men/4.jpg' }
             },
             {
-              label: 'QA',
-              styleClass: 'department-cto'
-            },
-            {
-              label: 'R&D',
-              styleClass: 'department-cto'
+              label: 'QA Engineer',
+              type: 'person',
+              styleClass: 'ui-person',
+              expanded: true,
+              data: { name: 'Lisa Chen', title: 'QA Engineer', gender: 'female', image: 'https://randomuser.me/api/portraits/women/3.jpg' }
             }
           ]
         }
@@ -84,7 +66,4 @@ export class OrgChartComponent {
     }
   ];
 
-  constructor() {
-
-  }
 }
