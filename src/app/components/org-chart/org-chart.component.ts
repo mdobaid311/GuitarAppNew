@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-org-chart',
