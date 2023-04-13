@@ -11,6 +11,15 @@
         </div>
         <div class="main_container__charts_container">
 
+          <p-organizationChart [value]="data">
+            <ng-template let-node pTemplate="person">
+              <div class="p-2 text-center" [ngClass]="{'male': node.data.gender === 'male', 'female': node.data.gender === 'female'}">
+                <img [src]="node.data.image"  />
+                <div class="font-bold">{{ node.data.name }}</div>
+                <div>{{ node.data.title }}</div>
+              </div>
+            </ng-template>
+          </p-organizationChart>
 
 
 
@@ -19,16 +28,6 @@
     </div>
   </div>
 </div>
-
-<p-organizationChart [value]="data">
-  <ng-template let-node pTemplate="person">
-    <div class="p-2 text-center" [ngClass]="{'male': node.data.gender === 'male', 'female': node.data.gender === 'female'}">
-      <img [src]="node.data.image"  />
-      <div class="font-bold">{{ node.data.name }}</div>
-      <div>{{ node.data.title }}</div>
-    </div>
-  </ng-template>
-</p-organizationChart>
 
 
 
