@@ -16,8 +16,9 @@
       [ngClass]="currentRoute === '/area-chart' ? 'active' : ''"
     ></fa-icon>
   </div>
-  <div class="sidebar__icon">
-    <fa-icon [icon]="faSitemap" class="icon"></fa-icon>
+  <div class="sidebar__icon" routerLink="/org-chart">
+    <fa-icon [icon]="faSitemap" class="icon"
+    [ngClass]="currentRoute === '/org-chart' ? 'active' : ''"></fa-icon>
   </div>
   <div class="sidebar__icon">
     <fa-icon [icon]="faUser" class="icon"></fa-icon>
