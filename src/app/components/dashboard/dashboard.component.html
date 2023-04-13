@@ -64,17 +64,112 @@
 
               <div class="div_1__orders_detail">
                 <h1>$7.1M</h1>
-                <h3>YTD</h3>
-                <span>v LY</span>
+                <div
+                  class="positive_change"
+                  *ngIf="percentChange >= 0; else otherDiv"
+                >
+                  <span>
+                    <fa-icon [icon]="faSortUp" class="icon"></fa-icon>
+                    2.5%</span
+                  >
+                </div>
+                <ng-template #otherDiv>
+                  <div class="negative_change">
+                    <span>
+                      <fa-icon [icon]="faSortDown" class="icon"></fa-icon>
+                      2.5%</span
+                    >
+                  </div>
+                </ng-template>
               </div>
-
+              <p>Vs</p>
               <div class="div_1__orders_detail">
                 <h1>$1.02M</h1>
-                <h3>YTD</h3>
-                <span>Total order book</span>
+                <div class="change_comparision_date">
+                  LY
+                  <button>Change</button>
+                </div>
               </div>
             </div>
             <div class="chart_container_2_div_2">
+              <div class="choose_date">
+                <select
+                  name="year"
+                  (ngModel)="(selectedYear)"
+                  (change)="onSelectYearChange($event)"
+                >
+                  <option disabled selected>Year</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                </select>
+
+                <select
+                  *ngIf="selectedYear !== ''"
+                  name="month"
+                  (ngModel)="(selectedMonth)"
+                  (change)="onSelectMonthChange($event)"
+                >
+                  <option disabled selected>Month</option>
+                  <option value="jan">Jan</option>
+                  <option value="feb">Feb</option>
+                  <option value="mar">Mar</option>
+                  <option value="apr">Apr</option>
+                  <option value="may">May</option>
+                  <option value="jun">Jun</option>
+                  <option value="jul">Jul</option>
+                  <option value="aug">Aug</option>
+                  <option value="sep">Sep</option>
+                  <option value="oct">Oct</option>
+                  <option value="nov">Nov</option>
+                  <option value="dec">Dec</option>
+                </select>
+
+                <select
+                  *ngIf="selectedYear !== '' && selectedMonth !== ''"
+                  name="days"
+                  (ngModel)="(selectedDay)"
+                  (change)="onSelectDayChange($event)"
+                >
+                  <option disabled selected>Day</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+              </div>
               <app-bar-chart [options]="barChartOptions"></app-bar-chart>
             </div>
             <div class="chart_container_2_div_3">
