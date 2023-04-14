@@ -12,7 +12,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
   chartOptions: any;
-  @Input() options: any;
+
   newDataArray:any = [];
   subscription: Subscription = new Subscription;
 
@@ -63,25 +63,25 @@ export class BarChartComponent implements OnInit, OnDestroy {
             rotation: 0,
             style: {
               color: '#000',
+              fontSize: '13px',
               fontFamily: 'Verdana, sans-serif',
             },
           },
         },
         yAxis: {
-          // min: 0,
-          // title: {
-          //   text: 'Population (millions)'
-          // }
-          labels: {
-            enabled: false,
-          },
-          title: {
-            text: null, // Hide y-axis title
-          },
-          axisLabel: {
-            text: '', // Hide "Values" label
-          },
           min: 0,
+          title: {
+            text: 'Dollars in 1000' + "'" + 's',
+          },
+          labels: {
+            rotation: 0,
+            style: {
+              // height: '100px',
+              color: '#000',
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
         },
         legend: {
           enabled: false,
@@ -108,70 +108,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
     })
-
-
-
-    // this.chartOptions = {
-    //   chart: {
-    //     type: 'column',
-    //     height: (9 / 16) * 55 + '%',
-    //   },
-
-    //   title: {
-    //     text: 'Sales',
-    //     style: {
-    //       color: '#000',
-    //       fontFamily: 'Verdana, sans-serif',
-    //     },
-    //   },
-
-    //   xAxis: {
-    //     type: 'category',
-    //     labels: {
-    //       rotation: 0,
-    //       style: {
-    //         color: '#000',
-    //         fontFamily: 'Verdana, sans-serif',
-    //       },
-    //     },
-    //   },
-    //   yAxis: {
-
-    //     labels: {
-    //       enabled: false,
-    //     },
-    //     title: {
-    //       text: null, // Hide y-axis title
-    //     },
-    //     axisLabel: {
-    //       text: '', // Hide "Values" label
-    //     },
-    //     min: 0,
-    //   },
-    //   legend: {
-    //     enabled: false,
-    //   },
-    //   tooltip: {
-    //     pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
-    //   },
-    //   series: [
-    //     {
-    //       name: 'Population',
-    //       data: ['abc', 1000000],
-
-    //       dataLabels: {
-    //         enabled: false, // Remove data labels from columns
-
-    //       },
-    //       color: '#2f7ed8', // Change color of columns
-    //       pointWidth: 25, // Reduce width of columns
-    //       backgroundColor: '#FCFFC5',
-    //     },
-    //   ],
-
-    // };
     this.loadInitialchart();
-
   }
 
   loadInitialchart() {
@@ -207,22 +144,38 @@ export class BarChartComponent implements OnInit, OnDestroy {
               rotation: 0,
               style: {
                 color: '#000',
+
                 fontFamily: 'Verdana, sans-serif',
               },
             },
           },
-          yAxis: {
+          // yAxis: {
 
-            labels: {
-              enabled: false,
-            },
-            title: {
-              text: null, // Hide y-axis title
-            },
-            axisLabel: {
-              text: '', // Hide "Values" label
-            },
+          //   labels: {
+          //     enabled: false,
+          //   },
+          //   title: {
+          //     text: null, // Hide y-axis title
+          //   },
+          //   axisLabel: {
+          //     text: '', // Hide "Values" label
+          //   },
+          //   min: 0,
+          // },
+          yAxis: {
             min: 0,
+            title: {
+              text: 'Dollars in 1000' + "'" + 's',
+            },
+            labels: {
+              rotation: 0,
+              style: {
+                // height: '100px',
+                color: '#000',
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif',
+              },
+            },
           },
           legend: {
             enabled: false,
@@ -264,6 +217,8 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.chartOptions.chart.backgroundColor =
       this.theme === 'dark' ? '#19376D' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+      this.chartOptions.yAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
