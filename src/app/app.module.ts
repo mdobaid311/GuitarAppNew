@@ -19,7 +19,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TreeModule } from 'primeng/tree';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
