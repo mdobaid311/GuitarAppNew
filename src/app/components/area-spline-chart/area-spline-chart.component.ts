@@ -7,6 +7,11 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./area-spline-chart.component.scss'],
 })
 export class AreaSplineChartComponent {
+
+
+  chartOptions: any;
+  @Input() options: any;
+
   constructor() {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -140,12 +145,11 @@ export class AreaSplineChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  chartOptions: any;
-  @Input() options: any;
 
   ngOnInit() {}
 
   updateChartTheme() {
+
     this.theme = document.body.classList.contains('dark-theme')
       ? 'dark'
       : 'light';

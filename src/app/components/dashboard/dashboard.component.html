@@ -1,3 +1,7 @@
+<div class="loader-container" *ngIf="loader">
+  <div class="loader"></div>
+</div>
+
 <div class="dashboard__screen">
   <div class="dashboard_container">
     <app-sidebar></app-sidebar>
@@ -12,7 +16,7 @@
         <div class="main_container__charts_container">
           <div class="charts_container__chart">
             <div class="chart_container_1_div_1">
-              <h1>$6.7M</h1>
+              <h1>${{originalOrdersTotalAbbr}}</h1>
               <h3>YTD</h3>
               <progress id="file" value="95" max="100">95%</progress>
               <div class="div_1_progress_details">
@@ -68,16 +72,17 @@
                   class="positive_change"
                   *ngIf="percentChange >= 0; else otherDiv"
                 >
+
                   <span>
                     <fa-icon [icon]="faSortUp" class="icon"></fa-icon>
-                    {{percentChange}}%</span
+                    {{percentChange ? percentChange.toFixed(1) : null}}%</span
                   >
                 </div>
                 <ng-template #otherDiv>
                   <div class="negative_change">
                     <span>
                       <fa-icon [icon]="faSortDown" class="icon"></fa-icon>
-                      {{percentChange}}%</span
+                      {{percentChange ? percentChange.toFixed(1): null}}%</span
                     >
                   </div>
                 </ng-template>
@@ -116,18 +121,18 @@
                   (change)="onSelectMonthChange($event)"
                 >
                   <option disabled selected>Month</option>
-                  <option value="jan">Jan</option>
-                  <option value="feb">Feb</option>
-                  <option value="mar">Mar</option>
-                  <option value="apr">Apr</option>
-                  <option value="may">May</option>
-                  <option value="jun">Jun</option>
-                  <option value="jul">Jul</option>
-                  <option value="aug">Aug</option>
-                  <option value="sep">Sep</option>
-                  <option value="oct">Oct</option>
-                  <option value="nov">Nov</option>
-                  <option value="dec">Dec</option>
+                  <option value="01">Jan</option>
+                  <option value="02">Feb</option>
+                  <option value="03">Mar</option>
+                  <option value="04">Apr</option>
+                  <option value="05">May</option>
+                  <option value="06">Jun</option>
+                  <option value="07">Jul</option>
+                  <option value="08">Aug</option>
+                  <option value="09">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
                 </select>
 
                 <select

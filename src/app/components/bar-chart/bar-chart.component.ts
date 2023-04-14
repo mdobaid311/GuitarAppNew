@@ -1,20 +1,25 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { ChartService } from 'src/app/services/chartData.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent {
+export class BarChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
   chartOptions: any;
   @Input() options: any;
+  newDataArray:any = [];
+  subscription: Subscription = new Subscription;
 
   theme = 'light';
+  loader = false;
 
-  constructor() {
+  constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
@@ -28,97 +33,258 @@ export class BarChartComponent {
     observer.observe(document.body, { attributes: true });
   }
 
-  ngOnInit() {
-    this.chartOptions = {
-      chart: {
-        type: 'column',
-        height: (9 / 16) * 55 + '%',
-      },
 
-      title: {
-        text: 'Sales',
-        style: {
-          color: '#000',
-          fontFamily: 'Verdana, sans-serif',
+
+  ngOnInit() {
+
+    this.subscription = this.chartData.dataArray.subscribe(array => {
+      console.log('Array', array)
+      this.newDataArray = array;
+
+      this.chartOptions = {
+        chart: {
+          type: 'column',
+          height: (9 / 16) * 55 + '%',
         },
-      },
-      // subtitle: {
-      //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
-      // },
-      xAxis: {
-        type: 'category',
-        labels: {
-          rotation: 0,
+
+        title: {
+          text: 'Sales',
           style: {
             color: '#000',
             fontFamily: 'Verdana, sans-serif',
           },
         },
-      },
-      yAxis: {
-        // min: 0,
-        // title: {
-        //   text: 'Population (millions)'
-        // }
-        labels: {
+        // subtitle: {
+        //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
+        // },
+        xAxis: {
+          type: 'category',
+          labels: {
+            rotation: 0,
+            style: {
+              color: '#000',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+        },
+        yAxis: {
+          // min: 0,
+          // title: {
+          //   text: 'Population (millions)'
+          // }
+          labels: {
+            enabled: false,
+          },
+          title: {
+            text: null, // Hide y-axis title
+          },
+          axisLabel: {
+            text: '', // Hide "Values" label
+          },
+          min: 0,
+        },
+        legend: {
           enabled: false,
         },
-        title: {
-          text: null, // Hide y-axis title
+        tooltip: {
+          pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
         },
-        axisLabel: {
-          text: '', // Hide "Values" label
-        },
-        min: 0,
-      },
-      legend: {
-        enabled: false,
-      },
-      tooltip: {
-        pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
-      },
-      series: [
-        {
-          name: 'Population',
-          data: [
-            ['12:00', 27.79],
-            ['1:00', 22.23],
-            ['2:00', 21.91],
-            ['3:00', 21.74],
-            ['4:00', 21.32],
-            ['5:00', 20.89],
-            ['6:00', 20.67],
-            ['7:00', 19.11],
-            ['8:00', 16.45],
-            ['9:00', 16.38],
-            ['10:00', 15.41],
-            ['11:00', 15.25],
-            ['12:00', 14.974],
-            ['1:00', 14.97],
-            ['2:00', 14.86],
-            ['3:00', 14.16],
-            ['4:00', 13.79],
-            ['5:00', 13.64],
-          ],
-          dataLabels: {
-            enabled: false, // Remove data labels from columns
-            // enabled: true,
-            // rotation: -90,
-            // color: '#FFFFFF',
-            // align: 'right',
-            // format: '{point.y:.1f}', // one decimal
-            // y: 10, // 10 pixels down from the top
-            // style: {
-            //   fontSize: '13px',
-            //   fontFamily: 'Verdana, sans-serif'
-            // }
+        series: [
+          {
+            name: 'Population',
+            data: array,
+
+            dataLabels: {
+              enabled: false, // Remove data labels from columns
+
+            },
+            color: '#2f7ed8', // Change color of columns
+            pointWidth: 25, // Reduce width of columns
+            backgroundColor: '#FCFFC5',
           },
-          color: '#2f7ed8', // Change color of columns
-          pointWidth: 25, // Reduce width of columns
-          backgroundColor: '#FCFFC5',
-        },
-      ],
-      // chart: {
+        ],
+
+      };
+      Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+      this.updateChartTheme();
+    })
+
+
+
+    // this.chartOptions = {
+    //   chart: {
+    //     type: 'column',
+    //     height: (9 / 16) * 55 + '%',
+    //   },
+
+    //   title: {
+    //     text: 'Sales',
+    //     style: {
+    //       color: '#000',
+    //       fontFamily: 'Verdana, sans-serif',
+    //     },
+    //   },
+
+    //   xAxis: {
+    //     type: 'category',
+    //     labels: {
+    //       rotation: 0,
+    //       style: {
+    //         color: '#000',
+    //         fontFamily: 'Verdana, sans-serif',
+    //       },
+    //     },
+    //   },
+    //   yAxis: {
+
+    //     labels: {
+    //       enabled: false,
+    //     },
+    //     title: {
+    //       text: null, // Hide y-axis title
+    //     },
+    //     axisLabel: {
+    //       text: '', // Hide "Values" label
+    //     },
+    //     min: 0,
+    //   },
+    //   legend: {
+    //     enabled: false,
+    //   },
+    //   tooltip: {
+    //     pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
+    //   },
+    //   series: [
+    //     {
+    //       name: 'Population',
+    //       data: ['abc', 1000000],
+
+    //       dataLabels: {
+    //         enabled: false, // Remove data labels from columns
+
+    //       },
+    //       color: '#2f7ed8', // Change color of columns
+    //       pointWidth: 25, // Reduce width of columns
+    //       backgroundColor: '#FCFFC5',
+    //     },
+    //   ],
+
+    // };
+    this.loadInitialchart();
+
+  }
+
+  loadInitialchart() {
+    this.loader = true;
+    this.chartData.getOrderTotalYears().subscribe({
+      next: resp => {
+        let yearsData:any = [];
+        console.log('Year data', resp)
+        resp.forEach((item:IYear) => {
+          const itemData = [
+            item.year,
+            item.total,
+          ];
+            yearsData.push(itemData);
+        })
+        this.chartOptions = {
+          chart: {
+            type: 'column',
+            height: (9 / 16) * 55 + '%',
+          },
+
+          title: {
+            text: 'Sales',
+            style: {
+              color: '#000',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+
+          xAxis: {
+            type: 'category',
+            labels: {
+              rotation: 0,
+              style: {
+                color: '#000',
+                fontFamily: 'Verdana, sans-serif',
+              },
+            },
+          },
+          yAxis: {
+
+            labels: {
+              enabled: false,
+            },
+            title: {
+              text: null, // Hide y-axis title
+            },
+            axisLabel: {
+              text: '', // Hide "Values" label
+            },
+            min: 0,
+          },
+          legend: {
+            enabled: false,
+          },
+          tooltip: {
+            pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
+          },
+          series: [
+            {
+              name: 'Population',
+              data: yearsData,
+
+              dataLabels: {
+                enabled: false, // Remove data labels from columns
+
+              },
+              color: '#2f7ed8', // Change color of columns
+              pointWidth: 25, // Reduce width of columns
+              backgroundColor: '#FCFFC5',
+            },
+          ],
+
+        };
+        Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+        this.updateChartTheme();
+        this.loader = false;
+      },
+      error: error => {
+
+      }
+    })
+  }
+
+  updateChartTheme() {
+    this.theme = document.body.classList.contains('dark-theme')
+      ? 'dark'
+      : 'light';
+
+    this.chartOptions.chart.backgroundColor =
+      this.theme === 'dark' ? '#19376D' : '#fff';
+    this.chartOptions.xAxis.labels.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+    this.chartOptions.title.style.color =
+      this.theme === 'dark' ? '#fff' : '#000';
+
+    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+  }
+
+  ngAfterViewInit() {
+    // Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+}
+
+class IYear {
+  "year": string;
+  "total": number;
+}
+
+    // chart: {
       //   type: 'bar'
       // },
       // title: {
@@ -149,28 +315,3 @@ export class BarChartComponent {
       //   }
       // },
       // series: this.options.series
-    };
-  }
-  updateChartTheme() {
-    this.theme = document.body.classList.contains('dark-theme')
-      ? 'dark'
-      : 'light';
-
-    this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#19376D' : '#fff';
-    // this.chartOptions.series[0].color =
-    //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
-    // this.chartOptions.series[0].backgroundColor =
-    //   this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
-    this.chartOptions.xAxis.labels.style.color =
-      this.theme === 'dark' ? '#fff' : '#000';
-    this.chartOptions.title.style.color =
-      this.theme === 'dark' ? '#fff' : '#000';
-
-    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-  }
-
-  ngAfterViewInit() {
-    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-  }
-}
