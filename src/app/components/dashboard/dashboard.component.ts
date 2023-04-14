@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
   faSortUp = faSortUp;
 
   yearData: any = [];
+  dataRows = [];
+
+  loading = false;
+
   selectedYear = '';
   selectedMonth = '';
   selectedDay = '';
