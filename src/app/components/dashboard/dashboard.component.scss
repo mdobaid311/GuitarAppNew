@@ -181,6 +181,18 @@
                 }
               }
             }
+
+            .chart_container_2_div_2_loading {
+              height: 100%;
+              flex: 7;
+              margin: 10px;
+              box-shadow: var(--primary-boxshadow);
+              border-radius: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
             .chart_container_2_div_2 {
               // border: 1px solid rgb(23, 57, 121);
               height: 100%;
@@ -190,6 +202,7 @@
               border-radius: 10px;
               display: flex;
               flex-direction: column;
+
               .choose_date {
                 align-self: flex-end;
                 padding: 20px 20px 0 0;

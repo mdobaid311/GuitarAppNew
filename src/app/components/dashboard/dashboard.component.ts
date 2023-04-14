@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit {
 
   dataRows = [];
 
+  loading = false;
+
   selectedYear = '';
   selectedMonth = '';
   selectedDay = '';
@@ -34,9 +36,10 @@ export class DashboardComponent implements OnInit {
     compactDisplay: 'short',
   }).format(this.pickedYearTotal);
 
-  percentChange =
-    ((this.pickedYearTotal - this.currentYearTotal) / this.currentYearTotal) *
-    100;
+  percentChange = (
+    ((this.currentYearTotal - this.pickedYearTotal) / this.pickedYearTotal) *
+    100
+  ).toFixed(2);
 
   onSelectYearChange(event: any) {
     this.selectedYear = event.target.value;
