@@ -66,7 +66,7 @@
                 <h1>${{currentYearTotalAbbr}}</h1>
                 <div
                   class="positive_change"
-                  *ngIf="percentChange >= 0; else otherDiv"
+                  *ngIf="+percentChange >= 0; else otherDiv"
                 >
                   <span>
                     <fa-icon [icon]="faSortUp" class="icon"></fa-icon>
@@ -91,7 +91,7 @@
                 </div>
               </div>
             </div>
-            <div class="chart_container_2_div_2">
+            <div class="chart_container_2_div_2" *ngIf="!loading; else chart_container_2_div_2_loading ">
               <div class="choose_date">
                 <select
                   name="year"
@@ -172,6 +172,12 @@
               </div>
               <app-bar-chart [options]="barChartOptions"></app-bar-chart>
             </div>
+            <ng-template #chart_container_2_div_2_loading>
+            <div class="chart_container_2_div_2_loading" >
+              <app-loading-spinner></app-loading-spinner>
+            </div>
+            </ng-template>
+
             <div class="chart_container_2_div_3">
               <div class="div_3__info">
                 <h3>Opps at 90%</h3>
