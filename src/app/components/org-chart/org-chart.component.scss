@@ -41,8 +41,8 @@
 
         .main_container__charts_container {
           .org_chart__node {
-            background: var(--primary-background-3);
             color: var(--primary-color-1);
+            border-radius: 50%;
             padding: 15px;
           }
         }
@@ -54,5 +54,23 @@
 :host ::ng-deep .chart_node {
   background: var(--primary-background-3);
   color: var(--primary-color-1);
+  border-radius: 50%;
   padding: 5px;
+  border: 2px solid var(--primary-color-1);
+}
+
+:host ::ng-deep .chart_node_1 {
+  background: green;
+  color: var(--primary-color-1);
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid var(--primary-color-1);
+}
+
+:host ::ng-deep .chart_node_2 {
+  background: var(--primary-color-3);
+  color: var(--primary-color-1);
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid var(--primary-color-1);
 }

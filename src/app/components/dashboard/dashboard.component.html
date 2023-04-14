@@ -2,6 +2,45 @@
   <div class="loader"></div>
 </div>
 
+<div *ngIf="showChangeModal">
+  <app-custom-modal>
+    <div class="custom_value_change_modal">
+      <div class="custom_value_select">
+        <label>Select Year: </label>
+        <select
+          name="customValue"
+          (ngModel)="(selectCompareYear)"
+          (change)="onSelectCompareYearChange($event)"
+        >
+          <option disabled selected>Year</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <p>Or</p>
+      <div class="custom_value_input">
+        <label>Enter value: </label>
+        <input
+          type="text"
+          placeholder="Enter a value"
+          (change)="onSelectCompareYearChange($event)"
+        />
+      </div>
+      <div class="custom_value__buttons">
+        <button class="cancel" (click)="toggleChangeModal()">Cancel</button>
+        <button class="apply">Apply</button>
+      </div>
+    </div>
+  </app-custom-modal>
+</div>
+
 <div class="dashboard__screen">
   <div class="dashboard_container">
     <app-sidebar></app-sidebar>
@@ -16,7 +55,7 @@
         <div class="main_container__charts_container">
           <div class="charts_container__chart">
             <div class="chart_container_1_div_1">
-              <h1>${{originalOrdersTotalAbbr}}</h1>
+              <h1>${{ originalOrdersTotalAbbr }}</h1>
               <h3>YTD</h3>
               <progress id="file" value="95" max="100">95%</progress>
               <div class="div_1_progress_details">
@@ -67,36 +106,40 @@
               <h2>Orders</h2>
 
               <div class="div_1__orders_detail">
-                <h1>${{currentYearTotalAbbr}}</h1>
+                <h1>${{ currentYearTotalAbbr }}</h1>
                 <div
                   class="positive_change"
                   *ngIf="+percentChange >= 0; else otherDiv"
                 >
-
                   <span>
                     <fa-icon [icon]="faSortUp" class="icon"></fa-icon>
-                    {{percentChange ? percentChange.toFixed(1) : null}}%</span
+                    {{ percentChange ? percentChange.toFixed(1) : null }}%</span
                   >
                 </div>
                 <ng-template #otherDiv>
                   <div class="negative_change">
                     <span>
                       <fa-icon [icon]="faSortDown" class="icon"></fa-icon>
-                      {{percentChange ? percentChange.toFixed(1): null}}%</span
+                      {{
+                        percentChange ? percentChange.toFixed(1) : null
+                      }}%</span
                     >
                   </div>
                 </ng-template>
               </div>
               <p>Vs</p>
               <div class="div_1__orders_detail">
-                <h1>${{pickedYearTotalAbbr}}</h1>
+                <h1>${{ pickedYearTotalAbbr }}</h1>
                 <div class="change_comparision_date">
                   LY
-                  <button>Change</button>
+                  <button (click)="toggleChangeModal()">Change</button>
                 </div>
               </div>
             </div>
-            <div class="chart_container_2_div_2" *ngIf="!loading; else chart_container_2_div_2_loading ">
+            <div
+              class="chart_container_2_div_2"
+              *ngIf="!loading; else chart_container_2_div_2_loading"
+            >
               <div class="choose_date">
                 <select
                   name="year"
@@ -178,9 +221,9 @@
               <app-bar-chart [options]="barChartOptions"></app-bar-chart>
             </div>
             <ng-template #chart_container_2_div_2_loading>
-            <div class="chart_container_2_div_2_loading" >
-              <app-loading-spinner></app-loading-spinner>
-            </div>
+              <div class="chart_container_2_div_2_loading">
+                <app-loading-spinner></app-loading-spinner>
+              </div>
             </ng-template>
 
             <div class="chart_container_2_div_3">
