@@ -87,7 +87,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
           enabled: false,
         },
         tooltip: {
-          pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
+          pointFormat: 'Sales: <b>{point.y:.1f} </b>',
         },
         series: [
           {
@@ -181,7 +181,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
             enabled: false,
           },
           tooltip: {
-            pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
+            pointFormat: 'Sales: <b>{point.y:.1f}</b>',
           },
           series: [
             {
