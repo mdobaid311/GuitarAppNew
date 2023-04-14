@@ -20,6 +20,7 @@ import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     SidebarComponent,
     OrgChartComponent,
     LoadingSpinnerComponent,
+    CustomModalComponent,
   ],
   imports: [
     BrowserModule,
