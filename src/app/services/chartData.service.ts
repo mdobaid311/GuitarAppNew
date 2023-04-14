@@ -5,12 +5,14 @@ import { environment } from 'src/environments/environment';
 import { map} from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChartService {
+
+  dataArray = new Subject<Array<any>>();
 
   constructor(private httpClient: HttpClient,private httpReqService: HttpRequestService,private router: Router) { }
 
@@ -18,6 +20,25 @@ export class ChartService {
 
   public getData(year:any) {
     const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?year=${year}`;
+           return this.httpClient.get<any[]>(url);
+  }
+  public getOrderTotalForYear(year:any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_MONTH}?forYear=${year}`;
+           return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalYears() {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_YEAR}`;
+           return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalByDay(year:any, month:any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_DAY}?year=${year}&month=${month}`;
+           return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalByHour(year:any, month:any, hour: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_HOUR}?year=${year}&month=${month}&day=${hour}`;
            return this.httpClient.get<any[]>(url);
   }
 
