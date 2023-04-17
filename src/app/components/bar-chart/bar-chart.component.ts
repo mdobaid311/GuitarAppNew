@@ -37,78 +37,78 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.subscription = this.chartData.dataArray.subscribe(array => {
-      console.log('Array', array)
-      this.newDataArray = array;
+    // this.subscription = this.chartData.dataArray.subscribe(array => {
+    //   console.log('Array', array)
+    //   this.newDataArray = array;
 
-      this.chartOptions = {
-        chart: {
-          type: 'column',
-          height: (9 / 16) * 55 + '%',
-        },
+    //   this.chartOptions = {
+    //     chart: {
+    //       type: 'column',
+    //       height: (9 / 16) * 55 + '%',
+    //     },
 
-        title: {
-          text: 'Sales',
-          style: {
-            color: '#000',
-            fontFamily: 'Verdana, sans-serif',
-          },
-        },
-        // subtitle: {
-        //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
-        // },
-        xAxis: {
-          type: 'category',
-          labels: {
-            rotation: 0,
-            style: {
-              color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
-            },
-          },
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Dollars in 1000' + "'" + 's',
-          },
-          labels: {
-            rotation: 0,
-            style: {
-              // height: '100px',
-              color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
-            },
-          },
-        },
-        legend: {
-          enabled: false,
-        },
-        tooltip: {
-          pointFormat: 'Sales: <b>{point.y:.1f} </b>',
-        },
-        series: [
-          {
-            name: 'Population',
-            data: array,
+    //     title: {
+    //       text: 'Sales',
+    //       style: {
+    //         color: '#000',
+    //         fontFamily: 'Verdana, sans-serif',
+    //       },
+    //     },
+    //     // subtitle: {
+    //     //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
+    //     // },
+    //     xAxis: {
+    //       type: 'category',
+    //       labels: {
+    //         rotation: 0,
+    //         style: {
+    //           color: '#000',
+    //           fontSize: '13px',
+    //           fontFamily: 'Verdana, sans-serif',
+    //         },
+    //       },
+    //     },
+    //     yAxis: {
+    //       min: 0,
+    //       title: {
+    //         text: 'Dollars in 1000' + "'" + 's',
+    //       },
+    //       labels: {
+    //         rotation: 0,
+    //         style: {
+    //           // height: '100px',
+    //           color: '#000',
+    //           fontSize: '13px',
+    //           fontFamily: 'Verdana, sans-serif',
+    //         },
+    //       },
+    //     },
+    //     legend: {
+    //       enabled: false,
+    //     },
+    //     tooltip: {
+    //       pointFormat: 'Sales: <b>{point.y:.1f} </b>',
+    //     },
+    //     series: [
+    //       {
+    //         name: 'Population',
+    //         data: array,
 
-            dataLabels: {
-              enabled: false, // Remove data labels from columns
+    //         dataLabels: {
+    //           enabled: false, // Remove data labels from columns
 
-            },
-            color: '#2f7ed8', // Change color of columns
-            pointWidth: 25, // Reduce width of columns
-            backgroundColor: '#FCFFC5',
-          },
-        ],
+    //         },
+    //         color: '#2f7ed8', // Change color of columns
+    //         pointWidth: 25, // Reduce width of columns
+    //         backgroundColor: '#FCFFC5',
+    //       },
+    //     ],
 
-      };
-      Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-      this.updateChartTheme();
-    })
-    this.loadInitialchart();
+    //   };
+    //   Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+    //   this.updateChartTheme();
+    // })
+    // this.loadInitialchart();
   }
 
   loadInitialchart() {
