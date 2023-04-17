@@ -21,7 +21,7 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
-
+import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 
 @NgModule({
   declarations: [
@@ -48,8 +48,8 @@ import { CustomModalComponent } from './components/custom-modal/custom-modal.com
     MatIconModule,
     FontAwesomeModule,
     OrganizationChartModule,
-    BrowserAnimationsModule
-
+    AngularMyDatePickerModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
