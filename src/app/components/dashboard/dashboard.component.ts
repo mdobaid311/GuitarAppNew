@@ -33,12 +33,12 @@ export class DashboardComponent implements OnInit {
   showChangeModal = false;
   selectCompareYear: any;
 
-  customGoal = 798000;
+  customGoal = 32998000;
   customGoalAbbr = Intl.NumberFormat('en-US', {
     notation: 'compact',
     compactDisplay: 'short',
   }).format(this.customGoal);
-
+  customGoalProgress: any;
 
   isEditable: boolean = false;
   makeEditable() {
@@ -55,7 +55,9 @@ export class DashboardComponent implements OnInit {
       notation: 'compact',
       compactDisplay: 'short',
     }).format(this.customGoal);
-   }
+    this.customGoalProgress =
+      ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
+  }
 
   toggleChangeModal() {
     this.showChangeModal = !this.showChangeModal;
@@ -67,8 +69,7 @@ export class DashboardComponent implements OnInit {
     console.log('selectCompareYear', this.selectCompareYear);
   }
 
-  constructor(private chartData: ChartService, private router: Router) {
-   }
+  constructor(private chartData: ChartService, private router: Router) {}
 
   ngOnInit(): void {
     this.chartData.getData(2021).subscribe({
@@ -78,6 +79,8 @@ export class DashboardComponent implements OnInit {
           notation: 'compact',
           compactDisplay: 'short',
         }).format(this.originalOrdersTotal);
+        this.customGoalProgress =
+          ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
       },
     });
     this.chartData.getData(2020).subscribe({

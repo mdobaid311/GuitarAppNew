@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
+import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AngularMyDatePickerModule } from 'angular-mydatepicker';
     OrgChartComponent,
     LoadingSpinnerComponent,
     CustomModalComponent,
+    CustomProgressBarComponent,
   ],
   imports: [
     BrowserModule,

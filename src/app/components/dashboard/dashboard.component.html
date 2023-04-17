@@ -57,9 +57,14 @@
             <div class="chart_container_1_div_1">
               <h1>${{ originalOrdersTotalAbbr }}</h1>
               <h3>YTD</h3>
-              <progress id="file" value="100" max="100">956%</progress>
+              <!-- <progress id="file" value="{{ customGoalProgress }}" max="100">
+                {{ customGoalProgress }}
+              </progress> -->
+              <app-custom-progress-bar
+                [customGoalProgress]="customGoalProgress"
+              ></app-custom-progress-bar>
               <div class="div_1_progress_details">
-                <span>100%</span>
+                <span>{{ customGoalProgress }}</span>
                 <input
                   type="number"
                   (ngModel)="(customGoal)"
@@ -83,28 +88,36 @@
                   <span>Brand 1</span>
                   <span>$4.5M</span>
                 </div>
-                <progress id="file" value="95" max="100">95%</progress>
+                <app-custom-progress-bar
+                  [customGoalProgress]="customGoalProgress"
+                ></app-custom-progress-bar>
               </div>
               <div class="div_3__progress_container">
                 <div class="progress_container__progress_detail">
                   <span>Brand 2</span>
                   <span>$0.2M</span>
                 </div>
-                <progress id="file" value="25" max="100">25%</progress>
+                <app-custom-progress-bar
+                  [customGoalProgress]="customGoalProgress"
+                ></app-custom-progress-bar>
               </div>
               <div class="div_3__progress_container">
                 <div class="progress_container__progress_detail">
                   <span>Brand 3</span>
                   <span>$1.2M</span>
                 </div>
-                <progress id="file" value="55" max="100">55%</progress>
+                <app-custom-progress-bar
+                  [customGoalProgress]="customGoalProgress"
+                ></app-custom-progress-bar>
               </div>
               <div class="div_3__progress_container">
                 <div class="progress_container__progress_detail">
                   <span>Brand 4</span>
                   <span>$0.7M</span>
                 </div>
-                <progress id="file" value="15" max="100">15%</progress>
+                <app-custom-progress-bar
+                  [customGoalProgress]="customGoalProgress"
+                ></app-custom-progress-bar>
               </div>
             </div>
             <!-- <app-column-chart></app-column-chart>
