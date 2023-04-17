@@ -4,6 +4,20 @@
     <span>Welcome, Dominic</span>
   </div>
   <div class="main_screen__topbar_right">
+    <div class="custom_datepicker">
+      <input
+        class="date-selector-input-box"
+        placeholder="{{ customDate | date : 'dd.MM.yyyy' }}"
+        angular-mydatepicker
+        name="mydate"
+        (click)="dp.toggleCalendar()"
+        (ngModel)="(model)"
+        [options]="myDpOptions"
+        #dp="angular-mydatepicker"
+        (dateChanged)="onDateChanged($event)"
+      />
+      <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
+    </div>
     <div class="topbar_right__search">
       <input type="text" placeholder="Search something..." />
     </div>
