@@ -57,10 +57,20 @@
             <div class="chart_container_1_div_1">
               <h1>${{ originalOrdersTotalAbbr }}</h1>
               <h3>YTD</h3>
-              <progress id="file" value="95" max="100">95%</progress>
+              <progress id="file" value="100" max="100">956%</progress>
               <div class="div_1_progress_details">
-                <span>95%</span>
-                <span>$7M</span>
+                <span>100%</span>
+                <input
+                  type="number"
+                  (ngModel)="(customGoal)"
+                  value="{{ customGoal }}"
+                  *ngIf="isEditable"
+                  (blur)="makeNonEditable()"
+                  (change)="setCustomGoal($event)"
+                />
+                <span (dblclick)="makeEditable()" *ngIf="!isEditable">
+                  ${{ customGoal }}
+                </span>
               </div>
             </div>
             <div class="chart_container_1_div_2">
