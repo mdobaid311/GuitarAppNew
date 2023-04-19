@@ -33,6 +33,14 @@ export class DashboardComponent implements OnInit {
   showChangeModal = false;
   selectCompareYear: any;
 
+  yearList = [];
+  monthList: {
+    monthNumber: number;
+    monthName: string;
+  }[] = [];
+  dayList = [];
+  hourList = [];
+
   customGoal = 32998000;
   customGoalAbbr = Intl.NumberFormat('en-US', {
     notation: 'compact',
@@ -116,6 +124,27 @@ export class DashboardComponent implements OnInit {
       next: (resp: any) => {
         this.yearData = [];
         console.log('Year data', resp);
+        const monthNames = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
+        this.monthList = resp.map((item: any) => {
+          return {
+            monthNumber: monthNames.indexOf(item.monthName) + 1,
+            monthName: item.monthName,
+          };
+        });
+        console.log('monthList', this.monthList);
         resp.forEach((item: IItem) => {
           const itemData = [item.monthName, item.total];
           this.yearData.push(itemData);
@@ -139,6 +168,7 @@ export class DashboardComponent implements OnInit {
         next: (resp: any) => {
           let monthData: any = [];
           console.log('month Data', resp);
+          this.dayList = resp.map((item: any) => item.day);
           resp.forEach((item: IDay) => {
             const itemData = [item.day, item.total];
             monthData.push(itemData);
@@ -165,6 +195,7 @@ export class DashboardComponent implements OnInit {
         next: (resp: any) => {
           let hourData: any = [];
           console.log('hour Data', resp);
+          this.hourList = resp.map((item: any) => item.hour);
           resp.forEach((item: IHour) => {
             const itemData = [item.hour, item.total];
             hourData.push(itemData);
