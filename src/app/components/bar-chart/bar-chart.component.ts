@@ -45,6 +45,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
         chart: {
           type: 'column',
           height: (9 / 16) * 55 + '%',
+
         },
 
         title: {
@@ -54,6 +55,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
             fontFamily: 'Verdana, sans-serif',
           },
         },
+
         // subtitle: {
         //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
         // },
@@ -197,6 +199,16 @@ export class BarChartComponent implements OnInit, OnDestroy {
               backgroundColor: '#FCFFC5',
             },
           ],
+          plotOptions: {
+            column: {
+              events: {
+                click: function (event:any) {
+                  const name = +event.point.name
+                  alert('Value of clicked column: ' + name);
+                },
+              },
+            },
+          },
 
         };
         Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
