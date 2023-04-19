@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartService } from '../../services/chartData.service';
 import { Router } from '@angular/router';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { IMyDateModel } from 'angular-mydatepicker';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,6 +53,15 @@ export class DashboardComponent implements OnInit {
   makeEditable() {
     this.isEditable = true;
   }
+  constructor(private chartData: ChartService, private router: Router) {}
+
+  onDateChanged(event: IMyDateModel) {
+    this.chartData.getOrderTotalForRange('2023-01-21', '2023-01-31').subscribe({
+      next: (resp: any) => {
+        console.log('dateChangeResp', resp);
+      },
+    });
+  }
 
   makeNonEditable() {
     this.isEditable = false;
@@ -76,8 +86,6 @@ export class DashboardComponent implements OnInit {
     this.selectCompareYear = event.target.value;
     console.log('selectCompareYear', this.selectCompareYear);
   }
-
-  constructor(private chartData: ChartService, private router: Router) {}
 
   ngOnInit(): void {
     this.chartData.getData(2023).subscribe({
