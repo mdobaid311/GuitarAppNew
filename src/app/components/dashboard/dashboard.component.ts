@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
   constructor(private chartData: ChartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.chartData.getData(2021).subscribe({
+    this.chartData.getData(2023).subscribe({
       next: (resp: any) => {
         this.originalOrdersTotal = resp[0].original_orders_total;
         this.originalOrdersTotalAbbr = Intl.NumberFormat('en-US', {
