@@ -56,6 +56,20 @@ export class DashboardComponent implements OnInit {
   constructor(private chartData: ChartService, private router: Router) {}
 
   onDateChanged(event: IMyDateModel) {
+    const start_date =
+      event.dateRange?.beginDate?.year +
+      '-' +
+      event.dateRange?.beginDate?.month +
+      '-' +
+      event.dateRange?.beginDate?.day;
+
+    const end_date =
+      event.dateRange?.endDate?.year +
+      '-' +
+      event.dateRange?.endDate?.month +
+      '-' +
+      event.dateRange?.endDate?.day;
+
     this.chartData.getOrderTotalForRange('2023-01-21', '2023-01-31').subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);
