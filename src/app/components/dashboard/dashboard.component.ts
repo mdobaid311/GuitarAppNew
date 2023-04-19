@@ -114,16 +114,20 @@ export class DashboardComponent implements OnInit {
           ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
       },
     });
-    this.chartData.getData(2022).subscribe({
+    this.chartData.getData(2023).subscribe({
       next: (resp: any) => {
         this.currentYearTotal = resp[0].original_orders_total;
         this.currentYearTotalAbbr = Intl.NumberFormat('en-US', {
           notation: 'compact',
           compactDisplay: 'short',
         }).format(this.currentYearTotal);
+        this.percentChange =
+          ((this.currentYearTotal - this.pickedYearTotal) /
+            this.pickedYearTotal) *
+          100;
       },
     });
-    this.chartData.getData(2021).subscribe({
+    this.chartData.getData(2022).subscribe({
       next: (resp: any) => {
         this.pickedYearTotal = resp[0].original_orders_total;
         this.pickedYearTotalAbbr = Intl.NumberFormat('en-US', {
