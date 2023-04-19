@@ -129,6 +129,7 @@ export class CustomHeaderComponent {
   constructor() {
     console.log(this.customDate);
   }
+
   ngOnInit() {
     if (this.myDateInit) {
       // Initialize to specific date range with IMyDate object.
