@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { faBell,faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input } from '@angular/core';
+import { faBell, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 
 @Component({
@@ -13,9 +13,7 @@ export class CustomHeaderComponent {
 
   customDate = new Date();
 
-  onDateChanged(event: IMyDateModel) {
-    console.log('onDateChanged(): ', event);
-  }
+  @Input() onDateChanged: any;
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
