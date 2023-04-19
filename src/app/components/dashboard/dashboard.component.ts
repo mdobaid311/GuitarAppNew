@@ -56,9 +56,22 @@ export class DashboardComponent implements OnInit {
   constructor(private chartData: ChartService, private router: Router) {}
 
   onDateChanged(event: IMyDateModel) {
-    this.chartData.getOrderTotalForRange('2023-01-21', '2023-01-31').subscribe({
+    const begin = event.dateRange?.beginDate;
+    const end = event.dateRange?.endDate;
+
+    const beginDate = begin ? begin.year + '-' + begin.month + '-' + begin.day : null;
+  const endDate = end ? end.year + '-' + end.month + '-' + end.day : null;
+
+    this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);
+        this.originalOrdersTotal = resp[0].original_orders_total;
+        this.originalOrdersTotalAbbr = Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(this.originalOrdersTotal);
+        this.customGoalProgress =
+          ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
       },
     });
   }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faBell, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 
@@ -13,7 +13,8 @@ export class CustomHeaderComponent {
 
   customDate = new Date();
 
-  @Input() onDateChanged: any;
+  @Output() onDateChanged: EventEmitter<any> = new EventEmitter<any>();
+
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -120,6 +121,10 @@ export class CustomHeaderComponent {
        `,
     },
   };
+
+  onDateChange(event: IMyDateModel) {
+    this.onDateChanged.emit(event);
+  }
 
   myDateInit: boolean = true;
   model: any = null;
