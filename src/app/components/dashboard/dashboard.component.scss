@@ -133,6 +133,29 @@
                 display: flex;
                 justify-content: space-between;
                 font-size: 15px;
+
+                span:last-child {
+                  color: var(--primary-color-3);
+                  cursor: text;
+                  &:hover {
+                    cursor: pointer;
+                    border-bottom: var(--primary-color-3);
+                  }
+                }
+
+                input {
+                  outline: none;
+                  border: none;
+                  border-bottom: 1px solid var(--primary-color-3);
+                  background: transparent;
+                  width: 50px;
+                  color: var(--primary-color-1);
+                }
+
+                input[type="number"]::-webkit-inner-spin-button,
+                input[type="number"]::-webkit-outer-spin-button {
+                  -webkit-appearance: none;
+                }
               }
             }
             .chart_container_1_div_2 {
@@ -355,11 +378,11 @@
     }
   }
 
-  .custom_value__buttons{
+  .custom_value__buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
-    button{
+    button {
       margin: 0 10px;
       border: 1px solid transparent;
       outline: none;
@@ -374,7 +397,7 @@
     }
   }
 
-  p{
+  p {
     margin: 20px;
   }
 }
