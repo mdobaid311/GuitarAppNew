@@ -33,6 +33,25 @@
     align-items: center;
     margin: 10px;
 
+    .custom_datepicker {
+      margin-right: 20px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.25);
+      color: var(--primary-color-1);
+      display: flex;
+      border-radius: 10px;
+
+      .date-selector-input-box {
+        color: var(--primary-color-1);
+        background-color: transparent;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        text-align: center;
+      }
+    }
+
     .topbar_right__search {
       display: flex;
       align-items: center;
