@@ -13,7 +13,7 @@
           (change)="onSelectCompareYearChange($event)"
         >
           <option disabled selected>Year</option>
-          <option value="2015">2015</option>
+          <option value="Line Chart">2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
           <option value="2018">2018</option>
@@ -78,6 +78,19 @@
               </div>
             </div>
             <div class="chart_container_1_div_2">
+              <div class="select_chart_type">
+                <select
+                  name="chart"
+                  (ngModel)="(selectedChart)"
+                  (change)="onSelectChartChange($event)"
+                >
+                  <option disabled selected>Select Chart  </option>
+                  <option value="line">Line Chart</option>
+                  <option value="bar">Bar Chart</option>
+                  <option value="pie">Pie Chart</option>
+
+                </select>
+              </div>
               <app-bar-chart></app-bar-chart>
             </div>
           </div>
