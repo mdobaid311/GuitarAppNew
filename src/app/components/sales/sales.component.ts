@@ -2,45 +2,24 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMyDateModel } from 'angular-mydatepicker';
 import { ChartService } from 'src/app/services/chartData.service';
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss']
+  styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent {
   originalOrdersTotalToday: any;
   originalOrdersTotalTodayAbbr: any;
-  currentYearTotal: any;
-  currentYearTotalAbbr: any;
-  pickedYearTotal: any;
-  pickedYearTotalAbbr: any;
-  percentChange: any;
-
-  faSortDown = faSortDown;
-  faSortUp = faSortUp;
 
   yearData: any = [];
   dataRows = [];
 
-  loading = false;
-
-  selectedYear = '';
-  selectedMonth = '';
-  selectedDay = '';
+  selectedChart = '';
   loader = false;
 
   showChangeModal = false;
   selectCompareYear: any;
-
-  yearList = [];
-  monthList: {
-    monthNumber: number;
-    monthName: string;
-  }[] = [];
-  dayList = [];
-  hourList = [];
 
   customGoal = 32998000;
   customGoalAbbr = Intl.NumberFormat('en-US', {
@@ -132,125 +111,11 @@ export class SalesComponent {
           '%';
       },
     });
-
-    this.chartData.getData(2023).subscribe({
-      next: (resp: any) => {
-        this.currentYearTotal = resp[0].original_orders_total;
-        this.currentYearTotalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.currentYearTotal);
-        this.percentChange =
-          ((this.currentYearTotal - this.pickedYearTotal) /
-            this.pickedYearTotal) *
-          100;
-      },
-    });
-    this.chartData.getData(2022).subscribe({
-      next: (resp: any) => {
-        this.pickedYearTotal = resp[0].original_orders_total;
-        this.pickedYearTotalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.pickedYearTotal);
-        this.percentChange =
-          ((this.currentYearTotal - this.pickedYearTotal) /
-            this.pickedYearTotal) *
-          100;
-      },
-    });
   }
 
-  onSelectYearChange(event: any) {
-    this.selectedYear = event.target.value;
-    console.log('selectedYear', this.selectedYear);
-    this.loader = true;
-
-    this.chartData.getOrderTotalForYear(this.selectedYear).subscribe({
-      next: (resp: any) => {
-        this.yearData = [];
-        console.log('Year data', resp);
-        const monthNames = [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December',
-        ];
-        this.monthList = resp.map((item: any) => {
-          return {
-            monthNumber: monthNames.indexOf(item.monthName) + 1,
-            monthName: item.monthName,
-          };
-        });
-        console.log('monthList', this.monthList);
-        resp.forEach((item: IItem) => {
-          const itemData = [item.monthName, item.total];
-          this.yearData.push(itemData);
-        });
-        console.log('yearDATA', this.yearData);
-        this.chartData.dataArray.next(this.yearData);
-        this.loader = false;
-      },
-    });
-  }
-
-  onSelectMonthChange(event: any) {
-    this.selectedMonth = event.target.value;
-    console.log('selectedMonth', this.selectedMonth);
-
-    this.loader = true;
-
-    this.chartData
-      .getOrderTotalByDay(this.selectedYear, this.selectedMonth)
-      .subscribe({
-        next: (resp: any) => {
-          let monthData: any = [];
-          console.log('month Data', resp);
-          this.dayList = resp.map((item: any) => item.day);
-          resp.forEach((item: IDay) => {
-            const itemData = [item.day, item.total];
-            monthData.push(itemData);
-          });
-          console.log('New month data', monthData);
-          this.chartData.dataArray.next(monthData);
-          this.loader = false;
-        },
-      });
-  }
-
-  onSelectDayChange(event: any) {
-    this.selectedDay = event.target.value;
-    console.log('selectedDay', this.selectedDay);
-    this.loader = true;
-
-    this.chartData
-      .getOrderTotalByHour(
-        this.selectedYear,
-        this.selectedMonth,
-        this.selectedDay
-      )
-      .subscribe({
-        next: (resp: any) => {
-          let hourData: any = [];
-          console.log('hour Data', resp);
-          this.hourList = resp.map((item: any) => item.hour);
-          resp.forEach((item: IHour) => {
-            const itemData = [item.hour, item.total];
-            hourData.push(itemData);
-          });
-          console.log('New month data', hourData);
-          this.chartData.dataArray.next(hourData);
-          this.loader = false;
-        },
-      });
+  onSelectChartChange(event: any) {
+    this.selectedChart = event.target.value;
+    console.log('selectedChart', this.selectedChart);
   }
 
   barChartOptions = {

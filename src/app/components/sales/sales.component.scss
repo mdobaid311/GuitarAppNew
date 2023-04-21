@@ -126,6 +126,35 @@
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
               border-radius: 10px;
               box-shadow: var(--primary-boxshadow);
+              display: flex;
+              flex-direction: column;
+              .select_chart_type {
+                padding: 20px;
+                align-self: flex-end;
+
+                select {
+                  outline: 0;
+                  box-shadow: none;
+                  border: 0;
+                  margin-right: 15px;
+                  border-bottom: 1px solid var(--primary-color-3);
+                  background: transparent;
+                  background-image: none;
+                  flex: 1;
+                  color: var(--primary-color-1);
+                  cursor: pointer;
+                  font-size: 1em;
+                }
+
+                select::-ms-expand {
+                  display: none;
+                }
+
+                option {
+                  background-color: var(--primary-background-2);
+                  color: var(--primary-color-1);
+                }
+              }
             }
           }
         }
