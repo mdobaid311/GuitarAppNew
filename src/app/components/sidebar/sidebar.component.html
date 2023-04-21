@@ -9,6 +9,9 @@
       [ngClass]="currentRoute === '/dashboard' ? 'active' : ''"
     ></fa-icon>
   </div>
+  <div class="sidebar__icon" routerLink="/sales">
+    <fa-icon [icon]="faCashRegister" class="icon"></fa-icon>
+  </div>
   <div class="sidebar__icon" routerLink="/area-chart">
     <fa-icon
       [icon]="faChartColumn"
@@ -17,12 +20,13 @@
     ></fa-icon>
   </div>
   <div class="sidebar__icon" routerLink="/org-chart">
-    <fa-icon [icon]="faSitemap" class="icon"
-    [ngClass]="currentRoute === '/org-chart' ? 'active' : ''"></fa-icon>
+    <fa-icon
+      [icon]="faSitemap"
+      class="icon"
+      [ngClass]="currentRoute === '/org-chart' ? 'active' : ''"
+    ></fa-icon>
   </div>
-  <div class="sidebar__icon" routerLink="/sales">
-    <fa-icon [icon]="faUser" class="icon"></fa-icon>
-  </div>
+
   <div class="sidebar__icon">
     <fa-icon [icon]="faMessage" class="icon"></fa-icon>
   </div>

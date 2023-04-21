@@ -24,6 +24,7 @@ import { CustomModalComponent } from './components/custom-modal/custom-modal.com
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales/sales.component';
+import { DaySalesCardComponent } from './day-sales-card/day-sales-card.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SalesComponent } from './components/sales/sales.component';
     CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
+    DaySalesCardComponent,
   ],
   imports: [
     BrowserModule,
