@@ -10,8 +10,8 @@ import { IMyDateModel } from 'angular-mydatepicker';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  originalOrdersTotal: any;
-  originalOrdersTotalAbbr: any;
+  originalOrdersTotalToday: any;
+  originalOrdersTotalTodayAbbr: any;
   currentYearTotal: any;
   currentYearTotalAbbr: any;
   pickedYearTotal: any;
@@ -67,13 +67,14 @@ export class DashboardComponent implements OnInit {
     this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);
-        this.originalOrdersTotal = resp[0].original_orders_total;
-        this.originalOrdersTotalAbbr = Intl.NumberFormat('en-US', {
+        this.originalOrdersTotalToday = resp[0].original_orders_total;
+        this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
           notation: 'compact',
           compactDisplay: 'short',
-        }).format(this.originalOrdersTotal);
+        }).format(this.originalOrdersTotalToday);
         this.customGoalProgress =
-          ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
+          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+          '%';
       },
     });
   }
@@ -89,7 +90,8 @@ export class DashboardComponent implements OnInit {
       compactDisplay: 'short',
     }).format(this.customGoal);
     this.customGoalProgress =
-      ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
+      ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+      '%';
   }
 
   toggleChangeModal() {
@@ -103,17 +105,34 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartData.getData(2023).subscribe({
+    this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
-        this.originalOrdersTotal = resp[0].original_orders_total;
-        this.originalOrdersTotalAbbr = Intl.NumberFormat('en-US', {
+        console.log('dateChangeResp', resp);
+        this.originalOrdersTotalToday = resp[0].original_orders_total;
+        this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
           notation: 'compact',
           compactDisplay: 'short',
-        }).format(this.originalOrdersTotal);
+        }).format(this.originalOrdersTotalToday);
         this.customGoalProgress =
-          ((this.originalOrdersTotal / this.customGoal) * 100).toFixed(1) + '%';
+          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+          '%';
       },
     });
+
+    this.chartData.getOrderTotalForRange('2023-01-30', '2023-01-30').subscribe({
+      next: (resp: any) => {
+        console.log('dateChangeResp', resp);
+        this.customGoal = resp[0].original_orders_total;
+        this.customGoalAbbr = Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(this.customGoal);
+        this.customGoalProgress =
+          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+          '%';
+      },
+    });
+
     this.chartData.getData(2023).subscribe({
       next: (resp: any) => {
         this.currentYearTotal = resp[0].original_orders_total;
