@@ -23,6 +23,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
+import { SalesComponent } from './components/sales/sales.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CustomProgressBarComponent } from './components/custom-progress-bar/cus
     LoadingSpinnerComponent,
     CustomModalComponent,
     CustomProgressBarComponent,
+    SalesComponent,
   ],
   imports: [
     BrowserModule,
