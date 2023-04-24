@@ -24,6 +24,13 @@ import { CustomModalComponent } from './components/custom-modal/custom-modal.com
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales/sales.component';
+import { DaySalesCardComponent } from './day-sales-card/day-sales-card.component';
+import { CustomDaterangePickerComponent } from './components/custom-daterange-picker/custom-daterange-picker.component';
+import {
+  NgbPaginationModule,
+  NgbAlertModule,
+  NgbDatepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -41,6 +48,8 @@ import { SalesComponent } from './components/sales/sales.component';
     CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
+    DaySalesCardComponent,
+    CustomDaterangePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +63,9 @@ import { SalesComponent } from './components/sales/sales.component';
     OrganizationChartModule,
     AngularMyDatePickerModule,
     BrowserAnimationsModule,
+    NgbPaginationModule,
+    NgbAlertModule,
+    NgbDatepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

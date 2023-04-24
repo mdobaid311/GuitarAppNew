@@ -4,7 +4,7 @@
     <span>Welcome, Dominic</span>
   </div>
   <div class="main_screen__topbar_right">
-    <div class="custom_datepicker">
+    <!-- <div class="custom_datepicker">
       <input
         class="date-selector-input-box"
         placeholder="{{ customDate | date : 'dd.MM.yyyy' }}"
@@ -17,6 +17,12 @@
         (dateChanged)="onDateChange($event)"
       />
       <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
+    </div> -->
+    <div class="custom_datepicker">
+      <app-custom-daterange-picker
+        (onDateChange)="onDateChange($event)"
+        [fullDate]="fullDate"
+      ></app-custom-daterange-picker>
     </div>
     <div class="topbar_right__search">
       <input type="text" placeholder="Search something..." />

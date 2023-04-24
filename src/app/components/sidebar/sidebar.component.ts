@@ -7,7 +7,7 @@ import {
   faChartColumn,
   faUser,
   faMessage,
-  faGear,
+  faGear,faCashRegister
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -23,6 +23,7 @@ export class SidebarComponent {
   faUser = faUser;
   faMessage = faMessage;
   faGear = faGear;
+  faCashRegister = faCashRegister;
 
   currentRoute: string;
 
