@@ -1,0 +1,69 @@
+.container {
+  position: relative;
+  background-color: var(--primary-background-2);
+}
+
+.datepicker {
+  position: absolute;
+  border: 1px solid red;
+  height: 400px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-background-2);
+  z-index: 2000;
+}
+
+.divs {
+  width: 100%;
+  height: 100%;
+}
+
+.second {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: red; */
+  height: 100%;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-weight: 500;
+}
+
+button:hover {
+  background: #ccc;
+}
+
+.dp-hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}

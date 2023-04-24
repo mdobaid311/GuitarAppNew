@@ -55,3 +55,19 @@ body{
 {
 	background-color: var(--primary-background-1);
 }
+
+
+.ngb-dp-day {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.ngb-dp-day > div {
+  width: 45px !important;
+  height: 45px !important;
+  line-height: 45px !important;
+}
+
+.ngb-dp-weekday {
+  width: 45px !important;
+}
