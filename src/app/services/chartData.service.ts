@@ -25,8 +25,7 @@ export class ChartService {
   }
 
   public getOrderTotalForRange(start_date: any, end_date: any) {
-    console.log("getOrderTotalForRange")
-    const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=${start_date}&&end_date=${end_date}`;
+     const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=${start_date}&&end_date=${end_date}`;
     return this.httpClient.get<any[]>(url);
   }
 
@@ -45,8 +44,19 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getOrderTotalByHour(year: any, month: any, hour: any) {
-    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_HOUR}?year=${year}&month=${month}&day=${hour}`;
+  public getOrderTotalByHour(year: any, month: any, day: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_HOUR}?year=${year}&month=${month}&day=${day}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  // public getTodaysOrderTotal(year: any, month: any, day: any) {
+  //   const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_HOUR}?year=2023&month=3&day=31`;
+  //   return this.httpClient.get<any[]>(url);
+  // }
+
+  public getTodaysOrderTotal() {
+    console.log("first")
+    const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=2023-01-31&&end_date=2023-01-31`;
     return this.httpClient.get<any[]>(url);
   }
 
