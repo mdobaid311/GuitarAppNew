@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
 
   customDate = new Date();
   model: any = null;
+  todaysDate = moment(new Date()).format('YYYY-MM-DD');
   fullDate: any = moment(new Date()).format('YYYY-MM-DD');
 
   myDpOptions: IAngularMyDpOptions = {
