@@ -1,18 +1,36 @@
 <div class="container">
-  <button (click)="setDatePickerVisible()">Date</button>
+  <button (click)="setDatePickerVisible()" class="datepicker_toggle_button">
+    <span>24.04.2023</span>
+    <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
+  </button>
   <div class="datepicker" *ngIf="datePickerVisible">
-    <div class="buttons">
-      <button (click)="changeSection('range')">Range</button>
-      <button (click)="changeSection('date')">Date</button>
-      <button (click)="changeSection('recent')">Recent</button>
+    <div class="buttons_container">
+      <button (click)="changeSection('range')">
+        <fa-icon [icon]="faSliders" class="icon"></fa-icon>
+        <span> Range </span>
+      </button>
+      <button (click)="changeSection('date')">
+        <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
+        <span>Date</span>
+      </button>
+      <button (click)="changeSection('recent')">
+        <fa-icon [icon]="faClockRotateLeft" class="icon"></fa-icon>
+        <span>Recent</span>
+      </button>
     </div>
-    <div class="divs">
-      <div *ngIf="divName === 'range'; else second">
-        <h1>Range</h1>
+    <div class="sections_container">
+      <div *ngIf="divName === 'range'; else second" class="range_container">
+        <button>Last 2 hours</button>
+        <button>Last 6 hours</button>
+        <button>Last 12 hours</button>
+        <button>Last 1 day</button>
+        <button>Last 1 month</button>
+        <button>Last 6 hours</button>
+        <button>Last 1 year</button>
       </div>
 
       <ng-template #second>
-        <div class="second" *ngIf="divName === 'date'; else third">
+        <div class="date_container" *ngIf="divName === 'date'; else third">
           <ngb-datepicker
             #dp
             (dateSelect)="onDateSelection($event)"
@@ -36,9 +54,16 @@
           </ng-template>
         </div>
       </ng-template>
+
       <ng-template #third>
-        <div *ngIf="divName === 'recent'">
-          <h1>Recent</h1>
+        <div *ngIf="divName === 'recent'" class="range_container">
+          <button>Last 1 day</button>
+          <button>Last 1 month</button>
+          <button>Last 6 hours</button>
+          <button>Last 6 hours</button>
+          <button>Last 2 hours</button>
+          <button>Last 12 hours</button>
+          <button>Last 1 year</button>
         </div>
       </ng-template>
     </div>

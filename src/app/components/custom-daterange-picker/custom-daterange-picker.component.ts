@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import {
+  faCalendar,
+  faSliders,
+  faClockRotateLeft,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-custom-daterange-picker',
@@ -13,11 +18,15 @@ export class CustomDaterangePickerComponent {
   }
   hoveredDate: NgbDate | null = null;
 
+  faCalendar = faCalendar;
+  faSliders = faSliders;
+  faClockRotateLeft = faClockRotateLeft;
+
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
-  divName = 'date';
-  datePickerVisible = true;
+  divName = 'range';
+  datePickerVisible = false;
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
