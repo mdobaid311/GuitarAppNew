@@ -13,7 +13,7 @@ import {
 })
 export class CustomDaterangePickerComponent {
   @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
-  @Input() fullDate:any;
+  @Input() fullDate: any;
 
   constructor(calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();
@@ -40,8 +40,10 @@ export class CustomDaterangePickerComponent {
       this.toDate = null;
       this.fromDate = date;
     }
+    if (this.fromDate && this.toDate) {
+      this.datePickerVisible = false;
+    }
     this.onDateChange.emit(date);
-    // console.log(this.fromDate, this.toDate);
   }
 
   isHovered(date: NgbDate) {
