@@ -1,0 +1,46 @@
+<div class="container">
+  <button (click)="setDatePickerVisible()">Date</button>
+  <div class="datepicker" *ngIf="datePickerVisible">
+    <div class="buttons">
+      <button (click)="changeSection('range')">Range</button>
+      <button (click)="changeSection('date')">Date</button>
+      <button (click)="changeSection('recent')">Recent</button>
+    </div>
+    <div class="divs">
+      <div *ngIf="divName === 'range'; else second">
+        <h1>Range</h1>
+      </div>
+
+      <ng-template #second>
+        <div class="second" *ngIf="divName === 'date'; else third">
+          <ngb-datepicker
+            #dp
+            (dateSelect)="onDateSelection($event)"
+            [displayMonths]="1"
+            [dayTemplate]="t"
+            outsideDays="hidden"
+          >
+          </ngb-datepicker>
+
+          <ng-template #t let-date let-focused="focused">
+            <span
+              class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null"
+            >
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </div>
+      </ng-template>
+      <ng-template #third>
+        <div *ngIf="divName === 'recent'">
+          <h1>Recent</h1>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
