@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {
   faCalendar,
@@ -12,9 +12,11 @@ import {
   styleUrls: ['./custom-daterange-picker.component.scss'],
 })
 export class CustomDaterangePickerComponent {
+  @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.toDate = calendar.getToday();
   }
   hoveredDate: NgbDate | null = null;
 
@@ -25,7 +27,7 @@ export class CustomDaterangePickerComponent {
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
-  divName = 'range';
+  divName = 'date';
   datePickerVisible = false;
 
   onDateSelection(date: NgbDate) {
@@ -37,6 +39,8 @@ export class CustomDaterangePickerComponent {
       this.toDate = null;
       this.fromDate = date;
     }
+    this.onDateChange.emit(date);
+    // console.log(this.fromDate, this.toDate);
   }
 
   isHovered(date: NgbDate) {

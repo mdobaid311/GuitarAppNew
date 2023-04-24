@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartService } from '../../services/chartData.service';
 import { Router } from '@angular/router';
-import { faSortDown, faSortUp,faCalendar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSortDown,
+  faSortUp,
+  faCalendar,
+} from '@fortawesome/free-solid-svg-icons';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
+import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,7 +59,6 @@ export class DashboardComponent implements OnInit {
 
   customDate = new Date();
   model: any = null;
-
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -163,7 +167,63 @@ export class DashboardComponent implements OnInit {
   makeEditable() {
     this.isEditable = true;
   }
-  constructor(private chartData: ChartService, private router: Router) {}
+  constructor(
+    private chartData: ChartService,
+    private router: Router,
+    calendar: NgbCalendar
+  ) {
+    this.globalFromDate = calendar.getToday();
+    this.globalToDate = calendar.getNext(calendar.getToday(), 'd', 10);
+  }
+
+  globalFromDate: NgbDate;
+  globalToDate: NgbDate | null = null;
+
+  onGlobalDateRangeChanged(date: NgbDate) {
+    if (!this.globalFromDate && !this.globalToDate) {
+      this.globalFromDate = date;
+    } else if (
+      this.globalFromDate &&
+      !this.globalToDate &&
+      date.after(this.globalFromDate)
+    ) {
+      this.globalToDate = date;
+    } else {
+      this.globalToDate = null;
+      this.globalFromDate = date;
+    }
+
+    const beginDate =
+      this.globalFromDate.year +
+      '-' +
+      this.globalFromDate.month +
+      '-' +
+      this.globalFromDate.day;
+    const endDate = this.globalToDate
+      ? this.globalToDate.year +
+        '-' +
+        this.globalToDate.month +
+        '-' +
+        this.globalToDate.day
+      : null;
+    if (beginDate && endDate) {
+      console.log(beginDate, endDate);
+      this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
+        next: (resp: any) => {
+          console.log('dateChangeResp', resp);
+          this.originalOrdersTotalToday = resp[0].original_orders_total;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+        },
+      });
+    }
+  }
 
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
