@@ -19,7 +19,10 @@
       <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
     </div> -->
     <div class="custom_datepicker">
-      <app-custom-daterange-picker (onDateChange)="onDateChange($event)"></app-custom-daterange-picker>
+      <app-custom-daterange-picker
+        (onDateChange)="onDateChange($event)"
+        [fullDate]="fullDate"
+      ></app-custom-daterange-picker>
     </div>
     <div class="topbar_right__search">
       <input type="text" placeholder="Search something..." />

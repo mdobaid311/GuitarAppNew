@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit {
 
   customDate = new Date();
   model: any = null;
+  fullDate: any = moment(new Date()).format('YYYY-MM-DD');
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -173,7 +175,7 @@ export class DashboardComponent implements OnInit {
     calendar: NgbCalendar
   ) {
     this.globalFromDate = calendar.getToday();
-    this.globalToDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.globalToDate = calendar.getToday();
   }
 
   globalFromDate: NgbDate;
@@ -207,7 +209,7 @@ export class DashboardComponent implements OnInit {
         this.globalToDate.day
       : null;
     if (beginDate && endDate) {
-      console.log(beginDate, endDate);
+      this.fullDate = beginDate + ' to ' + endDate;
       this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
         next: (resp: any) => {
           console.log('dateChangeResp', resp);

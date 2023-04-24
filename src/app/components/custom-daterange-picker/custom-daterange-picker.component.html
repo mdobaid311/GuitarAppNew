@@ -1,6 +1,6 @@
 <div class="container">
   <button (click)="setDatePickerVisible()" class="datepicker_toggle_button">
-    <span>24.04.2023</span>
+    <span>{{ fullDate   }}</span>
     <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
   </button>
   <div class="datepicker" *ngIf="datePickerVisible">

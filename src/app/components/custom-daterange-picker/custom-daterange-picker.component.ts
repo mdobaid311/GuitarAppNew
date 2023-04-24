@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {
   faCalendar,
@@ -13,6 +13,7 @@ import {
 })
 export class CustomDaterangePickerComponent {
   @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() fullDate:any;
 
   constructor(calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();
