@@ -195,6 +195,7 @@ export class DashboardComponent implements OnInit {
   makeEditable() {
     this.isEditable = true;
   }
+
   constructor(
     private chartData: ChartService,
     private router: Router,
