@@ -16,7 +16,7 @@ export class SalesComponent {
   yearData: any = [];
   dataRows = [];
 
-  selectedChart = 'line';
+  selectedChart = 'column';
   loader = false;
 
   showChangeModal = false;

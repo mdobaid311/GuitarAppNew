@@ -40,10 +40,13 @@
         }
 
         .main_container__charts_container {
+          transform-origin: center bottom;
+          // transform: translateY(200px) rotate(-90deg);
           .org_chart__node {
             color: var(--primary-color-1);
             border-radius: 50%;
             padding: 15px;
+            // transform: rotate(90deg);
           }
         }
       }
