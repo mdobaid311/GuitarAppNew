@@ -60,6 +60,12 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
+  public getOrgChartData() {
+    console.log("orgchart")
+    const url = `${environment.SERVICE_APIS.ORG_CHART}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
   // public getData(): Observable<any[]>  {
   //   const requestBody = {
   //     columns:["INVOICED_LINE_TOTAL"]
