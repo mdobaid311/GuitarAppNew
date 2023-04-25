@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   dayList = [];
   hourList = [];
 
-  customGoal = 32998000;
+  customGoal = 0;
   customGoalAbbr = Intl.NumberFormat('en-US', {
     notation: 'compact',
     compactDisplay: 'short',
@@ -62,6 +62,9 @@ export class DashboardComponent implements OnInit {
   model: any = null;
   todaysDate = moment(new Date()).format('YYYY-MM-DD');
   fullDate: any = moment(new Date()).format('YYYY-MM-DD');
+
+  globalFromDate: NgbDate;
+  globalToDate: NgbDate | null = null;
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -167,6 +170,28 @@ export class DashboardComponent implements OnInit {
     },
   };
 
+  onRangeSelect(range: any) {
+    console.log(range);
+    if (range === '1d') {
+      this.chartData
+        .getOrderTotalForRange('2023-01-30', '2023-01-31')
+        .subscribe({
+          next: (resp: any) => {
+            console.log('dateChangeResp', resp);
+            this.originalOrdersTotalToday = resp[0].original_orders_total;
+            this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+              notation: 'compact',
+              compactDisplay: 'short',
+            }).format(this.originalOrdersTotalToday);
+            this.customGoalProgress =
+              ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+                1
+              ) + '%';
+          },
+        });
+    }
+  }
+
   makeEditable() {
     this.isEditable = true;
   }
@@ -178,9 +203,6 @@ export class DashboardComponent implements OnInit {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
   }
-
-  globalFromDate: NgbDate;
-  globalToDate: NgbDate | null = null;
 
   onGlobalDateRangeChanged(date: NgbDate) {
     if (!this.globalFromDate && !this.globalToDate) {

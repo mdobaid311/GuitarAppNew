@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class CustomDaterangePickerComponent {
   @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate = moment(new Date()).format('YYYY-MM-DD');
+  @Input() onRangeSelect: any;
 
   date = moment(new Date()).format('YYYY-MM-DD');
 
@@ -33,6 +34,7 @@ export class CustomDaterangePickerComponent {
 
   divName = 'date';
   datePickerVisible = false;
+
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
