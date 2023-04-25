@@ -91,7 +91,8 @@
 
                 </select>
               </div>
-              <app-bar-chart></app-bar-chart>
+              <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
+              <app-column-chart  *ngIf="selectedChart == 'line'"></app-column-chart>
             </div>
           </div>
 
