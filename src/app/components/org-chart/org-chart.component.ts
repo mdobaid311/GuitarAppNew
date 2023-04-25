@@ -9,9 +9,12 @@ import { ChartService } from 'src/app/services/chartData.service';
 })
 export class OrgChartComponent {
   data: any;
+  loader = false;
+
   constructor(private chartData: ChartService) {}
 
   ngOnInit() {
+    this.loader = true;
     this.chartData.getOrgChartData().subscribe({
       next: (resp: any) => {
         console.log(resp);
@@ -29,7 +32,12 @@ export class OrgChartComponent {
             children: this.generateNode(resp),
           },
         ];
+        this.loader = false;
       },
+      error: error => {
+
+      }
+
     });
   }
 
@@ -44,7 +52,7 @@ export class OrgChartComponent {
           title: node.key || 'Others',
         },
         children:
-          node.children.length > 0 ? this.generateNode(node.children) : [],
+          node.children?.length > 0 ? this.generateNode(node.children) : [],
       };
     });
   }

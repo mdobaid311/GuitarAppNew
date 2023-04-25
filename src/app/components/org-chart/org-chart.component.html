@@ -1,3 +1,4 @@
+
 <div class="dashboard__screen">
   <div class="dashboard_container">
     <app-sidebar></app-sidebar>
@@ -9,6 +10,9 @@
           <h3>Sales flow</h3>
         </div>
         <div class="main_container__charts_container">
+          <div class="loader-container" *ngIf="loader">
+            <div class="loader"></div>
+          </div>
           <p-organizationChart [value]="data" (onNodeExpand)="expandNode($event)">
             <ng-template let-node pTemplate="person" >
               <div class="org_chart__node">
