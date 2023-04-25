@@ -85,14 +85,14 @@
                   (change)="onSelectChartChange($event)"
                 >
                   <option disabled selected>Select Chart  </option>
-                  <option value="line">Line Chart</option>
+                  <option value="column">Column Chart</option>
                   <option value="bar">Bar Chart</option>
                   <option value="pie">Pie Chart</option>
 
                 </select>
               </div>
               <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
-              <app-column-chart  *ngIf="selectedChart == 'line'"></app-column-chart>
+              <app-column-chart  *ngIf="selectedChart == 'column'"></app-column-chart>
             </div>
           </div>
 

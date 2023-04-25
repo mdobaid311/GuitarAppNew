@@ -9,7 +9,7 @@
           <h3>Sales flow</h3>
         </div>
         <div class="main_container__charts_container">
-          <p-organizationChart [value]="data" (onNodeExpand)="expandNode($event)">
+          <p-organizationChart [value]="data"  (onNodeExpand)="expandNode($event)" class="org_chart">
             <ng-template let-node pTemplate="person" >
               <div class="org_chart__node">
                 <!-- <div>{{ node.data.name }}</div> -->
@@ -17,6 +17,7 @@
               </div>
             </ng-template>
           </p-organizationChart>
+
         </div>
       </div>
     </div>
