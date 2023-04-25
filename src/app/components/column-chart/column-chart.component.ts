@@ -1,5 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { ChartService } from 'src/app/services/chartData.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-column-chart',
@@ -8,10 +10,16 @@ import * as Highcharts from 'highcharts';
 })
 export class ColumnChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
-  chartOptions: any;
-  theme = 'light';
 
-  constructor() {
+  chartOptions: any;
+
+  newDataArray:any = [];
+  subscription: Subscription = new Subscription;
+
+  theme = 'light';
+  loader = false;
+
+  constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
@@ -25,108 +33,192 @@ export class ColumnChartComponent {
     observer.observe(document.body, { attributes: true });
   }
 
+
+
   ngOnInit() {
-    this.chartOptions = {
-      colors: ['#2f7ed8'],
 
-      chart: {
-        type: 'column',
-        height: (9 / 16) * 55 + '%', // 16:9 ratio
-      },
-      title: {
-        text: 'By Brand',
-        style: {
-          color: '#000',
-          fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif',
+    this.subscription = this.chartData.dataArray.subscribe(array => {
+      console.log('Array', array)
+      this.newDataArray = array;
+
+      this.chartOptions = {
+        chart: {
+          type: 'column',
+          height: (9 / 16) * 55 + '%',
+
         },
-      },
-      subtitle: {
-        // text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
-      },
-      xAxis: {
-        type: 'category',
-        labels: {
-          rotation: 270,
-          style: {
-            fontSize: '13px',
-            fontFamily: 'Verdana, sans-serif',
-          },
-        },
-      },
-      yAxis: {
-        min: 0,
+
         title: {
-          text: 'Dollars in 1000' + "'" + 's',
-        },
-        labels: {
-          rotation: 0,
+          text: 'Sales',
           style: {
-            // height: '100px',
             color: '#000',
-            fontSize: '13px',
             fontFamily: 'Verdana, sans-serif',
           },
         },
-      },
-      legend: {
-        enabled: false,
-      },
-      tooltip: {
-        pointFormat: 'Sales: <b>{point.y:.1f} millions</b>',
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0,
-          colorByPoint: true,
-          dataLabels: {
-            enabled: false,
+
+        // subtitle: {
+        //   text: 'Source: <a href="https://worldpopulationreview.com/world-cities" target="_blank">World Population Review</a>'
+        // },
+        xAxis: {
+          type: 'category',
+          labels: {
+            rotation: 0,
+            style: {
+              color: '#000',
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif',
+            },
           },
         },
-      },
-      series: [
-        {
-          name: 'Population',
-          colorByPoint: false,
-          data: [
-            ['Tokyo', 37.33],
-            ['Delhi', 31.18],
-            ['Shanghai', 27.79],
-            ['Sao Paulo', 22.23],
-            ['Mexico City', 21.91],
-            ['Dhaka', 21.74],
-            ['Cairo', 21.32],
-            ['Beijing', 20.89],
-            ['Mumbai', 20.67],
-            ['Osaka', 19.11],
-            ['Karachi', 16.45],
-            ['Chongqing', 16.38],
-            ['Istanbul', 15.41],
-            ['Buenos Aires', 15.25],
-            ['Kolkata', 14.974],
-            ['Kinshasa', 14.97],
-            ['Lagos', 14.86],
-            ['Manila', 14.16],
-            ['Tianjin', 13.79],
-            ['Guangzhou', 13.64],
-            ['Istanbul', 15.41],
-            ['Buenos Aires', 15.25],
-            ['Kolkata', 14.974],
-            ['Kinshasa', 14.97],
-            ['Lagos', 14.86],
-            ['Manila', 14.16],
-            ['Tianjin', 13.79],
-            ['Guangzhou', 13.64],
-          ],
-          dataLabels: {
-            enabled: false,
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Dollars in 1000' + "'" + 's',
+          },
+          labels: {
+            rotation: 0,
+            style: {
+              // height: '100px',
+              color: '#000',
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+        },
+        legend: {
+          enabled: false,
+        },
+        tooltip: {
+          pointFormat: 'Sales: <b>{point.y:.1f} </b>',
+        },
+        series: [
+          {
+            name: 'Population',
+            data: array,
+
+            dataLabels: {
+              enabled: false, // Remove data labels from columns
+
+            },
+            color: '#2f7ed8', // Change color of columns
+            pointWidth: 25, // Reduce width of columns
+            backgroundColor: '#FCFFC5',
+          },
+        ],
+
+      };
+      Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+      this.updateChartTheme();
+    })
+    this.loadInitialchart();
+  }
+
+  loadInitialchart() {
+    this.loader = true;
+    this.chartData.getOrderTotalYears().subscribe({
+      next: resp => {
+        let yearsData:any = [];
+        console.log('Year data', resp)
+        resp.forEach((item:IYear) => {
+          const itemData = [
+            item.year,
+            item.total,
+          ];
+            yearsData.push(itemData);
+        })
+        this.chartOptions = {
+          chart: {
+            type: 'column',
+            height: (9 / 16) * 55 + '%',
           },
 
-          pointWidth: 20, // Reduce width of columns
-        },
-      ],
-    };
+          title: {
+            text: 'Sales',
+            style: {
+              color: '#000',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+
+          xAxis: {
+            type: 'category',
+            labels: {
+              rotation: 0,
+              style: {
+                color: '#000',
+
+                fontFamily: 'Verdana, sans-serif',
+              },
+            },
+          },
+          // yAxis: {
+
+          //   labels: {
+          //     enabled: false,
+          //   },
+          //   title: {
+          //     text: null, // Hide y-axis title
+          //   },
+          //   axisLabel: {
+          //     text: '', // Hide "Values" label
+          //   },
+          //   min: 0,
+          // },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Dollars in 1000' + "'" + 's',
+            },
+            labels: {
+              rotation: 0,
+              style: {
+                // height: '100px',
+                color: '#000',
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif',
+              },
+            },
+          },
+          legend: {
+            enabled: false,
+          },
+          tooltip: {
+            pointFormat: 'Sales: <b>{point.y:.1f}</b>',
+          },
+          series: [
+            {
+              name: 'Population',
+              data: yearsData,
+
+              dataLabels: {
+                enabled: false, // Remove data labels from columns
+
+              },
+              color: '#2f7ed8', // Change color of columns
+              pointWidth: 25, // Reduce width of columns
+              backgroundColor: '#FCFFC5',
+            },
+          ],
+          plotOptions: {
+            column: {
+              events: {
+                click: function (event:any) {
+                  const name = +event.point.name
+                  alert('Value of clicked column: ' + name);
+                },
+              },
+            },
+          },
+
+        };
+        Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+        this.updateChartTheme();
+        this.loader = false;
+      },
+      error: error => {
+
+      }
+    })
   }
 
   updateChartTheme() {
@@ -136,13 +228,9 @@ export class ColumnChartComponent {
 
     this.chartOptions.chart.backgroundColor =
       this.theme === 'dark' ? '#19376D' : '#fff';
-    // this.chartOptions.series[0].color =
-    //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
-    // this.chartOptions.series[0].backgroundColor =
-    //   this.theme === 'dark' ? '#3E3E3E' : '#FCFFC5';
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
-    this.chartOptions.yAxis.labels.style.color =
+      this.chartOptions.yAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
@@ -151,8 +239,16 @@ export class ColumnChartComponent {
   }
 
   ngAfterViewInit() {
-    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+    // Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+}
+
+class IYear {
+  "year": string;
+  "total": number;
 }
 
 // column single color

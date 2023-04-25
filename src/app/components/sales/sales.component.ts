@@ -12,10 +12,11 @@ export class SalesComponent {
   originalOrdersTotalToday: any;
   originalOrdersTotalTodayAbbr: any;
 
+
   yearData: any = [];
   dataRows = [];
 
-  selectedChart = '';
+  selectedChart = 'line';
   loader = false;
 
   showChangeModal = false;
@@ -116,6 +117,7 @@ export class SalesComponent {
   onSelectChartChange(event: any) {
     this.selectedChart = event.target.value;
     console.log('selectedChart', this.selectedChart);
+
   }
 
   barChartOptions = {
