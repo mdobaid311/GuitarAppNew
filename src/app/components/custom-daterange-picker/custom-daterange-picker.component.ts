@@ -49,6 +49,7 @@ export class CustomDaterangePickerComponent {
       this.datePickerVisible = false;
     }
     this.onDateChange.emit(date);
+    console.log('DATE', date)
   }
 
   isHovered(date: NgbDate) {
