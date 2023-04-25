@@ -5,6 +5,7 @@ import {
   faSliders,
   faClockRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-custom-daterange-picker',
@@ -13,7 +14,9 @@ import {
 })
 export class CustomDaterangePickerComponent {
   @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
-  @Input() fullDate: any;
+  @Input() fullDate = moment(new Date()).format('YYYY-MM-DD');
+
+  date = moment(new Date()).format('YYYY-MM-DD');
 
   constructor(calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();
