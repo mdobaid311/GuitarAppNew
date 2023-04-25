@@ -13,7 +13,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   chartOptions: any;
 
-  newDataArray:any = [];
+  newDataArray: any = [];
   subscription: Subscription = new Subscription;
 
   theme = 'light';
@@ -43,7 +43,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
       this.chartOptions = {
         chart: {
-          type: 'column',
+          type: 'bar',
           height: (9 / 16) * 55 + '%',
 
         },
@@ -117,21 +117,19 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.loader = true;
     this.chartData.getOrderTotalYears().subscribe({
       next: resp => {
-        let yearsData:any = [];
+        let yearsData: any = [];
         console.log('Year data', resp)
-        resp.forEach((item:IYear) => {
+        resp.forEach((item: IYear) => {
           const itemData = [
             item.year,
             item.total,
           ];
-            yearsData.push(itemData);
+          yearsData.push(itemData);
         })
         this.chartOptions = {
           chart: {
-            type: 'column',
-            height: (9 / 16) * 55 + '%',
+            type: 'bar'
           },
-
           title: {
             text: 'Sales',
             style: {
@@ -139,31 +137,17 @@ export class BarChartComponent implements OnInit, OnDestroy {
               fontFamily: 'Verdana, sans-serif',
             },
           },
-
           xAxis: {
             type: 'category',
             labels: {
               rotation: 0,
               style: {
                 color: '#000',
-
+                fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif',
               },
             },
           },
-          // yAxis: {
-
-          //   labels: {
-          //     enabled: false,
-          //   },
-          //   title: {
-          //     text: null, // Hide y-axis title
-          //   },
-          //   axisLabel: {
-          //     text: '', // Hide "Values" label
-          //   },
-          //   min: 0,
-          // },
           yAxis: {
             min: 0,
             title: {
@@ -179,15 +163,24 @@ export class BarChartComponent implements OnInit, OnDestroy {
               },
             },
           },
-          legend: {
-            enabled: false,
-          },
-          tooltip: {
-            pointFormat: 'Sales: <b>{point.y:.1f}</b>',
+          // legend: {
+          //   layout: 'vertical', // changed to vertical layout
+          //   align: 'right', // moved to the right
+          //   verticalAlign: 'top', // moved to the top
+          //   x: -10, // adjust x position to align with chart
+          //   reversed: true
+          // },
+          plotOptions: {
+            series: {
+              stacking: 'normal',
+              dataLabels: {
+                enabled: true
+              }
+            }
           },
           series: [
             {
-              name: 'Population',
+              name: 'Sales',
               data: yearsData,
 
               dataLabels: {
@@ -199,16 +192,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
               backgroundColor: '#FCFFC5',
             },
           ],
-          plotOptions: {
-            column: {
-              events: {
-                click: function (event:any) {
-                  const name = +event.point.name
-                  alert('Value of clicked column: ' + name);
-                },
-              },
-            },
-          },
+
 
         };
         Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
@@ -230,7 +214,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
       this.theme === 'dark' ? '#19376D' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
-      this.chartOptions.yAxis.labels.style.color =
+    this.chartOptions.yAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
