@@ -16,6 +16,7 @@ export class CustomHeaderComponent {
 
   @Output() onDateChanged: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate: any;
+  @Output() onRangeSelect:EventEmitter<any> = new EventEmitter<any>();
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,

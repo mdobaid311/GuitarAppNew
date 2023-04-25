@@ -20,13 +20,13 @@
     </div>
     <div class="sections_container">
       <div *ngIf="divName === 'range'; else second" class="range_container">
-        <button>Last 2 hours</button>
-        <button>Last 6 hours</button>
-        <button>Last 12 hours</button>
-        <button>Last 1 day</button>
-        <button>Last 1 month</button>
-        <button>Last 6 hours</button>
-        <button>Last 1 year</button>
+        <button (click)="onRangeSelect('2h')">Last 2 hours</button>
+        <button (click)="onRangeSelect('6h')">Last 6 hours</button>
+        <button (click)="onRangeSelect('12h')">Last 12 hours</button>
+        <button (click)="onRangeSelect('1d')">Last 1 day</button>
+        <button (click)="onRangeSelect('1m')">Last 1 month</button>
+        <button (click)="onRangeSelect('6m')">Last 6 months</button>
+        <button (click)="onRangeSelect('1y')">Last 1 year</button>
       </div>
 
       <ng-template #second>
