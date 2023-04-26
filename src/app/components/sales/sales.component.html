@@ -83,10 +83,18 @@
             </div>
             <div class="chart_container_1_div_2">
               <div class="select_chart_type">
+                <button (click)="openSelect()" #selectButton>
+                  <fa-icon
+                    [icon]="faChartLine"
+                    class="icon icon-main"
+                  ></fa-icon>
+                  <fa-icon [icon]="faAngleDown" class="icon"></fa-icon>
+                </button>
                 <select
                   name="chart"
                   (ngModel)="(selectedChart)"
                   (change)="onSelectChartChange($event)"
+                  #selectChartType
                 >
                   <option disabled>Select Chart</option>
                   <option value="column" selected>Column Chart</option>
