@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import * as moment from 'moment';
 import { ChartService } from 'src/app/services/chartData.service';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faChartLine,
+  faAngleDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-sales',
@@ -11,10 +15,15 @@ import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent {
+  @ViewChild('selectChartType') selectChartType: any;
+  @ViewChild('selectButton') selectButton: any;
+
   originalOrdersTotalToday: any;
   originalOrdersTotalTodayAbbr: any;
 
   faCalendar = faCalendar;
+  faChartLine = faChartLine;
+  faAngleDown = faAngleDown;
 
   yearData: any = [];
   dataRows = [];
@@ -144,13 +153,18 @@ export class SalesComponent {
   globalFromDate: NgbDate;
   globalToDate: NgbDate | null = null;
 
+  openSelect() {
+    this.selectChartType.dispatchEvent(new Event('mousedown'));
+  }
+
   makeEditable() {
     this.isEditable = true;
   }
   constructor(
     private chartData: ChartService,
     private router: Router,
-    calendar: NgbCalendar
+    calendar: NgbCalendar,
+    private renderer: Renderer2
   ) {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();

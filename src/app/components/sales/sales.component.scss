@@ -151,7 +151,33 @@
                 padding: 20px;
                 align-self: flex-end;
 
+                button {
+                  outline: none;
+                  // border: 1px solid var(--primary-color-1);
+                  background: var(--primary-background-3);
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 15px;
+                  padding: 10px;
+                  box-shadow: var(--primary-boxshadow);
+                  color: var(--primary-color-1);
+                  cursor: pointer;
+
+                  .icon {
+                    margin: 0 8px;
+                  }
+
+                  .icon-main {
+                    color: var(--primary-color-3);
+                  }
+
+                  &:hover {
+                    filter: brightness(120%);
+                  }
+                }
+
                 select {
+                  // display: none;
                   outline: 0;
                   box-shadow: none;
                   border: 0;
