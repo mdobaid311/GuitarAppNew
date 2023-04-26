@@ -34,10 +34,7 @@ export class OrgChartComponent {
         ];
         this.loader = false;
       },
-      error: error => {
-
-      }
-
+      error: (error) => {},
     });
   }
 
@@ -47,7 +44,7 @@ export class OrgChartComponent {
         label: node.key || 'Others',
         type: 'person',
         styleClass: 'chart_node',
-        expanded: false,
+        expanded: true,
         data: {
           title: node.key || 'Others',
         },
