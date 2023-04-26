@@ -156,6 +156,19 @@ export class SalesComponent {
     this.globalToDate = calendar.getToday();
   }
 
+  changeDate(value: any) {
+    if (value === 'prev') {
+      this.fullDate = moment(this.fullDate)
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD');
+
+      this.getAllData(this.fullDate);
+    } else if (value === 'next') {
+      this.fullDate = moment(this.fullDate).add(1, 'days').format('YYYY-MM-DD');
+      this.getAllData(this.fullDate);
+    }
+  }
+
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
@@ -306,6 +319,36 @@ export class SalesComponent {
   onSelectChartChange(event: any) {
     this.selectedChart = event.target.value;
     console.log('selectedChart', this.selectedChart);
+  }
+
+  getAllData(date: any) {
+    this.chartData.getOrderTotalForRange(date, date).subscribe({
+      next: (resp: any) => {
+        console.log('dateChangeResp', resp);
+        this.originalOrdersTotalToday = resp[0].original_orders_total;
+        this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(this.originalOrdersTotalToday);
+        this.customGoalProgress =
+          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+          '%';
+      },
+    });
+
+    this.chartData.getOrderTotalForRange(date, date).subscribe({
+      next: (resp: any) => {
+        console.log('dateChangeResp', resp);
+        this.customGoal = resp[0].original_orders_total;
+        this.customGoalAbbr = Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(this.customGoal);
+        this.customGoalProgress =
+          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+          '%';
+      },
+    });
   }
 
   barChartOptions = {

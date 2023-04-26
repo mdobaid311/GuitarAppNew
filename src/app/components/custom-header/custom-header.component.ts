@@ -16,7 +16,8 @@ export class CustomHeaderComponent {
 
   @Output() onDateChanged: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate: any;
-  @Output() onRangeSelect:EventEmitter<any> = new EventEmitter<any>();
+  @Output() onRangeSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() changeDate = new EventEmitter<string>();
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -124,6 +125,10 @@ export class CustomHeaderComponent {
     },
   };
 
+  changeDateHandler(value: any) {
+    this.changeDate.emit(value);
+  }
+
   onDateChange(event: any) {
     this.onDateChanged.emit(event);
   }
@@ -132,7 +137,7 @@ export class CustomHeaderComponent {
   model: any = null;
 
   constructor() {
-    console.log(this.fullDate+"full");
+    console.log(this.fullDate + 'full');
   }
 
   ngOnInit() {

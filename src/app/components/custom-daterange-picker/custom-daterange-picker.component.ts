@@ -25,13 +25,10 @@ export class CustomDaterangePickerComponent {
   @Output() onDateChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate = moment(new Date()).format('YYYY-MM-DD');
   @Input() onRangeSelect: any;
+  @Output() changeDate = new EventEmitter<string>();
 
   date: any = moment(new Date()).format('YYYY-MM-DD');
 
-  constructor(calendar: NgbCalendar, private elementRef: ElementRef) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getToday();
-  }
   hoveredDate: NgbDate | null = null;
 
   faCalendar = faCalendar;
@@ -46,8 +43,19 @@ export class CustomDaterangePickerComponent {
   divName = 'range';
   datePickerVisible = false;
 
+  isButtonDisabled = true;
+
+  constructor(calendar: NgbCalendar, private elementRef: ElementRef) {
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getToday();
+
+    if (this.fullDate === this.date) {
+      this.isButtonDisabled = true;
+    }
+  }
+
   getDateString() {
-     if (
+    if (
       this.fullDate ===
       moment(new Date()).subtract(1, 'days').format('YYYY-MM-DD')
     ) {
@@ -67,8 +75,11 @@ export class CustomDaterangePickerComponent {
     }
   }
 
-  changeDate(value:any){
-    console.log('VALUE', value);
+  changeDateHandler(value: any) {
+    if (value === 'prev') {
+      this.isButtonDisabled = false;
+    }
+    this.changeDate.emit(value);
   }
 
   onDateSelection(date: NgbDate) {
