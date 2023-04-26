@@ -1,6 +1,11 @@
 <div class="container">
+  <fa-icon
+    [icon]="faAngleLeft"
+    class="day"
+    (click)="changeDate('prev')"
+  ></fa-icon>
   <button (click)="setDatePickerVisible()" class="datepicker_toggle_button">
-    <span>{{ fullDate || date }}</span>
+    <span>{{ getDateString() }}</span>
     <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
   </button>
   <div class="datepicker" *ngIf="datePickerVisible">
@@ -68,4 +73,9 @@
       </ng-template>
     </div>
   </div>
+  <fa-icon
+    [icon]="faAngleRight"
+    class="day"
+    (click)="changeDate('next')"
+  ></fa-icon>
 </div>

@@ -44,7 +44,7 @@ export class ColumnChartComponent {
       this.chartOptions = {
         chart: {
           type: 'column',
-          height: (9 / 16) * 55 + '%',
+          height: (9 / 16) * 40 + '%',
 
         },
 

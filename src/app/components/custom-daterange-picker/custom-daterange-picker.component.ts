@@ -1,9 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {
   faCalendar,
   faSliders,
   faClockRotateLeft,
+  faAngleLeft,
+  faAngleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 
@@ -17,9 +26,9 @@ export class CustomDaterangePickerComponent {
   @Input() fullDate = moment(new Date()).format('YYYY-MM-DD');
   @Input() onRangeSelect: any;
 
-  date = moment(new Date()).format('YYYY-MM-DD');
+  date: any = moment(new Date()).format('YYYY-MM-DD');
 
-  constructor(calendar: NgbCalendar) {
+  constructor(calendar: NgbCalendar, private elementRef: ElementRef) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
   }
@@ -28,13 +37,39 @@ export class CustomDaterangePickerComponent {
   faCalendar = faCalendar;
   faSliders = faSliders;
   faClockRotateLeft = faClockRotateLeft;
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
 
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
-  divName = 'date';
+  divName = 'range';
   datePickerVisible = false;
 
+  getDateString() {
+     if (
+      this.fullDate ===
+      moment(new Date()).subtract(1, 'days').format('YYYY-MM-DD')
+    ) {
+      return 'Yesterday';
+    } else if (this.fullDate === this.date) {
+      return 'Today';
+    }
+
+    return this.fullDate;
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.datePickerVisible = false;
+    }
+  }
+
+  changeDate(value:any){
+    console.log('VALUE', value);
+  }
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
@@ -49,7 +84,7 @@ export class CustomDaterangePickerComponent {
       this.datePickerVisible = false;
     }
     this.onDateChange.emit(date);
-    console.log('DATE', date)
+    console.log('DATE', date);
   }
 
   isHovered(date: NgbDate) {
