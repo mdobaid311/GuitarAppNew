@@ -1,4 +1,3 @@
-
 <div class="dashboard__screen">
   <div class="dashboard_container">
     <app-sidebar></app-sidebar>
@@ -13,15 +12,25 @@
           <div class="loader-container" *ngIf="loader">
             <div class="loader"></div>
           </div>
-          <p-organizationChart [value]="data" (onNodeExpand)="expandNode($event)">
-            <ng-template let-node pTemplate="person" >
-              <div class="org_chart__node">
+          <p-organizationChart
+            [value]="data"
+            (onNodeExpand)="expandNode($event)"
+          >
+            <ng-template let-node pTemplate="person">
+              <div
+                class="org_chart__node"
+                [style]="{
+                  width: node.data.width * 6 + 'px',
+                  height: node.data.width * 6 + 'px',
+                  background: node.data.color
+                }"
+              >
                 <!-- <div>{{ node.data.name }}</div> -->
-                <div>{{ node.data.title }}</div>
+                <h3>{{ node.data.value }}</h3>
+                <span>{{ node.data.title }}</span>
               </div>
             </ng-template>
           </p-organizationChart>
-
         </div>
       </div>
     </div>
