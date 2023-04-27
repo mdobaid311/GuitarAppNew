@@ -175,30 +175,6 @@
                     filter: brightness(120%);
                   }
                 }
-
-                select {
-                  // display: none;
-                  outline: 0;
-                  box-shadow: none;
-                  border: 0;
-                  margin-right: 15px;
-                  border-bottom: 1px solid var(--primary-color-3);
-                  background: transparent;
-                  background-image: none;
-                  flex: 1;
-                  color: var(--primary-color-1);
-                  cursor: pointer;
-                  font-size: 1em;
-                }
-
-                select::-ms-expand {
-                  display: none;
-                }
-
-                option {
-                  background-color: var(--primary-background-2);
-                  color: var(--primary-color-1);
-                }
               }
             }
           }

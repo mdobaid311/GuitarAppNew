@@ -25,7 +25,7 @@ export class ChartService {
   }
 
   public getOrderTotalForRange(start_date: any, end_date: any) {
-     const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=${start_date}&&end_date=${end_date}`;
+    const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=${start_date}&&end_date=${end_date}`;
     return this.httpClient.get<any[]>(url);
   }
 
@@ -55,14 +55,22 @@ export class ChartService {
   // }
 
   public getTodaysOrderTotal() {
-    console.log("first")
     const url = `${environment.SERVICE_APIS.ORIGINAL_TOTAL}?start_date=2023-01-31&&end_date=2023-01-31`;
     return this.httpClient.get<any[]>(url);
   }
 
   public getOrgChartData() {
-    console.log("orgchart")
     const url = `${environment.SERVICE_APIS.ORG_CHART}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalByDayRange(startDate: any, endDate: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_DAY_RANGE}?startDate=${startDate}&&endDate=${endDate}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalByHourRange(startDate: any, endDate: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_HOUR_RANGE}?startDate=${startDate}&&endDate=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
 

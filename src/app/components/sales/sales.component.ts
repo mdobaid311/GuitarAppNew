@@ -46,6 +46,8 @@ export class SalesComponent {
 
   isEditable: boolean = false;
 
+  chartTypeOptions = ['column', 'bar', 'pie'];
+
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
     dateFormat: 'dd.mm.yyyy',
@@ -153,9 +155,9 @@ export class SalesComponent {
   globalFromDate: NgbDate;
   globalToDate: NgbDate | null = null;
 
-  openSelect() {
-    this.selectChartType.dispatchEvent(new Event('mousedown'));
-  }
+  dayList = [];
+  hourList = [];
+  monthList = [];
 
   makeEditable() {
     this.isEditable = true;
@@ -163,8 +165,7 @@ export class SalesComponent {
   constructor(
     private chartData: ChartService,
     private router: Router,
-    calendar: NgbCalendar,
-    private renderer: Renderer2
+    calendar: NgbCalendar
   ) {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
@@ -209,23 +210,75 @@ export class SalesComponent {
 
   onRangeSelect(range: any) {
     console.log(range);
-    if (range === '1d') {
-      this.chartData
-        .getOrderTotalForRange('2023-01-30', '2023-01-31')
-        .subscribe({
-          next: (resp: any) => {
-            console.log('dateChangeResp', resp);
-            this.originalOrdersTotalToday = resp[0].original_orders_total;
-            this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
-              notation: 'compact',
-              compactDisplay: 'short',
-            }).format(this.originalOrdersTotalToday);
-            this.customGoalProgress =
-              ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
-                1
-              ) + '%';
-          },
-        });
+    if (range === '1m') {
+      const startDate = moment()
+        .subtract(1, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      console.log(startDate, endDate);
+
+      this.chartData.getOrderTotalByDayRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let dayData: any = [];
+          this.dayList = resp.data.map((item: any) => item.day);
+          resp.data.forEach((item: IDay) => {
+            const itemData = [item.day, item.total];
+            dayData.push(itemData);
+          });
+          this.chartData.dataArray.next(dayData);
+        },
+      });
+    } else if (
+      range === '2h' ||
+      range === '6h' ||
+      range === '12h' ||
+      range === '1d'
+    ) {
+      let startDate = '';
+      let endDate = '';
+      if (range === '2h') {
+        startDate = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '6h') {
+        startDate = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '12h') {
+        startDate = moment().subtract(12, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '1d') {
+        startDate = moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      }
+      console.log(startDate, endDate);
+      this.chartData.getOrderTotalByHourRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let hourData: any = [];
+          this.hourList = resp.data.map((item: any) => item.hour);
+          resp.data.forEach((item: IHour) => {
+            const itemData = [item.hour, item.total];
+            hourData.push(itemData);
+          });
+          this.chartData.dataArray.next(hourData);
+        },
+      });
     }
   }
 
@@ -331,8 +384,9 @@ export class SalesComponent {
   }
 
   onSelectChartChange(event: any) {
-    this.selectedChart = event.target.value;
-    console.log('selectedChart', this.selectedChart);
+    console.log(event);
+    this.selectedChart = event;
+    // console.log('selectedChart', this.selectedChart);
   }
 
   getAllData(date: any) {
