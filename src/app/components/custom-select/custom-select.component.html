@@ -1,0 +1,14 @@
+<div class="custom-select">
+  <button class="select-button" (click)="toggleOptions()">
+    <!-- <span class="selected-option">{{ selectedOption }}</span> -->
+    <fa-icon [icon]="faChartLine" class="icon icon-main"></fa-icon>
+    <fa-icon [icon]="faAngleDown" class="icon"></fa-icon>
+  </button>
+  <div class="options-container" [hidden]="!showOptions">
+    <ng-container *ngFor="let option of options">
+      <div class="option" (click)="selectOption(option)">
+        {{ option }} chart
+      </div>
+    </ng-container>
+  </div>
+</div>

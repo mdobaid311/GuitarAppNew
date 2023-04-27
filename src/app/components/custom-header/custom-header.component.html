@@ -22,7 +22,7 @@
       <app-custom-daterange-picker
         (onDateChange)="onDateChange($event)"
         [fullDate]="fullDate"
-        [onRangeSelect]="onRangeSelect"
+        (onRangeSelect)="rangeSelectHandler($event)"
         (changeDate)="changeDateHandler($event)"
       ></app-custom-daterange-picker>
     </div>
