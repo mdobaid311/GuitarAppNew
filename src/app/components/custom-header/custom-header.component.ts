@@ -14,10 +14,12 @@ export class CustomHeaderComponent {
 
   customDate = new Date();
 
+
   @Output() onDateChanged: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate: any;
   @Output() onRangeSelect = new EventEmitter<string>();
   @Output() changeDate = new EventEmitter<string>();
+  @Input() showDateRangePicker: boolean = false;
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
