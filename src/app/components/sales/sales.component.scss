@@ -94,9 +94,10 @@
                 span {
                   color: var(--primary-color-1);
                   cursor: text;
+                  font-size: 18px;
+                  font-weight: bold;
                   &:hover {
-                    cursor: pointer;
-                    border-bottom: var(--primary-color-3);
+                     border-bottom: var(--primary-color-3);
                   }
                 }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser,faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-settings',
@@ -8,4 +8,5 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 })
 export class SettingsComponent {
   faUser = faUser;
+  faPlus = faPlus;
 }
