@@ -74,6 +74,16 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
+  public getOrderTotalByMonthRange(startDate: any, endDate: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_MONTH_RANGE}?startDate=${startDate}&&endDate=${endDate}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getOrderTotalByYearRange(startDate: any, endDate: any) {
+    const url = `${environment.SERVICE_APIS.ORIGINAL_ORDER_TOTAL_BY_YEAR_RANGE}?startDate=${startDate}&&endDate=${endDate}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
   // public getData(): Observable<any[]>  {
   //   const requestBody = {
   //     columns:["INVOICED_LINE_TOTAL"]

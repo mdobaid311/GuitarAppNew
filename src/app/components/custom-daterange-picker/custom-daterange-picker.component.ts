@@ -84,6 +84,7 @@ export class CustomDaterangePickerComponent {
 
   rangeSelectHandler(value: any) {
     this.onRangeSelect.emit(value);
+    this.datePickerVisible = false;
   }
 
   onDateSelection(date: NgbDate) {
