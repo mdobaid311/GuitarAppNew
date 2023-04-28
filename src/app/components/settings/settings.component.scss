@@ -1,0 +1,116 @@
+.settings__screen {
+  min-height: 100vh;
+  background: var(--primary-background-1);
+
+  .settings_container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+
+    .settings__main_screen {
+      flex: 1;
+      background: var(--primary-background-2);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--primary-boxshadow);
+      width: 1292px;
+      // border-radius: 6px;
+
+      .main_screen__main_container {
+        // border: 1px solid red;
+        flex: 1;
+        margin: 10px;
+        padding: 10px 15px;
+        display: flex;
+        flex-direction: column;
+
+        .main_container__heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          h3 {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary-color-1);
+          }
+        }
+
+        .main_container__settings_container {
+          flex: 1;
+          border-radius: 10px;
+          background: var(--primary-background-3);
+          box-shadow: var(--primary-boxshadow);
+          display: flex;
+          padding: 5px;
+          flex-direction: column;
+
+          .settings_container__tabs {
+            box-shadow: var(--primary-boxshadow);
+            border-radius: 10px;
+            display: flex;
+
+            .tab {
+              height: 100%;
+              padding: 15px;
+              border-radius: 10px;
+              border-bottom: 2px solid var(--primary-color-3);
+              background: var(--primary-background-2);
+              cursor: pointer;
+
+              .icon {
+                margin-right: 10px;
+              }
+            }
+          }
+
+          .create_user__form {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--primary-boxshadow);
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+              font-size: 25px;
+              font-weight: 700;
+              color: var(--primary-color-1);
+              margin-bottom: 20px;
+            }
+            .fields {
+              display: flex;
+              border: 1px solid red;
+              flex-wrap: wrap;
+              .field {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                margin: 0 10px;
+                width: 100%;
+                label {
+                  font-size: 18px;
+                  color: var(--primary-color-1);
+                }
+
+                input {
+                  border: none;
+                  border-radius: 10px;
+                  padding: 8px;
+                  width: 300px;
+                  max-width: 100%;
+                  outline: none;
+                  font-size: 16px;
+                  font-weight: 500;
+                  color: var(--primary-color-1);
+                  background: var(--primary-background-2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
