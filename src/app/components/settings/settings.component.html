@@ -20,8 +20,11 @@
               <span>User Management</span>
             </div>
           </div>
-
-          <div class="create_user__form">
+          <button class="create_user__button">
+            Create User
+            <fa-icon [icon]="faPlus" class="icon"></fa-icon>
+          </button>
+          <form class="create_user__form">
             <h2>Create User</h2>
             <div class="fields">
               <div class="field">
@@ -49,6 +52,38 @@
                 <input type="tel" id="phone" placeholder="Phone" />
               </div>
             </div>
+            <button class="create_user__form_button">Create</button>
+          </form>
+
+          <div class="users_list__table">
+            <h2>Users</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                </tr>
+                <tr>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                  <td [ngClass]="{}">row item</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
