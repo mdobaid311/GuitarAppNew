@@ -18,7 +18,7 @@
       />
       <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
     </div> -->
-    <div class="custom_datepicker">
+    <div class="custom_datepicker" *ngIf="showDateRangePicker">
       <app-custom-daterange-picker
         (onDateChange)="onDateChange($event)"
         [fullDate]="fullDate"

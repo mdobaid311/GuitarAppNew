@@ -7,7 +7,7 @@
     <app-sidebar></app-sidebar>
     <div class="settings__main_screen">
       <!-- header -->
-      <app-custom-header></app-custom-header>
+      <app-custom-header [showDateRangePicker]="false"></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Settings</h3>
@@ -20,11 +20,11 @@
               <span>User Management</span>
             </div>
           </div>
-          <button class="create_user__button">
+          <button class="create_user__button" (click)="toggleCreateUserForm()">
             Create User
             <fa-icon [icon]="faPlus" class="icon"></fa-icon>
           </button>
-          <form class="create_user__form">
+          <form class="create_user__form" *ngIf="showCreateUserForm">
             <h2>Create User</h2>
             <div class="fields">
               <div class="field">
@@ -69,18 +69,18 @@
               </thead>
               <tbody>
                 <tr>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
+                  <td>JohnDoe123</td>
+                  <td>johndoe123@example.com</td>
+                  <td>555-1234</td>
+                  <td>Admin</td>
+                  <td>row item</td>
                 </tr>
                 <tr>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
-                  <td [ngClass]="{}">row item</td>
+                  <td>JaneSmith789</td>
+                  <td>janesmith789@example.com</td>
+                  <td>555-5678</td>
+                  <td>User</td>
+                  <td>row item</td>
                 </tr>
               </tbody>
             </table>

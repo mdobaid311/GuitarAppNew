@@ -9,4 +9,9 @@ import { faUser,faPlus } from '@fortawesome/free-solid-svg-icons';
 export class SettingsComponent {
   faUser = faUser;
   faPlus = faPlus;
+  showCreateUserForm: boolean = false;
+
+  toggleCreateUserForm(){
+    this.showCreateUserForm = !this.showCreateUserForm;
+  }
 }
