@@ -209,7 +209,7 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
-     if (range === '1m') {
+    if (range === '1m') {
       const startDate = moment()
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
@@ -278,9 +278,36 @@ export class SalesComponent {
           this.chartData.dataArray.next(hourData);
         },
       });
-    }else if(range === '6m'){
+    } else if (range === '6m') {
       const startDate = moment()
         .subtract(6, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      console.log(startDate, endDate);
+
+      this.chartData.getOrderTotalByMonthRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let monthData: any = [];
+          this.monthList = resp.data.map((item: any) => item.month);
+          resp.data.forEach((item: IMonth) => {
+            const itemData = [item.month, item.total];
+            monthData.push(itemData);
+          });
+          this.chartData.dataArray.next(monthData);
+        },
+      });
+    } else if (range === '1y') {
+      const startDate = moment()
+        .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment().format('YYYY-MM-DD HH:mm');
       console.log(startDate, endDate);
@@ -466,7 +493,11 @@ class IHour {
   'hour': string;
   'total': number;
 }
-class IMonth{
+class IMonth {
   'month': string;
+  'total': number;
+}
+class IYear {
+  'year': string;
   'total': number;
 }
