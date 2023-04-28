@@ -59,8 +59,6 @@
             .chart_container_1_div_1 {
               // border: 1px solid red;
               height: 100%;
-              max-width: 25%;
-              box-shadow: var(--primary-boxshadow);
               flex: 2;
               margin: 10px;
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -93,12 +91,33 @@
                 justify-content: space-between;
                 font-size: 15px;
 
-                span:last-child {
-                  color: var(--primary-color-3);
+                span {
+                  color: var(--primary-color-1);
                   cursor: text;
                   &:hover {
                     cursor: pointer;
                     border-bottom: var(--primary-color-3);
+                  }
+                }
+
+                .div_1_progress_details__date_change {
+                  cursor: pointer;
+                  span {
+                    color: var(--primary-color-3);
+                    &:hover {
+                      color: var(--primary-color-1);
+                    }
+                  }
+
+                  .icon {
+                    margin-left: 10px;
+                    padding: 10px;
+                    border-radius: 10px;
+                  }
+
+                  .date-selector-input-box {
+                    margin: 10px;
+                    width: 80px;
                   }
                 }
 
@@ -120,8 +139,8 @@
             .chart_container_1_div_2 {
               // border: 1px solid rgb(23, 57, 121);
               height: 100%;
-              max-width: 50%;
               flex: 7;
+              max-width: 60%;
               margin: 10px;
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
               border-radius: 10px;
@@ -132,33 +151,55 @@
                 padding: 20px;
                 align-self: flex-end;
 
-                select {
-                  outline: 0;
-                  box-shadow: none;
-                  border: 0;
-                  margin-right: 15px;
-                  border-bottom: 1px solid var(--primary-color-3);
-                  background: transparent;
-                  background-image: none;
-                  flex: 1;
+                button {
+                  outline: none;
+                  // border: 1px solid var(--primary-color-1);
+                  background: var(--primary-background-3);
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 15px;
+                  padding: 10px;
+                  box-shadow: var(--primary-boxshadow);
                   color: var(--primary-color-1);
                   cursor: pointer;
-                  font-size: 1em;
-                }
 
-                select::-ms-expand {
-                  display: none;
-                }
+                  .icon {
+                    margin: 0 8px;
+                  }
 
-                option {
-                  background-color: var(--primary-background-2);
-                  color: var(--primary-color-1);
+                  .icon-main {
+                    color: var(--primary-color-3);
+                  }
+
+                  &:hover {
+                    filter: brightness(120%);
+                  }
                 }
               }
             }
           }
         }
       }
+    }
+  }
+}
+
+.custom_value__buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+  button {
+    margin: 0 10px;
+    border: 1px solid transparent;
+    outline: none;
+    background: transparent;
+    color: var(--primary-color-3);
+    font-size: 15px;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid var(--primary-color-3);
     }
   }
 }
