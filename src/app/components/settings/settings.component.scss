@@ -96,16 +96,22 @@
             }
             .fields {
               display: flex;
+              justify-content: space-between;
               flex-wrap: wrap;
+              width: 100%;
 
               .field {
                 display: flex;
-                flex-direction: column;
+                // flex-direction: column;
                 margin-right: 20px;
+                justify-content: space-between;
+                align-items: center;
                 width: 100%;
-                max-width: 600px;
+                max-width: 900px;
+                margin: 15px;
 
                 label {
+                  width: 150px;
                   font-size: 18px;
                   color: var(--primary-color-1);
                 }
@@ -113,7 +119,7 @@
                 input {
                   border: none;
                   border-radius: 10px;
-                  padding: 10px;
+                  padding: 15px;
                   width: 100%;
                   outline: none;
                   font-size: 16px;
