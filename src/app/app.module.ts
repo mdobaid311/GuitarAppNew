@@ -32,6 +32,7 @@ import {
   NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomSelectComponent } from './components/custom-select/custom-select.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CustomSelectComponent } from './components/custom-select/custom-select.
     DaySalesCardComponent,
     CustomDaterangePickerComponent,
     CustomSelectComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
