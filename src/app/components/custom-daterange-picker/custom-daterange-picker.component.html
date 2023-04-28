@@ -1,6 +1,9 @@
 <div class="container">
+  <button (click)="changeDateHandler('prev')" class="datepicker_toggle_button">
+    <fa-icon [icon]="faAngleLeft" class="icon"></fa-icon>
+  </button>
   <button (click)="setDatePickerVisible()" class="datepicker_toggle_button">
-    <span>{{ fullDate || date }}</span>
+    <span>{{ getDateString() }}</span>
     <fa-icon [icon]="faCalendar" class="icon"></fa-icon>
   </button>
   <div class="datepicker" *ngIf="datePickerVisible">
@@ -20,13 +23,13 @@
     </div>
     <div class="sections_container">
       <div *ngIf="divName === 'range'; else second" class="range_container">
-        <button (click)="onRangeSelect('2h')">Last 2 hours</button>
-        <button (click)="onRangeSelect('6h')">Last 6 hours</button>
-        <button (click)="onRangeSelect('12h')">Last 12 hours</button>
-        <button (click)="onRangeSelect('1d')">Last 1 day</button>
-        <button (click)="onRangeSelect('1m')">Last 1 month</button>
-        <button (click)="onRangeSelect('6m')">Last 6 months</button>
-        <button (click)="onRangeSelect('1y')">Last 1 year</button>
+        <button (click)="rangeSelectHandler('2h')">Last 2 hours</button>
+        <button (click)="rangeSelectHandler('6h')">Last 6 hours</button>
+        <button (click)="rangeSelectHandler('12h')">Last 12 hours</button>
+        <button (click)="rangeSelectHandler('1d')">Last 1 day</button>
+        <button (click)="rangeSelectHandler('1m')">Last 1 month</button>
+        <button (click)="rangeSelectHandler('6m')">Last 6 months</button>
+        <button (click)="rangeSelectHandler('1y')">Last 1 year</button>
       </div>
 
       <ng-template #second>
@@ -68,4 +71,11 @@
       </ng-template>
     </div>
   </div>
+  <button
+    (click)="changeDateHandler('next')"
+    class="datepicker_toggle_button"
+    [disabled]="isButtonDisabled"
+  >
+    <fa-icon [icon]="faAngleRight" class="icon"></fa-icon>
+  </button>
 </div>
