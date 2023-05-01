@@ -6,8 +6,9 @@
   </button>
   <div class="options-container" [hidden]="!showOptions">
     <ng-container *ngFor="let option of options">
-      <div class="option" (click)="selectOption(option)">
-        {{ option }} chart
+      <div class="option" (click)="selectOption(option.name)">
+        <fa-icon [icon]="option.icon" class="icon icon-main"></fa-icon>
+        {{ option.name.toUpperCase() }}
       </div>
     </ng-container>
   </div>
