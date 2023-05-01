@@ -34,6 +34,7 @@
         (changeDate)="changeDate($event)"
         (onRangeSelect)="onRangeSelect($event)"
         [fullDate]="fullDate"
+        [showDateRangePicker]="true"
       ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
@@ -63,11 +64,11 @@
                     (blur)="makeNonEditable()"
                     (change)="setCustomGoal($event)"
                   />
-                  <fa-icon
+                  <!-- <fa-icon
                     [icon]="faCalendar"
                     class="icon"
                     (click)="toggleChangeModal()"
-                  ></fa-icon>
+                  ></fa-icon> -->
                   <fa-icon
                     [icon]="faCalendar"
                     class="icon"
@@ -92,8 +93,7 @@
               <app-column-chart
                 *ngIf="selectedChart == 'column'"
               ></app-column-chart>
-              <app-pie-chart  *ngIf="selectedChart == 'pie'"
-              ></app-pie-chart>
+              <app-pie-chart *ngIf="selectedChart == 'pie'"></app-pie-chart>
             </div>
           </div>
 

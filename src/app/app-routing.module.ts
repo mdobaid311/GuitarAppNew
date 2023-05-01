@@ -5,18 +5,19 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AreaSplineChartComponent } from './components/area-spline-chart/area-spline-chart.component';
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { SalesComponent } from './components/sales/sales.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'area-chart', component: AreaSplineChartComponent},
-  {path: 'org-chart', component: OrgChartComponent},
-  {path: 'sales', component: SalesComponent},
-
+  { path: '', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'area-chart', component: AreaSplineChartComponent },
+  { path: 'org-chart', component: OrgChartComponent },
+  { path: 'sales', component: SalesComponent },
+  { path: 'settings', component: SettingsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

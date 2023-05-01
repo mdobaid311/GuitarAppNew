@@ -24,7 +24,7 @@ import { CustomModalComponent } from './components/custom-modal/custom-modal.com
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales/sales.component';
-import { DaySalesCardComponent } from './day-sales-card/day-sales-card.component';
+import { DaySalesCardComponent } from './components/day-sales-card/day-sales-card.component';
 import { CustomDaterangePickerComponent } from './components/custom-daterange-picker/custom-daterange-picker.component';
 import {
   NgbPaginationModule,
@@ -33,6 +33,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomSelectComponent } from './components/custom-select/custom-select.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     CustomDaterangePickerComponent,
     CustomSelectComponent,
     PieChartComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
