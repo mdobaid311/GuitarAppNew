@@ -3,7 +3,13 @@
     <app-sidebar></app-sidebar>
     <div class="dashboard__main_screen">
       <!-- header -->
-      <app-custom-header></app-custom-header>
+      <app-custom-header
+        (onDateChanged)="onGlobalDateRangeChanged($event)"
+        (changeDate)="changeDate($event)"
+        (onRangeSelect)="onRangeSelect($event)"
+        [fullDate]="fullDate"
+        [showDateRangePicker]="true"
+      ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Sales flow</h3>

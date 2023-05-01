@@ -60,7 +60,11 @@ export class ChartService {
   }
 
   public getOrgChartData() {
-    const url = `${environment.SERVICE_APIS.ORG_CHART}`;
+    const url = `${environment.SERVICE_APIS.ORG_CHART}?startDate='2015-01-01 00:00'&endDate='2023-01-31 01:00'`;
+    return this.httpClient.get<any[]>(url);
+  }
+  public getOrgChartDataByRange(startDate: any, endDate: any) {
+    const url = `${environment.SERVICE_APIS.ORG_CHART}/range?startDate=${startDate}&endDate=${endDate}}`;
     return this.httpClient.get<any[]>(url);
   }
 

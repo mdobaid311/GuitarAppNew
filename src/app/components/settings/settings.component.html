@@ -1,0 +1,92 @@
+<div class="loader-container" *ngIf="">
+  <div class="loader"></div>
+</div>
+
+<div class="settings__screen">
+  <div class="settings_container">
+    <app-sidebar></app-sidebar>
+    <div class="settings__main_screen">
+      <!-- header -->
+      <app-custom-header [showDateRangePicker]="false"></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <h3>Settings</h3>
+          <!-- <h3>Edit</h3> -->
+        </div>
+        <div class="main_container__settings_container">
+          <div class="settings_container__tabs">
+            <div class="tab">
+              <fa-icon [icon]="faUser" class="icon"></fa-icon>
+              <span>User Management</span>
+            </div>
+          </div>
+          <button class="create_user__button" (click)="toggleCreateUserForm()">
+            Create User
+            <fa-icon [icon]="faPlus" class="icon"></fa-icon>
+          </button>
+          <form class="create_user__form" *ngIf="showCreateUserForm">
+            <h2>Create User</h2>
+            <div class="fields">
+              <div class="field">
+                <label for="userName">Username: </label>
+                <input type="text" id="userName" placeholder="Username" />
+              </div>
+              <div class="field">
+                <label for="email">Email: </label>
+                <input type="email" id="email" placeholder="Email" />
+              </div>
+              <div class="field">
+                <label for="firstName">First name: </label>
+                <input type="text" id="firstName" placeholder="First name" />
+              </div>
+              <div class="field">
+                <label for="lastName">Last name: </label>
+                <input type="text" id="lastName" placeholder="Last name" />
+              </div>
+              <div class="field">
+                <label for="role">Role: </label>
+                <input type="text" id="role" placeholder="Role" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone: </label>
+                <input type="tel" id="phone" placeholder="Phone" />
+              </div>
+            </div>
+            <button class="create_user__form_button">Create</button>
+          </form>
+
+          <div class="users_list__table">
+            <h2>Users</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JohnDoe123</td>
+                  <td>johndoe123@example.com</td>
+                  <td>555-1234</td>
+                  <td>Admin</td>
+                  <td>row item</td>
+                </tr>
+                <tr>
+                  <td>JaneSmith789</td>
+                  <td>janesmith789@example.com</td>
+                  <td>555-5678</td>
+                  <td>User</td>
+                  <td>row item</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
