@@ -10,6 +10,5 @@ export class CustomProgressBarComponent {
   progress = this.customGoalProgress + '%';
 
   constructor() {
-    console.log(this.progress);
-  }
+   }
 }

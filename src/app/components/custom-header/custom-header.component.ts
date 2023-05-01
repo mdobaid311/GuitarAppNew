@@ -142,8 +142,7 @@ export class CustomHeaderComponent {
   model: any = null;
 
   constructor() {
-    console.log(this.fullDate + 'full');
-  }
+   }
 
   ngOnInit() {
     if (this.myDateInit) {

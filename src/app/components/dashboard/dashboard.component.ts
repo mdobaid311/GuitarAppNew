@@ -9,6 +9,7 @@ import {
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { DatetimeService } from 'src/app/services/datetime.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -195,13 +196,12 @@ export class DashboardComponent implements OnInit {
   makeEditable() {
     this.isEditable = true;
   }
-
-  constructor(
+   constructor(
     private chartData: ChartService,
-    private router: Router,
+     private router: Router,
     calendar: NgbCalendar
   ) {
-    this.globalFromDate = calendar.getToday();
+     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
   }
 
