@@ -7,6 +7,9 @@ import {
   faCalendar,
   faChartLine,
   faAngleDown,
+  faChartPie,
+  faChartBar,
+  faChartColumn,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -24,6 +27,9 @@ export class SalesComponent {
   faCalendar = faCalendar;
   faChartLine = faChartLine;
   faAngleDown = faAngleDown;
+  faChartPie = faChartPie;
+  faChartBar = faChartBar;
+  faChartColumn = faChartColumn;
 
   yearData: any = [];
   dataRows = [];
@@ -46,7 +52,11 @@ export class SalesComponent {
 
   isEditable: boolean = false;
 
-  chartTypeOptions = ['column', 'bar', 'pie'];
+  chartTypeOptions = [
+    { name: 'column', icon: faChartColumn },
+    { name: 'bar', icon: faChartBar },
+    { name: 'pie', icon: faChartPie },
+  ];
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
@@ -365,7 +375,10 @@ export class SalesComponent {
         this.globalToDate.day
       : null;
     if (beginDate && endDate) {
-      this.fullDate = moment(beginDate,"YYYY-M-DD").format("MMM DD YYYY") + ' , ' + moment(endDate,"YYYY-M-DD").format("MMM DD YYYY");
+      this.fullDate =
+        moment(beginDate, 'YYYY-M-DD').format('MMM DD YYYY') +
+        ' , ' +
+        moment(endDate, 'YYYY-M-DD').format('MMM DD YYYY');
 
       this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
         next: (resp: any) => {
