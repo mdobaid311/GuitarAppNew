@@ -34,7 +34,7 @@ export class SalesComponent {
   yearData: any = [];
   dataRows = [];
 
-  selectedChart = 'pie';
+  selectedChart = 'column';
   loader = false;
 
   showChangeModal = false;
@@ -197,7 +197,7 @@ export class SalesComponent {
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
-
+    console.log('first');
     const beginDate = begin
       ? begin.year + '-' + begin.month + '-' + begin.day
       : null;
@@ -380,9 +380,9 @@ export class SalesComponent {
         ' , ' +
         moment(endDate, 'YYYY-M-DD').format('MMM DD YYYY');
 
-      this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
+      this.chartData.getOrderTotalByDayRange(beginDate, endDate).subscribe({
         next: (resp: any) => {
-          this.originalOrdersTotalToday = resp[0].original_orders_total;
+          this.originalOrdersTotalToday = resp.totalAmount;
           this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
             notation: 'compact',
             compactDisplay: 'short',
@@ -391,6 +391,13 @@ export class SalesComponent {
             ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
               1
             ) + '%';
+          let dayData: any = [];
+          this.dayList = resp.data.map((item: any) => item.day);
+          resp.data.forEach((item: IDay) => {
+            const itemData = [item.day, item.total];
+            dayData.push(itemData);
+          });
+          this.chartData.dataArray.next(dayData);
         },
       });
     }
