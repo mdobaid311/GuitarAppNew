@@ -112,16 +112,11 @@ export class ColumnChartComponent {
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
-<<<<<<< HEAD
-    });
-    this.loadInitialchart();
-=======
       this.loader = false;
     })
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
->>>>>>> c47bbed03688d7f855b23383371154da9998029a
   }
 
   loadInitialchart() {
