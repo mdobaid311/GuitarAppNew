@@ -463,16 +463,12 @@ export class SalesComponent {
   }
 
   onSelectChartChange(event: any) {
-<<<<<<< HEAD
-    this.selectedChart = event;
-=======
     console.log('currentRange', this.currentRange)
     console.log(event);
     this.selectedChart = event;
     this.onRangeSelect(this.currentRange)
 
     // console.log('selectedChart', this.selectedChart);
->>>>>>> c47bbed03688d7f855b23383371154da9998029a
   }
 
   getAllData(date: any) {
