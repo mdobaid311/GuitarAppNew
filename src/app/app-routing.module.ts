@@ -6,12 +6,14 @@ import { AreaSplineChartComponent } from './components/area-spline-chart/area-sp
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'area-chart', component: AreaSplineChartComponent },
   { path: 'org-chart', component: OrgChartComponent },
+  { path: 'org-chart-1', component: Orgchart2Component },
   { path: 'sales', component: SalesComponent },
   { path: 'settings', component: SettingsComponent },
 ];

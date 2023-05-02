@@ -10,7 +10,11 @@
     ></fa-icon>
   </div>
   <div class="sidebar__icon" routerLink="/sales">
-    <fa-icon [icon]="faCashRegister" class="icon"></fa-icon>
+    <fa-icon
+      [icon]="faCashRegister"
+      class="icon"
+      [ngClass]="currentRoute === '/sales' ? 'active' : ''"
+    ></fa-icon>
   </div>
   <div class="sidebar__icon" routerLink="/area-chart">
     <fa-icon
@@ -27,8 +31,12 @@
     ></fa-icon>
   </div>
 
-  <div class="sidebar__icon">
-    <fa-icon [icon]="faMessage" class="icon"></fa-icon>
+  <div class="sidebar__icon" routerLink="/org-chart-1">
+    <fa-icon
+      [icon]="faMessage"
+      class="icon"
+      [ngClass]="currentRoute === '/org-chart-1' ? 'active' : ''"
+    ></fa-icon>
   </div>
   <div class="sidebar__icon">
     <fa-icon [icon]="faGear" class="icon"></fa-icon>

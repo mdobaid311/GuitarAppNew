@@ -34,6 +34,7 @@ import {
 import { CustomSelectComponent } from './components/custom-select/custom-select.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     CustomSelectComponent,
     PieChartComponent,
     SettingsComponent,
+    Orgchart2Component,
   ],
   imports: [
     BrowserModule,
