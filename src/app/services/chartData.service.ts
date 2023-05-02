@@ -5,13 +5,15 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChartService {
   dataArray = new Subject<Array<any>>();
+  booleanSubject = new BehaviorSubject<boolean>(false);
+
 
   constructor(
     private httpClient: HttpClient,

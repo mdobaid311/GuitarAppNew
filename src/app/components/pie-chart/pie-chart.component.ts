@@ -42,6 +42,7 @@ export class PieChartComponent {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     this.subscription = this.chartData.dataArray.subscribe((array) => {
       this.newDataArray = array;
 
@@ -56,12 +57,34 @@ export class PieChartComponent {
         };
       })
 
+=======
+
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? this.loader = true :  null;
+    })
+
+    this.subscription = this.chartData.dataArray.subscribe(array => {
+      console.log('Array', array)
+      this.newDataArray = array;
+      let pieDataArray:any = [];
+      array.forEach(item => {
+        const element = {
+          name: item[0],
+          y: item[1]
+        }
+        pieDataArray.push(element);
+      })
+>>>>>>> c47bbed03688d7f855b23383371154da9998029a
       this.chartOptions = {
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
+<<<<<<< HEAD
           type: 'pie',
+=======
+          type: 'pie'
+>>>>>>> c47bbed03688d7f855b23383371154da9998029a
         },
         title: {
           text: 'Sales',
@@ -72,6 +95,7 @@ export class PieChartComponent {
           },
         },
         tooltip: {
+<<<<<<< HEAD
           pointFormat: 'Sales: <b>{point.sales} </b> ',
         },
         accessibility: {
@@ -101,10 +125,44 @@ export class PieChartComponent {
       this.updateChartTheme();
     });
     this.loadInitialchart();
+=======
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+          point: {
+            valueSuffix: '%'
+          }
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          name: 'Brands',
+          colorByPoint: true,
+          data: pieDataArray
+        }]
+      };
+      Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+      this.updateChartTheme();
+      this.loader = false;
+    })
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? null :  this.loadInitialchart()
+    })
+>>>>>>> c47bbed03688d7f855b23383371154da9998029a
   }
 
   loadInitialchart() {
-    this.loader = true;
+      this.chartData.booleanSubject.subscribe(permission => {
+      permission ?  null :  this.loader = true;
+    })
     this.chartData.getOrderTotalYears().subscribe({
       next: (resp) => {
         let yearsData: any = [];
