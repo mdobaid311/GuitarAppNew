@@ -1,6 +1,13 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
 .container {
   position: relative;
   background-color: var(--primary-background-2);
+  @media (max-width: $mobile) {
+    display: flex;
+  }
 }
 
 .datepicker_toggle_button {
@@ -11,6 +18,10 @@
   border: none;
   outline: none;
   padding: 10px;
+
+  @media (max-width: $mobile) {
+    display: flex;
+  }
 
   &:hover {
     filter: brightness(120%);
@@ -25,7 +36,6 @@
   padding: 0 10px;
   font-size: 15px;
 }
-
 
 .disabled {
   // color: var(--primary-color-3);

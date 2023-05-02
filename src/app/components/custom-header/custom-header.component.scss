@@ -1,3 +1,7 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
 .main_screen__topbar {
   // border: 1px solid rgb(3, 2, 2);
   border-bottom: 1px solid #ccc;
@@ -57,6 +61,9 @@
       align-items: center;
       margin-right: 20px;
 
+      @media (max-width: $mobile) {
+        display: none;
+      }
       input {
         border: none;
         outline: none;
