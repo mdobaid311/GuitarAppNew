@@ -117,6 +117,8 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
+    this.loadInitialchart()
+
   }
 
   loadInitialchart() {
