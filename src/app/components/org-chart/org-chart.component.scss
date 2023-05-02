@@ -85,7 +85,10 @@
           }
           .org_chart__node {
             color: var(--primary-color-1);
-            border-radius: 50%;
+            background: var(--primary-background-3);
+            border-radius: 5%;
+            min-width:100px ;
+            min-height: 80px;
             padding: 15px;
             // transform: rotate(90deg);
             display: flex;
@@ -109,7 +112,7 @@
 :host ::ng-deep .chart_node {
   background: var(--primary-background-3);
   color: var(--primary-color-1);
-  border-radius: 50%;
+  border-radius: 5%;
   padding: 5px;
   border: 2px solid var(--primary-color-1);
 }

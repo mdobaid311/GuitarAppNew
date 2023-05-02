@@ -1,4 +1,11 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  HostListener,
+  ElementRef,
+} from '@angular/core';
 import { faChartLine, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-custom-select',
@@ -7,7 +14,7 @@ import { faChartLine, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 })
 export class CustomSelectComponent {
   @Output() onSelectChartChange = new EventEmitter<string>();
-  @Input() options: string[] = [];
+  @Input() options: any[] = [];
 
   selectedOption: string = '';
   showOptions: boolean = false;
@@ -15,6 +22,15 @@ export class CustomSelectComponent {
   faChartLine = faChartLine;
   faAngleDown = faAngleDown;
 
+  constructor(private elementRef: ElementRef) {}
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.showOptions = false;
+    }
+  }
   toggleOptions() {
     this.showOptions = !this.showOptions;
   }

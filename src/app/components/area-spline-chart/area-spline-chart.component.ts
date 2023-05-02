@@ -43,8 +43,7 @@ export class AreaSplineChartComponent {
   onColumnHeaderClick(header: string) {
     this.selectedColumnHeader = header;
     this.selectedColumnData = this.data.map((row: any) => row[header]);
-    console.log(this.selectedColumnData);
-    this.chartOptions = {
+     this.chartOptions = {
       chart: {
         type: 'areaspline',
         backgroundColor: this.theme === 'dark' ? '#19376D' : '#fff',

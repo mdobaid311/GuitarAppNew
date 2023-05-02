@@ -29,7 +29,7 @@
   z-index: 1;
   background-color: var(--primary-background-2);
   color: var(--primary-color-1);
-  width: 100px;
+  width: max-content;
   overflow: visible;
   border-radius: 10px;
 }
@@ -48,6 +48,7 @@
 .option {
   padding: 0.5rem;
   cursor: pointer;
+  display: flex;
 }
 
 .option:hover {

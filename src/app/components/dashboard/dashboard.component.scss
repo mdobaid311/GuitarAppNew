@@ -1,3 +1,7 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
 .loader-container {
   position: fixed;
   top: 0;
@@ -98,7 +102,10 @@
             // justify-content: space-evenly;
             align-items: center;
             // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
+            @media (max-width: $mobile) {
+              flex-direction: column;
+              width: 100%;
+            }
             .chart_container_1_div_1 {
               // border: 1px solid red;
               height: 100%;
@@ -110,7 +117,9 @@
               flex-direction: column;
               justify-content: center;
               padding: 10px 15px;
-
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
               h1 {
                 font-size: 50px;
                 font-weight: 700;
@@ -133,7 +142,10 @@
                 display: flex;
                 justify-content: space-between;
                 font-size: 15px;
-
+                @media (max-width: $mobile) {
+                  width: 100%;
+                  margin: 15px 0;
+                }
                 span {
                   color: var(--primary-color-1);
                   cursor: text;
@@ -155,7 +167,7 @@
                   .icon {
                     margin-left: 10px;
                     padding: 10px;
-                     border-radius: 10px;
+                    border-radius: 10px;
                   }
 
                   .date-selector-input-box {
@@ -186,6 +198,9 @@
               margin: 10px;
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
               border-radius: 10px;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
             }
             .chart_container_1_div_3 {
               // border: 1px solid rgb(0, 255, 242);
@@ -195,15 +210,26 @@
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
               border-radius: 10px;
               padding: 10px 15px;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
 
               .div_3__progress_container {
                 width: 100%;
                 font-size: 15px;
                 margin-top: 20px;
                 font-weight: 50;
+
+                @media (max-width: $mobile) {
+                  width: 100%;
+                  margin: 15px 0;
+                }
                 .progress_container__progress_detail {
                   display: flex;
                   justify-content: space-between;
+                  @media (max-width: $mobile) {
+                    width: 100%;
+                  }
                 }
                 progress {
                   width: 100%;
@@ -220,12 +246,17 @@
               box-shadow: var(--primary-boxshadow);
               border-radius: 10px;
               padding: 10px 15px;
-
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
               .div_1__orders_detail {
                 display: flex;
                 flex-direction: column;
                 margin: 10px 0;
-
+                @media (max-width: $mobile) {
+                  width: 100%;
+                  margin: 15px 0;
+                }
                 h1 {
                   font-size: 42px;
                 }
@@ -279,6 +310,9 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
             }
 
             .chart_container_2_div_2 {
@@ -290,6 +324,9 @@
               border-radius: 10px;
               display: flex;
               flex-direction: column;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
 
               .choose_date {
                 align-self: flex-end;
@@ -305,6 +342,9 @@
               display: flex;
               justify-content: space-between;
               flex-direction: column;
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
               .div_3__info {
                 display: flex;
                 flex-direction: column;
@@ -313,6 +353,10 @@
                 border-radius: 10px;
                 flex: 1;
                 margin-bottom: 5px;
+                @media (max-width: $mobile) {
+                  width: 100%;
+                  margin: 15px 0;
+                }
                 .info__detail {
                   padding: 10px 0;
                   width: 100%;

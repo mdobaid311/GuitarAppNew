@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { faUser,faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { DatetimeService } from 'src/app/services/datetime.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,9 @@ export class SettingsComponent {
   faPlus = faPlus;
   showCreateUserForm: boolean = false;
 
-  toggleCreateUserForm(){
+  constructor(private datetime: DatetimeService) {}
+
+  toggleCreateUserForm() {
     this.showCreateUserForm = !this.showCreateUserForm;
   }
 }
