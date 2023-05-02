@@ -38,81 +38,73 @@ export class PieChartComponent {
 
   ngOnInit() {
 
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? this.loader = true :  null;
+    })
+
     this.subscription = this.chartData.dataArray.subscribe(array => {
       console.log('Array', array)
       this.newDataArray = array;
-
+      let pieDataArray:any = [];
+      array.forEach(item => {
+        const element = {
+          name: item[0],
+          y: item[1]
+        }
+        pieDataArray.push(element);
+      })
       this.chartOptions = {
         chart: {
-          type: 'column',
-          height: (9 / 16) * 40 + '%',
-
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
         },
-
         title: {
           text: 'Sales',
+          align: 'left',
           style: {
             color: '#000',
             fontFamily: 'Verdana, sans-serif',
           },
         },
-
-        xAxis: {
-          type: 'category',
-          labels: {
-            rotation: 0,
-            style: {
-              color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
-            },
-          },
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Dollars in 1000' + "'" + 's',
-          },
-          labels: {
-            rotation: 0,
-            style: {
-              // height: '100px',
-              color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
-            },
-          },
-        },
-        legend: {
-          enabled: false,
-        },
         tooltip: {
-          pointFormat: 'Sales: <b>{point.y:.1f} </b>',
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
-        series: [
-          {
-            name: 'Population',
-            data: array,
-
+        accessibility: {
+          point: {
+            valueSuffix: '%'
+          }
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
             dataLabels: {
-              enabled: false, // Remove data labels from columns
-
-            },
-            color: '#2f7ed8', // Change color of columns
-            pointWidth: 25, // Reduce width of columns
-            backgroundColor: '#FCFFC5',
-          },
-        ],
-
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+          }
+        },
+        series: [{
+          name: 'Brands',
+          colorByPoint: true,
+          data: pieDataArray
+        }]
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
+      this.loader = false;
     })
-    this.loadInitialchart();
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? null :  this.loadInitialchart()
+    })
   }
 
   loadInitialchart() {
-    this.loader = true;
+      this.chartData.booleanSubject.subscribe(permission => {
+      permission ?  null :  this.loader = true;
+    })
     this.chartData.getOrderTotalYears().subscribe({
       next: resp => {
         let yearsData:any = [];

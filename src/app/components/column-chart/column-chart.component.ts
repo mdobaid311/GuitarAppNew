@@ -36,7 +36,11 @@ export class ColumnChartComponent {
 
 
   ngOnInit() {
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? this.loader = true :  null;
+    })
 
+    console.log('enwDAtaARry', this.newDataArray)
     this.subscription = this.chartData.dataArray.subscribe(array => {
       console.log('Array', array)
       this.newDataArray = array;
@@ -106,12 +110,19 @@ export class ColumnChartComponent {
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
+      this.loader = false;
     })
-    this.loadInitialchart();
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ? null :  this.loadInitialchart()
+    })
   }
 
   loadInitialchart() {
-    this.loader = true;
+
+    this.chartData.booleanSubject.subscribe(permission => {
+      permission ?  null :  this.loader = true;
+    })
+
     this.chartData.getOrderTotalYears().subscribe({
       next: resp => {
         let yearsData:any = [];

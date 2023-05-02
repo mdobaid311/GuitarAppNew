@@ -20,6 +20,7 @@ export class SalesComponent {
 
   originalOrdersTotalToday: any;
   originalOrdersTotalTodayAbbr: any;
+  currentRange: any;
 
   faCalendar = faCalendar;
   faChartLine = faChartLine;
@@ -209,6 +210,11 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
+
+    this.chartData.booleanSubject.next(true);
+    this.loader = true;
+
+    this.currentRange = range;
     if (range === '1m') {
       const startDate = moment()
         .subtract(1, 'months')
@@ -333,6 +339,7 @@ export class SalesComponent {
         },
       });
     }
+    this.loader = false;
   }
 
   onGlobalDateRangeChanged(date: NgbDate) {
@@ -407,6 +414,7 @@ export class SalesComponent {
   }
 
   ngOnInit(): void {
+    this.chartData.booleanSubject.next(false)
     this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);
@@ -437,8 +445,11 @@ export class SalesComponent {
   }
 
   onSelectChartChange(event: any) {
+    console.log('currentRange', this.currentRange)
     console.log(event);
     this.selectedChart = event;
+    this.onRangeSelect(this.currentRange)
+
     // console.log('selectedChart', this.selectedChart);
   }
 

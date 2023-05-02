@@ -170,26 +170,157 @@ export class DashboardComponent implements OnInit {
     },
   };
 
+  // onRangeSelect(range: any) {
+  //   console.log(range);
+  //   if (range === '1d') {
+  //     this.chartData
+  //       .getOrderTotalForRange('2023-01-30', '2023-01-31')
+  //       .subscribe({
+  //         next: (resp: any) => {
+  //           console.log('dateChangeResp', resp);
+  //           this.originalOrdersTotalToday = resp[0].original_orders_total;
+  //           this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+  //             notation: 'compact',
+  //             compactDisplay: 'short',
+  //           }).format(this.originalOrdersTotalToday);
+  //           this.customGoalProgress =
+  //             ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+  //               1
+  //             ) + '%';
+  //         },
+  //       });
+  //   }
+  // }
   onRangeSelect(range: any) {
-    console.log(range);
-    if (range === '1d') {
-      this.chartData
-        .getOrderTotalForRange('2023-01-30', '2023-01-31')
-        .subscribe({
-          next: (resp: any) => {
-            console.log('dateChangeResp', resp);
-            this.originalOrdersTotalToday = resp[0].original_orders_total;
-            this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
-              notation: 'compact',
-              compactDisplay: 'short',
-            }).format(this.originalOrdersTotalToday);
-            this.customGoalProgress =
-              ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
-                1
-              ) + '%';
-          },
-        });
+
+    this.chartData.booleanSubject.next(true);
+    this.loader = true;
+
+    if (range === '1m') {
+      const startDate = moment()
+        .subtract(1, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      console.log(startDate, endDate);
+
+      this.chartData.getOrderTotalByDayRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let dayData: any = [];
+          this.dayList = resp.data.map((item: any) => item.day);
+          resp.data.forEach((item: IDay) => {
+            const itemData = [item.day, item.total];
+            dayData.push(itemData);
+          });
+          this.chartData.dataArray.next(dayData);
+        },
+      });
+    } else if (
+      range === '2h' ||
+      range === '6h' ||
+      range === '12h' ||
+      range === '1d'
+    ) {
+      let startDate = '';
+      let endDate = '';
+      if (range === '2h') {
+        startDate = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '6h') {
+        startDate = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '12h') {
+        startDate = moment().subtract(12, 'hours').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      } else if (range === '1d') {
+        startDate = moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm');
+        endDate = moment().format('YYYY-MM-DD HH:mm');
+      }
+      console.log(startDate, endDate);
+      this.chartData.getOrderTotalByHourRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let hourData: any = [];
+          this.hourList = resp.data.map((item: any) => item.hour);
+          resp.data.forEach((item: IHour) => {
+            const itemData = [item.hour, item.total];
+            hourData.push(itemData);
+          });
+          this.chartData.dataArray.next(hourData);
+        },
+      });
+    } else if (range === '6m') {
+      const startDate = moment()
+        .subtract(6, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      console.log(startDate, endDate);
+
+      this.chartData.getOrderTotalByMonthRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let monthData: any = [];
+          this.monthList = resp.data.map((item: any) => item.month);
+          resp.data.forEach((item: IMonth) => {
+            const itemData = [item.month, item.total];
+            monthData.push(itemData);
+          });
+          this.chartData.dataArray.next(monthData);
+        },
+      });
+    } else if (range === '1y') {
+      const startDate = moment()
+        .subtract(12, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      console.log(startDate, endDate);
+
+      this.chartData.getOrderTotalByMonthRange(startDate, endDate).subscribe({
+        next: (resp: any) => {
+          this.originalOrdersTotalToday = resp.totalAmount;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
+              1
+            ) + '%';
+          let monthData: any = [];
+          this.monthList = resp.data.map((item: any) => item.month);
+          resp.data.forEach((item: IMonth) => {
+            const itemData = [item.month, item.total];
+            monthData.push(itemData);
+          });
+          this.chartData.dataArray.next(monthData);
+        },
+      });
     }
+    this.loader = false;
   }
 
   makeEditable() {
@@ -301,6 +432,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.chartData.booleanSubject.next(false)
     this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);
@@ -468,5 +600,14 @@ class IDay {
 
 class IHour {
   'hour': string;
+  'total': number;
+}
+
+class IMonth {
+  'month': string;
+  'total': number;
+}
+class IYear {
+  'year': string;
   'total': number;
 }
