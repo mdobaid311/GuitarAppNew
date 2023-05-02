@@ -31,7 +31,7 @@
       <!-- header -->
       <app-custom-header
         (onDateChanged)="onGlobalDateRangeChanged($event)"
-        (onRangeSelect)="(onRangeSelect)"
+        (onRangeSelect)="onRangeSelect($event)"
         [fullDate]="fullDate"
         [showDateRangePicker]="true"
       ></app-custom-header>
