@@ -92,7 +92,7 @@ export class PieChartComponent {
           }
         },
         series: [{
-          name: 'Brands',
+          name: 'Sales',
           colorByPoint: true,
           data: pieDataArray
         }]

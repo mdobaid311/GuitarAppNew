@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginClick() {
-    this._router.navigate(['/dashboard']);
+    if (this.username == 'mdobaid311@gmail.com' && this.password == 'Obaid311') {
+      this._router.navigate(['/dashboard']);
+    }else{
+      alert("Invalid Username or Password");
+    }
   }
 }
