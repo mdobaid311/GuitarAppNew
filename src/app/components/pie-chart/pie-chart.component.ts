@@ -104,6 +104,7 @@ export class PieChartComponent {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
+    this.loadInitialchart()
   }
 
   loadInitialchart() {
