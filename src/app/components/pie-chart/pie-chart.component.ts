@@ -1,5 +1,12 @@
-
-import { Component, ElementRef, Input, SimpleChanges, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  SimpleChanges,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
@@ -7,15 +14,15 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
   chartOptions: any;
 
-  newDataArray:any = [];
-  subscription: Subscription = new Subscription;
+  newDataArray: any = [];
+  subscription: Subscription = new Subscription();
 
   theme = 'light';
   loader = false;
@@ -33,8 +40,6 @@ export class PieChartComponent {
     });
     observer.observe(document.body, { attributes: true });
   }
-
-
 
   ngOnInit() {
 
@@ -106,22 +111,25 @@ export class PieChartComponent {
       permission ?  null :  this.loader = true;
     })
     this.chartData.getOrderTotalYears().subscribe({
-      next: resp => {
-        let yearsData:any = [];
-        console.log('Year data', resp)
-        resp.forEach((item:IYear) => {
+      next: (resp) => {
+        let yearsData: any = [];
+        resp.forEach((item: IYear) => {
           const itemData = {
             name: item.year,
             y: item.total,
+            sales: Intl.NumberFormat('en-US', {
+              notation: 'compact',
+              compactDisplay: 'short',
+            }).format(item.total),
           };
-            yearsData.push(itemData);
-        })
+          yearsData.push(itemData);
+        });
         this.chartOptions = {
           chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'pie'
+            type: 'pie',
           },
           title: {
             text: 'Sales',
@@ -132,12 +140,12 @@ export class PieChartComponent {
             },
           },
           tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: 'Sales: <b>{point.sales} </b> ',
           },
           accessibility: {
             point: {
-              valueSuffix: '%'
-            }
+              valueSuffix: '%',
+            },
           },
           plotOptions: {
             pie: {
@@ -145,24 +153,24 @@ export class PieChartComponent {
               cursor: 'pointer',
               dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-              }
-            }
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+              },
+            },
           },
-          series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: yearsData
-          }]
+          series: [
+            {
+              name: 'Sales',
+              colorByPoint: true,
+              data: yearsData,
+            },
+          ],
         };
         Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
         this.updateChartTheme();
         this.loader = false;
       },
-      error: error => {
-
-      }
-    })
+      error: (error) => {},
+    });
   }
 
   updateChartTheme() {
@@ -191,10 +199,6 @@ export class PieChartComponent {
 }
 
 class IYear {
-  "year": string;
-  "total": number;
+  'year': string;
+  'total': number;
 }
-
-
-
-

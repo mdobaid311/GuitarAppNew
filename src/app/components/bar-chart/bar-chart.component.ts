@@ -100,7 +100,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
             data: array,
 
             dataLabels: {
-              enabled: false, // Remove data labels from columns
+              enabled: true, // Remove data labels from columns
 
             },
             color: '#2f7ed8', // Change color of columns
@@ -192,8 +192,8 @@ export class BarChartComponent implements OnInit, OnDestroy {
               data: yearsData,
 
               dataLabels: {
-                enabled: false, // Remove data labels from columns
-
+                enabled: true, // Remove data labels from columns
+                color:"#fff"
               },
               color: '#2f7ed8', // Change color of columns
               pointWidth: 25, // Reduce width of columns
