@@ -42,22 +42,6 @@ export class PieChartComponent {
   }
 
   ngOnInit() {
-<<<<<<< HEAD
-    this.subscription = this.chartData.dataArray.subscribe((array) => {
-      this.newDataArray = array;
-
-      this.newDataArray = array.map(item=>{
-        return {
-          name: item[0],
-          y: item[1],
-          sales: Intl.NumberFormat('en-US', {
-            notation: 'compact',
-            compactDisplay: 'short',
-          }).format(item[1]),
-        };
-      })
-
-=======
 
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? this.loader = true :  null;
@@ -74,17 +58,12 @@ export class PieChartComponent {
         }
         pieDataArray.push(element);
       })
->>>>>>> c47bbed03688d7f855b23383371154da9998029a
       this.chartOptions = {
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
-<<<<<<< HEAD
-          type: 'pie',
-=======
           type: 'pie'
->>>>>>> c47bbed03688d7f855b23383371154da9998029a
         },
         title: {
           text: 'Sales',
@@ -95,37 +74,6 @@ export class PieChartComponent {
           },
         },
         tooltip: {
-<<<<<<< HEAD
-          pointFormat: 'Sales: <b>{point.sales} </b> ',
-        },
-        accessibility: {
-          point: {
-            valueSuffix: '%',
-          },
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-            },
-          },
-        },
-        series: [
-          {
-            name: 'Sales',
-            colorByPoint: true,
-            data: this.newDataArray,
-          },
-        ],
-      };
-      Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-      this.updateChartTheme();
-    });
-    this.loadInitialchart();
-=======
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
         accessibility: {
@@ -156,7 +104,6 @@ export class PieChartComponent {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
->>>>>>> c47bbed03688d7f855b23383371154da9998029a
   }
 
   loadInitialchart() {
