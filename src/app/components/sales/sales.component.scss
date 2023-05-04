@@ -70,6 +70,7 @@ $desktop: 1200px;
               flex: 2;
               margin: 10px;
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              box-shadow: var(--primary-boxshadow);
               border-radius: 10px;
               display: flex;
               flex-direction: column;
