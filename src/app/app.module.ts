@@ -35,6 +35,8 @@ import { CustomSelectComponent } from './components/custom-select/custom-select.
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
+import { CustomTableComponent } from './components/custom-table/custom-table.component';
+import { CustomGuitarLoaderComponent } from './components/custom-guitar-loader/custom-guitar-loader.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
     PieChartComponent,
     SettingsComponent,
     Orgchart2Component,
+    CustomTableComponent,
+    CustomGuitarLoaderComponent,
   ],
   imports: [
     BrowserModule,

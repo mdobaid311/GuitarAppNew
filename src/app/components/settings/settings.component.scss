@@ -1,5 +1,4 @@
 .settings__screen {
-
   min-height: 100vh;
   background: var(--primary-background-1);
 
@@ -152,7 +151,7 @@
             border-radius: 10px;
             box-shadow: var(--primary-boxshadow);
 
-            h2{
+            h2 {
               font-size: 25px;
               font-weight: 700;
               color: var(--primary-color-1);
@@ -176,8 +175,8 @@
                 text-align: left;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.12);
                 padding: 16px;
-                cursor: pointer;            box-shadow: var(--primary-boxshadow);
-
+                cursor: pointer;
+                box-shadow: var(--primary-boxshadow);
               }
 
               td {

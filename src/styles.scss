@@ -11,8 +11,6 @@ $mobile: 768px;
 $tablet: 1024px;
 $desktop: 1200px;
 
-
-
 :root {
   --primary-color-1: #000;
   --primary-color-2: #817979;
@@ -35,7 +33,6 @@ $desktop: 1200px;
 body {
   background: var(--primary-background-2);
   color: var(--primary-color-1);
-
 }
 // @import 'ag-grid-community/styles/ag-grid.css';
 // @import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -70,8 +67,6 @@ body {
 .ngb-dp-weekday {
   width: 45px !important;
 }
-
-
 
 select {
   outline: 0;

@@ -42,13 +42,13 @@ export class ColumnChartComponent {
   }
 
   ngOnInit() {
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? this.loader = true :  null;
-    })
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? (this.loader = true) : null;
+    });
 
-    console.log('enwDAtaARry', this.newDataArray)
-    this.subscription = this.chartData.dataArray.subscribe(array => {
-      console.log('Array', array)
+    console.log('enwDAtaARry', this.newDataArray);
+    this.subscription = this.chartData.dataArray.subscribe((array) => {
+      console.log('Array', array);
       this.newDataArray = array;
 
       this.chartOptions = {
@@ -113,17 +113,17 @@ export class ColumnChartComponent {
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
       this.loader = false;
-    })
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? null :  this.loadInitialchart()
-    })
+    });
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : this.loadInitialchart();
+    });
+    this.loadInitialchart();
   }
 
   loadInitialchart() {
-
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ?  null :  this.loader = true;
-    })
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : (this.loader = true);
+    });
 
     this.chartData.getOrderTotalYears().subscribe({
       next: (resp) => {
@@ -136,7 +136,7 @@ export class ColumnChartComponent {
         this.chartOptions = {
           chart: {
             type: 'column',
-            height: (9 / 16) * 55 + '%',
+            height: (9 / 16) * 40 + '%',
           },
 
           title: {
@@ -199,7 +199,7 @@ export class ColumnChartComponent {
 
               dataLabels: {
                 enabled: true, // Remove data labels from columns
-                color:"#fff"
+                color: '#fff',
               },
               color: '#2f7ed8', // Change color of columns
               pointWidth: 25, // Reduce width of columns

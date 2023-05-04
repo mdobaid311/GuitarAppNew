@@ -10,6 +10,7 @@ import {
   faChartPie,
   faChartBar,
   faChartColumn,
+  faTable
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -31,6 +32,7 @@ export class SalesComponent {
   faChartPie = faChartPie;
   faChartBar = faChartBar;
   faChartColumn = faChartColumn;
+  faTable = faTable;
 
   yearData: any = [];
   dataRows = [];
@@ -57,6 +59,7 @@ export class SalesComponent {
     { name: 'column', icon: faChartColumn },
     { name: 'bar', icon: faChartBar },
     { name: 'pie', icon: faChartPie },
+    { name: 'table', icon: faTable },
   ];
 
   myDpOptions: IAngularMyDpOptions = {
