@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { faClock,faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -12,6 +12,7 @@ export class AreaSplineChartComponent {
   @Input() options: any;
 
   faClock = faClock;
+  faSearch = faSearch;
   intervalsList = [
     { name: '15 Min' },
     { name: '30 Min' },
@@ -57,6 +58,7 @@ export class AreaSplineChartComponent {
   selectedColumnHeader: string = '';
 
   onColumnHeaderClick(header: string) {
+    console.log('header', header)
     this.selectedColumnHeader = header;
     this.selectedColumnData = this.data.map((row: any) => row[header]);
     this.chartOptions = {
