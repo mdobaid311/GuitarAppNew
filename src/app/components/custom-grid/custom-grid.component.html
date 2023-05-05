@@ -4,7 +4,11 @@
 
     <div class="search_or_select_container">
       <div class="search_container">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          (input)="onSearchChange($event)"
+        />
       </div>
       <app-custom-select
         [selectIcon]="faClock"
@@ -48,7 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of data">
+      <tr *ngFor="let row of filteredData">
         <td [ngClass]="{ selected: selectedColumnHeader === 'id' }">
           {{ row.id }}
         </td>
