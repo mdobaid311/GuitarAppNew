@@ -1,13 +1,17 @@
 <div class="custom-select">
   <button class="select-button" (click)="toggleOptions()">
     <!-- <span class="selected-option">{{ selectedOption }}</span> -->
-    <fa-icon [icon]="faChartLine" class="icon icon-main"></fa-icon>
+    <fa-icon [icon]="selectIcon" class="icon icon-main"></fa-icon>
     <fa-icon [icon]="faAngleDown" class="icon"></fa-icon>
   </button>
   <div class="options-container" [hidden]="!showOptions">
     <ng-container *ngFor="let option of options">
       <div class="option" (click)="selectOption(option.name)">
-        <fa-icon [icon]="option.icon" class="icon icon-main"></fa-icon>
+        <fa-icon
+          *ngIf="option.icon"
+          [icon]="option.icon"
+          class="icon icon-main"
+        ></fa-icon>
         {{ option.name.toUpperCase() }}
       </div>
     </ng-container>

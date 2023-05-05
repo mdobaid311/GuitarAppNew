@@ -19,8 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
+ import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales/sales.component';
@@ -34,6 +33,10 @@ import {
 import { CustomSelectComponent } from './components/custom-select/custom-select.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
+import { CustomTableComponent } from './components/custom-table/custom-table.component';
+import { CustomGuitarLoaderComponent } from './components/custom-guitar-loader/custom-guitar-loader.component';
+import { CustomGridComponent } from './components/custom-grid/custom-grid.component';
 
 @NgModule({
   declarations: [
@@ -47,8 +50,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     CustomHeaderComponent,
     SidebarComponent,
     OrgChartComponent,
-    LoadingSpinnerComponent,
-    CustomModalComponent,
+     CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
     DaySalesCardComponent,
@@ -56,6 +58,10 @@ import { SettingsComponent } from './components/settings/settings.component';
     CustomSelectComponent,
     PieChartComponent,
     SettingsComponent,
+    Orgchart2Component,
+    CustomTableComponent,
+    CustomGuitarLoaderComponent,
+    CustomGridComponent,
   ],
   imports: [
     BrowserModule,

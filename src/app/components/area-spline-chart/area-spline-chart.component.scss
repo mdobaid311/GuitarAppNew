@@ -1,3 +1,7 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
 .spline_chart__screen {
   min-height: 100vh;
   background: var(--primary-background-1);
@@ -35,15 +39,15 @@
         display: flex;
         align-items: start;
         padding: 10px 15px;
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          border-spacing: 0;
+
+        .chart_container__left {
           flex: 1;
         }
-        .chart_container {
+
+        .chart_container__right {
           padding-left: 10px;
           display: flex;
+          flex-direction: column;
           // align-items: center;
           // justify-content: center;
           // height: 100%;
@@ -51,7 +55,25 @@
           .chart {
             width: 100%;
           }
+
+          .sales_aggregation__details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--primary-background-3);
+            box-shadow: var(--primary-boxshadow);
+            width: 100%;
+            height: 300px;
+            margin-top: 10px;
+          }
         }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          flex: 1;
+        }
+
         th {
           font-weight: bold;
           text-align: left;

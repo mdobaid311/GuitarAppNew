@@ -1,19 +1,26 @@
-
 <div class="login_screen">
   <div class="login_screen_header">
-    <img
-      src="./assets/logostyle.jpg"
-      alt="login"
-    />
+    <img src="./assets/logostyle.jpg" alt="login" />
   </div>
   <div class="login_screen_main">
     <div class="section"></div>
     <div class="section login_container">
       <form class="login_form">
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" />
+        <input
+          type="email"
+          name="username"
+          id="username"
+          (change)="onUserNameChange($event)"
+        />
+
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          (change)="onPasswordChange($event)"
+        />
         <div class="sub_main">
           <div class="remember_me_checkbox">
             <input type="checkbox" />
@@ -24,14 +31,13 @@
           </div>
         </div>
         <!-- <input type="button" value="LOGIN" /> -->
-        <button class="login-button" type="button" (click)="onLoginClick()">Login</button>
+        <button class="login-button" type="button" (click)="onLoginClick()">
+          Login
+        </button>
       </form>
     </div>
     <div class="section section-right">
-      <img
-        src="./assets/image.jpg"
-        alt=""
-      />
+      <img src="./assets/image.jpg" alt="" />
     </div>
   </div>
 </div>
