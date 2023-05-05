@@ -1,7 +1,6 @@
-<app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
-<div class="org_chart__screen">
-  <div class="org_chart_container">
-     <div class="org_chart__main_screen">
+<div class="dashboard__screen">
+  <div class="dashboard_container">
+     <div class="dashboard__main_screen">
       <!-- header -->
       <app-custom-header
         (onDateChanged)="onGlobalDateRangeChanged($event)"
@@ -22,19 +21,18 @@
             [value]="data"
             (onNodeExpand)="expandNode($event)"
           >
-            <!-- selectionMode="single" -->
             <ng-template let-node pTemplate="person">
               <div
                 class="org_chart__node"
                 [style]="{
-                  width: node.data.width * 4 + 'px',
-                  height: node.data.width * 4 + 'px',
+                  width: node.data.width * 5 + 'px',
+                  height: node.data.width * 5 + 'px',
                   background: node.data.color
                 }"
               >
                 <!-- <div>{{ node.data.name }}</div> -->
                 <h3>{{ node.data.value }}</h3>
-                <p>{{ node.data.width * 2 + "%" }}</p>
+                <p>{{ node.data.width*2 + "%" }}</p>
                 <span>{{ node.data.title }}</span>
               </div>
             </ng-template>

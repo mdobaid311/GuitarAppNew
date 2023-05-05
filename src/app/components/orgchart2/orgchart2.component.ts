@@ -5,11 +5,11 @@ import * as moment from 'moment';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-org-chart',
-  templateUrl: './org-chart.component.html',
-  styleUrls: ['./org-chart.component.scss'],
+  selector: 'app-orgchart2',
+  templateUrl: './orgchart2.component.html',
+  styleUrls: ['./orgchart2.component.scss']
 })
-export class OrgChartComponent {
+export class Orgchart2Component {
   // data: any;
   loader = false;
 
@@ -97,10 +97,10 @@ export class OrgChartComponent {
 
   ngOnInit() {
     this.loader = true;
-    // this.chartData.getOrgChartData().subscribe({
-    //   next: (resp: any) => {},
-    //   error: (error) => {},
-    // });
+    this.chartData.getOrgChartData().subscribe({
+      next: (resp: any) => {},
+      error: (error) => {},
+    });
 
     const totalAmounts: any = {};
     this.data.forEach(({ key, original_order_total_amount, children }: any) => {
@@ -162,7 +162,7 @@ export class OrgChartComponent {
                 notation: 'compact',
                 compactDisplay: 'short',
               }).format(node.original_order_total_amount) || 0,
-          // color: this.generateRandomColorHex(),
+          color: this.generateRandomColorHex(),
         },
         children:
           node.children?.length > 0 ? this.generateNode(node.children) : [],

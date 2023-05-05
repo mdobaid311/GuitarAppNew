@@ -10,6 +10,8 @@ import {
   faChartPie,
   faChartBar,
   faChartColumn,
+  faTable,
+  faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -31,6 +33,8 @@ export class SalesComponent {
   faChartPie = faChartPie;
   faChartBar = faChartBar;
   faChartColumn = faChartColumn;
+  faTable = faTable;
+  faEllipsisVertical = faEllipsisVertical;
 
   yearData: any = [];
   dataRows = [];
@@ -53,10 +57,17 @@ export class SalesComponent {
 
   isEditable: boolean = false;
 
+  isViewSelectContainerOpen = false;
+
+  toggleViewSelectContainer() {
+    this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
+  }
+
   chartTypeOptions = [
     { name: 'column', icon: faChartColumn },
     { name: 'bar', icon: faChartBar },
     { name: 'pie', icon: faChartPie },
+    { name: 'table', icon: faTable },
   ];
 
   myDpOptions: IAngularMyDpOptions = {
@@ -219,7 +230,6 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
-
     this.chartData.booleanSubject.next(true);
     this.loader = true;
 
@@ -434,7 +444,7 @@ export class SalesComponent {
   }
 
   ngOnInit(): void {
-    this.chartData.booleanSubject.next(false)
+    this.chartData.booleanSubject.next(false);
     this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
         this.originalOrdersTotalToday = resp[0].original_orders_total;
@@ -463,10 +473,10 @@ export class SalesComponent {
   }
 
   onSelectChartChange(event: any) {
-    console.log('currentRange', this.currentRange)
+    console.log('currentRange', this.currentRange);
     console.log(event);
     this.selectedChart = event;
-    this.onRangeSelect(this.currentRange)
+    this.onRangeSelect(this.currentRange);
 
     // console.log('selectedChart', this.selectedChart);
   }

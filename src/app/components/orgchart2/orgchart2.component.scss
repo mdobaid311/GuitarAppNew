@@ -1,13 +1,21 @@
-.org_chart__screen {
+// .male {
+//   background-color: green;
+// }
+
+// .female {
+//   background-color: pink;
+// }
+
+.dashboard__screen {
   min-height: 100vh;
   background: var(--primary-background-1);
 
-  .org_chart_container {
+  .dashboard_container {
     width: 100%;
     min-height: 100vh;
     display: flex;
 
-    .org_chart__main_screen {
+    .dashboard__main_screen {
       flex: 1;
       background: var(--primary-background-2);
       border-top-left-radius: 6px;
@@ -32,12 +40,55 @@
         }
 
         .main_container__charts_container {
+          .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+          }
+
+          .loader {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+          }
+
+          .loader::after {
+            content: "";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 6px;
+            box-sizing: border-box;
+            border: 32px solid #000;
+            border-color: #000 transparent #000 transparent;
+            animation: loader 1.2s infinite;
+          }
+
+          @keyframes loader {
+            0% {
+              transform: rotate(0deg);
+              opacity: 1;
+            }
+            100% {
+              transform: rotate(360deg);
+              opacity: 0;
+            }
+          }
           .org_chart__node {
             color: var(--primary-color-1);
             background: var(--primary-background-3);
-            border-radius: 5%;
-            min-width: 100px;
-            min-height: 80px;
+            border-radius: 50%;
+            min-width:100px ;
+            min-height: 100px;
             padding: 15px;
             // transform: rotate(90deg);
             display: flex;
@@ -61,18 +112,7 @@
 :host ::ng-deep .chart_node {
   background: var(--primary-background-3);
   color: var(--primary-color-1);
-  border-radius: 5%;
+  border-radius: 50%;
   padding: 5px;
-  border: 1px solid var(--primary-color-1);
-}
-
-:host ::ng-deep .p-organizationchart .p-organizationchart-line-left {
-  border-color: var(--primary-color-1);
-}
-:host ::ng-deep .p-organizationchart .p-organizationchart-line-right {
-  border-color: var(--primary-color-1);
-}
-
-:host ::ng-deep .p-organizationchart .p-organizationchart-line-down {
-  background: var(--primary-color-1);
+  border: 2px solid var(--primary-color-1);
 }

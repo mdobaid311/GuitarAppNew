@@ -1,36 +1,49 @@
 <div class="dashboard__sidebar">
-  <div class="sidebar__icon">
+  <div class="sidebar__item">
     <fa-icon [icon]="faBars" class="icon"></fa-icon>
   </div>
-  <div class="sidebar__icon" routerLink="/dashboard">
+  <div class="sidebar__item" routerLink="/dashboard">
     <fa-icon
       [icon]="faHome"
       class="icon"
       [ngClass]="currentRoute === '/dashboard' ? 'active' : ''"
     ></fa-icon>
+    <h3 [ngClass]="currentRoute === '/dashboard' ? 'active' : ''" class="label">Dashboard</h3>
   </div>
-  <div class="sidebar__icon" routerLink="/sales">
-    <fa-icon [icon]="faCashRegister" class="icon"></fa-icon>
+  <div class="sidebar__item" routerLink="/sales">
+    <fa-icon
+      [icon]="faCashRegister"
+      class="icon"
+      [ngClass]="currentRoute === '/sales' ? 'active' : ''"
+    ></fa-icon>    <h3 [ngClass]="currentRoute === '/sales' ? 'active' : ''" class="label">Sales</h3>
   </div>
-  <div class="sidebar__icon" routerLink="/area-chart">
+  <div class="sidebar__item" routerLink="/area-chart">
     <fa-icon
       [icon]="faChartColumn"
       class="icon"
       [ngClass]="currentRoute === '/area-chart' ? 'active' : ''"
-    ></fa-icon>
+    ></fa-icon>    <h3 [ngClass]="currentRoute === '/area-chart' ? 'active' : ''" class="label">Area Chart</h3>
   </div>
-  <div class="sidebar__icon" routerLink="/org-chart">
+  <div class="sidebar__item" routerLink="/org-chart">
     <fa-icon
       [icon]="faSitemap"
       class="icon"
       [ngClass]="currentRoute === '/org-chart' ? 'active' : ''"
-    ></fa-icon>
+    ></fa-icon>    <h3 [ngClass]="currentRoute === '/org-chart' ? 'active' : ''" class="label">Org Chart</h3>
   </div>
 
-  <div class="sidebar__icon">
-    <fa-icon [icon]="faMessage" class="icon"></fa-icon>
+  <div class="sidebar__item" routerLink="/org-chart-1">
+    <fa-icon
+      [icon]="faMessage"
+      class="icon"
+      [ngClass]="currentRoute === '/org-chart-1' ? 'active' : ''"
+    ></fa-icon>    <h3 [ngClass]="currentRoute === '/Notifications' ? 'active' : ''" class="label">Notifications</h3>
   </div>
-  <div class="sidebar__icon">
-    <fa-icon [icon]="faGear" class="icon"></fa-icon>
+  <div class="sidebar__item" routerLink="/settings">
+    <fa-icon
+      [icon]="faGear"
+      class="icon"
+      [ngClass]="currentRoute === '/settings' ? 'active' : ''"
+    ></fa-icon>    <h3 [ngClass]="currentRoute === '/settings' ? 'active' : ''" class="label">Settings</h3>
   </div>
 </div>

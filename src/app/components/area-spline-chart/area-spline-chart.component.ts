@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { faClock,faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -7,10 +8,18 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./area-spline-chart.component.scss'],
 })
 export class AreaSplineChartComponent {
-
-
   chartOptions: any;
   @Input() options: any;
+
+  faClock = faClock;
+  faSearch = faSearch;
+  intervalsList = [
+    { name: '15 Min' },
+    { name: '30 Min' },
+    { name: '1 Hour' },
+    { name: '6 Hour' },
+    { name: '1 Day' },
+  ];
 
   constructor() {
     const observer = new MutationObserver((mutations) => {
@@ -36,14 +45,23 @@ export class AreaSplineChartComponent {
     { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
     { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
     { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
   ];
+
+
+
   selectedColumnData: any[] = [];
   selectedColumnHeader: string = '';
 
   onColumnHeaderClick(header: string) {
+    console.log('header', header)
     this.selectedColumnHeader = header;
     this.selectedColumnData = this.data.map((row: any) => row[header]);
-     this.chartOptions = {
+    this.chartOptions = {
       chart: {
         type: 'areaspline',
         backgroundColor: this.theme === 'dark' ? '#19376D' : '#fff',
@@ -144,11 +162,9 @@ export class AreaSplineChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-
   ngOnInit() {}
 
   updateChartTheme() {
-
     this.theme = document.body.classList.contains('dark-theme')
       ? 'dark'
       : 'light';

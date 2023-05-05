@@ -192,17 +192,18 @@ export class DashboardComponent implements OnInit {
   //       });
   //   }
   // }
-  onRangeSelect(range: any) {
+  currentRange: any;
 
+  onRangeSelect(range: any) {
     this.chartData.booleanSubject.next(true);
     this.loader = true;
 
+    this.currentRange = range;
     if (range === '1m') {
       const startDate = moment()
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment().format('YYYY-MM-DD HH:mm');
-      console.log(startDate, endDate);
 
       this.chartData.getOrderTotalByDayRange(startDate, endDate).subscribe({
         next: (resp: any) => {
@@ -224,6 +225,7 @@ export class DashboardComponent implements OnInit {
           this.chartData.dataArray.next(dayData);
         },
       });
+      this.fullDate = 'Last 1 Month';
     } else if (
       range === '2h' ||
       range === '6h' ||
@@ -235,17 +237,20 @@ export class DashboardComponent implements OnInit {
       if (range === '2h') {
         startDate = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm');
         endDate = moment().format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 2 Hours';
       } else if (range === '6h') {
         startDate = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm');
         endDate = moment().format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 6 Hours';
       } else if (range === '12h') {
         startDate = moment().subtract(12, 'hours').format('YYYY-MM-DD HH:mm');
         endDate = moment().format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 12 Hours';
       } else if (range === '1d') {
         startDate = moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm');
         endDate = moment().format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 24 Hours';
       }
-      console.log(startDate, endDate);
       this.chartData.getOrderTotalByHourRange(startDate, endDate).subscribe({
         next: (resp: any) => {
           this.originalOrdersTotalToday = resp.totalAmount;
@@ -271,7 +276,6 @@ export class DashboardComponent implements OnInit {
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment().format('YYYY-MM-DD HH:mm');
-      console.log(startDate, endDate);
 
       this.chartData.getOrderTotalByMonthRange(startDate, endDate).subscribe({
         next: (resp: any) => {
@@ -293,12 +297,12 @@ export class DashboardComponent implements OnInit {
           this.chartData.dataArray.next(monthData);
         },
       });
+      this.fullDate = 'Last 6 Months';
     } else if (range === '1y') {
       const startDate = moment()
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment().format('YYYY-MM-DD HH:mm');
-      console.log(startDate, endDate);
 
       this.chartData.getOrderTotalByMonthRange(startDate, endDate).subscribe({
         next: (resp: any) => {
@@ -320,6 +324,7 @@ export class DashboardComponent implements OnInit {
           this.chartData.dataArray.next(monthData);
         },
       });
+      this.fullDate = 'Last 1 Year';
     }
     this.loader = false;
   }
@@ -327,12 +332,12 @@ export class DashboardComponent implements OnInit {
   makeEditable() {
     this.isEditable = true;
   }
-   constructor(
+  constructor(
     private chartData: ChartService,
-     private router: Router,
+    private router: Router,
     calendar: NgbCalendar
   ) {
-     this.globalFromDate = calendar.getToday();
+    this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
   }
 
@@ -364,11 +369,14 @@ export class DashboardComponent implements OnInit {
         this.globalToDate.day
       : null;
     if (beginDate && endDate) {
-      this.fullDate = beginDate + ' to ' + endDate;
-      this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
+      this.fullDate =
+        moment(beginDate, 'YYYY-M-DD').format('MMM DD YYYY') +
+        ' , ' +
+        moment(endDate, 'YYYY-M-DD').format('MMM DD YYYY');
+
+      this.chartData.getOrderTotalByDayRange(beginDate, endDate).subscribe({
         next: (resp: any) => {
-          console.log('dateChangeResp', resp);
-          this.originalOrdersTotalToday = resp[0].original_orders_total;
+          this.originalOrdersTotalToday = resp.totalAmount;
           this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
             notation: 'compact',
             compactDisplay: 'short',
@@ -377,6 +385,13 @@ export class DashboardComponent implements OnInit {
             ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
               1
             ) + '%';
+          let dayData: any = [];
+          this.dayList = resp.data.map((item: any) => item.day);
+          resp.data.forEach((item: IDay) => {
+            const itemData = [item.day, item.total];
+            dayData.push(itemData);
+          });
+          this.chartData.dataArray.next(dayData);
         },
       });
     }
@@ -432,7 +447,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartData.booleanSubject.next(false)
+    this.chartData.booleanSubject.next(false);
     this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
         console.log('dateChangeResp', resp);

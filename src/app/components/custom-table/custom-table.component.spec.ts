@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadingSpinnerComponent } from './loading-spinner.component';
+import { CustomTableComponent } from './custom-table.component';
 
-describe('LoadingSpinnerComponent', () => {
-  let component: LoadingSpinnerComponent;
-  let fixture: ComponentFixture<LoadingSpinnerComponent>;
+describe('CustomTableComponent', () => {
+  let component: CustomTableComponent;
+  let fixture: ComponentFixture<CustomTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoadingSpinnerComponent ]
+      declarations: [ CustomTableComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoadingSpinnerComponent);
+    fixture = TestBed.createComponent(CustomTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
