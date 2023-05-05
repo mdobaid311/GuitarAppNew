@@ -15,6 +15,7 @@ import { faChartLine, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 export class CustomSelectComponent {
   @Output() onSelectChartChange = new EventEmitter<string>();
   @Input() options: any[] = [];
+  @Input() selectIcon: any;
 
   selectedOption: string = '';
   showOptions: boolean = false;
