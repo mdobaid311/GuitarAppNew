@@ -34,10 +34,50 @@ $desktop: 1200px;
           display: flex;
           justify-content: space-between;
           margin-bottom: 20px;
-          h3 {
-            font-size: 30px;
-            font-weight: 700;
-            color: var(--primary-color-1);
+
+          .heading_container {
+            display: flex;
+            align-items: center;
+
+            h3 {
+              font-size: 30px;
+              font-weight: 700;
+              color: var(--primary-color-1);
+            }
+
+            .view_selection_container {
+              position: relative;
+              .view__options {
+                border-radius: 10px;
+                border-top-left-radius: 0;
+                box-shadow: var(--primary-boxshadow);
+                width: max-content;
+                background-color: var(--primary-background-1);
+                position: absolute;
+                top: 30px;
+                left: 20px;
+
+                .view_option {
+                  padding: 10px;
+                  border-radius: 10px;
+                  margin: 5px;
+                  &:hover {
+                    background-color: var(--primary-background-2);
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+
+            .icon {
+              font-size: 25px;
+              margin-left: 15px;
+              padding: 5px;
+              &:hover {
+                color: var(--primary-color-3);
+                cursor: pointer;
+              }
+            }
           }
         }
 

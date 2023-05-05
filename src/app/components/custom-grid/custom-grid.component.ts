@@ -50,6 +50,17 @@ export class CustomGridComponent {
     { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
   ];
 
+  filteredData = this.data;
+
+  onSearchChange(event: any) {
+     const searchValue = event.target.value;
+    this.filteredData = this.data.filter((row: any) => {
+      return Object.values(row).some((val: any) => {
+        return String(val).toLowerCase().includes(searchValue.toLowerCase());
+      });
+    });
+  }
+
   selectedColumnData: any[] = [];
   selectedColumnHeader: string = '';
 }

@@ -22,7 +22,7 @@
 
 <div class="sales__screen">
   <div class="sales_container">
-     <div class="sales__main_screen">
+    <div class="sales__main_screen">
       <!-- header -->
       <app-custom-header
         (onDateChanged)="onGlobalDateRangeChanged($event)"
@@ -33,7 +33,20 @@
       ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
-          <h3>Sales</h3>
+          <div class="heading_container">
+            <h3>Sales</h3>
+            <div class="view_selection_container">
+              <fa-icon
+                [icon]="faEllipsisVertical"
+                class="icon"
+                (click)="toggleViewSelectContainer()"
+              ></fa-icon>
+              <div class="view__options" *ngIf="isViewSelectContainerOpen">
+                <div class="view_option" routerLink="/area-chart">Detailed</div>
+                <div class="view_option" routerLink="/org-chart">Flowchart</div>
+              </div>
+            </div>
+          </div>
           <!-- <h3>Edit</h3> -->
         </div>
         <div class="main_container__charts_container">

@@ -19,8 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
+ import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales/sales.component';
@@ -51,8 +50,7 @@ import { CustomGridComponent } from './components/custom-grid/custom-grid.compon
     CustomHeaderComponent,
     SidebarComponent,
     OrgChartComponent,
-    LoadingSpinnerComponent,
-    CustomModalComponent,
+     CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
     DaySalesCardComponent,
