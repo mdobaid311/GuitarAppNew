@@ -42,8 +42,12 @@
                 (click)="toggleViewSelectContainer()"
               ></fa-icon>
               <div class="view__options" *ngIf="isViewSelectContainerOpen">
-                <div class="view_option" routerLink="/area-chart">Sales Analysis</div>
-                <div class="view_option" routerLink="/org-chart">Sales flow</div>
+                <div class="view_option" routerLink="/area-chart">
+                  Sales Analysis
+                </div>
+                <div class="view_option" routerLink="/org-chart">
+                  Sales flow
+                </div>
               </div>
             </div>
           </div>
@@ -106,6 +110,7 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
+              <app-line-chart *ngIf="selectedChart == 'line'"></app-line-chart>
             </div>
           </div>
 
