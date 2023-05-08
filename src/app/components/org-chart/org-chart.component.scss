@@ -25,17 +25,23 @@
           justify-content: space-between;
           margin-bottom: 20px;
 
-          span{
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--primary-color-3);
-            cursor: pointer;
-          }
+          .heading__flexbox {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span {
+              font-size: 18px;
+              font-weight: 500;
+              color: var(--primary-color-3);
+              cursor: pointer;
+            }
 
-          h3 {
-            font-size: 30px;
-            font-weight: 700;
-            color: var(--primary-color-1);
+            h3 {
+              font-size: 30px;
+              font-weight: 700;
+              color: var(--primary-color-1);
+            }
           }
         }
 

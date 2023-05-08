@@ -30,13 +30,79 @@
     .search_or_select_container {
       display: flex;
       align-items: center;
+
+      .view_selection_container {
+        position: relative;
+        .view__options {
+          border-radius: 10px;
+          border-top-right-radius: 0;
+          box-shadow: var(--primary-boxshadow);
+          width: max-content;
+          background-color: var(--primary-background-1);
+          position: absolute;
+          top: 30px;
+          right: 20px;
+
+          .view_option {
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+              background-color: var(--primary-background-2);
+              cursor: pointer;
+            }
+
+            &:hover span {
+              color: var(--primary-color-1);
+            }
+
+            span {
+              color: #fff;
+            }
+
+            input[type="checkbox"] {
+              width: 20px;
+              height: 20px;
+              background-color: #fff;
+              border-radius: 10px;
+              cursor: pointer;
+              margin-right: 10px;
+              border: none;
+              outline: none;
+
+              &:checked {
+                border: none;
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+
+      .icon {
+        font-size: 25px;
+        margin-left: 15px;
+        padding: 5px;
+        &:hover {
+          color: var(--primary-color-3);
+          cursor: pointer;
+        }
+      }
     }
   }
   table {
-    width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    flex: 1;  th {
+
+    th,
+    tr {
+      width: 300px;
+    }
+
+    th {
       font-weight: bold;
       text-align: left;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -52,9 +118,7 @@
     tr:hover {
       background-color: var(--primary-background-3);
     }
-
   }
-
 
   .selected {
     background-color: var(--primary-background-3);

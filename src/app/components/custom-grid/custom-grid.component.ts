@@ -1,13 +1,17 @@
 import {
   Component,
-  ElementRef,
-  EventEmitter,
-  Input,
   Output,
-  ViewChild,
+  EventEmitter,
+  HostListener,
+  ElementRef,
 } from '@angular/core';
-import { faClock, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faEllipsisVertical,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
+import { ChartService } from 'src/app/services/chartData.service';
 
 @Component({
   selector: 'app-custom-grid',
@@ -19,6 +23,27 @@ export class CustomGridComponent {
 
   faClock = faClock;
   faSearch = faSearch;
+  faEllipsisVertical = faEllipsisVertical;
+
+  isViewSelectContainerOpen = false;
+
+  toggleViewSelectContainer() {
+    this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
+  }
+
+  constructor(
+    private elementRef: ElementRef,
+    private chartData: ChartService
+  ) {}
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.isViewSelectContainerOpen = false;
+    }
+  }
+
   intervalsList = [
     { name: '15 Min' },
     { name: '30 Min' },
@@ -32,8 +57,6 @@ export class CustomGridComponent {
     this.selectedColumnData = this.data.map((row: any) => row[header]);
     this.onColumnHeaderClick.emit(header);
   }
-
-  constructor() {}
 
   theme = 'light';
 
@@ -53,10 +76,19 @@ export class CustomGridComponent {
   filteredData = this.data;
 
   onSearchChange(event: any) {
-     const searchValue = event.target.value;
+    const searchValue = event.target.value;
     this.filteredData = this.data.filter((row: any) => {
       return Object.values(row).some((val: any) => {
         return String(val).toLowerCase().includes(searchValue.toLowerCase());
+      });
+    });
+  }
+
+  ngOnInit(): void {
+    this.chartData.getFullSalesData().subscribe((data) => {
+      console.log(data);
+      data.forEach((element: any) => {
+        console.log(Object.keys(element).length);
       });
     });
   }
