@@ -37,6 +37,7 @@ import { Orgchart2Component } from './components/orgchart2/orgchart2.component';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { CustomGuitarLoaderComponent } from './components/custom-guitar-loader/custom-guitar-loader.component';
 import { CustomGridComponent } from './components/custom-grid/custom-grid.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CustomGridComponent } from './components/custom-grid/custom-grid.compon
     CustomTableComponent,
     CustomGuitarLoaderComponent,
     CustomGridComponent,
+    LineChartComponent,
   ],
   imports: [
     BrowserModule,

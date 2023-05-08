@@ -12,6 +12,7 @@ import {
   faChartColumn,
   faTable,
   faEllipsisVertical,
+  faLineChart,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -33,13 +34,13 @@ export class SalesComponent {
   faChartPie = faChartPie;
   faChartBar = faChartBar;
   faChartColumn = faChartColumn;
+  faLineChart = faLineChart;
   faTable = faTable;
   faEllipsisVertical = faEllipsisVertical;
 
   yearData: any = [];
   dataRows = [];
 
-  selectedChart = 'column';
   loader = false;
 
   showChangeModal = false;
@@ -63,8 +64,11 @@ export class SalesComponent {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
   }
 
+  selectedChart = 'line';
+
   chartTypeOptions = [
     { name: 'column', icon: faChartColumn },
+    { name: 'line', icon: faLineChart },
     { name: 'bar', icon: faChartBar },
     { name: 'pie', icon: faChartPie },
     { name: 'table', icon: faTable },
