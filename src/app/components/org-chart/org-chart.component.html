@@ -1,7 +1,7 @@
 <app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
 <div class="org_chart__screen">
   <div class="org_chart_container">
-     <div class="org_chart__main_screen">
+    <div class="org_chart__main_screen">
       <!-- header -->
       <app-custom-header
         (onDateChanged)="onGlobalDateRangeChanged($event)"
@@ -12,7 +12,12 @@
       ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
-          <h3>Sales flow</h3>
+          <div>
+            <span routerLink="/sales">
+              <fa-icon [icon]="faCaretLeft"></fa-icon>
+              Back to Sales</span>
+            <h3>Sales flow</h3>
+          </div>
         </div>
         <div class="main_container__charts_container">
           <div class="loader-container" *ngIf="loader">

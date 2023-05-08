@@ -3,7 +3,13 @@
     <div class="spline_chart__main_screen">
       <app-custom-header [showDateRangePicker]="true"></app-custom-header>
       <div class="main_container__heading">
-        <h3>Analysis</h3>
+        <div>
+          <span routerLink="/sales">
+            <fa-icon [icon]="faCaretLeft"></fa-icon>
+            Back to Sales</span
+          >
+          <h3>Analysis</h3>
+        </div>
       </div>
       <div class="spline_chart_container">
         <div class="chart_container__left">

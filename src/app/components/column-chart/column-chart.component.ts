@@ -104,9 +104,15 @@ export class ColumnChartComponent {
             dataLabels: {
               enabled: true, // Remove data labels from columns
             },
+            color: '#A5D7E8', // Change color of columns
+          },
+          {
+            name: 'Population',
+            data: array,
+            dataLabels: {
+              enabled: true, // Remove data labels from columns
+            },
             color: '#2f7ed8', // Change color of columns
-            pointWidth: 25, // Reduce width of columns
-            backgroundColor: '#FCFFC5',
           },
         ],
       };
@@ -201,9 +207,17 @@ export class ColumnChartComponent {
                 enabled: true, // Remove data labels from columns
                 color: '#fff',
               },
+              color: '#A5D7E8', // Change color of columns
+            },
+            {
+              name: 'Population',
+              data: yearsData,
+
+              dataLabels: {
+                enabled: true, // Remove data labels from columns
+                color: '#fff',
+              },
               color: '#2f7ed8', // Change color of columns
-              pointWidth: 25, // Reduce width of columns
-              backgroundColor: '#FCFFC5',
             },
           ],
           plotOptions: {

@@ -24,6 +24,14 @@
           display: flex;
           justify-content: space-between;
           margin-bottom: 20px;
+
+          span{
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--primary-color-3);
+            cursor: pointer;
+          }
+
           h3 {
             font-size: 30px;
             font-weight: 700;
