@@ -14,7 +14,6 @@ export class ChartService {
   dataArray = new Subject<Array<any>>();
   booleanSubject = new BehaviorSubject<boolean>(false);
 
-
   constructor(
     private httpClient: HttpClient,
     private httpReqService: HttpRequestService,
@@ -90,11 +89,8 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  // public getData(): Observable<any[]>  {
-  //   const requestBody = {
-  //     columns:["INVOICED_LINE_TOTAL"]
-  //   };
-
-  //   return this.httpClient.post<any[]>(environment.SERVICE_APIS.ORIGINAL_TOTAL + 'include', requestBody)
-  // }
+  public getFullSalesData() {
+    const url = 'http://localhost:3000/v2/alsd/get-full-sales-data';
+    return this.httpClient.get<any[]>(url);
+  }
 }

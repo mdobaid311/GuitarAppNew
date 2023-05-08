@@ -14,11 +14,72 @@
         [selectIcon]="faClock"
         [options]="intervalsList"
       ></app-custom-select>
+      <div class="view_selection_container">
+        <fa-icon
+          [icon]="faEllipsisVertical"
+          class="icon"
+          (click)="toggleViewSelectContainer()"
+        ></fa-icon>
+        <div class="view__options" *ngIf="isViewSelectContainerOpen">
+          <div class="view_option">
+            <input type="checkbox" name="" id="" />
+            <span> Order Header Key </span>
+          </div>
+          <div class="view_option">
+            <input type="checkbox" name="" id="" />
+            <span>Shipment Key </span>
+          </div>
+          <div class="view_option">
+            <input type="checkbox" name="" id="" />
+            <span> Order Date </span>
+          </div>
+          <div class="view_option">
+            <input type="checkbox" name="" id="" />
+            <span> Order Key </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <table>
     <thead>
       <tr>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
+        <th
+          (click)="headerClickHandler('id')"
+          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+        >
+          ID
+        </th>
         <th
           (click)="headerClickHandler('id')"
           [ngClass]="{ selected: selectedColumnHeader === 'id' }"
