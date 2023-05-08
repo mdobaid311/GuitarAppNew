@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { faClock,faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCaretLeft, faClock,faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
+
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -13,6 +14,7 @@ export class AreaSplineChartComponent {
 
   faClock = faClock;
   faSearch = faSearch;
+  faCaretLeft = faCaretLeft;
   intervalsList = [
     { name: '15 Min' },
     { name: '30 Min' },
