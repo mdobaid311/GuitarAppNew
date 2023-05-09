@@ -26,6 +26,7 @@ export class ColumnChartComponent {
 
   theme = 'light';
   loader = false;
+  pinColChart: any;
 
   constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
@@ -45,6 +46,9 @@ export class ColumnChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
+  this.chartData.colChartPinToDB.subscribe(pintoDb => {
+    this.pinColChart = pintoDb;
+  })
 
     console.log('enwDAtaARry', this.newDataArray);
     this.subscription = this.chartData.dataArray.subscribe((array) => {
@@ -123,7 +127,7 @@ export class ColumnChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : this.loadInitialchart();
     });
-    this.loadInitialchart();
+    // this.loadInitialchart();
   }
 
   loadInitialchart() {
@@ -238,6 +242,11 @@ export class ColumnChartComponent {
       error: (error) => {},
     });
   }
+
+  onPinToDashboard() {
+    console.log('pin to DB_col', this.pinColChart);
+    this.chartData.colChartPinToDB.next(this.pinColChart)
+}
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')

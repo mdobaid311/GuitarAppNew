@@ -1,2 +1,4 @@
 <app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
+<label>Pin to dashboard  </label>
+<input type="checkbox" [(ngModel)]="pinLineChart" (change)="onPinToDashboard()">
 <div class="chartContainer" #chartContainer></div>

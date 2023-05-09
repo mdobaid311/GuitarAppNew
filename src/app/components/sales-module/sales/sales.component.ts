@@ -234,6 +234,8 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
+    console.log('Range Selected', range)
+    this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
 
@@ -449,6 +451,7 @@ export class SalesComponent {
 
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
+
     this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
       next: (resp: any) => {
         this.originalOrdersTotalToday = resp[0].original_orders_total;

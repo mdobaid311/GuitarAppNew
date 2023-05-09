@@ -17,6 +17,13 @@ import { DatetimeService } from 'src/app/services/datetime.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+
+  showColChart: any;
+  showBarChart: any;
+  showPieChart: any;
+  showLineChart: any;
+
+
   originalOrdersTotalToday: any;
   originalOrdersTotalTodayAbbr: any;
   currentYearTotal: any;
@@ -238,10 +245,10 @@ export class DashboardComponent implements OnInit {
       this.globalFromDate.day;
     const endDate = this.globalToDate
       ? this.globalToDate.year +
-        '-' +
-        this.globalToDate.month +
-        '-' +
-        this.globalToDate.day
+      '-' +
+      this.globalToDate.month +
+      '-' +
+      this.globalToDate.day
       : null;
     if (beginDate && endDate) {
       this.fullDate =
@@ -273,6 +280,9 @@ export class DashboardComponent implements OnInit {
   }
 
   onDateChanged(event: IMyDateModel) {
+
+
+
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
 
@@ -322,61 +332,91 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let rangeAlreadySelected;
     this.chartData.booleanSubject.next(false);
-    this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
-      next: (resp: any) => {
-        console.log('dateChangeResp', resp);
-        this.originalOrdersTotalToday = resp[0].original_orders_total;
-        this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.originalOrdersTotalToday);
-        this.customGoalProgress =
-          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-          '%';
-      },
-    });
+    this.chartData.selectedRange.subscribe(selectedRange => {
+      rangeAlreadySelected = selectedRange;
+    })
+    // to show or hide chart on dashboard
 
-    this.chartData.getOrderTotalForRange('2023-01-30', '2023-01-30').subscribe({
-      next: (resp: any) => {
-        console.log('dateChangeResp', resp);
-        this.customGoal = resp[0].original_orders_total;
-        this.customGoalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.customGoal);
-        this.customGoalProgress =
-          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-          '%';
-      },
-    });
+    this.chartData.colChartPinToDB.subscribe(pinToDB => {
+      console.log('DB_PintoDB_Col', pinToDB)
+      this.showColChart = pinToDB;
+    })
+    this.chartData.barChartPinToDB.subscribe(pinToDB => {
+      console.log('DB_PintoDB_Bar', pinToDB)
+      this.showBarChart = pinToDB;
+    })
+    this.chartData.pieChartPinToDB.subscribe(pinToDB => {
+      console.log('DB_PintoDB_Pie', pinToDB)
+      this.showPieChart = pinToDB;
+    })
+    this.chartData.lineChartPinToDB.subscribe(pinToDB => {
+      console.log('DB_PintoDB_Line', pinToDB)
+      this.showLineChart = pinToDB;
+    })
 
-    this.chartData.getData(2023).subscribe({
-      next: (resp: any) => {
-        this.currentYearTotal = resp[0].original_orders_total;
-        this.currentYearTotalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.currentYearTotal);
-        this.percentChange =
-          ((this.currentYearTotal - this.pickedYearTotal) /
-            this.pickedYearTotal) *
-          100;
-      },
-    });
-    this.chartData.getData(2022).subscribe({
-      next: (resp: any) => {
-        this.pickedYearTotal = resp[0].original_orders_total;
-        this.pickedYearTotalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.pickedYearTotal);
-        this.percentChange =
-          ((this.currentYearTotal - this.pickedYearTotal) /
-            this.pickedYearTotal) *
-          100;
-      },
-    });
+    if (rangeAlreadySelected) {
+      this.onRangeSelect(rangeAlreadySelected);
+    } else {
+
+
+
+      this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
+        next: (resp: any) => {
+          console.log('dateChangeResp', resp);
+          this.originalOrdersTotalToday = resp[0].original_orders_total;
+          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.originalOrdersTotalToday);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+            '%';
+        },
+      });
+
+      this.chartData.getOrderTotalForRange('2023-01-30', '2023-01-30').subscribe({
+        next: (resp: any) => {
+          console.log('dateChangeResp', resp);
+          this.customGoal = resp[0].original_orders_total;
+          this.customGoalAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.customGoal);
+          this.customGoalProgress =
+            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
+            '%';
+        },
+      });
+
+      this.chartData.getData(2023).subscribe({
+        next: (resp: any) => {
+          this.currentYearTotal = resp[0].original_orders_total;
+          this.currentYearTotalAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.currentYearTotal);
+          this.percentChange =
+            ((this.currentYearTotal - this.pickedYearTotal) /
+              this.pickedYearTotal) *
+            100;
+        },
+      });
+      this.chartData.getData(2022).subscribe({
+        next: (resp: any) => {
+          this.pickedYearTotal = resp[0].original_orders_total;
+          this.pickedYearTotalAbbr = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(this.pickedYearTotal);
+          this.percentChange =
+            ((this.currentYearTotal - this.pickedYearTotal) /
+              this.pickedYearTotal) *
+            100;
+        },
+      });
+    }
   }
 
   onSelectYearChange(event: any) {
