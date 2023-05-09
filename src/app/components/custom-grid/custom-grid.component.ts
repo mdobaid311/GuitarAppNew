@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   ElementRef,
+  Input,
 } from '@angular/core';
 import {
   faClock,
@@ -20,12 +21,16 @@ import { ChartService } from 'src/app/services/chartData.service';
 })
 export class CustomGridComponent {
   @Output() onColumnHeaderClick = new EventEmitter<string>();
+  @Input() dataArray: any;
+
 
   faClock = faClock;
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
 
   isViewSelectContainerOpen = false;
+
+  columns: any = [];
 
   toggleViewSelectContainer() {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
@@ -60,37 +65,32 @@ export class CustomGridComponent {
 
   theme = 'light';
 
-  data = [
-    { id: 21000, name: 25500, age: 25678, custom: 23456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 26456, data: 325566 },
-    { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
-    { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  ];
-
+  data: any = [];
   filteredData = this.data;
 
   onSearchChange(event: any) {
     const searchValue = event.target.value;
     this.filteredData = this.data.filter((row: any) => {
-      return Object.values(row).some((val: any) => {
+      return row.some((val: any) => {
         return String(val).toLowerCase().includes(searchValue.toLowerCase());
       });
     });
   }
 
+  loader: boolean = false;
+
   ngOnInit(): void {
-    this.chartData.getFullSalesData().subscribe((data) => {
-      console.log(data);
-      data.forEach((element: any) => {
-        console.log(Object.keys(element).length);
+    this.loader = true;
+    this.chartData.getFullSalesData().subscribe((res: any) => {
+      this.columns = Object.keys(res.series[0]);
+      const salesDataArray = res.series.map((row: any) => {
+        return Object.values(row);
       });
+      this.data = salesDataArray;
+      this.filteredData = salesDataArray;
+      this.loader = false;
     });
+
   }
 
   selectedColumnData: any[] = [];

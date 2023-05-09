@@ -14,6 +14,7 @@
       <div class="spline_chart_container">
         <div class="chart_container__left">
           <app-custom-grid
+            [dataArray]="data"
             (onColumnHeaderClick)="onColumnHeaderClick($event)"
           ></app-custom-grid>
         </div>
