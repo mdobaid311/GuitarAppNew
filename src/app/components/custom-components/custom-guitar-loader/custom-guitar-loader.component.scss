@@ -4,6 +4,8 @@ svg {
   display: block;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   z-index: 100000;
+
+  animation: rotateYTurns 2s infinite alternate-reverse;
 }
 
 i {
@@ -24,7 +26,6 @@ i:hover {
 }
 
 #guitar_2_ {
-  animation: hover 2s infinite linear;
   &:hover {
     cursor: pointer;
   }
@@ -51,6 +52,17 @@ i:hover {
   50% {
     transition-timing-function: ease-in-out;
     transform: scale(1.05, 1);
+  }
+}
+
+@keyframes rotateYTurns {
+  from {
+    transition-timing-function: ease-in-out;
+    transform: rotateY(0turn) translate3d(0, -5%, 0);
+  }
+  to {
+    transition-timing-function: ease-in-out;
+    transform: rotateY(1turn) translate3d(0, 1.5%, 0);
   }
 }
 

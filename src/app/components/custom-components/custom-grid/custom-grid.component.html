@@ -1,0 +1,61 @@
+<app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
+
+<div class="chart_container__left">
+  <div class="left__header">
+    <h3>Sales</h3>
+
+    <div class="search_or_select_container">
+      <div class="search_container">
+        <input
+          type="text"
+          placeholder="Search..."
+          (input)="onSearchChange($event)"
+        />
+      </div>
+      <app-custom-select
+        [selectIcon]="faClock"
+        [options]="intervalsList"
+      ></app-custom-select>
+      <div class="view_selection_container">
+        <fa-icon
+          [icon]="faEllipsisVertical"
+          class="icon"
+          (click)="toggleViewSelectContainer()"
+        ></fa-icon>
+        <div class="view__options" *ngIf="isViewSelectContainerOpen">
+          <div class="view_option" *ngFor="let column of columns">
+            <input type="checkbox" name="" id="" />
+            <span> {{ column }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table_container">
+    <table>
+      <thead>
+        <tr>
+          <th
+            (click)="headerClickHandler('id')"
+            [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+            *ngFor="let column of columns"
+          >
+            {{ column }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData">
+          <td
+            *ngFor="let column of row"
+            [ngClass]="{
+              selected: selectedColumnHeader === column ? column : ''
+            }"
+          >
+            {{ column ? column : ("null" | json) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,6 +1,12 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { faClock,faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretLeft,
+  faClock,
+  faEllipsisVertical,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
+import { ChartService } from 'src/app/services/chartData.service';
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -13,6 +19,8 @@ export class AreaSplineChartComponent {
 
   faClock = faClock;
   faSearch = faSearch;
+  faCaretLeft = faCaretLeft;
+
   intervalsList = [
     { name: '15 Min' },
     { name: '30 Min' },
@@ -21,7 +29,7 @@ export class AreaSplineChartComponent {
     { name: '1 Day' },
   ];
 
-  constructor() {
+  constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
@@ -39,26 +47,24 @@ export class AreaSplineChartComponent {
 
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
-  data = [
-    { id: 21000, name: 25500, age: 25678, custom: 23456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 26456, data: 325566 },
-    { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
-    { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-    { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  ];
-
-
+  // data = [
+  //   { id: 21000, name: 25500, age: 25678, custom: 23456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 26456, data: 325566 },
+  //   { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
+  //   { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
+  // ];
 
   selectedColumnData: any[] = [];
   selectedColumnHeader: string = '';
 
   onColumnHeaderClick(header: string) {
-    console.log('header', header)
+    console.log('header', header);
     this.selectedColumnHeader = header;
     this.selectedColumnData = this.data.map((row: any) => row[header]);
     this.chartOptions = {
@@ -137,32 +143,30 @@ export class AreaSplineChartComponent {
         {
           name: 'Moose',
           data: this.selectedColumnData,
-          // [
-          //   38000,
-          //   37300,
-          //   37892,
-          //   25296,
-
-          // ]
         },
         {
           name: 'Deer',
           data: this.selectedColumnData.map((item, i) => item - 5000 * (i + 1)),
-          // [
-          //   22534,
-          //   23599,
-          //   24533,
-          //   25195,
-          //   25896,
-
-          // ]
         },
       ],
     };
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  ngOnInit() {}
+  columns: any = [];
+  data: any = [];
+  filteredData = this.data;
+
+  ngOnInit(): void {
+    this.chartData.getFullSalesData().subscribe((res: any) => {
+      this.columns = Object.keys(res.series[0]);
+      const salesDataArray = res.series.map((row: any) => {
+        return Object.values(row);
+      });
+      this.data = salesDataArray;
+      this.filteredData = salesDataArray;
+    });
+  }
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
