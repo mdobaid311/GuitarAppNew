@@ -12,11 +12,11 @@ import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-column-chart',
-  templateUrl: './column-chart.component.html',
-  styleUrls: ['./column-chart.component.scss'],
+  selector: 'app-line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.scss'],
 })
-export class ColumnChartComponent {
+export class LineChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
   chartOptions: any;
@@ -46,14 +46,10 @@ export class ColumnChartComponent {
       permission ? (this.loader = true) : null;
     });
 
-    console.log('enwDAtaARry', this.newDataArray);
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-      console.log('Array', array);
-      this.newDataArray = array;
-
       this.chartOptions = {
         chart: {
-          type: 'column',
+          type: 'line',
           height: (9 / 16) * 40 + '%',
         },
 
@@ -102,11 +98,17 @@ export class ColumnChartComponent {
             name: 'Population',
             data: array,
             dataLabels: {
-              enabled: true, // Remove data labels from columns
+              enabled: true, // Remove data labels from lines
             },
-            color: '#2f7ed8', // Change color of columns
-            pointWidth: 25, // Reduce width of columns
-            backgroundColor: '#FCFFC5',
+            color: '#A5D7E8', // Change color of lines
+          },
+          {
+            name: 'Population',
+            data: this.newDataArray,
+            dataLabels: {
+              enabled: true, // Remove data labels from lines
+            },
+            color: '#2f7ed8', // Change color of lines
           },
         ],
       };
@@ -133,9 +135,14 @@ export class ColumnChartComponent {
           const itemData = [item.year, item.total];
           yearsData.push(itemData);
         });
+
+        const newData = yearsData.map((item: any) => {
+          return item[1] + Math.random() * 100000000;
+        });
+
         this.chartOptions = {
           chart: {
-            type: 'column',
+            type: 'line',
             height: (9 / 16) * 40 + '%',
           },
 
@@ -157,19 +164,6 @@ export class ColumnChartComponent {
               },
             },
           },
-          // yAxis: {
-
-          //   labels: {
-          //     enabled: false,
-          //   },
-          //   title: {
-          //     text: null, // Hide y-axis title
-          //   },
-          //   axisLabel: {
-          //     text: '', // Hide "Values" label
-          //   },
-          //   min: 0,
-          // },
           yAxis: {
             min: 0,
             title: {
@@ -195,23 +189,31 @@ export class ColumnChartComponent {
           series: [
             {
               name: 'Population',
+              data: newData,
+
+              dataLabels: {
+                enabled: true, // Remove data labels from lines
+                color: '#fff',
+              },
+              color: '#A5D7E8', // Change color of lines
+            },
+            {
+              name: 'Population',
               data: yearsData,
 
               dataLabels: {
-                enabled: true, // Remove data labels from columns
+                enabled: true, // Remove data labels from lines
                 color: '#fff',
               },
-              color: '#2f7ed8', // Change color of columns
-              pointWidth: 25, // Reduce width of columns
-              backgroundColor: '#FCFFC5',
+              color: '#2f7ed8', // Change color of lines
             },
           ],
           plotOptions: {
-            column: {
+            line: {
               events: {
                 click: function (event: any) {
                   const name = +event.point.name;
-                  alert('Value of clicked column: ' + name);
+                  alert('Value of clicked line: ' + name);
                 },
               },
             },

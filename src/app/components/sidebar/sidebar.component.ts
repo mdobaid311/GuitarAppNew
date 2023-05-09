@@ -28,6 +28,12 @@ export class SidebarComponent {
   currentRoute: string;
 
   constructor(private router: Router) {
+
+    console.log(this.router.url)
     this.currentRoute = this.router.url;
+  }
+
+  ngInit(){
+
   }
 }

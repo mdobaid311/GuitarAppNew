@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ChartService } from 'src/app/services/chartData.service';
 import * as moment from 'moment';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-
-@Component({
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+ @Component({
   selector: 'app-org-chart',
   templateUrl: './org-chart.component.html',
   styleUrls: ['./org-chart.component.scss'],
@@ -17,6 +17,8 @@ export class OrgChartComponent {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
   }
+
+  faCaretLeft = faCaretLeft;
 
   data: any = [
     {
