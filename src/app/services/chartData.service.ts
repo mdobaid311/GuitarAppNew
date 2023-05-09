@@ -13,6 +13,11 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class ChartService {
   dataArray = new Subject<Array<any>>();
   booleanSubject = new BehaviorSubject<boolean>(false);
+  colChartPinToDB = new BehaviorSubject<boolean>(false);
+  barChartPinToDB = new BehaviorSubject<boolean>(false);
+  pieChartPinToDB = new BehaviorSubject<boolean>(false);
+  lineChartPinToDB = new BehaviorSubject<boolean>(false);
+  selectedRange = new Subject<any>();
 
   constructor(
     private httpClient: HttpClient,
