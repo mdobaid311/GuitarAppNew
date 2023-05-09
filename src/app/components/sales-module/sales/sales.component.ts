@@ -64,7 +64,7 @@ export class SalesComponent {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
   }
 
-  selectedChart = 'column';
+  selectedChart = 'line';
 
   chartTypeOptions = [
     { name: 'column', icon: faChartColumn },
