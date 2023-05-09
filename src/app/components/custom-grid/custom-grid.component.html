@@ -1,3 +1,5 @@
+<app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
+
 <div class="chart_container__left">
   <div class="left__header">
     <h3>Sales</h3>
@@ -21,115 +23,39 @@
           (click)="toggleViewSelectContainer()"
         ></fa-icon>
         <div class="view__options" *ngIf="isViewSelectContainerOpen">
-          <div class="view_option">
+          <div class="view_option" *ngFor="let column of columns">
             <input type="checkbox" name="" id="" />
-            <span> Order Header Key </span>
-          </div>
-          <div class="view_option">
-            <input type="checkbox" name="" id="" />
-            <span>Shipment Key </span>
-          </div>
-          <div class="view_option">
-            <input type="checkbox" name="" id="" />
-            <span> Order Date </span>
-          </div>
-          <div class="view_option">
-            <input type="checkbox" name="" id="" />
-            <span> Order Key </span>
+            <span> {{ column }} </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('id')"
-          [ngClass]="{ selected: selectedColumnHeader === 'id' }"
-        >
-          ID
-        </th>
-        <th
-          (click)="headerClickHandler('name')"
-          [ngClass]="{ selected: selectedColumnHeader === 'name' }"
-        >
-          Name
-        </th>
-        <th
-          (click)="headerClickHandler('age')"
-          [ngClass]="{ selected: selectedColumnHeader === 'age' }"
-        >
-          Age
-        </th>
-        <th
-          (click)="headerClickHandler('custom')"
-          [ngClass]="{ selected: selectedColumnHeader === 'custom' }"
-        >
-          Custom
-        </th>
-        <th
-          (click)="headerClickHandler('data')"
-          [ngClass]="{ selected: selectedColumnHeader === 'data' }"
-        >
-          Data
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of filteredData">
-        <td [ngClass]="{ selected: selectedColumnHeader === 'id' }">
-          {{ row.id }}
-        </td>
-        <td [ngClass]="{ selected: selectedColumnHeader === 'name' }">
-          {{ row.name }}
-        </td>
-        <td [ngClass]="{ selected: selectedColumnHeader === 'age' }">
-          {{ row.age }}
-        </td>
-        <td [ngClass]="{ selected: selectedColumnHeader === 'custom' }">
-          {{ row.custom }}
-        </td>
-        <td [ngClass]="{ selected: selectedColumnHeader === 'data' }">
-          {{ row.data }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table_container">
+    <table>
+      <thead>
+        <tr>
+          <th
+            (click)="headerClickHandler('id')"
+            [ngClass]="{ selected: selectedColumnHeader === 'id' }"
+            *ngFor="let column of columns"
+          >
+            {{ column }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData">
+          <td
+            *ngFor="let column of row"
+            [ngClass]="{
+              selected: selectedColumnHeader === column ? column : ''
+            }"
+          >
+            {{ column ? column : ("null" | json) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
