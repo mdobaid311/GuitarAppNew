@@ -37,11 +37,20 @@
           <h3>Dashboard</h3>
           <!-- <h3>Edit</h3> -->
         </div>
+
         <div class="main_container__charts_container">
-          <app-column-chart *ngIf="showColChart"></app-column-chart>
-          <app-bar-chart *ngIf="showBarChart"></app-bar-chart>
-          <app-pie-chart *ngIf="showPieChart"></app-pie-chart>
-          <app-line-chart *ngIf="showLineChart"></app-line-chart>
+          <div class="charts_container__chart" *ngIf="showColChart">
+            <app-column-chart></app-column-chart>
+          </div>
+          <div class="charts_container__chart" *ngIf="showBarChart">
+            <app-bar-chart></app-bar-chart>
+          </div>
+          <div class="charts_container__chart" *ngIf="showPieChart">
+            <app-pie-chart></app-pie-chart>
+          </div>
+          <div class="charts_container__chart" *ngIf="showLineChart">
+            <app-line-chart></app-line-chart>
+          </div>
         </div>
       </div>
     </div>

@@ -48,10 +48,9 @@ export class LineChartComponent {
       permission ? (this.loader = true) : null;
     });
 
-    
-    this.chartData.lineChartPinToDB.subscribe(pintoDb => {
+    this.chartData.lineChartPinToDB.subscribe((pintoDb) => {
       this.pinLineChart = pintoDb;
-    })
+    });
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
       this.chartOptions = {
@@ -126,9 +125,8 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : this.loadInitialchart();
     });
-    // this.loadInitialchart();
+    this.loadInitialchart();
   }
-
 
   loadInitialchart() {
     this.chartData.booleanSubject.subscribe((permission) => {
@@ -151,7 +149,6 @@ export class LineChartComponent {
         this.chartOptions = {
           chart: {
             type: 'line',
-            height: (9 / 16) * 40 + '%',
           },
 
           title: {
@@ -237,8 +234,8 @@ export class LineChartComponent {
 
   onPinToDashboard() {
     console.log('pin to DB_line', this.pinLineChart);
-    this.chartData.lineChartPinToDB.next(this.pinLineChart)
-}
+    this.chartData.lineChartPinToDB.next(this.pinLineChart);
+  }
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
