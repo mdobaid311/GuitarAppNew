@@ -22,7 +22,11 @@
     }
   }
 
-  &:hover .active {
+  &:hover .sidebar__item .active {
+    font-size: 22px;
+  }
+
+  &:hover .sidebar__item .icon {
     font-size: 22px;
   }
 
@@ -77,4 +81,3 @@
     transform: translateY(0);
   }
 }
-
