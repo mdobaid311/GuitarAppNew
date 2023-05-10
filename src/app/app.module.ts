@@ -37,7 +37,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { Orgchart2Component } from './components/charts/orgchart2/orgchart2.component';
 import { CustomTableComponent } from './components/custom-components/custom-table/custom-table.component';
 import { CustomGuitarLoaderComponent } from './components/custom-components/custom-guitar-loader/custom-guitar-loader.component';
-import { CustomGridComponent } from './components/custom-components/custom-grid/custom-grid.component';
+import { CustomGridComponent } from './components/charts/custom-grid/custom-grid.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 
 @NgModule({

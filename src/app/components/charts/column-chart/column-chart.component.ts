@@ -46,9 +46,9 @@ export class ColumnChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
-  this.chartData.colChartPinToDB.subscribe(pintoDb => {
-    this.pinColChart = pintoDb;
-  })
+    this.chartData.colChartPinToDB.subscribe((pintoDb) => {
+      this.pinColChart = pintoDb;
+    });
 
     console.log('enwDAtaARry', this.newDataArray);
     this.subscription = this.chartData.dataArray.subscribe((array) => {
@@ -58,7 +58,6 @@ export class ColumnChartComponent {
       this.chartOptions = {
         chart: {
           type: 'column',
-          height: (9 / 16) * 40 + '%',
         },
 
         title: {
@@ -127,7 +126,7 @@ export class ColumnChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : this.loadInitialchart();
     });
-    // this.loadInitialchart();
+    this.loadInitialchart();
   }
 
   loadInitialchart() {
@@ -146,7 +145,6 @@ export class ColumnChartComponent {
         this.chartOptions = {
           chart: {
             type: 'column',
-            height: (9 / 16) * 40 + '%',
           },
 
           title: {
@@ -245,8 +243,8 @@ export class ColumnChartComponent {
 
   onPinToDashboard() {
     console.log('pin to DB_col', this.pinColChart);
-    this.chartData.colChartPinToDB.next(this.pinColChart)
-}
+    this.chartData.colChartPinToDB.next(this.pinColChart);
+  }
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')

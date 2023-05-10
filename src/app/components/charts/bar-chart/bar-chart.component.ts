@@ -1,7 +1,16 @@
-import { Component, ElementRef, Input, SimpleChanges, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  SimpleChanges,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
+import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bar-chart',
@@ -13,8 +22,10 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   chartOptions: any;
 
+  faThumbtack = faThumbtack;
+
   newDataArray: any = [];
-  subscription: Subscription = new Subscription;
+  subscription: Subscription = new Subscription();
 
   theme = 'light';
   loader = false;
@@ -34,28 +45,22 @@ export class BarChartComponent implements OnInit, OnDestroy {
     observer.observe(document.body, { attributes: true });
   }
 
-
-
   ngOnInit() {
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? (this.loader = true) : null;
+    });
 
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? this.loader = true :  null;
-    })
-
-    
-    this.chartData.barChartPinToDB.subscribe(pintoDb => {
+    this.chartData.barChartPinToDB.subscribe((pintoDb) => {
       this.pinBarChart = pintoDb;
-    })
+    });
 
-    this.subscription = this.chartData.dataArray.subscribe(array => {
-      console.log('Array', array)
+    this.subscription = this.chartData.dataArray.subscribe((array) => {
+      console.log('Array', array);
       this.newDataArray = array;
 
       this.chartOptions = {
         chart: {
           type: 'bar',
-          height: (9 / 16) * 55 + '%',
-
         },
 
         title: {
@@ -97,7 +102,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
         },
         legend: {
           enabled: false,
-          showInLegend:false
+          showInLegend: false,
         },
         tooltip: {
           pointFormat: 'Sales: <b>{point.y:.1f} </b>',
@@ -109,45 +114,38 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
             dataLabels: {
               enabled: true, // Remove data labels from columns
-
             },
             color: '#2f7ed8', // Change color of columns
             pointWidth: 25, // Reduce width of columns
             backgroundColor: '#FCFFC5',
           },
         ],
-
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
       this.loader = false;
-    })
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? null :  this.loadInitialchart()
-    })
-    // this.loadInitialchart()
-
+    });
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : this.loadInitialchart();
+    });
+    this.loadInitialchart();
   }
 
-
   loadInitialchart() {
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ?  null :  this.loader = true;
-    })
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : (this.loader = true);
+    });
     this.chartData.getOrderTotalYears().subscribe({
-      next: resp => {
+      next: (resp) => {
         let yearsData: any = [];
-        console.log('Year data', resp)
+        console.log('Year data', resp);
         resp.forEach((item: IYear) => {
-          const itemData = [
-            item.year,
-            item.total,
-          ];
+          const itemData = [item.year, item.total];
           yearsData.push(itemData);
-        })
+        });
         this.chartOptions = {
           chart: {
-            type: 'bar'
+            type: 'bar',
           },
           title: {
             text: 'Sales',
@@ -193,9 +191,9 @@ export class BarChartComponent implements OnInit, OnDestroy {
             series: {
               stacking: 'normal',
               dataLabels: {
-                enabled: true
-              }
-            }
+                enabled: true,
+              },
+            },
           },
           series: [
             {
@@ -204,30 +202,27 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
               dataLabels: {
                 enabled: true, // Remove data labels from columns
-                color:"#fff"
+                color: '#fff',
               },
               color: '#2f7ed8', // Change color of columns
               pointWidth: 25, // Reduce width of columns
               backgroundColor: '#FCFFC5',
             },
           ],
-
-
         };
         Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
         this.updateChartTheme();
         this.loader = false;
       },
-      error: error => {
-
-      }
-    })
+      error: (error) => {},
+    });
   }
 
   onPinToDashboard() {
     console.log('pin to DB_bar', this.pinBarChart);
-    this.chartData.barChartPinToDB.next(this.pinBarChart)
-}
+    this.pinBarChart = true;
+    this.chartData.barChartPinToDB.next(this.pinBarChart);
+  }
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
@@ -249,44 +244,45 @@ export class BarChartComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     // Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
 
 class IYear {
-  "year": string;
-  "total": number;
+  'year': string;
+  'total': number;
 }
 
-    // chart: {
-      //   type: 'bar'
-      // },
-      // title: {
-      //   text: this.options.text
-      // },
-      // xAxis: {
-      //   categories: this.options.categories
-      // },
-      // yAxis: {
-      //   min: 0,
-      //   title: {
-      //     text: 'Goals'
-      //   }
-      // },
-      // legend: {
-      //   layout: 'vertical', // changed to vertical layout
-      //   align: 'right', // moved to the right
-      //   verticalAlign: 'top', // moved to the top
-      //   x: -10, // adjust x position to align with chart
-      //   reversed: true
-      // },
-      // plotOptions: {
-      //   series: {
-      //     stacking: 'normal',
-      //     dataLabels: {
-      //       enabled: true
-      //     }
-      //   }
-      // },
-      // series: this.options.series
+// chart: {
+//   type: 'bar'
+// },
+// title: {
+//   text: this.options.text
+// },
+// xAxis: {
+//   categories: this.options.categories
+// },
+// yAxis: {
+//   min: 0,
+//   title: {
+//     text: 'Goals'
+//   }
+// },
+// legend: {
+//   layout: 'vertical', // changed to vertical layout
+//   align: 'right', // moved to the right
+//   verticalAlign: 'top', // moved to the top
+//   x: -10, // adjust x position to align with chart
+//   reversed: true
+// },
+// plotOptions: {
+//   series: {
+//     stacking: 'normal',
+//     dataLabels: {
+//       enabled: true
+//     }
+//   }
+// },
+// series: this.options.series
