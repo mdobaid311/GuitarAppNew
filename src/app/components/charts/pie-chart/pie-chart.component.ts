@@ -27,7 +27,7 @@ export class PieChartComponent {
   theme = 'light';
   loader = false;
 
-  pinPieChart:any;
+  pinPieChart: any;
 
   constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
@@ -44,32 +44,31 @@ export class PieChartComponent {
   }
 
   ngOnInit() {
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? (this.loader = true) : null;
+    });
 
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? this.loader = true :  null;
-    })
-
-    this.chartData.pieChartPinToDB.subscribe(pintoDb => {
+    this.chartData.pieChartPinToDB.subscribe((pintoDb) => {
       this.pinPieChart = pintoDb;
-    })
+    });
 
-    this.subscription = this.chartData.dataArray.subscribe(array => {
-      console.log('Array', array)
+    this.subscription = this.chartData.dataArray.subscribe((array) => {
+      console.log('Array', array);
       this.newDataArray = array;
-      let pieDataArray:any = [];
-      array.forEach(item => {
+      let pieDataArray: any = [];
+      array.forEach((item) => {
         const element = {
           name: item[0],
-          y: item[1]
-        }
+          y: item[1],
+        };
         pieDataArray.push(element);
-      })
+      });
       this.chartOptions = {
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
-          type: 'pie'
+          type: 'pie',
         },
         title: {
           text: 'Sales',
@@ -80,12 +79,12 @@ export class PieChartComponent {
           },
         },
         tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
         },
         accessibility: {
           point: {
-            valueSuffix: '%'
-          }
+            valueSuffix: '%',
+          },
         },
         plotOptions: {
           pie: {
@@ -93,30 +92,32 @@ export class PieChartComponent {
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            }
-          }
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            },
+          },
         },
-        series: [{
-          name: 'Sales',
-          colorByPoint: true,
-          data: pieDataArray
-        }]
+        series: [
+          {
+            name: 'Sales',
+            colorByPoint: true,
+            data: pieDataArray,
+          },
+        ],
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       this.updateChartTheme();
       this.loader = false;
-    })
-    this.chartData.booleanSubject.subscribe(permission => {
-      permission ? null :  this.loadInitialchart()
-    })
-    // this.loadInitialchart()
+    });
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : this.loadInitialchart();
+    });
+    this.loadInitialchart()
   }
 
   loadInitialchart() {
-      this.chartData.booleanSubject.subscribe(permission => {
-      permission ?  null :  this.loader = true;
-    })
+    this.chartData.booleanSubject.subscribe((permission) => {
+      permission ? null : (this.loader = true);
+    });
     this.chartData.getOrderTotalYears().subscribe({
       next: (resp) => {
         let yearsData: any = [];
@@ -182,8 +183,8 @@ export class PieChartComponent {
 
   onPinToDashboard() {
     console.log('pin to DB_pie', this.pinPieChart);
-    this.chartData.pieChartPinToDB.next(this.pinPieChart)
-}
+    this.chartData.pieChartPinToDB.next(this.pinPieChart);
+  }
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')

@@ -42,7 +42,6 @@
   }
 }
 
-
 .highcharts-figure,
 .highcharts-data-table table {
   min-width: 310px;
@@ -53,6 +52,31 @@
 #container {
   height: 400px;
 }
-.chartContainer{
-  height: 400px
+.chartContainer {
+  height: 300px;
+}
+
+.pintab {
+  margin: 0 20px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0px 3px 2px -2px #000;
+}
+.pintabinput {
+  opacity: 0.01;
+}
+.pintab i {
+  transition: top 0.1s cubic-bezier(0.82, -0.03, 0.58, 1),
+    color 0.1s ease-in-out 0.1s;
+  position: absolute;
+  left: 3px;
+  top: -5px;
+  cursor: pointer;
+  color: #f9f9f9;
+  font-size: 18px;
+}
+.cckd {
+  top: 0px !important;
+  color: #2ecc71 !important;
 }

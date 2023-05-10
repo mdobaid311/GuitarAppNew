@@ -97,7 +97,13 @@
               </div>
             </div>
             <div class="row_1_div_2">
-              <div class="select_chart_type">
+              <div class="chart__header">
+                <div class="pintab" (click)="onPinToDashboard()">
+                  <fa-icon
+                    [icon]="faThumbtack"
+                    [ngClass]="pinActive ? 'cckd' : ''"
+                  ></fa-icon>
+                </div>
                 <app-custom-select
                   (onSelectChartChange)="onSelectChartChange($event)"
                   [selectIcon]="faChartLine"
@@ -202,13 +208,20 @@
               </div>
             </div>
             <div class="row_1_div_2">
-              <div class="select_chart_type">
+              <div class="chart__header">
+                <div class="pintab" (click)="onPinToDashboard()">
+                  <fa-icon
+                    [icon]="faThumbtack"
+                    [ngClass]="pinActive ? 'cckd' : ''"
+                  ></fa-icon>
+                </div>
                 <app-custom-select
                   (onSelectChartChange)="onSelectChartChange($event)"
                   [selectIcon]="faChartLine"
                   [options]="chartTypeOptions"
                 ></app-custom-select>
               </div>
+
               <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
               <app-column-chart
                 *ngIf="selectedChart == 'column'"
