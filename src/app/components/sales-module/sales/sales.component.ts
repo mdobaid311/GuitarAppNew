@@ -13,6 +13,7 @@ import {
   faTable,
   faEllipsisVertical,
   faLineChart,
+  faThumbtack,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -37,6 +38,7 @@ export class SalesComponent {
   faLineChart = faLineChart;
   faTable = faTable;
   faEllipsisVertical = faEllipsisVertical;
+  faThumbtack = faThumbtack;
 
   yearData: any = [];
   dataRows = [];
@@ -64,7 +66,7 @@ export class SalesComponent {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
   }
 
-  selectedChart = 'column';
+  selectedChart = 'line';
 
   chartTypeOptions = [
     { name: 'column', icon: faChartColumn },
@@ -188,6 +190,7 @@ export class SalesComponent {
   makeEditable() {
     this.isEditable = true;
   }
+
   constructor(
     private chartData: ChartService,
     private router: Router,
@@ -195,6 +198,26 @@ export class SalesComponent {
   ) {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
+  }
+
+  pinBarChart: any;
+  pinLineChart: any;
+  pinPieChart: any;
+  pinTableChart: any;
+  pinColumnChart: any;
+  pinActive: any = false;
+
+  onPinToDashboard() {
+    if (this.selectedChart === 'bar') {
+      this.pinActive = !this.pinActive;
+      this.chartData.barChartPinToDB.next(this.pinActive);
+    } else if (this.selectedChart === 'line') {
+      this.pinActive = !this.pinActive;
+      this.chartData.lineChartPinToDB.next(this.pinActive);
+    } else if (this.selectedChart === 'pie') {
+      this.pinActive = !this.pinActive;
+      this.chartData.pieChartPinToDB.next(this.pinActive);
+    }
   }
 
   changeDate(value: any) {
@@ -234,7 +257,7 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
-    console.log('Range Selected', range)
+    console.log('Range Selected', range);
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -477,6 +500,22 @@ export class SalesComponent {
           '%';
       },
     });
+
+    if (this.chartData.barChartPinToDB.value && this.selectedChart === 'bar') {
+      this.pinActive = true;
+    } else if (
+      this.chartData.lineChartPinToDB.value &&
+      this.selectedChart === 'line'
+    ) {
+      this.pinActive = true;
+    } else if (
+      this.chartData.pieChartPinToDB.value &&
+      this.selectedChart === 'pie'
+    ) {
+      this.pinActive = true;
+    } else {
+      this.pinActive = false;
+    }
   }
 
   onSelectChartChange(event: any) {
@@ -486,6 +525,22 @@ export class SalesComponent {
     this.onRangeSelect(this.currentRange);
 
     // console.log('selectedChart', this.selectedChart);
+
+    if (this.chartData.barChartPinToDB.value && this.selectedChart === 'bar') {
+      this.pinActive = true;
+    } else if (
+      this.chartData.lineChartPinToDB.value &&
+      this.selectedChart === 'line'
+    ) {
+      this.pinActive = true;
+    } else if (
+      this.chartData.pieChartPinToDB.value &&
+      this.selectedChart === 'pie'
+    ) {
+      this.pinActive = true;
+    } else {
+      this.pinActive = false;
+    }
   }
 
   getAllData(date: any) {

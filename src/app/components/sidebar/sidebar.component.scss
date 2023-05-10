@@ -1,4 +1,4 @@
-.dashboard__sidebar {
+.sidebar {
   height: 100%;
   min-height: 100vh;
   width: fit-content;
@@ -14,6 +14,7 @@
 
   &:hover {
     width: 230px;
+    border-radius: 0 15px 15px 0;
   }
 
   &:hover .sidebar__item {
@@ -22,7 +23,11 @@
     }
   }
 
-  &:hover .active {
+  &:hover .sidebar__item .active {
+    font-size: 22px;
+  }
+
+  &:hover .sidebar__item .icon {
     font-size: 22px;
   }
 
@@ -77,4 +82,3 @@
     transform: translateY(0);
   }
 }
-
