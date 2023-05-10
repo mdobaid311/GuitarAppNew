@@ -27,6 +27,8 @@ export class PieChartComponent {
   theme = 'light';
   loader = false;
 
+  pinPieChart:any;
+
   constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -45,6 +47,10 @@ export class PieChartComponent {
 
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? this.loader = true :  null;
+    })
+
+    this.chartData.pieChartPinToDB.subscribe(pintoDb => {
+      this.pinPieChart = pintoDb;
     })
 
     this.subscription = this.chartData.dataArray.subscribe(array => {
@@ -104,7 +110,7 @@ export class PieChartComponent {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
-    this.loadInitialchart()
+    // this.loadInitialchart()
   }
 
   loadInitialchart() {
@@ -173,6 +179,11 @@ export class PieChartComponent {
       error: (error) => {},
     });
   }
+
+  onPinToDashboard() {
+    console.log('pin to DB_pie', this.pinPieChart);
+    this.chartData.pieChartPinToDB.next(this.pinPieChart)
+}
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')

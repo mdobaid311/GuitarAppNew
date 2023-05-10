@@ -18,6 +18,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   theme = 'light';
   loader = false;
+  pinBarChart: any;
 
   constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
@@ -40,6 +41,12 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? this.loader = true :  null;
     })
+
+    
+    this.chartData.barChartPinToDB.subscribe(pintoDb => {
+      this.pinBarChart = pintoDb;
+    })
+
     this.subscription = this.chartData.dataArray.subscribe(array => {
       console.log('Array', array)
       this.newDataArray = array;
@@ -90,6 +97,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
         },
         legend: {
           enabled: false,
+          showInLegend:false
         },
         tooltip: {
           pointFormat: 'Sales: <b>{point.y:.1f} </b>',
@@ -117,9 +125,10 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.chartData.booleanSubject.subscribe(permission => {
       permission ? null :  this.loadInitialchart()
     })
-    this.loadInitialchart()
+    // this.loadInitialchart()
 
   }
+
 
   loadInitialchart() {
     this.chartData.booleanSubject.subscribe(permission => {
@@ -214,6 +223,11 @@ export class BarChartComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  onPinToDashboard() {
+    console.log('pin to DB_bar', this.pinBarChart);
+    this.chartData.barChartPinToDB.next(this.pinBarChart)
+}
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
