@@ -307,14 +307,15 @@ $desktop: 1200px;
                 .top_list__items_list {
                   display: flex;
                   flex-direction: column;
-                  // justify-content: space-evenly;
+                  justify-content: space-evenly;
                   height: 100%;
 
+
                   .top_list__item {
-                    padding: 10px 0px;
+                    box-shadow: var(--primary-boxshadow);
+                    padding: 10px 5px;
                     display: flex;
                     justify-content: space-between;
-
                     h4 {
                       margin: 0;
                     }
@@ -332,7 +333,12 @@ $desktop: 1200px;
 
           .top_sales__by_brand {
             display: flex;
-             margin: 10px;
+            margin: 10px;
+
+            @media only screen and (max-width: $mobile) {
+              width: 100%;
+              flex-direction: column;
+            }
 
             .brand__top_list_container {
               flex: 1;
@@ -341,11 +347,17 @@ $desktop: 1200px;
               padding: 15px;
               border-radius: 5px;
 
+
               h3 {
                 color: var(--primary-color-1);
                 text-transform: uppercase;
                 text-align: center;
                 border-bottom: 1px dashed var(--primary-color-3);
+
+                span{
+                  color: var(--primary-color-3);
+                }
+
               }
 
               .lists__container {
