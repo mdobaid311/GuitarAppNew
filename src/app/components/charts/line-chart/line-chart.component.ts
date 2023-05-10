@@ -27,6 +27,8 @@ export class LineChartComponent {
   theme = 'light';
   loader = false;
 
+  pinLineChart: any;
+
   constructor(private chartData: ChartService) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -45,6 +47,11 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
+
+    
+    this.chartData.lineChartPinToDB.subscribe(pintoDb => {
+      this.pinLineChart = pintoDb;
+    })
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
       this.chartOptions = {
@@ -119,8 +126,9 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : this.loadInitialchart();
     });
-    this.loadInitialchart();
+    // this.loadInitialchart();
   }
+
 
   loadInitialchart() {
     this.chartData.booleanSubject.subscribe((permission) => {
@@ -226,6 +234,11 @@ export class LineChartComponent {
       error: (error) => {},
     });
   }
+
+  onPinToDashboard() {
+    console.log('pin to DB_line', this.pinLineChart);
+    this.chartData.lineChartPinToDB.next(this.pinLineChart)
+}
 
   updateChartTheme() {
     this.theme = document.body.classList.contains('dark-theme')
