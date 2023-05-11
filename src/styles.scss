@@ -25,21 +25,24 @@ $desktop: 1200px;
   --primary-color-1: #ffffff;
   --primary-color-2: #817979;
   --primary-background-1: #e7131a;
-  --primary-background-2: #0b2447;
-  --primary-background-3: #19376d;
+  --primary-background-2: #061429;
+  --primary-background-3: #0D2039;
   --primary-boxshadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
 }
 
 html{
   scroll-behavior: smooth;
-  height: 100vh;
-
+  // height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 body {
   background: var(--primary-background-2);
   color: var(--primary-color-1);
-  height: 100vh;
+   min-height: 100vh;
+  min-height: -webkit-fill-available;
+  // height: 100vh;
   @media (max-width: $mobile) {
     min-height: 100vh;
   }
