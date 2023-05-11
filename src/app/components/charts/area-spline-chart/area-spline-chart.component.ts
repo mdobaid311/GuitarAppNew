@@ -70,7 +70,7 @@ export class AreaSplineChartComponent {
     this.chartOptions = {
       chart: {
         type: 'areaspline',
-        backgroundColor: this.theme === 'dark' ? '#19376D' : '#fff',
+        backgroundColor: this.theme === 'dark' ? '#0D2039' : '#fff',
       },
       title: {
         text: 'Demo chart',
@@ -174,7 +174,7 @@ export class AreaSplineChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#19376D' : '#fff';
+      this.theme === 'dark' ? '#0D2039' : '#fff';
     // this.chartOptions.series[0].color =
     //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
     // this.chartOptions.series[0].backgroundColor =
