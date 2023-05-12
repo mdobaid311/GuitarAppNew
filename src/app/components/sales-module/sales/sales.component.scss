@@ -19,7 +19,7 @@ $desktop: 1200px;
       display: flex;
       flex-direction: column;
       box-shadow: var(--primary-boxshadow);
-      width: 1292px;
+      // width: 1292px;
       // border-radius: 6px;
 
       .main_screen__main_container {
@@ -189,7 +189,7 @@ $desktop: 1200px;
                   color: var(--primary-color-1);
                   cursor: text;
                   font-size: 18px;
-                  font-weight: bold;
+                  font-weight: 500;
                   &:hover {
                     border-bottom: var(--primary-color-3);
                   }
@@ -323,7 +323,7 @@ $desktop: 1200px;
 
                     span {
                       color: var(--primary-color-3);
-                      font-weight: bold;
+                      font-weight: 500;
                       text-align: right;
                     }
                   }
@@ -393,7 +393,7 @@ $desktop: 1200px;
 
                       span {
                         color: var(--primary-color-3);
-                        font-weight: bold;
+                        font-weight: 500;
                         text-align: right;
                       }
                     }

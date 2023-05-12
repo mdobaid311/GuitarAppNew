@@ -10,6 +10,7 @@ import {
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
+import { SalesDataService } from 'src/app/services/sales-data.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -29,7 +30,10 @@ export class PieChartComponent {
 
   pinPieChart: any;
 
-  constructor(private chartData: ChartService) {
+  constructor(
+    private chartData: ChartService,
+    private salesData: SalesDataService
+  ) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
@@ -52,7 +56,7 @@ export class PieChartComponent {
       this.pinPieChart = pintoDb;
     });
 
-    this.subscription = this.chartData.dataArray.subscribe((array) => {
+    this.subscription = this.salesData.currentSalesData.subscribe((array) => {
       console.log('Array', array);
       this.newDataArray = array;
       let pieDataArray: any = [];
@@ -111,7 +115,7 @@ export class PieChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : this.loadInitialchart();
     });
-    this.loadInitialchart()
+    this.loadInitialchart();
   }
 
   loadInitialchart() {
@@ -192,7 +196,7 @@ export class PieChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#19376D' : '#fff';
+      this.theme === 'dark' ? '#0D2039' : '#fff';
     // this.chartOptions.xAxis.labels.style.color =
     //   this.theme === 'dark' ? '#fff' : '#000';
     //   this.chartOptions.yAxis.labels.style.color =
