@@ -80,16 +80,16 @@ export class CustomGridComponent {
   loader: boolean = false;
 
   ngOnInit(): void {
-    this.loader = true;
-    this.chartData.getFullSalesData().subscribe((res: any) => {
-      this.columns = Object.keys(res.series[0]);
-      const salesDataArray = res.series.map((row: any) => {
-        return Object.values(row);
-      });
-      this.data = salesDataArray;
-      this.filteredData = salesDataArray;
-      this.loader = false;
-    });
+    // this.loader = true;
+    // this.chartData.getFullSalesData().subscribe((res: any) => {
+    //   this.columns = Object.keys(res.series[0]);
+    //   const salesDataArray = res.series.map((row: any) => {
+    //     return Object.values(row);
+    //   });
+    //   this.data = salesDataArray;
+    //   this.filteredData = salesDataArray;
+    //   this.loader = false;
+    // });
 
   }
 
