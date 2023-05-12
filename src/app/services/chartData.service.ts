@@ -10,6 +10,19 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+export class DataService {
+  data: any;
+
+  constructor(private apiService: ChartService) {}
+
+  getData() {
+    return this.data;
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
 export class ChartService {
   dataArray = new Subject<Array<any>>();
   booleanSubject = new BehaviorSubject<boolean>(false);
