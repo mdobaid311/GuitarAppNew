@@ -58,7 +58,9 @@
           <div class="sales_container__row">
             <div class="row_1_div_1">
               <h1 class="brand__name">GC</h1>
-              <h1>${{ originalOrdersTotalTodayAbbr }}</h1>
+              <h1>
+                ${{ fullSalesData.totalStats[0].original_order_total_amount }}
+              </h1>
               <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
               <app-custom-progress-bar
                 [customGoalProgress]="customGoalProgress"
@@ -124,42 +126,24 @@
               <div class="top_list__by_channel">
                 <h3>Sales By Channel</h3>
                 <div class="top_list__items_list">
-                  <div class="top_list__item">
-                    <h4>Contact Center</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Sales Force</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Web</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Special Order</h4>
-                    <span>$2.4M</span>
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of ORDER_CAPTURE_CHANNEL_GROUPED_GC"
+                  >
+                    <h4>{{ item.name }}</h4>
+                    <span>${{ item.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
               <div class="top_list__by_fulfilment">
                 <h3>Sales By fulfilment</h3>
                 <div class="top_list__items_list">
-                  <div class="top_list__item">
-                    <h4>Pickup in Store</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Ship to Customer</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Store Pickup</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Digital Vendor</h4>
-                    <span>$2.4M</span>
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of LINE_FULFILLMENT_TYPE_GROUPED_GC"
+                  >
+                    <h4>{{ item.name }}</h4>
+                    <span>${{ item.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
@@ -169,7 +153,9 @@
           <div class="sales_container__row">
             <div class="row_1_div_1">
               <h1 class="brand__name">MF</h1>
-              <h1>${{ originalOrdersTotalTodayAbbr }}</h1>
+              <h1>
+                ${{ fullSalesData.totalStats[1].original_order_total_amount }}
+              </h1>
               <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
               <app-custom-progress-bar
                 [customGoalProgress]="customGoalProgress"
@@ -235,42 +221,24 @@
               <div class="top_list__by_channel">
                 <h3>Sales By Channel</h3>
                 <div class="top_list__items_list">
-                  <div class="top_list__item">
-                    <h4>Contact Center</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Sales Force</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Web</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Special Order</h4>
-                    <span>$2.4M</span>
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of ORDER_CAPTURE_CHANNEL_GROUPED_MF"
+                  >
+                    <h4>{{ item.name }}</h4>
+                    <span>${{ item.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
               <div class="top_list__by_fulfilment">
                 <h3>Sales By fulfilment</h3>
                 <div class="top_list__items_list">
-                  <div class="top_list__item">
-                    <h4>Pickup in Store</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Ship to Customer</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Store Pickup</h4>
-                    <span>$2.4M</span>
-                  </div>
-                  <div class="top_list__item">
-                    <h4>Digital Vendor</h4>
-                    <span>$2.4M</span>
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of LINE_FULFILLMENT_TYPE_GROUPED_MF"
+                  >
+                    <h4>{{ item.name }}</h4>
+                    <span>${{ item.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
@@ -281,11 +249,21 @@
           <div class="overall_total__stats_contianer">
             <div class="overall_total__stats__item">
               <h3>Total (Booked)</h3>
-              <h1>$8.1M</h1>
+              <h1>
+                ${{
+                  fullSalesData.totalStats[0].original_order_total_amount +
+                    fullSalesData.totalStats[1].original_order_total_amount
+                }}
+              </h1>
             </div>
             <div class="overall_total__stats__item">
               <h3>Total (Units)</h3>
-              <h1>20000</h1>
+              <h1>
+                {{
+                  fullSalesData.totalStats[0].status_quantity +
+                    fullSalesData.totalStats[1].status_quantity
+                }}
+              </h1>
             </div>
             <div class="overall_total__stats__item">
               <h3>Shipping Charges</h3>
