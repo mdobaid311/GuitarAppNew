@@ -107,8 +107,8 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getFullSalesData() {
-    const url = 'http://localhost:3000/v2/alsd/get-full-sales-data';
+  public getFullSalesData(startDate: any, endDate: any) {
+    const url = `http://localhost:3000/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
 }

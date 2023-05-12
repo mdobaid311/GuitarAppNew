@@ -158,14 +158,14 @@ export class AreaSplineChartComponent {
   filteredData = this.data;
 
   ngOnInit(): void {
-    this.chartData.getFullSalesData().subscribe((res: any) => {
-      this.columns = Object.keys(res.series[0]);
-      const salesDataArray = res.series.map((row: any) => {
-        return Object.values(row);
-      });
-      this.data = salesDataArray;
-      this.filteredData = salesDataArray;
-    });
+    // this.chartData.getFullSalesData().subscribe((res: any) => {
+    //   this.columns = Object.keys(res.series[0]);
+    //   const salesDataArray = res.series.map((row: any) => {
+    //     return Object.values(row);
+    //   });
+    //   this.data = salesDataArray;
+    //   this.filteredData = salesDataArray;
+    // });
   }
 
   updateChartTheme() {

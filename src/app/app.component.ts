@@ -11,12 +11,18 @@ import { Subscription } from 'rxjs';
 export class AppComponent {
   title = 'guitarApp';
   daterange: any;
-  constructor(private salesData: SalesDataService) {}
+  constructor(
+    private salesData: SalesDataService,
+    private chartData: ChartService
+  ) {}
 
   ngOnInit() {
-    this.salesData.currentSalesData.subscribe((data) => {
-      console.log('data from app' +JSON.stringify( data[0]) );
-    });
+    this.chartData
+      .getFullSalesData('2023-01-01 00:03:20', '2023-01-01 08:15:20')
+      .subscribe({
+        next: (resp) => {
+          console.log('Full sales data ' + resp);
+        },
+      });
   }
 }
-
