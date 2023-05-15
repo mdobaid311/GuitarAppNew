@@ -45,7 +45,7 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
-    // console.log('line chart component' + this.lineChartData);
+    console.log('line chart component' + this.lineChartData);
 
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
