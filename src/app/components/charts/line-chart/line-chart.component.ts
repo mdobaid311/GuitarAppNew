@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class LineChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
+  @Input() lineChartData: any;
 
   chartOptions: any;
 
@@ -44,6 +45,8 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
+    // console.log('line chart component' + this.lineChartData);
+
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
@@ -136,9 +139,10 @@ export class LineChartComponent {
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
-        next: (resp:any) => {
+        next: (resp: any) => {
           let yearsData: any = [];
-          resp.chartSeries[1].series.forEach((item: any) => {
+          // console.log(resp.MFData + 'hello');
+          resp.MFData.chartSeries.series.forEach((item: any) => {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           });
@@ -220,7 +224,10 @@ export class LineChartComponent {
               },
             },
           };
-          Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+          Highcharts.chart(
+            this.chartContainer.nativeElement,
+            this.chartOptions
+          );
           this.updateChartTheme();
           this.loader = false;
         },
