@@ -484,54 +484,14 @@ export class SalesComponent {
 
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
-
-    // this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
-    //   next: (resp: any) => {
-    //     this.originalOrdersTotalToday = resp[0].original_orders_total;
-    //     this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
-    //       notation: 'compact',
-    //       compactDisplay: 'short',
-    //     }).format(this.originalOrdersTotalToday);
-    //     this.customGoalProgress =
-    //       ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-    //       '%';
-    //   },
-    // });
-
-    // this.chartData.getOrderTotalForRange('2023-01-30', '2023-01-30').subscribe({
-    //   next: (resp: any) => {
-    //     this.customGoal = resp[0].original_orders_total;
-    //     this.customGoalAbbr = Intl.NumberFormat('en-US', {
-    //       notation: 'compact',
-    //       compactDisplay: 'short',
-    //     }).format(this.customGoal);
-    //     this.customGoalProgress =
-    //       ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-    //       '%';
-    //   },
-    // });
-
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
         next: (resp: any) => {
-          this.fullSalesData = resp;
-          this.ORDER_CAPTURE_CHANNEL_GROUPED_GC = Object.values(
-            this.fullSalesData.salesCategories[0].ORDER_CAPTURE_CHANNEL_GROUPED
-          );
-          this.ORDER_CAPTURE_CHANNEL_GROUPED_MF = Object.values(
-            this.fullSalesData.salesCategories[1].ORDER_CAPTURE_CHANNEL_GROUPED
-          );
-
-          this.LINE_FULFILLMENT_TYPE_GROUPED_GC = Object.values(
-            this.fullSalesData.salesCategories[0].LINE_FULFILLMENT_TYPE_GROUPED
-          );
-          this.LINE_FULFILLMENT_TYPE_GROUPED_MF = Object.values(
-            this.fullSalesData.salesCategories[1].LINE_FULFILLMENT_TYPE_GROUPED
-          ).slice(0, 4);
-
-          this.CHARTDATA_GC = this.fullSalesData.chartSeries[0].series;
-          this.CHARTDATA_MF = this.fullSalesData.chartSeries[1].series;
+          // console.log(Object.values(resp));
+          this.fullSalesData = Object.values(resp);
+          this.CHARTDATA_GC = this.fullSalesData[0].chartSeries.series;
+          this.CHARTDATA_GC = this.fullSalesData[1].chartSeries.series;
         },
       });
 

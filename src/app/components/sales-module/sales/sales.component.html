@@ -54,13 +54,10 @@
           <!-- <h3>Edit</h3> -->
         </div>
         <div class="main_sales__container">
-          <!-- row 1 -->
-          <div class="sales_container__row">
+          <div *ngFor="let item of fullSalesData" class="sales_container__row">
             <div class="row_1_div_1">
-              <h1 class="brand__name">GC</h1>
-              <h1>
-                ${{ fullSalesData.totalStats[0].original_order_total_amount }}
-              </h1>
+              <h1 class="brand__name">{{ item.name }}</h1>
+              <h1>${{ item.totalStats.original_order_total_amount }}</h1>
               <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
               <app-custom-progress-bar
                 [customGoalProgress]="customGoalProgress"
@@ -120,7 +117,9 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
-              <app-line-chart *ngIf="selectedChart == 'line'"></app-line-chart>
+              <app-line-chart *ngIf="selectedChart == 'line'"
+              [lineChartData]="item.chartSeries.series"
+              ></app-line-chart>
             </div>
             <div class="row_1_div_3">
               <div class="top_list__by_channel">
@@ -128,10 +127,13 @@
                 <div class="top_list__items_list">
                   <div
                     class="top_list__item"
-                    *ngFor="let item of ORDER_CAPTURE_CHANNEL_GROUPED_GC"
+                    *ngFor="
+                      let data of item.salesCategories
+                        .ORDER_CAPTURE_CHANNEL_GROUPED
+                    "
                   >
-                    <h4>{{ item.name }}</h4>
-                    <span>${{ item.original_order_total_amount }}</span>
+                    <h4>{{ data.name }}</h4>
+                    <span>${{ data.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
@@ -140,105 +142,15 @@
                 <div class="top_list__items_list">
                   <div
                     class="top_list__item"
-                    *ngFor="let item of LINE_FULFILLMENT_TYPE_GROUPED_GC"
+                    *ngFor="
+                      let data of item.salesCategories.LINE_FULFILLMENT_TYPE_GROUPED.slice(
+                        0,
+                        4
+                      )
+                    "
                   >
-                    <h4>{{ item.name }}</h4>
-                    <span>${{ item.original_order_total_amount }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- row 2 -->
-          <div class="sales_container__row">
-            <div class="row_1_div_1">
-              <h1 class="brand__name">MF</h1>
-              <h1>
-                ${{ fullSalesData.totalStats[1].original_order_total_amount }}
-              </h1>
-              <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
-              <app-custom-progress-bar
-                [customGoalProgress]="customGoalProgress"
-              ></app-custom-progress-bar>
-              <div class="div_1_progress_details">
-                <span>{{ customGoalProgress }}</span>
-
-                <div class="div_1_progress_details__date_change">
-                  <span (dblclick)="makeEditable()" *ngIf="!isEditable">
-                    ${{ customGoalAbbr }}
-                  </span>
-                  <input
-                    type="number"
-                    (ngModel)="(customGoal)"
-                    value="{{ customGoal }}"
-                    *ngIf="isEditable"
-                    (blur)="makeNonEditable()"
-                    (change)="setCustomGoal($event)"
-                  />
-                  <!-- <fa-icon
-                    [icon]="faCalendar"
-                    class="icon"
-                    (click)="toggleChangeModal()"
-                  ></fa-icon> -->
-                  <fa-icon
-                    [icon]="faCalendar"
-                    class="icon"
-                    class="date-selector-input-box"
-                    (click)="dp.toggleCalendar()"
-                    angular-mydatepicker
-                    [options]="myDpOptions"
-                    (dateChanged)="onDateChanged($event)"
-                    #dp="angular-mydatepicker"
-                  ></fa-icon>
-                </div>
-              </div>
-            </div>
-            <div class="row_1_div_2">
-              <div class="chart__header">
-                <div class="pintab" (click)="onPinToDashboard()">
-                  <fa-icon
-                    [icon]="faThumbtack"
-                    [ngClass]="pinActive ? 'cckd' : ''"
-                  ></fa-icon>
-                </div>
-                <app-custom-select
-                  (onSelectChartChange)="onSelectChartChange($event)"
-                  [selectIcon]="faChartLine"
-                  [options]="chartTypeOptions"
-                ></app-custom-select>
-              </div>
-              <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
-              <app-column-chart
-                *ngIf="selectedChart == 'column'"
-              ></app-column-chart>
-              <app-pie-chart *ngIf="selectedChart == 'pie'"></app-pie-chart>
-              <app-custom-table
-                *ngIf="selectedChart == 'table'"
-              ></app-custom-table>
-              <app-line-chart *ngIf="selectedChart == 'line'"></app-line-chart>
-            </div>
-            <div class="row_1_div_3">
-              <div class="top_list__by_channel">
-                <h3>Sales By Channel</h3>
-                <div class="top_list__items_list">
-                  <div
-                    class="top_list__item"
-                    *ngFor="let item of ORDER_CAPTURE_CHANNEL_GROUPED_MF"
-                  >
-                    <h4>{{ item.name }}</h4>
-                    <span>${{ item.original_order_total_amount }}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="top_list__by_fulfilment">
-                <h3>Sales By fulfilment</h3>
-                <div class="top_list__items_list">
-                  <div
-                    class="top_list__item"
-                    *ngFor="let item of LINE_FULFILLMENT_TYPE_GROUPED_MF"
-                  >
-                    <h4>{{ item.name }}</h4>
-                    <span>${{ item.original_order_total_amount }}</span>
+                    <h4>{{ data.name }}</h4>
+                    <span>${{ data.original_order_total_amount }}</span>
                   </div>
                 </div>
               </div>
@@ -251,8 +163,8 @@
               <h3>Total (Booked)</h3>
               <h1>
                 ${{
-                  fullSalesData.totalStats[0].original_order_total_amount +
-                    fullSalesData.totalStats[1].original_order_total_amount
+                  fullSalesData[0].totalStats.original_order_total_amount +
+                    fullSalesData[1].totalStats.original_order_total_amount
                 }}
               </h1>
             </div>
@@ -260,8 +172,8 @@
               <h3>Total (Units)</h3>
               <h1>
                 {{
-                  fullSalesData.totalStats[0].status_quantity +
-                    fullSalesData.totalStats[1].status_quantity
+                  fullSalesData[0].totalStats.status_quantity +
+                    fullSalesData[1].totalStats.status_quantity
                 }}
               </h1>
             </div>
