@@ -295,6 +295,7 @@ $desktop: 1200px;
               .top_list__by_channel,
               .top_list__by_fulfilment {
                 flex: 1;
+                min-width: 50%;
                 box-shadow: var(--primary-boxshadow);
                 margin: 5px;
                 padding: 10px;
