@@ -490,8 +490,6 @@ export class SalesComponent {
         next: (resp: any) => {
           // console.log(Object.values(resp));
           this.fullSalesData = Object.values(resp);
-          this.CHARTDATA_GC = this.fullSalesData[0].chartSeries.series;
-          this.CHARTDATA_GC = this.fullSalesData[1].chartSeries.series;
         },
       });
 
