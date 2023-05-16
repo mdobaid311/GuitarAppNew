@@ -500,11 +500,7 @@ export class SalesComponent {
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
         next: (resp: any) => {
-<<<<<<< HEAD
-          console.log('ABC' + Object.values(resp));
-=======
           console.log('ABC',Object.values(resp));
->>>>>>> f26fbad627e380b8efed388cd68ad29c63ff51c2
           this.fullSalesData = Object.values(resp);
         },
       });
