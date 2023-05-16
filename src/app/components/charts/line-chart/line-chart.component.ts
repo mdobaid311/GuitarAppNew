@@ -66,7 +66,7 @@ export class LineChartComponent {
           text: 'Sales',
           style: {
             color: '#000',
-            fontFamily: 'Verdana, sans-serif',
+            fontFamily: 'Poppins, sans-serif',
           },
         },
 
@@ -76,8 +76,8 @@ export class LineChartComponent {
             rotation: 0,
             style: {
               color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
+              fontSize: '18px',
+              fontFamily: 'Poppins, sans-serif',
             },
           },
         },
@@ -91,8 +91,9 @@ export class LineChartComponent {
             style: {
               // height: '100px',
               color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
+              fontSize: '18px',
+
+              fontFamily: 'Poppins, sans-serif',
             },
           },
         },
@@ -155,7 +156,7 @@ export class LineChartComponent {
               text: 'Sales',
               style: {
                 color: '#000',
-                fontFamily: 'Verdana, sans-serif',
+                fontFamily: 'Poppins, sans-serif',
               },
             },
 
@@ -165,7 +166,7 @@ export class LineChartComponent {
                 rotation: 0,
                 style: {
                   color: '#000',
-                  fontFamily: 'Verdana, sans-serif',
+                  fontFamily: 'Poppins, sans-serif',
                 },
               },
             },
@@ -180,8 +181,8 @@ export class LineChartComponent {
                 style: {
                   // height: '100px',
                   color: '#000',
-                  fontSize: '13px',
-                  fontFamily: 'Verdana, sans-serif',
+                  fontSize: '18px',
+                  fontFamily: 'Poppins, sans-serif',
                 },
               },
             },
@@ -199,6 +200,12 @@ export class LineChartComponent {
                 dataLabels: {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
+                  style: {
+                    // height: '100px',
+                    color: '#000',
+                    fontSize: '14px',
+                    fontFamily: 'Poppins, sans-serif',
+                  },
                 },
                 color: '#A5D7E8', // Change color of lines
               },
@@ -255,7 +262,7 @@ export class LineChartComponent {
     //         text: 'Sales',
     //         style: {
     //           color: '#000',
-    //           fontFamily: 'Verdana, sans-serif',
+    //           fontFamily: 'Poppins, sans-serif',
     //         },
     //       },
 
@@ -265,7 +272,7 @@ export class LineChartComponent {
     //           rotation: 0,
     //           style: {
     //             color: '#000',
-    //             fontFamily: 'Verdana, sans-serif',
+    //             fontFamily: 'Poppins, sans-serif',
     //           },
     //         },
     //       },
@@ -280,8 +287,8 @@ export class LineChartComponent {
     //           style: {
     //             // height: '100px',
     //             color: '#000',
-    //             fontSize: '13px',
-    //             fontFamily: 'Verdana, sans-serif',
+    //             fontSize: '18px',
+    //             fontFamily: 'Poppins, sans-serif',
     //           },
     //         },
     //       },

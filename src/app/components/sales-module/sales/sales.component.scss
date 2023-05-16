@@ -151,7 +151,7 @@ $desktop: 1200px;
             .row_1_div_1 {
               // border: 1px solid red;
               height: 100%;
-              flex: 2;
+              flex: 1;
               margin: 10px;
               // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
               box-shadow: var(--primary-boxshadow);
@@ -349,7 +349,7 @@ $desktop: 1200px;
               display: none;
             }
             .row_1_div_2 {
-              flex: 1;
+              flex: 1 !important;
             }
           }
 
