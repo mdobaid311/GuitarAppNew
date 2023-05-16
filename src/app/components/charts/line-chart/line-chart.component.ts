@@ -136,7 +136,7 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-   
+
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
@@ -150,7 +150,7 @@ export class LineChartComponent {
 
           let yearsData: any = [];
           this.lineChartData.forEach((item:any) => {
-           
+
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           })
@@ -369,8 +369,7 @@ export class LineChartComponent {
   }
 
   ngAfterViewInit() {
-    // Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-  }
+   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
