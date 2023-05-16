@@ -1,5 +1,6 @@
 name: Deploy Angular App
-
+container_tags:
+  - my-angular-app:latest
 on:
   push:
     branches:
