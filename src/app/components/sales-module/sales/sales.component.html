@@ -105,7 +105,12 @@
             </div>
           </div>
 
-          <div *ngFor="let item of fullSalesData" class="sales_container__row">
+          <div
+            *ngFor="let item of fullSalesData"
+            class="sales_container__row"
+            [ngClass]="expandChart?'expanded':''"
+
+          >
             <div class="row_1_div_1">
               <h1 class="brand__name">{{ item.name }}</h1>
               <h1>${{ item.totalStats.original_order_total_amount }}</h1>
@@ -154,11 +159,18 @@
                     [ngClass]="pinActive ? 'cckd' : ''"
                   ></fa-icon>
                 </div>
-                <app-custom-select
-                  (onSelectChartChange)="onSelectChartChange($event)"
-                  [selectIcon]="faChartLine"
-                  [options]="chartTypeOptions"
-                ></app-custom-select>
+                <div class="chart__header__right">
+                  <app-custom-select
+                    (onSelectChartChange)="onSelectChartChange($event)"
+                    [selectIcon]="faChartLine"
+                    [options]="chartTypeOptions"
+                  ></app-custom-select>
+                  <fa-icon
+                    [icon]="faExpand"
+                    class="icon"
+                    (click)="onExpandChart()"
+                  ></fa-icon>
+                </div>
               </div>
               <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
               <app-column-chart
