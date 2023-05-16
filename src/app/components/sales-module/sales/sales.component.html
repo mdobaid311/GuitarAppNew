@@ -117,8 +117,9 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
-              <app-line-chart *ngIf="selectedChart == 'line'"
-              [lineChartData]="item.chartSeries.series"
+              <app-line-chart
+                *ngIf="selectedChart == 'line'"
+                [lineChartData]="item.chartSeries.series"
               ></app-line-chart>
             </div>
             <div class="row_1_div_3">
@@ -202,42 +203,28 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
-                    <div class="top_list__item">
-                      <h4>Pickup in Store</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Ship to Customer</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Store Pickup</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Digital Vendor</h4>
-                      <span>100K</span>
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of fullSalesData[0].topItemsData.topItems
+                      "
+                    >
+                      <h4>{{ data.item_id }}</h4>
+                      <span>{{ data.status_quantity }}</span>
                     </div>
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
-                    <div class="top_list__item">
-                      <h4>Pickup in Store</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Ship to Customer</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Store Pickup</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Digital Vendor</h4>
-                      <span>$2.4M</span>
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of fullSalesData[0].topItemsData.topItems
+                      "
+                    >
+                      <h4>{{ data.item_id }}</h4>
+                      <span>${{ data.original_order_total_amount }}</span>
                     </div>
                   </div>
                 </div>
@@ -249,42 +236,28 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
-                    <div class="top_list__item">
-                      <h4>Pickup in Store</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Ship to Customer</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Store Pickup</h4>
-                      <span>100K</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Digital Vendor</h4>
-                      <span>100K</span>
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of fullSalesData[1].topItemsData.topItems
+                      "
+                    >
+                      <h4>{{ data.item_id }}</h4>
+                      <span>{{ data.status_quantity }}</span>
                     </div>
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
-                    <div class="top_list__item">
-                      <h4>Pickup in Store</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Ship to Customer</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Store Pickup</h4>
-                      <span>$2.4M</span>
-                    </div>
-                    <div class="top_list__item">
-                      <h4>Digital Vendor</h4>
-                      <span>$2.4M</span>
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of fullSalesData[1].topItemsData.topItems
+                      "
+                    >
+                      <h4>{{ data.item_id }}</h4>
+                      <span>${{ data.original_order_total_amount }}</span>
                     </div>
                   </div>
                 </div>

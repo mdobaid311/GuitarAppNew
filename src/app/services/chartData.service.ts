@@ -111,4 +111,9 @@ export class ChartService {
     const url = `http://localhost:3000/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
+
+  public getTableData(tableName: any) {
+    const url = `http://localhost:3000/v2/tables?table=${tableName}`;
+    return this.httpClient.get<any[]>(url);
+  }
 }
