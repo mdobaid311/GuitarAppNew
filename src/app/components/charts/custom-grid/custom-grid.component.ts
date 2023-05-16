@@ -23,7 +23,7 @@ import { ChartService } from 'src/app/services/chartData.service';
 export class CustomGridComponent {
   @Output() onColumnHeaderClick = new EventEmitter<string>();
   @Input() dataArray: any[] = [];
-  @Output() onTableSelectChange = new EventEmitter<string>();
+  @Output() onTableSelectChange = new EventEmitter<any>();
 
   faClock = faClock;
   faSearch = faSearch;
@@ -58,7 +58,10 @@ export class CustomGridComponent {
       this.columns = Object.keys(res[0]);
       this.data = tableData;
       this.filteredData = tableData;
-      this.onTableSelectChange.emit(res);
+      this.onTableSelectChange.emit({
+        data: res,
+        tableName: tableName,
+      });
     });
   }
 
