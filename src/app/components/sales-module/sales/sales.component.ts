@@ -14,6 +14,7 @@ import {
   faEllipsisVertical,
   faLineChart,
   faThumbtack,
+  faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -39,6 +40,7 @@ export class SalesComponent {
   faTable = faTable;
   faEllipsisVertical = faEllipsisVertical;
   faThumbtack = faThumbtack;
+  faExpand = faExpand;
 
   yearData: any = [];
   dataRows = [];
@@ -65,6 +67,14 @@ export class SalesComponent {
   toggleViewSelectContainer() {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
   }
+
+  expandChart = false;
+  onExpandChart() {
+    console.log('expand chart');
+    this.expandChart = !this.expandChart;
+
+   }
+
 
   selectedChart = 'line';
 
@@ -194,6 +204,7 @@ export class SalesComponent {
   constructor(
     private chartData: ChartService,
     private router: Router,
+    private renderer: Renderer2,
     calendar: NgbCalendar
   ) {
     this.globalFromDate = calendar.getToday();
@@ -483,6 +494,7 @@ export class SalesComponent {
   CHARTDATA_MF: any;
 
   ngOnInit(): void {
+
     this.chartData.booleanSubject.next(false);
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
