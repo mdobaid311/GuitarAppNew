@@ -1,1 +1,1 @@
-echo "before install"
+ng serve
