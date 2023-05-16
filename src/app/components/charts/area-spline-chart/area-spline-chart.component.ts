@@ -2,11 +2,13 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {
   faCaretLeft,
   faClock,
-  faEllipsisVertical,
   faSearch,
+  faFileExport,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
+import { WorkBook, utils, write } from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -20,6 +22,7 @@ export class AreaSplineChartComponent {
   faClock = faClock;
   faSearch = faSearch;
   faCaretLeft = faCaretLeft;
+  faFileExport = faFileExport;
 
   intervalsList = [
     { name: '15 Min' },
@@ -47,18 +50,21 @@ export class AreaSplineChartComponent {
 
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
-  // data = [
-  //   { id: 21000, name: 25500, age: 25678, custom: 23456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 26456, data: 325566 },
-  //   { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
-  //   { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  // ];
+  createExcelFile(data: any[], fileName: string): void {
+    const worksheet: any = utils.json_to_sheet(data);
+    const workbook: WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const file: Blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(file, fileName + '.xlsx');
+  }
 
   selectedColumnData: any[] = [];
   selectedColumnHeader: string = '';
@@ -142,9 +148,16 @@ export class AreaSplineChartComponent {
   data: any;
   filteredData: any;
 
+  excelFileName: string = 'order_book_line';
+
   onTableSelectChange(data: any) {
-    this.data = data;
-    console.log(this.data)
+    this.data = data.data;
+    this.excelFileName = data.tableName;
+  }
+
+  exportToExcel() {
+    console.log("export to excel")
+    this.createExcelFile(this.data, this.excelFileName);
   }
 
   ngOnInit(): void {

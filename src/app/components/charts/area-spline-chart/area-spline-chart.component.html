@@ -22,7 +22,12 @@
         </div>
         <div class="chart_container__right">
           <div #chartContainer class="chart"></div>
-          <div class="sales_aggregation__details"></div>
+          <div class="sales_aggregation__details">
+            <button (click)="exportToExcel()">
+              <fa-icon [icon]="faFileExport" class="icon"></fa-icon>
+              Export Data
+            </button>
+          </div>
         </div>
       </div>
     </div>

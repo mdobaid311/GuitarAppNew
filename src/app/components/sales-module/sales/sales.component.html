@@ -54,6 +54,57 @@
           <!-- <h3>Edit</h3> -->
         </div>
         <div class="main_sales__container">
+          <!-- Overall total stats -->
+          <div class="overall_total__stats_contianer">
+            <div class="overall_total__stats__item">
+              <h3>Total (Booked)</h3>
+              <h1>
+                ${{
+                  fullSalesData[0].totalStats.original_order_total_amount +
+                    fullSalesData[1].totalStats.original_order_total_amount
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Line Price Total</h3>
+              <h1>
+                ${{
+                  fullSalesData[0].totalStats.original_order_total_amount +
+                    fullSalesData[1].totalStats.original_order_total_amount
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Shipping Charges</h3>
+              <h1>$400K</h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Discount</h3>
+              <h1>$200K</h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Tax</h3>
+              <h1>$1.5M</h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Total (Units)</h3>
+              <h1>
+                {{
+                  fullSalesData[0].totalStats.status_quantity +
+                    fullSalesData[1].totalStats.status_quantity
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>Margin</h3>
+              <h1>$2.1M</h1>
+            </div>
+            <div class="overall_total__stats__item">
+              <h3>ROI</h3>
+              <h1>$2.1M</h1>
+            </div>
+          </div>
+
           <div *ngFor="let item of fullSalesData" class="sales_container__row">
             <div class="row_1_div_1">
               <h1 class="brand__name">{{ item.name }}</h1>
@@ -155,44 +206,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Overall total stats -->
-          <div class="overall_total__stats_contianer">
-            <div class="overall_total__stats__item">
-              <h3>Total (Booked)</h3>
-              <h1>
-                ${{
-                  fullSalesData[0].totalStats.original_order_total_amount +
-                    fullSalesData[1].totalStats.original_order_total_amount
-                }}
-              </h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Total (Units)</h3>
-              <h1>
-                {{
-                  fullSalesData[0].totalStats.status_quantity +
-                    fullSalesData[1].totalStats.status_quantity
-                }}
-              </h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Shipping Charges</h3>
-              <h1>$400K</h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Discount</h3>
-              <h1>$200K</h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Margin</h3>
-              <h1>$2.1M</h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Tax</h3>
-              <h1>$1.5M</h1>
             </div>
           </div>
 
