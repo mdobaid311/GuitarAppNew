@@ -54,7 +54,7 @@
           <!-- <h3>Edit</h3> -->
         </div>
         <div class="main_sales__container">
-          <div *ngFor="let item of fullSalesData" class="sales_container__row">
+          <div *ngFor="let item of fullSalesData; let i=index" class="sales_container__row">
             <div class="row_1_div_1">
               <h1 class="brand__name">{{ item.name }}</h1>
               <h1>${{ item.totalStats.original_order_total_amount }}</h1>
@@ -117,7 +117,10 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
-              <app-line-chart *ngIf="selectedChart == 'line'"
+              <app-line-chart *ngIf="selectedChart == 'line' && i == 0"
+              [lineChartData]="item.chartSeries.series"
+              ></app-line-chart>
+              <app-line-chart *ngIf="selectedChart == 'line'&& i == 1"
               [lineChartData]="item.chartSeries.series"
               ></app-line-chart>
             </div>
