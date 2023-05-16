@@ -54,6 +54,7 @@
           <!-- <h3>Edit</h3> -->
         </div>
         <div class="main_sales__container">
+<<<<<<< HEAD
           <!-- Overall total stats -->
           <div class="overall_total__stats_contianer">
             <div class="overall_total__stats__item">
@@ -111,6 +112,9 @@
             [ngClass]="expandChart?'expanded':''"
 
           >
+=======
+          <div *ngFor="let item of fullSalesData; let i=index" class="sales_container__row">
+>>>>>>> f26fbad627e380b8efed388cd68ad29c63ff51c2
             <div class="row_1_div_1">
               <h1 class="brand__name">{{ item.name }}</h1>
               <h1>${{ item.totalStats.original_order_total_amount }}</h1>
@@ -180,9 +184,17 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
+<<<<<<< HEAD
               <app-line-chart
                 *ngIf="selectedChart == 'line'"
                 [lineChartData]="item.chartSeries.series"
+=======
+              <app-line-chart *ngIf="selectedChart == 'line' && i == 0"
+              [lineChartData]="item.chartSeries.series"
+              ></app-line-chart>
+              <app-line-chart *ngIf="selectedChart == 'line'&& i == 1"
+              [lineChartData]="item.chartSeries.series"
+>>>>>>> f26fbad627e380b8efed388cd68ad29c63ff51c2
               ></app-line-chart>
             </div>
             <div class="row_1_div_3">

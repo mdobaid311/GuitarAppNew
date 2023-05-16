@@ -45,7 +45,7 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
-    console.log('line chart component' + this.lineChartData);
+    console.log('line chart component', this.lineChartData);
 
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
@@ -136,17 +136,24 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-
+   
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
         next: (resp: any) => {
+          // let yearsData: any = [];
+          // // console.log(resp.MFData + 'hello');
+          // resp.MFData.chartSeries.series.forEach((item: any) => {
+          //   const itemData = [item.datetime, item.original_order_total_amount];
+          //   yearsData.push(itemData);
+          // });
+
           let yearsData: any = [];
-          // console.log(resp.MFData + 'hello');
-          resp.MFData.chartSeries.series.forEach((item: any) => {
+          this.lineChartData.forEach((item:any) => {
+           
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
-          });
+          })
           this.chartOptions = {
             chart: {
               type: 'line',
