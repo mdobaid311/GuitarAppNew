@@ -193,7 +193,7 @@ export class LineChartComponent {
             },
             series: [
               {
-                name: 'Population',
+                name: 'Sales',
                 data: yearsData,
 
                 dataLabels: {
@@ -203,7 +203,7 @@ export class LineChartComponent {
                 color: '#A5D7E8', // Change color of lines
               },
               {
-                name: 'Population',
+                name: 'Sales',
                 data: yearsData,
 
                 dataLabels: {
