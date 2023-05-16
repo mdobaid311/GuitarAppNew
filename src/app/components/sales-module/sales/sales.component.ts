@@ -488,7 +488,7 @@ export class SalesComponent {
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
         next: (resp: any) => {
-          // console.log(Object.values(resp));
+          console.log('ABC',Object.values(resp));
           this.fullSalesData = Object.values(resp);
         },
       });
