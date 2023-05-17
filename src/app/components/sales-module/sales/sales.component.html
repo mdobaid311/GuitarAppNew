@@ -38,8 +38,8 @@
               <h3>Total (Booked)</h3>
               <h1>
                 ${{
-                  fullSalesData[0].totalStats.original_order_total_amount +
-                    fullSalesData[1].totalStats.original_order_total_amount
+                  +fullSalesData[0].totalStats.original_order_total_amount +
+                    +fullSalesData[1].totalStats.original_order_total_amount
                 }}
               </h1>
             </div>
@@ -47,8 +47,8 @@
               <h3>Line Price Total</h3>
               <h1>
                 ${{
-                  fullSalesData[0].totalStats.original_order_total_amount +
-                    fullSalesData[1].totalStats.original_order_total_amount
+                  +fullSalesData[0].totalStats.original_order_total_amount +
+                    +fullSalesData[1].totalStats.original_order_total_amount
                 }}
               </h1>
             </div>
@@ -68,18 +68,28 @@
               <h3>Total (Units)</h3>
               <h1>
                 {{
-                  fullSalesData[0].totalStats.status_quantity +
-                    fullSalesData[1].totalStats.status_quantity
+                  +fullSalesData[0].totalStats.line_ordered_qty +
+                    +fullSalesData[1].totalStats.line_ordered_qty
                 }}
               </h1>
             </div>
             <div class="overall_total__stats__item">
               <h3>Margin</h3>
-              <h1>$2.1M</h1>
+              <h1>
+                ${{
+                  +fullSalesData[0].totalStats.line_margin +
+                    +fullSalesData[1].totalStats.line_margin
+                }}
+              </h1>
             </div>
             <div class="overall_total__stats__item">
               <h3>ROI</h3>
-              <h1>$2.1M</h1>
+              <h1>
+                ${{
+                  +fullSalesData[0].totalStats.line_roi +
+                    +fullSalesData[1].totalStats.line_roi
+                }}
+              </h1>
             </div>
           </div>
 
@@ -150,14 +160,35 @@
                 </div>
               </div>
 
-
-              <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
+              <app-bar-chart
+                *ngIf="selectedChart == 'bar' && i == 0"
+                [barChartData]="item.chartSeries.series"
+              ></app-bar-chart>
+              <app-bar-chart
+                *ngIf="selectedChart == 'bar' && i == 1"
+                [barChartData]="item.chartSeries.series"
+              ></app-bar-chart>
               <app-column-chart
-                *ngIf="selectedChart == 'column'"
+                *ngIf="selectedChart == 'column' && i == 0"
+                [columnChartData]="item.chartSeries.series"
               ></app-column-chart>
-              <app-pie-chart *ngIf="selectedChart == 'pie'"></app-pie-chart>
+              <app-column-chart
+                *ngIf="selectedChart == 'column' && i == 1"
+                [columnChartData]="item.chartSeries.series"
+              ></app-column-chart>
+              <app-pie-chart
+                *ngIf="selectedChart == 'pie' && i == 0"
+                [pieChartData]="item.chartSeries.series"
+              ></app-pie-chart>
+              <app-pie-chart
+                *ngIf="selectedChart == 'pie' && i == 1"
+                [pieChartData]="item.chartSeries.series"
+              ></app-pie-chart>
               <app-custom-table
-                *ngIf="selectedChart == 'table'"
+                *ngIf="selectedChart == 'table' && i == 0"
+              ></app-custom-table>
+              <app-custom-table
+                *ngIf="selectedChart == 'table' && i == 1"
               ></app-custom-table>
               <app-line-chart
                 *ngIf="selectedChart == 'line' && i == 0"
@@ -213,12 +244,10 @@
                   <div class="top_list__items_list">
                     <div
                       class="top_list__item"
-                      *ngFor="
-                        let data of fullSalesData[0].topItemsData.topItems
-                      "
+                      *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>{{ data.status_quantity }}</span>
+                      <span>{{ data.line_ordered_qty }}</span>
                     </div>
                   </div>
                 </div>
@@ -227,9 +256,7 @@
                   <div class="top_list__items_list">
                     <div
                       class="top_list__item"
-                      *ngFor="
-                        let data of fullSalesData[0].topItemsData.topItems
-                      "
+                      *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
                       <span>${{ data.original_order_total_amount }}</span>
@@ -246,12 +273,10 @@
                   <div class="top_list__items_list">
                     <div
                       class="top_list__item"
-                      *ngFor="
-                        let data of fullSalesData[1].topItemsData.topItems
-                      "
+                      *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>{{ data.status_quantity }}</span>
+                      <span>{{ data.line_ordered_qty }}</span>
                     </div>
                   </div>
                 </div>
@@ -260,9 +285,7 @@
                   <div class="top_list__items_list">
                     <div
                       class="top_list__item"
-                      *ngFor="
-                        let data of fullSalesData[1].topItemsData.topItems
-                      "
+                      *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
                       <span>${{ data.original_order_total_amount }}</span>

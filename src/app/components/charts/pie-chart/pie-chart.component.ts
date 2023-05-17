@@ -19,6 +19,7 @@ import { SalesDataService } from 'src/app/services/sales-data.service';
 })
 export class PieChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
+  @Input() pieChartData: any;
 
   chartOptions: any;
 
@@ -122,67 +123,65 @@ export class PieChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-    this.chartData.getOrderTotalYears().subscribe({
-      next: (resp) => {
-        let yearsData: any = [];
-        resp.forEach((item: IYear) => {
-          const itemData = {
-            name: item.year,
-            y: item.total,
-            sales: Intl.NumberFormat('en-US', {
-              notation: 'compact',
-              compactDisplay: 'short',
-            }).format(item.total),
-          };
-          yearsData.push(itemData);
-        });
-        this.chartOptions = {
-          chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-          },
-          title: {
-            text: 'Sales',
-            align: 'left',
-            style: {
-              color: '#000',
-              fontFamily: 'Verdana, sans-serif',
+    this.chartData
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
+      .subscribe({
+        next: (resp: any) => {
+          let yearsData: any = [];
+          this.pieChartData.forEach((item: any) => {
+            const itemData = [item.datetime, item.original_order_total_amount];
+            yearsData.push(itemData);
+          });
+          this.chartOptions = {
+            chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie',
             },
-          },
-          tooltip: {
-            pointFormat: 'Sales: <b>{point.sales} </b> ',
-          },
-          accessibility: {
-            point: {
-              valueSuffix: '%',
-            },
-          },
-          plotOptions: {
-            pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            title: {
+              text: 'Sales',
+              align: 'left',
+              style: {
+                color: '#000',
+                fontFamily: 'Verdana, sans-serif',
               },
             },
-          },
-          series: [
-            {
-              name: 'Sales',
-              colorByPoint: true,
-              data: yearsData,
+            tooltip: {
+              pointFormat: 'Sales: <b>{point.sales} </b> ',
             },
-          ],
-        };
-        Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-        this.updateChartTheme();
-        this.loader = false;
-      },
-      error: (error) => {},
-    });
+            accessibility: {
+              point: {
+                valueSuffix: '%',
+              },
+            },
+            plotOptions: {
+              pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                  enabled: true,
+                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                },
+              },
+            },
+            series: [
+              {
+                name: 'Sales',
+                colorByPoint: true,
+                data: yearsData,
+              },
+            ],
+          };
+          Highcharts.chart(
+            this.chartContainer.nativeElement,
+            this.chartOptions
+          );
+          this.updateChartTheme();
+          this.loader = false;
+        },
+        error: (error) => {},
+      });
   }
 
   onPinToDashboard() {

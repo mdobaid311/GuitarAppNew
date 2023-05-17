@@ -7,7 +7,6 @@ $desktop: 1200px;
   background: var(--primary-background-1);
 
   .sales_container {
-    width: 100%;
     min-height: 100vh;
     display: flex;
 
@@ -103,7 +102,6 @@ $desktop: 1200px;
 
             @media only screen and (max-width: $mobile) {
               flex-direction: column;
-              width: 100%;
             }
             .overall_total__stats__item {
               flex: 1;
@@ -238,8 +236,6 @@ $desktop: 1200px;
               display: flex;
               flex-direction: column;
               @media only screen and (max-width: $mobile) {
-                width: 100%;
-                max-width: 100%;
               }
               .chart__header {
                 padding: 20px 20px 0px 20px;

@@ -3,13 +3,17 @@ $tablet: 1024px;
 $desktop: 1200px;
 
 .spline_chart__screen {
-  // min-height: 100vh;
+  min-height: 100vh;
   background: var(--primary-background-1);
 
   .spline_chart_container {
     width: 100%;
-    // min-height: 100vh;
+    min-height: 100vh;
     display: flex;
+    @media only screen and (max-width: $mobile) {
+      flex-direction: column;
+      width: 100%;
+    }
 
     .spline_chart__main_screen {
       flex: 1;
@@ -52,14 +56,24 @@ $desktop: 1200px;
         align-items: start;
         padding: 10px 15px;
 
+        @media only screen and (max-width: $mobile) {
+          width: 100%;
+        }
+
         .chart_container__left {
           width: 50%;
+          @media only screen and (max-width: $mobile) {
+            width: 100%;
+          }
         }
 
         .chart_container__right {
           padding-left: 10px;
           display: flex;
           flex-direction: column;
+          @media only screen and (max-width: $mobile) {
+            width: 100%;
+          }
 
           width: 50%;
           .chart {
