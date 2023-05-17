@@ -15,14 +15,4 @@ export class AppComponent {
     private salesData: SalesDataService,
     private chartData: ChartService
   ) {}
-
-  ngOnInit() {
-    this.chartData
-      .getFullSalesData('2023-01-01 00:03:20', '2023-01-01 08:15:20')
-      .subscribe({
-        next: (resp) => {
-          console.log('Full sales data ' + resp);
-        },
-      });
-  }
 }

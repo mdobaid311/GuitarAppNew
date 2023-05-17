@@ -19,6 +19,7 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 })
 export class BarChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
+  @Input() barChartData: any;
 
   chartOptions: any;
 
@@ -135,12 +136,13 @@ export class BarChartComponent implements OnInit, OnDestroy {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-    this.chartData.getOrderTotalYears().subscribe({
-      next: (resp) => {
-        let yearsData: any = [];
-        console.log('Year data', resp);
-        resp.forEach((item: IYear) => {
-          const itemData = [item.year, item.total];
+    this.chartData
+    .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
+    .subscribe({
+      next: (resp: any) => {
+                  let yearsData: any = [];
+        this.barChartData.forEach((item: any) => {
+          const itemData = [item.datetime, item.original_order_total_amount];
           yearsData.push(itemData);
         });
         this.chartOptions = {

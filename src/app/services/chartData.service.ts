@@ -107,8 +107,12 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getFullSalesData(startDate: any, endDate: any) {
-    const url = `http://localhost:3000/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}`;
+  public getFullSalesData(startDate: any, endDate: any, intervaltime: any) {
+    const url = `http://localhost:3000/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
+    return this.httpClient.get<any[]>(url);
+  }
+  public getFullSalesDataByRange(startDate: any, endDate: any, intervaltime: any) {
+    const url = `http://localhost:3000/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
     return this.httpClient.get<any[]>(url);
   }
 
