@@ -1,4 +1,10 @@
-import { Component, ViewChild, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  Renderer2,
+  HostListener,
+  ElementRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import * as moment from 'moment';
@@ -15,6 +21,7 @@ import {
   faLineChart,
   faThumbtack,
   faExpand,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -41,13 +48,14 @@ export class SalesComponent {
   faEllipsisVertical = faEllipsisVertical;
   faThumbtack = faThumbtack;
   faExpand = faExpand;
+  faTimes = faTimes;
 
   yearData: any = [];
   dataRows = [];
 
   loader = false;
 
-  showChangeModal = false;
+  showExpandedChartModal = false;
   selectCompareYear: any;
 
   todaysDate = moment(new Date()).format('YYYY-MM-DD');
@@ -70,11 +78,17 @@ export class SalesComponent {
 
   expandChart = false;
   onExpandChart() {
-    console.log('expand chart');
+    // if (this.expandChart) {
+    //   window.location.reload();
+    // } else {
+    //   this.expandChart = true;
+    // }
+
     this.expandChart = !this.expandChart;
-
-   }
-
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 500);
+  }
 
   selectedChart = 'line';
 
@@ -205,10 +219,20 @@ export class SalesComponent {
     private chartData: ChartService,
     private router: Router,
     private renderer: Renderer2,
+    private elementRef: ElementRef,
+
     calendar: NgbCalendar
   ) {
     this.globalFromDate = calendar.getToday();
     this.globalToDate = calendar.getToday();
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.onExpandChart();
+    }
   }
 
   pinBarChart: any;
@@ -476,7 +500,7 @@ export class SalesComponent {
   }
 
   toggleChangeModal() {
-    this.showChangeModal = !this.showChangeModal;
+    this.showExpandedChartModal = !this.showExpandedChartModal;
   }
 
   onSelectCompareYearChange(event: any) {
@@ -494,13 +518,12 @@ export class SalesComponent {
   CHARTDATA_MF: any;
 
   ngOnInit(): void {
-
     this.chartData.booleanSubject.next(false);
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
       .subscribe({
         next: (resp: any) => {
-          console.log('ABC',Object.values(resp));
+          console.log('ABC', Object.values(resp));
           this.fullSalesData = Object.values(resp);
         },
       });
