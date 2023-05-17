@@ -1,15 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  SimpleChanges,
-  ViewChild,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
+import { ChartService } from 'src/app/services/chartData.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -123,6 +115,9 @@ export class LineChartComponent {
         ],
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 500);
       this.updateChartTheme();
       this.loader = false;
     });
@@ -149,11 +144,10 @@ export class LineChartComponent {
           // });
 
           let yearsData: any = [];
-          this.lineChartData.forEach((item:any) => {
-
+          this.lineChartData.forEach((item: any) => {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
-          })
+          });
           this.chartOptions = {
             chart: {
               type: 'line',
@@ -242,6 +236,9 @@ export class LineChartComponent {
             this.chartContainer.nativeElement,
             this.chartOptions
           );
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+          }, 500);
           this.updateChartTheme();
           this.loader = false;
         },
@@ -368,8 +365,7 @@ export class LineChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  ngAfterViewInit() {
-   }
+  ngAfterViewInit() {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

@@ -1,25 +1,3 @@
-<div *ngIf="showChangeModal">
-  <app-custom-modal>
-    <ngb-datepicker
-      #dp
-      [displayMonths]="1"
-      [dayTemplate]="t"
-      outsideDays="hidden"
-    >
-    </ngb-datepicker>
-
-    <ng-template #t let-date let-focused="focused">
-      <span class="custom-day" [class.focused]="focused">
-        {{ date.day }}
-      </span>
-    </ng-template>
-    <div class="custom_value__buttons">
-      <button class="cancel" (click)="toggleChangeModal()">Cancel</button>
-      <button class="apply">Apply</button>
-    </div>
-  </app-custom-modal>
-</div>
-
 <div class="sales__screen">
   <div class="sales_container">
     <div class="sales__main_screen">
@@ -106,10 +84,9 @@
           </div>
 
           <div
-            *ngFor="let item of fullSalesData; let i=index"
+            *ngFor="let item of fullSalesData; let i = index"
             class="sales_container__row"
-            [ngClass]="expandChart?'expanded':''"
-
+            [ngClass]="expandChart ? 'expanded' : ''"
           >
             <div class="row_1_div_1">
               <h1 class="brand__name">{{ item.name }}</h1>
@@ -172,6 +149,8 @@
                   ></fa-icon>
                 </div>
               </div>
+
+
               <app-bar-chart *ngIf="selectedChart == 'bar'"></app-bar-chart>
               <app-column-chart
                 *ngIf="selectedChart == 'column'"
@@ -180,11 +159,13 @@
               <app-custom-table
                 *ngIf="selectedChart == 'table'"
               ></app-custom-table>
-              <app-line-chart *ngIf="selectedChart == 'line' && i == 0"
-              [lineChartData]="item.chartSeries.series"
+              <app-line-chart
+                *ngIf="selectedChart == 'line' && i == 0"
+                [lineChartData]="item.chartSeries.series"
               ></app-line-chart>
-              <app-line-chart *ngIf="selectedChart == 'line'&& i == 1"
-              [lineChartData]="item.chartSeries.series"
+              <app-line-chart
+                *ngIf="selectedChart == 'line' && i == 1"
+                [lineChartData]="item.chartSeries.series"
               ></app-line-chart>
             </div>
             <div class="row_1_div_3">

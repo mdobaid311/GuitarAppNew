@@ -8,18 +8,13 @@
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 
-
   .modal-content {
     border-radius: 15px;
     background-color: var(--primary-background-3);
     margin: 15% auto;
     padding: 20px;
     border: 2px solid var(--primary-color-1);
-    width: 80%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 70%;
+    flex: 1;
   }
 }
