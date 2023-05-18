@@ -43,6 +43,7 @@
                 }}
               </h1>
             </div>
+            <div class="overall_total__stats__item_sign"><h1>=</h1></div>
             <div class="overall_total__stats__item">
               <h3>Line Price Total</h3>
               <h1>
@@ -52,152 +53,165 @@
                 }}
               </h1>
             </div>
+            <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
             <div class="overall_total__stats__item">
               <h3>Shipping Charges</h3>
               <h1>$400K</h1>
             </div>
+            <div class="overall_total__stats__item_sign"><h1>-</h1></div>
+
             <div class="overall_total__stats__item">
               <h3>Discount</h3>
               <h1>$200K</h1>
             </div>
+            <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
             <div class="overall_total__stats__item">
               <h3>Tax</h3>
               <h1>$1.5M</h1>
             </div>
-            <div class="overall_total__stats__item">
-              <h3>Total (Units)</h3>
-              <h1>
-                {{
-                  +fullSalesData[0].totalStats.line_ordered_qty +
-                    +fullSalesData[1].totalStats.line_ordered_qty
-                }}
-              </h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>Margin</h3>
-              <h1>
-                ${{
-                  +fullSalesData[0].totalStats.line_margin +
-                    +fullSalesData[1].totalStats.line_margin
-                }}
-              </h1>
-            </div>
-            <div class="overall_total__stats__item">
-              <h3>ROI</h3>
-              <h1>
-                ${{
-                  +fullSalesData[0].totalStats.line_roi +
-                    +fullSalesData[1].totalStats.line_roi
-                }}
-              </h1>
+
+            <div class="overall_total__stats_subcontianer">
+              <div class="overall_total__stats__item">
+                <h3>Total (Units)</h3>
+                <h1>
+                  {{
+                    +fullSalesData[0].totalStats.line_ordered_qty +
+                      +fullSalesData[1].totalStats.line_ordered_qty
+                  }}
+                </h1>
+              </div>
+              <div class="overall_total__stats__item">
+                <h3>Margin</h3>
+                <h1>
+                  ${{
+                    +fullSalesData[0].totalStats.line_margin +
+                      +fullSalesData[1].totalStats.line_margin
+                  }}
+                </h1>
+              </div>
+              <div class="overall_total__stats__item">
+                <h3>ROI</h3>
+                <h1>
+                  ${{
+                    +fullSalesData[0].totalStats.line_inventory_cost +
+                      +fullSalesData[1].totalStats.line_inventory_cost
+                  }}
+                </h1>
+              </div>
             </div>
           </div>
 
           <div
             *ngFor="let item of fullSalesData; let i = index"
             class="sales_container__row"
-            [ngClass]="expandChart ? 'expanded' : ''"
           >
-            <div class="row_1_div_1">
-              <h1 class="brand__name">{{ item.name }}</h1>
-              <h1>${{ item.totalStats.original_order_total_amount }}</h1>
-              <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
-              <app-custom-progress-bar
-                [customGoalProgress]="customGoalProgress"
-              ></app-custom-progress-bar>
-              <div class="div_1_progress_details">
-                <span>{{ customGoalProgress }}</span>
+            <div class="row" [ngClass]="expandChart ? 'expanded' : ''">
+              <div class="row_1_div_1">
+                <h1 class="brand__name">{{ item.name }}</h1>
+                <div class="row_1_div_1__values">
+                  <h1>${{ item.totalStats.original_order_total_amount }}</h1>
+                  <h3>({{ item.totalStats.line_ordered_qty }} units)</h3>
+                </div>
+                <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
+                <app-custom-progress-bar
+                  [customGoalProgress]="customGoalProgress"
+                ></app-custom-progress-bar>
+                <div class="div_1_progress_details">
+                  <span>{{ customGoalProgress }}</span>
 
-                <div class="div_1_progress_details__date_change">
-                  <span (dblclick)="makeEditable()" *ngIf="!isEditable">
-                    ${{ customGoalAbbr }}
-                  </span>
-                  <input
-                    type="number"
-                    (ngModel)="(customGoal)"
-                    value="{{ customGoal }}"
-                    *ngIf="isEditable"
-                    (blur)="makeNonEditable()"
-                    (change)="setCustomGoal($event)"
-                  />
-                  <!-- <fa-icon
+                  <div class="div_1_progress_details__date_change">
+                    <span (dblclick)="makeEditable()" *ngIf="!isEditable">
+                      ${{ customGoalAbbr }}
+                    </span>
+                    <input
+                      type="number"
+                      (ngModel)="(customGoal)"
+                      value="{{ customGoal }}"
+                      *ngIf="isEditable"
+                      (blur)="makeNonEditable()"
+                      (change)="setCustomGoal($event)"
+                    />
+                    <!-- <fa-icon
                     [icon]="faCalendar"
                     class="icon"
                     (click)="toggleChangeModal()"
                   ></fa-icon> -->
-                  <fa-icon
-                    [icon]="faCalendar"
-                    class="icon"
-                    class="date-selector-input-box"
-                    (click)="dp.toggleCalendar()"
-                    angular-mydatepicker
-                    [options]="myDpOptions"
-                    (dateChanged)="onDateChanged($event)"
-                    #dp="angular-mydatepicker"
-                  ></fa-icon>
+                    <fa-icon
+                      [icon]="faCalendar"
+                      class="icon"
+                      class="date-selector-input-box"
+                      (click)="dp.toggleCalendar()"
+                      angular-mydatepicker
+                      [options]="myDpOptions"
+                      (dateChanged)="onDateChanged($event)"
+                      #dp="angular-mydatepicker"
+                    ></fa-icon>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row_1_div_2">
-              <div class="chart__header">
-                <div class="pintab" (click)="onPinToDashboard()">
-                  <fa-icon
-                    [icon]="faThumbtack"
-                    [ngClass]="pinActive ? 'cckd' : ''"
-                  ></fa-icon>
+              <div class="row_1_div_2">
+                <div class="chart__header">
+                  <div class="pintab" (click)="onPinToDashboard()">
+                    <fa-icon
+                      [icon]="faThumbtack"
+                      [ngClass]="pinActive ? 'cckd' : ''"
+                    ></fa-icon>
+                  </div>
+                  <div class="chart__header__right">
+                    <app-custom-select
+                      (onSelectChartChange)="onSelectChartChange($event)"
+                      [selectIcon]="faChartLine"
+                      [options]="chartTypeOptions"
+                    ></app-custom-select>
+                    <fa-icon
+                      [icon]="faExpand"
+                      class="icon"
+                      (click)="onExpandChart()"
+                    ></fa-icon>
+                  </div>
                 </div>
-                <div class="chart__header__right">
-                  <app-custom-select
-                    (onSelectChartChange)="onSelectChartChange($event)"
-                    [selectIcon]="faChartLine"
-                    [options]="chartTypeOptions"
-                  ></app-custom-select>
-                  <fa-icon
-                    [icon]="faExpand"
-                    class="icon"
-                    (click)="onExpandChart()"
-                  ></fa-icon>
-                </div>
-              </div>
 
-              <app-bar-chart
-                *ngIf="selectedChart == 'bar' && i == 0"
-                [barChartData]="item.chartSeries.series"
-              ></app-bar-chart>
-              <app-bar-chart
-                *ngIf="selectedChart == 'bar' && i == 1"
-                [barChartData]="item.chartSeries.series"
-              ></app-bar-chart>
-              <app-column-chart
-                *ngIf="selectedChart == 'column' && i == 0"
-                [columnChartData]="item.chartSeries.series"
-              ></app-column-chart>
-              <app-column-chart
-                *ngIf="selectedChart == 'column' && i == 1"
-                [columnChartData]="item.chartSeries.series"
-              ></app-column-chart>
-              <app-pie-chart
-                *ngIf="selectedChart == 'pie' && i == 0"
-                [pieChartData]="item.chartSeries.series"
-              ></app-pie-chart>
-              <app-pie-chart
-                *ngIf="selectedChart == 'pie' && i == 1"
-                [pieChartData]="item.chartSeries.series"
-              ></app-pie-chart>
-              <app-custom-table
-                *ngIf="selectedChart == 'table' && i == 0"
-              ></app-custom-table>
-              <app-custom-table
-                *ngIf="selectedChart == 'table' && i == 1"
-              ></app-custom-table>
-              <app-line-chart
-                *ngIf="selectedChart == 'line' && i == 0"
-                [lineChartData]="item.chartSeries.series"
-              ></app-line-chart>
-              <app-line-chart
-                *ngIf="selectedChart == 'line' && i == 1"
-                [lineChartData]="item.chartSeries.series"
-              ></app-line-chart>
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 0"
+                  [barChartData]="item.chartSeries.series"
+                ></app-bar-chart>
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 1"
+                  [barChartData]="item.chartSeries.series"
+                ></app-bar-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 0"
+                  [columnChartData]="item.chartSeries.series"
+                ></app-column-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 1"
+                  [columnChartData]="item.chartSeries.series"
+                ></app-column-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 0"
+                  [pieChartData]="item.chartSeries.series"
+                ></app-pie-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 1"
+                  [pieChartData]="item.chartSeries.series"
+                ></app-pie-chart>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 0"
+                ></app-custom-table>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 1"
+                ></app-custom-table>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 0"
+                  [lineChartData]="item.chartSeries.series"
+                ></app-line-chart>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 1"
+                  [lineChartData]="item.chartSeries.series"
+                ></app-line-chart>
+              </div>
             </div>
             <div class="row_1_div_3">
               <div class="top_list__by_channel">
@@ -211,7 +225,11 @@
                     "
                   >
                     <h4>{{ data.name }}</h4>
-                    <span>${{ data.original_order_total_amount }}</span>
+                    <div class="row_1_div_3_values">
+                      <span>${{ data.original_order_total_amount }}</span>
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>10%</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,8 +245,12 @@
                       )
                     "
                   >
-                    <h4>{{ data.name }}</h4>
-                    <span>${{ data.original_order_total_amount }}</span>
+                    <h4>{{ data.name.length > 0 ? data.name : "OTHERS" }}</h4>
+                    <div class="row_1_div_3_values">
+                      <span>${{ data.original_order_total_amount }}</span>
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>10%</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -242,24 +264,62 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>
+                        ${{
+                          fullSalesData[1].topItemsData[0]
+                            .original_order_total_amount
+                        }}
+                      </h4>
+
+                      <img
+                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
+                        alt=""
+                      />
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>{{ data.line_ordered_qty }}</span>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>{{ data.line_ordered_qty }}</h4>
+                      <img src="" alt="" />
                     </div>
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>
+                        ${{
+                          fullSalesData[1].topItemsData[0]
+                            .original_order_total_amount
+                        }}
+                      </h4>
+
+                      <img
+                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
+                        alt=""
+                      />
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>${{ data.original_order_total_amount }}</span>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>${{ data.original_order_total_amount }}</h4>
+                      <img src="" alt="" />
                     </div>
                   </div>
                 </div>
@@ -271,24 +331,62 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>
+                        ${{
+                          fullSalesData[1].topItemsData[0]
+                            .original_order_total_amount
+                        }}
+                      </h4>
+
+                      <img
+                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
+                        alt=""
+                      />
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>{{ data.line_ordered_qty }}</span>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>{{ data.line_ordered_qty }}</h4>
+                      <img src="" alt="" />
                     </div>
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>
+                        ${{
+                          fullSalesData[1].topItemsData[0]
+                            .original_order_total_amount
+                        }}
+                      </h4>
+
+                      <img
+                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
+                        alt=""
+                      />
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <span>${{ data.original_order_total_amount }}</span>
+                      <h4>Web Category</h4>
+                      <h4>Brand Name</h4>
+                      <h4>${{ data.original_order_total_amount }}</h4>
+                      <img src="" alt="" />
                     </div>
                   </div>
                 </div>
