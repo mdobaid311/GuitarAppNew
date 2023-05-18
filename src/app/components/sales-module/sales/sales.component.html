@@ -40,6 +40,7 @@
                 ${{
                   +fullSalesData[0].totalStats.original_order_total_amount +
                     +fullSalesData[1].totalStats.original_order_total_amount
+                    | number : "1.0-0"
                 }}
               </h1>
             </div>
@@ -50,6 +51,7 @@
                 ${{
                   +fullSalesData[0].totalStats.original_order_total_amount +
                     +fullSalesData[1].totalStats.original_order_total_amount
+                    | number : "1.0-0"
                 }}
               </h1>
             </div>
@@ -57,19 +59,35 @@
 
             <div class="overall_total__stats__item">
               <h3>Shipping Charges</h3>
-              <h1>$400K</h1>
+              <h1>
+                ${{
+                  +fullSalesData[0].totalStats.shipping_cost +
+                    +fullSalesData[1].totalStats.shipping_cost
+                    | number : "1.0-0"
+                }}
+              </h1>
             </div>
             <div class="overall_total__stats__item_sign"><h1>-</h1></div>
 
             <div class="overall_total__stats__item">
               <h3>Discount</h3>
-              <h1>$200K</h1>
+              <h1>
+                ${{
+                  +fullSalesData[0].totalStats.discount +
+                    +fullSalesData[1].totalStats.discount | number : "1.0-0"
+                }}
+              </h1>
             </div>
             <div class="overall_total__stats__item_sign"><h1>+</h1></div>
 
             <div class="overall_total__stats__item">
               <h3>Tax</h3>
-              <h1>$1.5M</h1>
+              <h1>
+                ${{
+                  +fullSalesData[0].totalStats.tax +
+                    +fullSalesData[1].totalStats.tax | number : "1.0-0"
+                }}
+              </h1>
             </div>
 
             <div class="overall_total__stats_subcontianer">
@@ -79,6 +97,7 @@
                   {{
                     +fullSalesData[0].totalStats.line_ordered_qty +
                       +fullSalesData[1].totalStats.line_ordered_qty
+                      | number : "1.0-0"
                   }}
                 </h1>
               </div>
@@ -88,16 +107,22 @@
                   ${{
                     +fullSalesData[0].totalStats.line_margin +
                       +fullSalesData[1].totalStats.line_margin
+                      | number : "1.0-0"
                   }}
                 </h1>
               </div>
               <div class="overall_total__stats__item">
                 <h3>ROI</h3>
                 <h1>
-                  ${{
-                    +fullSalesData[0].totalStats.line_inventory_cost +
-                      +fullSalesData[1].totalStats.line_inventory_cost
+                  {{
+                    ((+fullSalesData[0].totalStats.line_margin +
+                      +fullSalesData[1].totalStats.line_margin) *
+                      100) /
+                      (+fullSalesData[0].totalStats.line_inventory_cost +
+                        +fullSalesData[1].totalStats.line_inventory_cost)
+                      | number : "1.0-0"
                   }}
+                  %
                 </h1>
               </div>
             </div>
@@ -224,7 +249,7 @@
                         .ORDER_CAPTURE_CHANNEL_GROUPED
                     "
                   >
-                    <h4>{{ data.name }}</h4>
+                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
                     <div class="row_1_div_3_values">
                       <span>${{ data.original_order_total_amount }}</span>
                       <span>({{ data.line_ordered_qty }} units)</span>
@@ -245,7 +270,7 @@
                       )
                     "
                   >
-                    <h4>{{ data.name.length > 0 ? data.name : "OTHERS" }}</h4>
+                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
                     <div class="row_1_div_3_values">
                       <span>${{ data.original_order_total_amount }}</span>
                       <span>({{ data.line_ordered_qty }} units)</span>
@@ -264,19 +289,32 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item_heading">
+                      <h4>ITEM ID</h4>
+                      <h4>WEB CATEGORY</h4>
+                      <h4>BRAND NAME</h4>
+                      <h4>TOTAL</h4>
+                      <img src="" alt="" />
+                    </div>
                     <div class="top_list__item">
-                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ fullSalesData[0].topItemsData[0].item_id }}</h4>
+                      <h4>
+                        {{ fullSalesData[0].topItemsData[0].web_category }}
+                      </h4>
+                      <h4>{{ fullSalesData[0].topItemsData[0].brand_name }}</h4>
                       <h4>
                         ${{
-                          fullSalesData[1].topItemsData[0]
+                          fullSalesData[0].topItemsData[0]
                             .original_order_total_amount
                         }}
                       </h4>
 
                       <img
-                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
+                        src="{{
+                          fullSalesData[0].topItemsData[0].image_location +
+                            '/' +
+                            fullSalesData[0].topItemsData[0].image_id
+                        }}"
                         alt=""
                       />
                     </div>
@@ -285,30 +323,43 @@
                       *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ data.web_category }}</h4>
+                      <h4>{{ data.brand_name }}</h4>
                       <h4>{{ data.line_ordered_qty }}</h4>
                       <img src="" alt="" />
+                      <!-- {{ data.image_location + '/' + data.image_id }} -->
                     </div>
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item_heading">
+                      <h4>ITEM ID</h4>
+                      <h4>WEB CATEGORY</h4>
+                      <h4>BRAND NAME</h4>
+                      <h4>TOTAL</h4>
+                      <img src="" alt="" />
+                    </div>
                     <div class="top_list__item">
-                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ fullSalesData[0].topItemsData[0].item_id }}</h4>
+                      <h4>
+                        {{ fullSalesData[0].topItemsData[0].web_category }}
+                      </h4>
+                      <h4>{{ fullSalesData[0].topItemsData[0].brand_name }}</h4>
                       <h4>
                         ${{
-                          fullSalesData[1].topItemsData[0]
+                          fullSalesData[0].topItemsData[0]
                             .original_order_total_amount
                         }}
                       </h4>
 
                       <img
-                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
-                        alt=""
+                        src="{{
+                          fullSalesData[0].topItemsData[0].image_location +
+                            '/' +
+                            fullSalesData[0].topItemsData[0].image_id
+                        }}"
                       />
                     </div>
                     <div
@@ -316,10 +367,11 @@
                       *ngFor="let data of fullSalesData[0].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ data.web_category }}</h4>
+                      <h4>{{ data.brand_name }}</h4>
                       <h4>${{ data.original_order_total_amount }}</h4>
                       <img src="" alt="" />
+                      <!-- {{ data.image_location + '/' + data.image_id }} -->
                     </div>
                   </div>
                 </div>
@@ -331,10 +383,19 @@
                 <div class="top_items__list">
                   <h3>By Volume</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item_heading">
+                      <h4>ITEM ID</h4>
+                      <h4>WEB CATEGORY</h4>
+                      <h4>BRAND NAME</h4>
+                      <h4>TOTAL</h4>
+                      <img src="" alt="" />
+                    </div>
                     <div class="top_list__item">
                       <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>
+                        {{ fullSalesData[1].topItemsData[0].web_category }}
+                      </h4>
+                      <h4>{{ fullSalesData[1].topItemsData[0].brand_name }}</h4>
                       <h4>
                         ${{
                           fullSalesData[1].topItemsData[0]
@@ -343,8 +404,11 @@
                       </h4>
 
                       <img
-                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
-                        alt=""
+                        src="{{
+                          fullSalesData[1].topItemsData[0].image_location +
+                            '/' +
+                            fullSalesData[1].topItemsData[0].image_id
+                        }}"
                       />
                     </div>
                     <div
@@ -352,20 +416,31 @@
                       *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ data.web_category }}</h4>
+                      <h4>{{ data.brand_name }}</h4>
                       <h4>{{ data.line_ordered_qty }}</h4>
                       <img src="" alt="" />
+                      <!--  -->
                     </div>
                   </div>
+                  <!-- {{ data.image_location + '/' + data.image_id }} -->
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item_heading">
+                      <h4>ITEM ID</h4>
+                      <h4>WEB CATEGORY</h4>
+                      <h4>BRAND NAME</h4>
+                      <h4>TOTAL</h4>
+                      <img src="" alt="" />
+                    </div>
                     <div class="top_list__item">
                       <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>
+                        {{ fullSalesData[1].topItemsData[0].web_category }}
+                      </h4>
+                      <h4>{{ fullSalesData[1].topItemsData[0].brand_name }}</h4>
                       <h4>
                         ${{
                           fullSalesData[1].topItemsData[0]
@@ -374,8 +449,11 @@
                       </h4>
 
                       <img
-                        src="https://media.guitarcenter.com/is/image/MMGS7/000000117961680-00-180x180.jpg"
-                        alt=""
+                        src="{{
+                          fullSalesData[1].topItemsData[0].image_location +
+                            '/' +
+                            fullSalesData[1].topItemsData[0].image_id
+                        }}"
                       />
                     </div>
                     <div
@@ -383,10 +461,11 @@
                       *ngFor="let data of fullSalesData[1].topItemsData"
                     >
                       <h4>{{ data.item_id }}</h4>
-                      <h4>Web Category</h4>
-                      <h4>Brand Name</h4>
+                      <h4>{{ data.web_category }}</h4>
+                      <h4>{{ data.brand_name }}</h4>
                       <h4>${{ data.original_order_total_amount }}</h4>
                       <img src="" alt="" />
+                      <!-- {{ data.image_location + '/' + data.image_id }} -->
                     </div>
                   </div>
                 </div>
