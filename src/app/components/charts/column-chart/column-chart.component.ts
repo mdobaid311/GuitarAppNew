@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class ColumnChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
+  @Input() columnChartData: any;
 
   chartOptions: any;
 
@@ -134,111 +135,115 @@ export class ColumnChartComponent {
       permission ? null : (this.loader = true);
     });
 
-    this.chartData.getOrderTotalYears().subscribe({
-      next: (resp) => {
-        let yearsData: any = [];
-        console.log('Year data', resp);
-        resp.forEach((item: IYear) => {
-          const itemData = [item.year, item.total];
-          yearsData.push(itemData);
-        });
-        this.chartOptions = {
-          chart: {
-            type: 'column',
-          },
-
-          title: {
-            text: 'Sales',
-            style: {
-              color: '#000',
-              fontFamily: 'Verdana, sans-serif',
+    this.chartData
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
+      .subscribe({
+        next: (resp: any) => {
+          let yearsData: any = [];
+          this.columnChartData.forEach((item: any) => {
+            const itemData = [item.datetime, item.original_order_total_amount];
+            yearsData.push(itemData);
+          });
+          this.chartOptions = {
+            chart: {
+              type: 'column',
             },
-          },
 
-          xAxis: {
-            type: 'category',
-            labels: {
-              rotation: 0,
-              style: {
-                color: '#000',
-                fontFamily: 'Verdana, sans-serif',
-              },
-            },
-          },
-          // yAxis: {
-
-          //   labels: {
-          //     enabled: false,
-          //   },
-          //   title: {
-          //     text: null, // Hide y-axis title
-          //   },
-          //   axisLabel: {
-          //     text: '', // Hide "Values" label
-          //   },
-          //   min: 0,
-          // },
-          yAxis: {
-            min: 0,
             title: {
-              text: 'Dollars in 1000' + "'" + 's',
-            },
-
-            labels: {
-              rotation: 0,
+              text: 'Sales',
               style: {
-                // height: '100px',
                 color: '#000',
-                fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif',
               },
             },
-          },
-          legend: {
-            enabled: false,
-          },
-          tooltip: {
-            pointFormat: 'Sales: <b>{point.y:.1f}</b>',
-          },
-          series: [
-            {
-              name: 'Population',
-              data: yearsData,
 
-              dataLabels: {
-                enabled: true, // Remove data labels from columns
-                color: '#fff',
-              },
-              color: '#A5D7E8', // Change color of columns
-            },
-            {
-              name: 'Population',
-              data: yearsData,
-
-              dataLabels: {
-                enabled: true, // Remove data labels from columns
-                color: '#fff',
-              },
-              color: '#2f7ed8', // Change color of columns
-            },
-          ],
-          plotOptions: {
-            column: {
-              events: {
-                click: function (event: any) {
-                  const name = +event.point.name;
-                  alert('Value of clicked column: ' + name);
+            xAxis: {
+              type: 'category',
+              labels: {
+                rotation: 0,
+                style: {
+                  color: '#000',
+                  fontFamily: 'Verdana, sans-serif',
                 },
               },
             },
-          },
-        };
-        Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-        this.updateChartTheme();
-        this.loader = false;
-      },
-      error: (error) => {},
-    });
+            // yAxis: {
+
+            //   labels: {
+            //     enabled: false,
+            //   },
+            //   title: {
+            //     text: null, // Hide y-axis title
+            //   },
+            //   axisLabel: {
+            //     text: '', // Hide "Values" label
+            //   },
+            //   min: 0,
+            // },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Dollars in 1000' + "'" + 's',
+              },
+
+              labels: {
+                rotation: 0,
+                style: {
+                  // height: '100px',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontFamily: 'Verdana, sans-serif',
+                },
+              },
+            },
+            legend: {
+              enabled: false,
+            },
+            tooltip: {
+              pointFormat: 'Sales: <b>{point.y:.1f}</b>',
+            },
+            series: [
+              {
+                name: 'Population',
+                data: yearsData,
+
+                dataLabels: {
+                  enabled: true, // Remove data labels from columns
+                  color: '#fff',
+                },
+                color: '#A5D7E8', // Change color of columns
+              },
+              {
+                name: 'Population',
+                data: yearsData,
+
+                dataLabels: {
+                  enabled: true, // Remove data labels from columns
+                  color: '#fff',
+                },
+                color: '#2f7ed8', // Change color of columns
+              },
+            ],
+            plotOptions: {
+              column: {
+                events: {
+                  click: function (event: any) {
+                    const name = +event.point.name;
+                    alert('Value of clicked column: ' + name);
+                  },
+                },
+              },
+            },
+          };
+          Highcharts.chart(
+            this.chartContainer.nativeElement,
+            this.chartOptions
+          );
+          this.updateChartTheme();
+          this.loader = false;
+        },
+        error: (error) => {},
+      });
   }
 
   onPinToDashboard() {

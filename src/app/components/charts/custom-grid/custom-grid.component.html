@@ -16,6 +16,11 @@
         [selectIcon]="faClock"
         [options]="intervalsList"
       ></app-custom-select>
+      <app-custom-select
+        [selectIcon]="faTableCells"
+        [options]="tables"
+        (onSelectChartChange)="onSelectTableChange($event)"
+      ></app-custom-select>
       <div class="view_selection_container">
         <fa-icon
           [icon]="faEllipsisVertical"
@@ -36,9 +41,9 @@
       <thead>
         <tr>
           <th
-            (click)="headerClickHandler('id')"
-            [ngClass]="{ selected: selectedColumnHeader === 'id' }"
             *ngFor="let column of columns"
+            (click)="headerClickHandler(column)"
+            [ngClass]="{ selected: selectedColumnHeader === column }"
           >
             {{ column }}
           </th>
