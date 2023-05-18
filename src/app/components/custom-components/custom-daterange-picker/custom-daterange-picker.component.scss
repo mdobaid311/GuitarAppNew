@@ -8,6 +8,7 @@ $desktop: 1200px;
   @media (max-width: $mobile) {
     display: flex;
   }
+  z-index: 30000;
 }
 
 .datepicker_toggle_button {

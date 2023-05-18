@@ -10,6 +10,7 @@ import {
   faClock,
   faEllipsisVertical,
   faSearch,
+  faTableCells,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
@@ -21,16 +22,48 @@ import { ChartService } from 'src/app/services/chartData.service';
 })
 export class CustomGridComponent {
   @Output() onColumnHeaderClick = new EventEmitter<string>();
-  @Input() dataArray: any;
-
+  @Input() dataArray: any[] = [];
+  @Output() onTableSelectChange = new EventEmitter<any>();
 
   faClock = faClock;
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
+  faTableCells = faTableCells;
 
   isViewSelectContainerOpen = false;
 
   columns: any = [];
+
+  tables = [
+    {
+      name: 'order_book_charges',
+    },
+    {
+      name: 'order_book_line',
+    },
+    {
+      name: 'order_book_header',
+    },
+    {
+      name: 'order_book_taxes',
+    },
+  ];
+
+  onSelectTableChange(tableName: string) {
+    this.chartData.getTableData(tableName).subscribe((res: any) => {
+      console.log('order_book_line', res);
+      const tableData = res.map((row: any) => {
+        return Object.values(row);
+      });
+      this.columns = Object.keys(res[0]);
+      this.data = tableData;
+      this.filteredData = tableData;
+      this.onTableSelectChange.emit({
+        data: res,
+        tableName: tableName,
+      });
+    });
+  }
 
   toggleViewSelectContainer() {
     this.isViewSelectContainerOpen = !this.isViewSelectContainerOpen;
@@ -80,17 +113,12 @@ export class CustomGridComponent {
   loader: boolean = false;
 
   ngOnInit(): void {
-    // this.loader = true;
-    // this.chartData.getFullSalesData().subscribe((res: any) => {
-    //   this.columns = Object.keys(res.series[0]);
-    //   const salesDataArray = res.series.map((row: any) => {
-    //     return Object.values(row);
-    //   });
-    //   this.data = salesDataArray;
-    //   this.filteredData = salesDataArray;
-    //   this.loader = false;
-    // });
-
+    this.columns = Object.keys(this.dataArray[0]);
+    const tableData = this.dataArray.map((row: any) => {
+      return Object.values(row);
+    });
+    this.data = tableData;
+    this.filteredData = tableData;
   }
 
   selectedColumnData: any[] = [];

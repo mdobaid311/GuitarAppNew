@@ -1,15 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  SimpleChanges,
-  ViewChild,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
+import { ChartService } from 'src/app/services/chartData.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -45,8 +37,6 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
-    console.log('line chart component', this.lineChartData);
-
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
@@ -66,7 +56,7 @@ export class LineChartComponent {
           text: 'Sales',
           style: {
             color: '#000',
-            fontFamily: 'Verdana, sans-serif',
+            fontFamily: 'Poppins, sans-serif',
           },
         },
 
@@ -76,8 +66,8 @@ export class LineChartComponent {
             rotation: 0,
             style: {
               color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
+              fontSize: '18px',
+              fontFamily: 'Poppins, sans-serif',
             },
           },
         },
@@ -91,8 +81,9 @@ export class LineChartComponent {
             style: {
               // height: '100px',
               color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
+              fontSize: '18px',
+
+              fontFamily: 'Poppins, sans-serif',
             },
           },
         },
@@ -122,6 +113,9 @@ export class LineChartComponent {
         ],
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 500);
       this.updateChartTheme();
       this.loader = false;
     });
@@ -135,24 +129,16 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-   
+
     this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00')
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
       .subscribe({
         next: (resp: any) => {
-          // let yearsData: any = [];
-          // // console.log(resp.MFData + 'hello');
-          // resp.MFData.chartSeries.series.forEach((item: any) => {
-          //   const itemData = [item.datetime, item.original_order_total_amount];
-          //   yearsData.push(itemData);
-          // });
-
           let yearsData: any = [];
-          this.lineChartData.forEach((item:any) => {
-           
+          this.lineChartData.forEach((item: any) => {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
-          })
+          });
           this.chartOptions = {
             chart: {
               type: 'line',
@@ -162,7 +148,7 @@ export class LineChartComponent {
               text: 'Sales',
               style: {
                 color: '#000',
-                fontFamily: 'Verdana, sans-serif',
+                fontFamily: 'Poppins, sans-serif',
               },
             },
 
@@ -172,7 +158,7 @@ export class LineChartComponent {
                 rotation: 0,
                 style: {
                   color: '#000',
-                  fontFamily: 'Verdana, sans-serif',
+                  fontFamily: 'Poppins, sans-serif',
                 },
               },
             },
@@ -187,8 +173,8 @@ export class LineChartComponent {
                 style: {
                   // height: '100px',
                   color: '#000',
-                  fontSize: '13px',
-                  fontFamily: 'Verdana, sans-serif',
+                  fontSize: '18px',
+                  fontFamily: 'Poppins, sans-serif',
                 },
               },
             },
@@ -200,17 +186,23 @@ export class LineChartComponent {
             },
             series: [
               {
-                name: 'Population',
+                name: 'Sales',
                 data: yearsData,
 
                 dataLabels: {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
+                  style: {
+                    // height: '100px',
+                    color: '#000',
+                    fontSize: '14px',
+                    fontFamily: 'Poppins, sans-serif',
+                  },
                 },
                 color: '#A5D7E8', // Change color of lines
               },
               {
-                name: 'Population',
+                name: 'Sales',
                 data: yearsData,
 
                 dataLabels: {
@@ -235,6 +227,9 @@ export class LineChartComponent {
             this.chartContainer.nativeElement,
             this.chartOptions
           );
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+          }, 500);
           this.updateChartTheme();
           this.loader = false;
         },
@@ -262,7 +257,7 @@ export class LineChartComponent {
     //         text: 'Sales',
     //         style: {
     //           color: '#000',
-    //           fontFamily: 'Verdana, sans-serif',
+    //           fontFamily: 'Poppins, sans-serif',
     //         },
     //       },
 
@@ -272,7 +267,7 @@ export class LineChartComponent {
     //           rotation: 0,
     //           style: {
     //             color: '#000',
-    //             fontFamily: 'Verdana, sans-serif',
+    //             fontFamily: 'Poppins, sans-serif',
     //           },
     //         },
     //       },
@@ -287,8 +282,8 @@ export class LineChartComponent {
     //           style: {
     //             // height: '100px',
     //             color: '#000',
-    //             fontSize: '13px',
-    //             fontFamily: 'Verdana, sans-serif',
+    //             fontSize: '18px',
+    //             fontFamily: 'Poppins, sans-serif',
     //           },
     //         },
     //       },
@@ -361,9 +356,7 @@ export class LineChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  ngAfterViewInit() {
-    // Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-  }
+  ngAfterViewInit() {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

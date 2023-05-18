@@ -2,11 +2,13 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {
   faCaretLeft,
   faClock,
-  faEllipsisVertical,
   faSearch,
+  faFileExport,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
+import { WorkBook, utils, write } from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -20,6 +22,7 @@ export class AreaSplineChartComponent {
   faClock = faClock;
   faSearch = faSearch;
   faCaretLeft = faCaretLeft;
+  faFileExport = faFileExport;
 
   intervalsList = [
     { name: '15 Min' },
@@ -47,18 +50,21 @@ export class AreaSplineChartComponent {
 
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
 
-  // data = [
-  //   { id: 21000, name: 25500, age: 25678, custom: 23456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 26456, data: 325566 },
-  //   { id: 23456, name: 23000, age: 40567, custom: 23456, data: 345566 },
-  //   { id: 21000, name: 25500, age: 25678, custom: 25456, data: 335566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  //   { id: 22500, name: 24000, age: 30899, custom: 24456, data: 345566 },
-  // ];
+  createExcelFile(data: any[], fileName: string): void {
+    const worksheet: any = utils.json_to_sheet(data);
+    const workbook: WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const file: Blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(file, fileName + '.xlsx');
+  }
 
   selectedColumnData: any[] = [];
   selectedColumnHeader: string = '';
@@ -66,87 +72,72 @@ export class AreaSplineChartComponent {
   onColumnHeaderClick(header: string) {
     console.log('header', header);
     this.selectedColumnHeader = header;
-    this.selectedColumnData = this.data.map((row: any) => row[header]);
+    this.selectedColumnData = this.data
+      .map((row: any) => Math.floor(row[header]))
+      .slice(0, 50);
+
     this.chartOptions = {
       chart: {
-        type: 'areaspline',
+        type: 'line',
         backgroundColor: this.theme === 'dark' ? '#0D2039' : '#fff',
       },
-      title: {
-        text: 'Demo chart',
-        align: 'left',
-        style: {
-          color: this.theme === 'dark' ? '#fff' : '#000',
-          fontFamily: 'Verdana, sans-serif',
-        },
-      },
-      subtitle: {
-        text: 'Source: <a href="https://www.ssb.no/jord-skog-jakt-og-fiskeri/jakt" target="_blank">SSB</a>',
-        align: 'left',
-      },
-      legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 120,
-        y: 50,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-          Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
-      },
+
       xAxis: {
-        plotBands: [
-          {
-            // Highlight the two last years
-            from: 2019,
-            to: 2020,
-            color: 'rgba(68, 170, 213, .2)',
-          },
-        ],
+        type: 'category',
         labels: {
           rotation: 0,
           style: {
-            color: this.theme === 'dark' ? '#fff' : '#000',
+            color: '#fff',
             fontFamily: 'Verdana, sans-serif',
           },
         },
       },
       yAxis: {
+        min: 0,
         title: {
-          text: 'Quantity',
+          text: 'Dollars in 1000' + "'" + 's',
         },
+
         labels: {
           rotation: 0,
           style: {
-            color: this.theme === 'dark' ? '#fff' : '#000',
+            // height: '100px',
+            color: '#fff',
+            fontSize: '13px',
             fontFamily: 'Verdana, sans-serif',
           },
         },
       },
+      legend: {
+        enabled: false,
+      },
       tooltip: {
-        shared: true,
-        headerFormat: '<b>Hunting season starting autumn {point.x}</b><br>',
+        pointFormat: 'Sales: <b>{point.y:.1f}</b>',
       },
       credits: {
         enabled: false,
       },
-      plotOptions: {
-        series: {
-          pointStart: 2000,
-        },
-        areaspline: {
-          fillOpacity: 0.5,
-        },
-      },
+
       series: [
         {
-          name: 'Moose',
+          name: 'Population',
           data: this.selectedColumnData,
+
+          dataLabels: {
+            enabled: true, // Remove data labels from lines
+            color: '#fff',
+          },
+          color: '#A5D7E8', // Change color of lines
         },
         {
-          name: 'Deer',
-          data: this.selectedColumnData.map((item, i) => item - 5000 * (i + 1)),
+          name: 'Population',
+          data: this.selectedColumnData,
+
+          dataLabels: {
+            enabled: true, // Remove data labels from lines
+            color: '#fff',
+          },
+          color: '#2f7ed8', // Change color of lines
         },
       ],
     };
@@ -154,18 +145,26 @@ export class AreaSplineChartComponent {
   }
 
   columns: any = [];
-  data: any = [];
-  filteredData = this.data;
+  data: any;
+  filteredData: any;
+
+  excelFileName: string = 'order_book_line';
+
+  onTableSelectChange(data: any) {
+    this.data = data.data;
+    this.excelFileName = data.tableName;
+  }
+
+  exportToExcel() {
+    console.log("export to excel")
+    this.createExcelFile(this.data, this.excelFileName);
+  }
 
   ngOnInit(): void {
-    // this.chartData.getFullSalesData().subscribe((res: any) => {
-    //   this.columns = Object.keys(res.series[0]);
-    //   const salesDataArray = res.series.map((row: any) => {
-    //     return Object.values(row);
-    //   });
-    //   this.data = salesDataArray;
-    //   this.filteredData = salesDataArray;
-    // });
+    this.chartData.getTableData('order_book_line').subscribe((res: any) => {
+      console.log('order_book_line', res);
+      this.data = res;
+    });
   }
 
   updateChartTheme() {
