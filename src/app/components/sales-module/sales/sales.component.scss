@@ -133,6 +133,7 @@ $desktop: 1200px;
               border-right: 1px solid var(--primary-color-3);
               border-radius: 10px;
               align-items: center;
+              width: 30%;
 
               @media only screen and (max-width: $mobile) {
                 flex-direction: column;
@@ -270,7 +271,7 @@ $desktop: 1200px;
                 display: flex;
                 flex-direction: column;
                 @media only screen and (max-width: $mobile) {
-                  width:  95%; ;
+                  width: 95%;
                 }
                 .chart__header {
                   padding: 20px 20px 0px 20px;
@@ -432,6 +433,26 @@ $desktop: 1200px;
                     flex-direction: column;
                     height: 100%;
 
+                    .top_list__item_heading {
+                      padding: 10px 0px;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      h4 {
+                        flex: 1;
+                        text-align: center;
+                        font-size: 22px;
+                        color: #62CDFF;
+                      }
+
+                      img {
+                        width: 150px;
+                        object-fit: contain;
+                        margin-right: 10px;
+                        border-radius: 20px;
+                      }
+                    }
+
                     .top_list__item {
                       padding: 10px 0px;
                       display: flex;
@@ -441,6 +462,7 @@ $desktop: 1200px;
                         // margin: 0;
                         flex: 1;
                         text-align: center;
+                        font-size: 18px;
                       }
 
                       h4:nth-child(4) {
