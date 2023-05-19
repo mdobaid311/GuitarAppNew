@@ -7,7 +7,8 @@ import {
   faChartColumn,
   faUser,
   faMessage,
-  faGear,faCashRegister
+  faGear,
+  faCashRegister,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -28,12 +29,19 @@ export class SidebarComponent {
   currentRoute: string;
 
   constructor(private router: Router) {
-
-    console.log(this.router.url)
+    console.log(this.router.url);
     this.currentRoute = this.router.url;
   }
 
-  ngInit(){
+  onHover() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 500);
+  }
 
+  ngInit() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 500);
   }
 }
