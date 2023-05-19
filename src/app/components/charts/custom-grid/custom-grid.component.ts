@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import {
   Component,
   Output,
@@ -49,12 +50,16 @@ export class CustomGridComponent {
     },
   ];
 
+  originalData: any = [];
+
   onSelectTableChange(tableName: string) {
     this.chartData.getTableData(tableName).subscribe((res: any) => {
       console.log('order_book_line', res);
+      console.log('this.originalData', this.originalData);
       const tableData = res.map((row: any) => {
         return Object.values(row);
       });
+
       this.columns = Object.keys(res[0]);
       this.data = tableData;
       this.filteredData = tableData;
@@ -63,6 +68,35 @@ export class CustomGridComponent {
         tableName: tableName,
       });
     });
+  }
+
+  onColumnSelectChange(columnName: string) {
+    //  if column is not selected, remove column from data
+    if (this.columns.find((column: any) => column === columnName)) {
+      console.log('column found');
+      const modifiedData = this.originalData.map((row: any) => {
+        delete row[columnName];
+        return row;
+      });
+      const tableData = modifiedData.map((row: any) => {
+        return Object.values(row);
+      });
+      this.data = tableData;
+      this.filteredData = this.data;
+      this.columns = this.columns.filter((column: string) => {
+        return column !== columnName;
+      });
+      this.columnsData = this.columnsData.map((column: any) => {
+        if (column.name === columnName) {
+          column.isSelected = false;
+        }
+        return column;
+      });
+    }
+    // if column is selected, add column to data
+    else {
+
+    }
   }
 
   toggleViewSelectContainer() {
@@ -111,9 +145,16 @@ export class CustomGridComponent {
   }
 
   loader: boolean = false;
-
+  columnsData: any = [];
   ngOnInit(): void {
+    this.originalData = this.dataArray;
     this.columns = Object.keys(this.dataArray[0]);
+    this.columnsData = this.columns.map((column: string) => {
+      return {
+        name: column,
+        isSelected: true,
+      };
+    });
     const tableData = this.dataArray.map((row: any) => {
       return Object.values(row);
     });
