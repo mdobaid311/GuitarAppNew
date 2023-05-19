@@ -39,6 +39,7 @@ import { CustomTableComponent } from './components/custom-components/custom-tabl
 import { CustomGuitarLoaderComponent } from './components/custom-components/custom-guitar-loader/custom-guitar-loader.component';
 import { CustomGridComponent } from './components/charts/custom-grid/custom-grid.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
     CustomGuitarLoaderComponent,
     CustomGridComponent,
     LineChartComponent,
+    ShortNumberPipe,
   ],
   imports: [
     FormsModule,
