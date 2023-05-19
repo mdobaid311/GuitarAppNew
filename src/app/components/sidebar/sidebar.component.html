@@ -1,4 +1,4 @@
-<div class="sidebar" (mouseenter)="onHover()">
+<!-- <div class="sidebar" (mouseenter)="onHover()">
   <div class="sidebar__item" >
     <fa-icon [icon]="faBars" class="icon"></fa-icon>
   </div>
@@ -14,15 +14,15 @@
     ></fa-icon>
     <h3 routerLinkActive="active" class="label">Sales</h3>
   </div>
-  <div class="sidebar__item" routerLink="/area-chart">
+  <div class="sidebar__item sidebar__subitem" routerLink="/area-chart">
     <fa-icon
       [icon]="faChartColumn"
       class="icon"
       routerLinkActive="active"
     ></fa-icon>
-    <h3 routerLinkActive="active" class="label">Area Chart</h3>
+    <h3 routerLinkActive="active" class="label">Detail View</h3>
   </div>
-  <div class="sidebar__item" routerLink="/org-chart">
+  <div class="sidebar__item sidebar__subitem" routerLink="/org-chart">
     <fa-icon
       [icon]="faSitemap"
       class="icon"
@@ -43,4 +43,55 @@
     <fa-icon [icon]="faGear" class="icon" routerLinkActive="active"></fa-icon>
     <h3 routerLinkActive="active" class="label">Settings</h3>
   </div>
+</div> -->
+
+<div class="sidebar" [class.sidebar-close]="!openSidebar" >
+  <div class="logo-details">
+    <img src="../../../assets/Guitar_center_logo.png" alt="" />
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li (click)="expandSidebar()">
+      <div class="dropdown-title">
+        <a>
+          <fa-icon [icon]="faBars" class="icon"></fa-icon>
+          <span class="link_name">Close</span>
+        </a>
+      </div>
+    </li>
+    <li *ngFor="let item of menuSidebar" #itemEl routerLinkActive="active">
+      <div *ngIf="item.sub_menu.length == 0" class="dropdown-title">
+        <a [routerLink]="[item.link]">
+          <fa-icon [icon]="item.icon" class="icon"></fa-icon>
+          <span class="link_name">{{ item.link_name }}</span>
+        </a>
+      </div>
+      <div *ngIf="item.sub_menu.length > 0" class="dropdown-title">
+        <a class="submenu__title">
+          <div [routerLink]="[item.link]">
+            <fa-icon [icon]="item.icon" class="icon"></fa-icon>
+            <span class="link_name">{{ item.link_name }}</span>
+          </div>
+          <fa-icon
+            [icon]="faChevronDown"
+            class="drop_down_icon"
+            (click)="showSubmenu(itemEl)"
+          ></fa-icon>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu" [class.blank]="item.sub_menu.length == 0">
+        <li>
+          <a class="link_name">
+            {{ item.link_name }}
+          </a>
+        </li>
+        <li *ngFor="let item_sub of item.sub_menu" routerLinkActive="active">
+          <a [routerLink]="[item_sub.link]">
+            <fa-icon [icon]="item_sub.icon" class="sub_icon"></fa-icon>
+            {{ item_sub.link_name }}</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>

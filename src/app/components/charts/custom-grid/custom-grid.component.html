@@ -28,9 +28,14 @@
           (click)="toggleViewSelectContainer()"
         ></fa-icon>
         <div class="view__options" *ngIf="isViewSelectContainerOpen">
-          <div class="view_option" *ngFor="let column of columns">
-            <input type="checkbox" name="" id="" />
-            <span> {{ column }} </span>
+          <div class="view_option" *ngFor="let column of columnsData">
+            <input
+              type="checkbox"
+              name="{{ column.name }}"
+              [checked]="column.isSelected"
+              (click)="onColumnSelectChange(column.name)"
+            />
+            <span> {{ column.name }} </span>
           </div>
         </div>
       </div>
