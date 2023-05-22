@@ -49,9 +49,8 @@
               <h3>Line Price Total</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.original_order_total_amount +
-                    +fullSalesData[1].totalStats.original_order_total_amount
-                    | shortNumber
+                  +fullSalesData[0].totalStats.line_price_total +
+                    +fullSalesData[1].totalStats.line_price_total | shortNumber
                 }}
               </h1>
             </div>
@@ -134,7 +133,11 @@
               <div class="row_1_div_1">
                 <h1 class="brand__name">{{ item.name }}</h1>
                 <div class="row_1_div_1__values">
-                  <h1>${{ item.totalStats.original_order_total_amount }}</h1>
+                  <h1>
+                    ${{
+                      item.totalStats.original_order_total_amount | shortNumber
+                    }}
+                  </h1>
                   <h3>({{ item.totalStats.line_ordered_qty }} units)</h3>
                 </div>
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
@@ -260,13 +263,38 @@
                   </div>
                 </div>
               </div>
-              <div class="top_list__by_fulfilment">
+              <div class="top_list__by_item_info">
                 <h3>Sales By fulfilment</h3>
                 <div class="top_list__items_list">
                   <div
                     class="top_list__item"
                     *ngFor="
-                      let data of item.salesCategories.LINE_FULFILLMENT_TYPE_GROUPED.slice(
+                      let data of item.salesCategories.ITEM_INFO_GROUPED.slice(
+                        0,
+                        4
+                      )
+                    "
+                  >
+                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                    <div class="row_1_div_3_values">
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="top_list__by_item_info">
+                <h3>Sales By Item Info</h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="
+                      let data of item.salesCategories.ITEM_INFO_GROUPED.slice(
                         0,
                         4
                       )
@@ -294,94 +322,146 @@
               <div class="lists__container">
                 <div class="top_items__list">
                   <h3>By Volume</h3>
-                  <div class="top_list__items_list">
-                    <div class="top_list__item_heading">
-                      <h4>ITEM ID</h4>
-                      <h4>WEB CATEGORY</h4>
-                      <h4>BRAND NAME</h4>
-                      <h4>TOTAL</h4>
-                      <img src="" alt="" />
+                  <div class="top_list__container">
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <h4 className="top_item__index"></h4>
+                        <img src="" alt="" />
+                        <h4 className="top_item__item_id">ITEM ID</h4>
+                        <h4 className="top_item__web_category">WEB CATEGORY</h4>
+                        <h4 className="top_item__brand_name">BRAND NAME</h4>
+                        <h4 className="top_item__total">TOTAL</h4>
+                      </div>
+                      <div class="top_list__item top_item__in_list">
+                        <h4 className="top_item__index">1</h4>
+                        <img
+                          src="{{
+                            fullSalesData[0].topItemsData[0].image_location +
+                              '/' +
+                              fullSalesData[0].topItemsData[0].image_id
+                          }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__item_id">
+                          {{ fullSalesData[0].topItemsData[0].item_id }}
+                        </h4>
+                        <h4 className="top_item__web_category">
+                          {{ fullSalesData[0].topItemsData[0].web_category }}
+                        </h4>
+                        <h4 className="top_item__brand_name">
+                          {{ fullSalesData[0].topItemsData[0].brand_name }}
+                        </h4>
+                        <h4 className="top_item__total|">
+                          {{
+                            fullSalesData[0].topItemsData[0].line_ordered_qty
+                          }}
+                        </h4>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of fullSalesData[0].topItemsData.slice(1);
+                          let i = index
+                        "
+                      >
+                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <img
+                          src="{{ data.image_location + '/' + data.image_id }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__index">{{ data.item_id }}</h4>
+                        <h4 className="top_item__index">
+                          {{ data.web_category }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.brand_name }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.line_ordered_qty }}
+                        </h4>
+                      </div>
                     </div>
-                    <div class="top_list__item">
-                      <h4>{{ fullSalesData[0].topItemsData[0].item_id }}</h4>
-                      <h4>
-                        {{ fullSalesData[0].topItemsData[0].web_category }}
-                      </h4>
-                      <h4>{{ fullSalesData[0].topItemsData[0].brand_name }}</h4>
-                      <h4>
-                        {{ fullSalesData[0].topItemsData[0].line_ordered_qty }}
-                      </h4>
-
-                      <img
-                        src="{{
-                          fullSalesData[0].topItemsData[0].image_location +
-                            '/' +
-                            fullSalesData[0].topItemsData[0].image_id
-                        }}"
-                        alt=""
-                      />
-                    </div>
-                    <div
-                      class="top_list__item"
-                      *ngFor="let data of fullSalesData[0].topItemsData"
-                    >
-                      <h4>{{ data.item_id }}</h4>
-                      <h4>{{ data.web_category }}</h4>
-                      <h4>{{ data.brand_name }}</h4>
-                      <h4>{{ data.line_ordered_qty }}</h4>
-                      <img
-                        src="{{ data.image_location + '/' + data.image_id }}"
-                        alt=""
-                      />
-                    </div>
+                    <img
+                      class="top_item__image"
+                      src="{{
+                        fullSalesData[0].topItemsData[0].image_location +
+                          '/' +
+                          fullSalesData[0].topItemsData[0].image_id
+                      }}"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div class="top_items__list">
                   <h3>By Value</h3>
-                  <div class="top_list__items_list">
-                    <div class="top_list__item_heading">
-                      <h4>ITEM ID</h4>
-                      <h4>WEB CATEGORY</h4>
-                      <h4>BRAND NAME</h4>
-                      <h4>TOTAL</h4>
-                      <img src="" alt="" />
+                  <div class="top_list__container">
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <h4 className="top_item__index"></h4>
+                        <img src="" alt="" />
+                        <h4 className="top_item__item_id">ITEM ID</h4>
+                        <h4 className="top_item__web_category">WEB CATEGORY</h4>
+                        <h4 className="top_item__brand_name">BRAND NAME</h4>
+                        <h4 className="top_item__total">TOTAL</h4>
+                      </div>
+                      <div class="top_list__item top_item__in_list">
+                        <h4 className="top_item__index">1</h4>
+                        <img
+                          src="{{
+                            fullSalesData[0].topItemsData[0].image_location +
+                              '/' +
+                              fullSalesData[0].topItemsData[0].image_id
+                          }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__item_id">
+                          {{ fullSalesData[0].topItemsData[0].item_id }}
+                        </h4>
+                        <h4 className="top_item__web_category">
+                          {{ fullSalesData[0].topItemsData[0].web_category }}
+                        </h4>
+                        <h4 className="top_item__brand_name">
+                          {{ fullSalesData[0].topItemsData[0].brand_name }}
+                        </h4>
+                        <h4 className="top_item__total|">
+                          ${{
+                            fullSalesData[0].topItemsData[0].original_order_total_amount
+                          }}
+                        </h4>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of fullSalesData[0].topItemsData.slice(1);
+                          let i = index
+                        "
+                      >
+                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <img
+                          src="{{ data.image_location + '/' + data.image_id }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__index">{{ data.item_id }}</h4>
+                        <h4 className="top_item__index">
+                          {{ data.web_category }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.brand_name }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          ${{ data.original_order_total_amount }}
+                        </h4>
+                      </div>
                     </div>
-                    <div class="top_list__item">
-                      <h4>{{ fullSalesData[0].topItemsData[0].item_id }}</h4>
-                      <h4>
-                        {{ fullSalesData[0].topItemsData[0].web_category }}
-                      </h4>
-                      <h4>{{ fullSalesData[0].topItemsData[0].brand_name }}</h4>
-                      <h4>
-                        ${{
-                          fullSalesData[0].topItemsData[0]
-                            .original_order_total_amount | shortNumber
-                        }}
-                      </h4>
-
-                      <img
-                        src="{{
-                          fullSalesData[0].topItemsData[0].image_location +
-                            '/' +
-                            fullSalesData[0].topItemsData[0].image_id
-                        }}"
-                      />
-                    </div>
-                    <div
-                      class="top_list__item"
-                      *ngFor="let data of fullSalesData[0].topItemsData"
-                    >
-                      <h4>{{ data.item_id }}</h4>
-                      <h4>{{ data.web_category }}</h4>
-                      <h4>{{ data.brand_name }}</h4>
-                      <h4>
-                        ${{ data.original_order_total_amount | shortNumber }}
-                      </h4>
-                      <img
-                        src="{{ data.image_location + '/' + data.image_id }}"
-                        alt=""
-                      />
-                    </div>
+                    <img
+                      class="top_item__image"
+                      src="{{
+                        fullSalesData[0].topItemsData[0].image_location +
+                          '/' +
+                          fullSalesData[0].topItemsData[0].image_id
+                      }}"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
@@ -391,93 +471,146 @@
               <div class="lists__container">
                 <div class="top_items__list">
                   <h3>By Volume</h3>
-                  <div class="top_list__items_list">
-                    <div class="top_list__item_heading">
-                      <h4>ITEM ID</h4>
-                      <h4>WEB CATEGORY</h4>
-                      <h4>BRAND NAME</h4>
-                      <h4>TOTAL</h4>
-                      <img src="" alt="" />
+                  <div class="top_list__container">
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <h4 className="top_item__index"></h4>
+                        <img src="" alt="" />
+                        <h4 className="top_item__item_id">ITEM ID</h4>
+                        <h4 className="top_item__web_category">WEB CATEGORY</h4>
+                        <h4 className="top_item__brand_name">BRAND NAME</h4>
+                        <h4 className="top_item__total">TOTAL</h4>
+                      </div>
+                      <div class="top_list__item ">
+                        <h4 className="top_item__index">1</h4>
+                        <img
+                          src="{{
+                            fullSalesData[1].topItemsData[0].image_location +
+                              '/' +
+                              fullSalesData[1].topItemsData[0].image_id
+                          }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__item_id">
+                          {{ fullSalesData[1].topItemsData[0].item_id }}
+                        </h4>
+                        <h4 className="top_item__web_category">
+                          {{ fullSalesData[1].topItemsData[0].web_category }}
+                        </h4>
+                        <h4 className="top_item__brand_name">
+                          {{ fullSalesData[1].topItemsData[0].brand_name }}
+                        </h4>
+                        <h4 className="top_item__total|">
+                          {{
+                            fullSalesData[1].topItemsData[0].line_ordered_qty
+                          }}
+                        </h4>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of fullSalesData[1].topItemsData.slice(1);
+                          let i = index
+                        "
+                      >
+                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <img
+                          src="{{ data.image_location + '/' + data.image_id }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__index">{{ data.item_id }}</h4>
+                        <h4 className="top_item__index">
+                          {{ data.web_category }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.brand_name }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.line_ordered_qty }}
+                        </h4>
+                      </div>
                     </div>
-                    <div class="top_list__item">
-                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>
-                        {{ fullSalesData[1].topItemsData[0].web_category }}
-                      </h4>
-                      <h4>{{ fullSalesData[1].topItemsData[0].brand_name }}</h4>
-                      <h4>
-                        {{ fullSalesData[1].topItemsData[0].line_ordered_qty }}
-                      </h4>
-
-                      <img
-                        src="{{
-                          fullSalesData[1].topItemsData[0].image_location +
-                            '/' +
-                            fullSalesData[1].topItemsData[0].image_id
-                        }}"
-                      />
-                    </div>
-                    <div
-                      class="top_list__item"
-                      *ngFor="let data of fullSalesData[1].topItemsData"
-                    >
-                      <h4>{{ data.item_id }}</h4>
-                      <h4>{{ data.web_category }}</h4>
-                      <h4>{{ data.brand_name }}</h4>
-                      <h4>{{ data.line_ordered_qty }}</h4>
-                      <img
-                        src="{{ data.image_location + '/' + data.image_id }}"
-                        alt=""
-                      />
-                    </div>
+                    <img
+                      class="top_item__image"
+                      src="{{
+                        fullSalesData[1].topItemsData[0].image_location +
+                          '/' +
+                          fullSalesData[1].topItemsData[0].image_id
+                      }}"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div class="top_items__list">
-                  <h3>By Value</h3>
-                  <div class="top_list__items_list">
-                    <div class="top_list__item_heading">
-                      <h4>ITEM ID</h4>
-                      <h4>WEB CATEGORY</h4>
-                      <h4>BRAND NAME</h4>
-                      <h4>TOTAL</h4>
-                      <img src="" alt="" />
+                  <h3>By Volume</h3>
+                  <div class="top_list__container">
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <h4 className="top_item__index"></h4>
+                        <img src="" alt="" />
+                        <h4 className="top_item__item_id">ITEM ID</h4>
+                        <h4 className="top_item__web_category">WEB CATEGORY</h4>
+                        <h4 className="top_item__brand_name">BRAND NAME</h4>
+                        <h4 className="top_item__total">TOTAL</h4>
+                      </div>
+                      <div class="top_list__item top_item__in_list">
+                        <h4 className="top_item__index">1</h4>
+                        <img
+                          src="{{
+                            fullSalesData[1].topItemsData[0].image_location +
+                              '/' +
+                              fullSalesData[1].topItemsData[0].image_id
+                          }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__item_id">
+                          {{ fullSalesData[1].topItemsData[0].item_id }}
+                        </h4>
+                        <h4 className="top_item__web_category">
+                          {{ fullSalesData[1].topItemsData[0].web_category }}
+                        </h4>
+                        <h4 className="top_item__brand_name">
+                          {{ fullSalesData[1].topItemsData[0].brand_name }}
+                        </h4>
+                        <h4 className="top_item__total|">
+                          ${{
+                            fullSalesData[1].topItemsData[0].original_order_total_amount
+                          }}
+                        </h4>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of fullSalesData[1].topItemsData.slice(1);
+                          let i = index
+                        "
+                      >
+                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <img
+                          src="{{ data.image_location + '/' + data.image_id }}"
+                          alt=""
+                        />
+                        <h4 className="top_item__index">{{ data.item_id }}</h4>
+                        <h4 className="top_item__index">
+                          {{ data.web_category }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          {{ data.brand_name }}
+                        </h4>
+                        <h4 className="top_item__index">
+                          ${{ data.original_order_total_amount }}
+                        </h4>
+                      </div>
                     </div>
-                    <div class="top_list__item">
-                      <h4>{{ fullSalesData[1].topItemsData[0].item_id }}</h4>
-                      <h4>
-                        {{ fullSalesData[1].topItemsData[0].web_category }}
-                      </h4>
-                      <h4>{{ fullSalesData[1].topItemsData[0].brand_name }}</h4>
-                      <h4>
-                        ${{
-                          fullSalesData[1].topItemsData[0]
-                            .original_order_total_amount | shortNumber
-                        }}
-                      </h4>
-
-                      <img
-                        src="{{
-                          fullSalesData[1].topItemsData[0].image_location +
-                            '/' +
-                            fullSalesData[1].topItemsData[0].image_id
-                        }}"
-                      />
-                    </div>
-                    <div
-                      class="top_list__item"
-                      *ngFor="let data of fullSalesData[1].topItemsData"
-                    >
-                      <h4>{{ data.item_id }}</h4>
-                      <h4>{{ data.web_category }}</h4>
-                      <h4>{{ data.brand_name }}</h4>
-                      <h4>
-                        ${{ data.original_order_total_amount | shortNumber }}
-                      </h4>
-                      <img
-                        src="{{ data.image_location + '/' + data.image_id }}"
-                        alt=""
-                      />
-                    </div>
+                    <img
+                      class="top_item__image"
+                      src="{{
+                        fullSalesData[1].topItemsData[0].image_location +
+                          '/' +
+                          fullSalesData[1].topItemsData[0].image_id
+                      }}"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
