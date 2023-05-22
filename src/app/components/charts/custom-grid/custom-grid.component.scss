@@ -31,8 +31,29 @@
       display: flex;
       align-items: center;
 
+      button {
+        border: none;
+        outline: none;
+        padding: 10px;
+        background: transparent;
+        color: var(--primary-color-1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover .icon {
+          color: var(--primary-color-1);
+        }
+        .icon {
+          font-size: 20px;
+          color: var(--primary-color-3);
+        }
+      }
+
       .view_selection_container {
         position: relative;
+        z-index: 500000;
 
         .view__options {
           border-radius: 10px;
@@ -48,6 +69,25 @@
           overflow-x: hidden;
           overflow-y: scroll;
           padding: 0;
+
+          button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            &:hover {
+              background-color: var(--primary-background-2);
+            }
+          }
 
           &::-webkit-scrollbar {
             height: 5px;

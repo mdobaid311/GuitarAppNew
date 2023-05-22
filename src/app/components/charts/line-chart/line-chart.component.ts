@@ -187,7 +187,7 @@ export class LineChartComponent {
               {
                 name: 'Sales',
                 data: yearsData,
-
+                lineWidth: 2,
                 dataLabels: {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
@@ -208,7 +208,7 @@ export class LineChartComponent {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
                 },
-                color: '#2f7ed8', // Change color of lines
+                color: '#A5D7E8', // Change color of lines
               },
             ],
             plotOptions: {

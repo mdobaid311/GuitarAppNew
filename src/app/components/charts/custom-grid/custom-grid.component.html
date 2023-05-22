@@ -21,6 +21,10 @@
         [options]="tables"
         (onSelectChartChange)="onSelectTableChange($event)"
       ></app-custom-select>
+      <button (click)="exportToExcel()">
+        <fa-icon [icon]="faFileExport" class="icon"></fa-icon>
+        <!-- Export Data -->
+      </button>
       <div class="view_selection_container">
         <fa-icon
           [icon]="faEllipsisVertical"
@@ -28,6 +32,9 @@
           (click)="toggleViewSelectContainer()"
         ></fa-icon>
         <div class="view__options" *ngIf="isViewSelectContainerOpen">
+          <button (click)="selectOrUnselectAllColumns()">
+            {{ selectAll ? "Unselect All" : "Select All" }}
+          </button>
           <div class="view_option" *ngFor="let column of columnsData">
             <input
               type="checkbox"
