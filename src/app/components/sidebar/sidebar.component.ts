@@ -52,6 +52,9 @@ export class SidebarComponent {
   expandSidebar() {
     console.log('open sidebar');
     this.openSidebar = !this.openSidebar;
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 500);
   }
 
   @HostListener('document:click', ['$event.target'])
@@ -105,5 +108,8 @@ export class SidebarComponent {
 
   showSubmenu(itemEl: HTMLElement) {
     itemEl.classList.toggle('showMenu');
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 500);
   }
 }

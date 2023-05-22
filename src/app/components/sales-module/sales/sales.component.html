@@ -62,8 +62,7 @@
               <h1>
                 ${{
                   +fullSalesData[0].totalStats.shipping_cost +
-                    +fullSalesData[1].totalStats.shipping_cost
-                    | shortNumber
+                    +fullSalesData[1].totalStats.shipping_cost | shortNumber
                 }}
               </h1>
             </div>
@@ -106,8 +105,7 @@
                 <h1>
                   ${{
                     +fullSalesData[0].totalStats.line_margin +
-                      +fullSalesData[1].totalStats.line_margin
-                      | shortNumber
+                      +fullSalesData[1].totalStats.line_margin | shortNumber
                   }}
                 </h1>
               </div>
@@ -120,7 +118,7 @@
                       100) /
                       (+fullSalesData[0].totalStats.line_inventory_cost +
                         +fullSalesData[1].totalStats.line_inventory_cost)
-                      | number : '1.0-0'
+                      | number : "1.0-0"
                   }}
                   %
                 </h1>
@@ -132,72 +130,11 @@
             *ngFor="let item of fullSalesData; let i = index"
             class="sales_container__row"
           >
-            <div class="row_1_div_2">
-              <div class="chart__header">
-                <div class="pintab" (click)="onPinToDashboard()">
-                  <fa-icon
-                    [icon]="faThumbtack"
-                    [ngClass]="pinActive ? 'cckd' : ''"
-                  ></fa-icon>
-                </div>
-                <div class="chart__header__right">
-                  <app-custom-select
-                    (onSelectChartChange)="onSelectChartChange($event)"
-                    [selectIcon]="faChartLine"
-                    [options]="chartTypeOptions"
-                  ></app-custom-select>
-                  <!-- <fa-icon
-                    [icon]="faExpand"
-                    class="icon"
-                    (click)="onExpandChart()"
-                  ></fa-icon> -->
-                </div>
-              </div>
-
-              <app-bar-chart
-                *ngIf="selectedChart == 'bar' && i == 0"
-                [barChartData]="item.chartSeries.series"
-              ></app-bar-chart>
-              <app-bar-chart
-                *ngIf="selectedChart == 'bar' && i == 1"
-                [barChartData]="item.chartSeries.series"
-              ></app-bar-chart>
-              <app-column-chart
-                *ngIf="selectedChart == 'column' && i == 0"
-                [columnChartData]="item.chartSeries.series"
-              ></app-column-chart>
-              <app-column-chart
-                *ngIf="selectedChart == 'column' && i == 1"
-                [columnChartData]="item.chartSeries.series"
-              ></app-column-chart>
-              <app-pie-chart
-                *ngIf="selectedChart == 'pie' && i == 0"
-                [pieChartData]="item.chartSeries.series"
-              ></app-pie-chart>
-              <app-pie-chart
-                *ngIf="selectedChart == 'pie' && i == 1"
-                [pieChartData]="item.chartSeries.series"
-              ></app-pie-chart>
-              <app-custom-table
-                *ngIf="selectedChart == 'table' && i == 0"
-              ></app-custom-table>
-              <app-custom-table
-                *ngIf="selectedChart == 'table' && i == 1"
-              ></app-custom-table>
-              <app-line-chart
-                *ngIf="selectedChart == 'line' && i == 0"
-                [lineChartData]="item.chartSeries.series"
-              ></app-line-chart>
-              <app-line-chart
-                *ngIf="selectedChart == 'line' && i == 1"
-                [lineChartData]="item.chartSeries.series"
-              ></app-line-chart>
-            </div>
-            <div class="row">
+            <div class="row" [ngClass]="expandChart ? 'expanded' : ''">
               <div class="row_1_div_1">
                 <h1 class="brand__name">{{ item.name }}</h1>
                 <div class="row_1_div_1__values">
-                  <h1>${{ item.totalStats.original_order_total_amount| shortNumber }}</h1>
+                  <h1>${{ item.totalStats.original_order_total_amount }}</h1>
                   <h3>({{ item.totalStats.line_ordered_qty }} units)</h3>
                 </div>
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
@@ -220,10 +157,10 @@
                       (change)="setCustomGoal($event)"
                     />
                     <!-- <fa-icon
-                    [icon]="faCalendar"
-                    class="icon"
-                    (click)="toggleChangeModal()"
-                  ></fa-icon> -->
+                  [icon]="faCalendar"
+                  class="icon"
+                  (click)="toggleChangeModal()"
+                ></fa-icon> -->
                     <fa-icon
                       [icon]="faCalendar"
                       class="icon"
@@ -237,52 +174,113 @@
                   </div>
                 </div>
               </div>
-              <div class="row_1_div_3">
-                <div class="top_list__by_channel">
-                  <h3>Sales By Channel</h3>
-                  <div class="top_list__items_list">
-                    <div
-                      class="top_list__item"
-                      *ngFor="
-                        let data of item.salesCategories
-                          .ORDER_CAPTURE_CHANNEL_GROUPED
-                      "
-                    >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
-                      </div>
+              <div class="row_1_div_2">
+                <div class="chart__header">
+                  <div class="pintab" (click)="onPinToDashboard()">
+                    <fa-icon
+                      [icon]="faThumbtack"
+                      [ngClass]="pinActive ? 'cckd' : ''"
+                    ></fa-icon>
+                  </div>
+                  <div class="chart__header__right">
+                    <app-custom-select
+                      (onSelectChartChange)="onSelectChartChange($event)"
+                      [selectIcon]="faChartLine"
+                      [options]="chartTypeOptions"
+                    ></app-custom-select>
+                    <fa-icon
+                      [icon]="faExpand"
+                      class="icon"
+                      (click)="onExpandChart()"
+                    ></fa-icon>
+                  </div>
+                </div>
+
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 0"
+                  [barChartData]="item.chartSeries.series"
+                ></app-bar-chart>
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 1"
+                  [barChartData]="item.chartSeries.series"
+                ></app-bar-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 0"
+                  [columnChartData]="item.chartSeries.series"
+                ></app-column-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 1"
+                  [columnChartData]="item.chartSeries.series"
+                ></app-column-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 0"
+                  [pieChartData]="item.chartSeries.series"
+                ></app-pie-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 1"
+                  [pieChartData]="item.chartSeries.series"
+                ></app-pie-chart>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 0"
+                ></app-custom-table>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 1"
+                ></app-custom-table>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 0"
+                  [lineChartData]="item.chartSeries.series"
+                ></app-line-chart>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 1"
+                  [lineChartData]="item.chartSeries.series"
+                ></app-line-chart>
+              </div>
+            </div>
+            <div class="row_1_div_3">
+              <div class="top_list__by_channel">
+                <h3>Sales By Channel</h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="
+                      let data of item.salesCategories
+                        .ORDER_CAPTURE_CHANNEL_GROUPED
+                    "
+                  >
+                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                    <div class="row_1_div_3_values">
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>10%</span>
                     </div>
                   </div>
                 </div>
-                <div class="top_list__by_fulfilment">
-                  <h3>Sales By fulfilment</h3>
-                  <div class="top_list__items_list">
-                    <div
-                      class="top_list__item"
-                      *ngFor="
-                        let data of item.salesCategories.LINE_FULFILLMENT_TYPE_GROUPED.slice(
-                          0,
-                          4
-                        )
-                      "
-                    >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
-                      </div>
+              </div>
+              <div class="top_list__by_fulfilment">
+                <h3>Sales By fulfilment</h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="
+                      let data of item.salesCategories.LINE_FULFILLMENT_TYPE_GROUPED.slice(
+                        0,
+                        4
+                      )
+                    "
+                  >
+                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                    <div class="row_1_div_3_values">
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>10%</span>
                     </div>
                   </div>
                 </div>
@@ -377,9 +375,7 @@
                       <h4>{{ data.web_category }}</h4>
                       <h4>{{ data.brand_name }}</h4>
                       <h4>
-                        ${{
-                          data.original_order_total_amount | shortNumber
-                        }}
+                        ${{ data.original_order_total_amount | shortNumber }}
                       </h4>
                       <img
                         src="{{ data.image_location + '/' + data.image_id }}"
@@ -475,9 +471,7 @@
                       <h4>{{ data.web_category }}</h4>
                       <h4>{{ data.brand_name }}</h4>
                       <h4>
-                        ${{
-                          data.original_order_total_amount | shortNumber
-                        }}
+                        ${{ data.original_order_total_amount | shortNumber }}
                       </h4>
                       <img
                         src="{{ data.image_location + '/' + data.image_id }}"
