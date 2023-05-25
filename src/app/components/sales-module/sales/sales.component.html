@@ -302,75 +302,82 @@
             *ngFor="let item of fullSalesData; let i = index"
           >
             <div class="row_1_div_3">
-              <div class="top_list__by_channel">
-                <h3>Sales By Channel</h3>
-                <div class="top_list__items_list">
-                  <div
-                    class="top_list__item"
-                    *ngFor="
-                      let data of item.salesCategories
-                        .ORDER_CAPTURE_CHANNEL_GROUPED
-                    "
-                  >
-                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                    <div class="row_1_div_3_values">
-                      <span
-                        >${{
-                          data.original_order_total_amount | shortNumber
-                        }}</span
-                      >
-                      <span>({{ data.line_ordered_qty }} units)</span>
-                      <span>10%</span>
+              <h3 class="sales_by_category_title">
+                <!-- <span> {{ item.name }}</span> -->
+              </h3>
+              <div class="sales_categories_container">
+                <div class="top_list__by_item_info">
+                  <h3>Sales By Channel <span>{{ item.name }}</span></h3>
+                  <div class="top_list__items_list">
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of item.salesCategories
+                          .ORDER_CAPTURE_CHANNEL_GROUPED
+                      "
+                    >
+                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                      <div class="row_1_div_3_values">
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>10%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="top_list__by_item_info">
-                <h3>Sales By fulfilment</h3>
-                <div class="top_list__items_list">
-                  <div
-                    class="top_list__item"
-                    *ngFor="
-                      let data of item.salesCategories.ITEM_INFO_GROUPED.slice(
-                        0,
-                        4
-                      )
-                    "
-                  >
-                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                    <div class="row_1_div_3_values">
-                      <span
-                        >${{
-                          data.original_order_total_amount | shortNumber
-                        }}</span
-                      >
-                      <span>({{ data.line_ordered_qty }} units)</span>
-                      <span>10%</span>
+                <div class="top_list__by_item_info">
+                  <h3>Sales By fulfilment <span>{{ item.name }}</span></h3>
+                  <div class="top_list__items_list">
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED?.slice(
+                          0,
+                          4
+                        )
+                      "
+                    >
+                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                      <div class="row_1_div_3_values">
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>10%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="top_list__by_item_info">
-                <h3>Sales By Item Info</h3>
-                <div class="top_list__items_list">
-                  <div
-                    class="top_list__item"
-                    *ngFor="
-                      let data of item.salesCategories.ITEM_INFO_GROUPED.slice(
-                        0,
-                        4
-                      )
-                    "
-                  >
-                    <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                    <div class="row_1_div_3_values">
-                      <span
-                        >${{
-                          data.original_order_total_amount | shortNumber
-                        }}</span
-                      >
-                      <span>({{ data.line_ordered_qty }} units)</span>
-                      <span>10%</span>
+                <div class="top_list__by_item_info">
+                  <h3>
+                    Sales By Item Info <span>{{ item.name }}</span>
+                  </h3>
+                  <div class="top_list__items_list">
+                    <div
+                      class="top_list__item"
+                      *ngFor="
+                        let data of item?.salesCategories?.ITEM_INFO_GROUPED.slice(
+                          0,
+                          4
+                        )
+                      "
+                    >
+                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
+                      <div class="row_1_div_3_values">
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>10%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -380,7 +387,9 @@
 
           <div class="top_sales__by_brand">
             <div class="brand__top_list_container">
-              <h3>Top Items Sold in <span> GC</span></h3>
+              <h3 class="top_items_title">
+                Top Items Sold in <span> GC</span>
+              </h3>
               <div class="lists__container">
                 <div class="top_items__list">
                   <h3>By Volume</h3>
@@ -557,7 +566,7 @@
               </div>
             </div>
             <div class="brand__top_list_container">
-              <h3>Top Items Sold in <span>MF</span></h3>
+              <h3 class="top_items_title">Top Items Sold in <span>MF</span></h3>
               <div class="lists__container">
                 <div class="top_items__list">
                   <h3>By Volume</h3>
@@ -709,13 +718,13 @@
                         />
                         <h4 className="top_item__index">{{ data.item_id }}</h4>
                         <h4 className="top_item__index">
-                          {{ data.web_category }}
+                          {{ data?.web_category }}
                         </h4>
                         <h4 className="top_item__index">
-                          {{ data.brand_name }}
+                          {{ data?.brand_name }}
                         </h4>
                         <h4 className="top_item__index">
-                          ${{ data.original_order_total_amount | shortNumber }}
+                          ${{ data?.original_order_total_amount | shortNumber }}
                         </h4>
                       </div>
                     </div>

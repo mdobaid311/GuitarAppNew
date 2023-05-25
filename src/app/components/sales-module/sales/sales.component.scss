@@ -308,6 +308,7 @@ $desktop: 1200px;
                 }
               }
             }
+
             .row_1_div_3 {
               height: 100%;
               width: 100%;
@@ -316,10 +317,22 @@ $desktop: 1200px;
               box-shadow: var(--primary-boxshadow);
               border-radius: 10px;
               display: flex;
+              flex-direction: column;
               padding: 10px 15px;
               @media only screen and (max-width: $mobile) {
                 width: 100%;
                 flex-direction: column;
+              }
+
+              .sales_by_category_title {
+                color: var(--primary-color-1);
+                text-transform: uppercase;
+                text-align: center;
+                border-bottom: 1px dashed var(--primary-color-3);
+                font-size: 22px;
+                span {
+                  color: var(--primary-color-3);
+                }
               }
 
               .row_1_div_3_values {
@@ -340,40 +353,46 @@ $desktop: 1200px;
                   color: var(--primary-color-1);
                 }
               }
+              .sales_categories_container {
+                display: flex;
+                width: 100%;
+                .top_list__by_channel,
+                .top_list__by_item_info {
+                  flex: 1;
+                  box-shadow: var(--primary-boxshadow);
+                  margin: 5px;
+                  padding: 10px;
 
-              .top_list__by_channel,
-              .top_list__by_item_info {
-                flex: 1;
-                box-shadow: var(--primary-boxshadow);
-                margin: 5px;
-                padding: 10px;
+                  h3 {
+                    color: var(--primary-color-1);
+                    text-transform: uppercase;
+                    text-align: center;
+                    border-bottom: 1px dashed var(--primary-color-3);
 
-                h3 {
-                  color: var(--primary-color-1);
-                  text-transform: uppercase;
-                  text-align: center;
-                  border-bottom: 1px dashed var(--primary-color-3);
-                }
+                    span{
+                      color: var(--primary-color-3) !important;
+                    }
+                  }
 
-                .top_list__items_list {
-                  display: flex;
-                  flex-direction: column;
-                  height: 100%;
-
-                  .top_list__item {
-                    box-shadow: var(--primary-boxshadow);
-                    padding: 20px 5px;
-                    margin: 10px 0;
+                  .top_list__items_list {
                     display: flex;
-                    justify-content: space-between;
-                    h4 {
-                      margin: 0;
+                    flex-direction: column;
+                    height: 100%;
+
+                    .top_list__item {
+                      box-shadow: var(--primary-boxshadow);
+                      padding: 20px 5px;
+                      margin: 10px 0;
+                      display: flex;
+                      justify-content: space-between;
+                      h4 {
+                        margin: 0;
+                      }
                     }
                   }
                 }
               }
             }
-
             .row.expanded {
               .row_1_div_1 {
                 display: none;
@@ -403,16 +422,17 @@ $desktop: 1200px;
             padding: 15px;
             border-radius: 5px;
 
-            h3 {
+            .top_items_title {
               color: var(--primary-color-1);
               text-transform: uppercase;
               text-align: center;
               border-bottom: 1px dashed var(--primary-color-3);
-
+              font-size: 22px;
               span {
                 color: var(--primary-color-3);
               }
             }
+
 
             .lists__container {
               display: flex;
@@ -446,11 +466,9 @@ $desktop: 1200px;
                     margin-top: 70px;
                     border-radius: 10px;
 
-
-              @media only screen and (max-width: $mobile) {
-                  margin-top: 50px;
-              }
-
+                    @media only screen and (max-width: $mobile) {
+                      margin-top: 50px;
+                    }
                   }
                 }
 
