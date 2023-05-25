@@ -3,7 +3,7 @@ export const APP_CONSTANTS = {
 
   // LOCAL SERVER
   // URI: 'http://localhost:3000',
-  URI: 'http://3.111.38.149:443',
+  URI: 'http://3.111.38.149:3000',
 
   // PROD SERVER
   //URI:
