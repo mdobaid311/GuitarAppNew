@@ -332,7 +332,7 @@ export class SalesComponent {
         this.fullDate = 'Last 24 Hours';
       }
       this.chartData
-        .getFullSalesDataByRange(startDate, endDate, 3600)
+        .getFullSalesDataByRange(startDate, endDate, 15*60)
         .subscribe({
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
