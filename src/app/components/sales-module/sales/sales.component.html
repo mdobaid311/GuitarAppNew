@@ -39,9 +39,10 @@
               <h3>Total (Booked)</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.original_order_total_amount +
-                    +fullSalesData[1].totalStats.original_order_total_amount
-                    | shortNumber
+                  ((+fullSalesData[0]?.totalStats.original_order_total_amount ||
+                    0) +
+                    (+fullSalesData[1]?.totalStats
+                      .original_order_total_amount || 0) | shortNumber) || 0
                 }}
               </h1>
             </div>
@@ -50,8 +51,9 @@
               <h3>Line Price Total</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.line_price_total +
-                    +fullSalesData[1].totalStats.line_price_total | shortNumber
+                  ((+fullSalesData[0]?.totalStats.line_price_total || 0) +
+                    (+fullSalesData[1]?.totalStats.line_price_total || 0)
+                    | shortNumber) || 0
                 }}
               </h1>
             </div>
@@ -61,8 +63,9 @@
               <h3>Shipping Charges</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.shipping_cost +
-                    +fullSalesData[1].totalStats.shipping_cost | shortNumber
+                  ((+fullSalesData[0]?.totalStats.shipping_cost || 0) +
+                    (+fullSalesData[1]?.totalStats.shipping_cost || 0)
+                    | shortNumber) || 0
                 }}
               </h1>
             </div>
@@ -72,8 +75,9 @@
               <h3>Discount</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.discount +
-                    +fullSalesData[1].totalStats.discount | shortNumber
+                  ((+fullSalesData[0]?.totalStats.discount || 0) +
+                    (+fullSalesData[1]?.totalStats.discount || 0)
+                    | shortNumber) || 0
                 }}
               </h1>
             </div>
@@ -83,8 +87,8 @@
               <h3>Tax</h3>
               <h1>
                 ${{
-                  +fullSalesData[0].totalStats.tax +
-                    +fullSalesData[1].totalStats.tax | shortNumber
+                  ((+fullSalesData[0]?.totalStats.tax || 0) +
+                    (+fullSalesData[1]?.totalStats.tax || 0) | shortNumber) || 0
                 }}
               </h1>
             </div>
@@ -94,18 +98,20 @@
                 <h3>Total (Units)</h3>
                 <h1>
                   {{
-                    +fullSalesData[0].totalStats.line_ordered_qty +
-                      +fullSalesData[1].totalStats.line_ordered_qty
-                      | shortNumber
+                    ((+fullSalesData[0]?.totalStats.line_ordered_qty || 0) +
+                      (+fullSalesData[1]?.totalStats.line_ordered_qty || 0)
+                      | shortNumber) || 0
                   }}
                 </h1>
               </div>
               <div class="overall_total__stats__item">
                 <h3>Margin</h3>
                 <h1>
-                  ${{
-                    +fullSalesData[0].totalStats.line_margin +
-                      +fullSalesData[1].totalStats.line_margin | shortNumber
+                  $
+                  {{
+                    ((+fullSalesData[0]?.totalStats.line_margin || 0) +
+                      (+fullSalesData[1]?.totalStats.line_margin || 0)
+                      | shortNumber) || 0
                   }}
                 </h1>
               </div>
@@ -113,11 +119,11 @@
                 <h3>ROI</h3>
                 <h1>
                   {{
-                    ((+fullSalesData[0].totalStats.line_margin +
-                      +fullSalesData[1].totalStats.line_margin) *
-                      100) /
-                      (+fullSalesData[0].totalStats.line_inventory_cost +
-                        +fullSalesData[1].totalStats.line_inventory_cost)
+                    ((+fullSalesData[0]?.totalStats.line_margin || 0) +
+                      (+fullSalesData[1]?.totalStats.line_margin || 0) * 100) /
+                      ((+fullSalesData[0]?.totalStats.line_inventory_cost ||
+                        0) +
+                        +fullSalesData[1]?.totalStats.line_inventory_cost || 0)
                       | number : "1.0-0"
                   }}
                   %
@@ -136,10 +142,17 @@
                 <div class="row_1_div_1__values">
                   <h1>
                     ${{
-                      item.totalStats.original_order_total_amount | shortNumber
+                      (+item?.totalStats?.original_order_total_amount || 0
+                        | shortNumber) || 0
                     }}
                   </h1>
-                  <h3>({{ item.totalStats.line_ordered_qty }} units)</h3>
+                  <h3>
+                    ({{
+                      (+item?.totalStats?.line_ordered_qty || 0
+                        | shortNumber) || 0
+                    }}
+                    units)
+                  </h3>
                 </div>
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
                 <app-custom-progress-bar
@@ -201,84 +214,84 @@
                 </div>
 
                 <app-bar-chart
-                  *ngIf="
-                    selectedChart == 'bar' &&
-                    i == 0 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'bar' && i == 0"
+                  [barChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [barChartData]="item?.chartSeries?.series"
                 ></app-bar-chart>
                 <app-bar-chart
-                  *ngIf="
-                    selectedChart == 'bar' &&
-                    i == 1 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'bar' && i == 1"
+                  [barChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [barChartData]="item?.chartSeries?.series"
                 ></app-bar-chart>
                 <app-column-chart
-                  *ngIf="
-                    selectedChart == 'column' &&
-                    i == 0 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'column' && i == 0"
+                  [columnChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [columnChartData]="item?.chartSeries?.series"
                 ></app-column-chart>
                 <app-column-chart
-                  *ngIf="
-                    selectedChart == 'column' &&
-                    i == 1 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'column' && i == 1"
+                  [columnChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [columnChartData]="item?.chartSeries?.series"
                 ></app-column-chart>
                 <app-pie-chart
-                  *ngIf="
-                    selectedChart == 'pie' &&
-                    i == 0 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'pie' && i == 0"
+                  [pieChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [pieChartData]="item?.chartSeries?.series"
                 ></app-pie-chart>
                 <app-pie-chart
-                  *ngIf="
-                    selectedChart == 'pie' &&
-                    i == 1 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'pie' && i == 1"
+                  [pieChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [pieChartData]="item?.chartSeries?.series"
                 ></app-pie-chart>
                 <app-custom-table
-                  *ngIf="
-                    selectedChart == 'table' &&
-                    i == 0 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'table' && i == 0"
+                  [customTableData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [customTableData]="item?.chartSeries?.series"
                 ></app-custom-table>
                 <app-custom-table
-                  *ngIf="
-                    selectedChart == 'table' &&
-                    i == 1 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'table' && i == 1"
+                  [customTableData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [customTableData]="item?.chartSeries?.series"
                 ></app-custom-table>
                 <app-line-chart
-                  *ngIf="
-                    selectedChart == 'line' &&
-                    i == 0 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'line' && i == 0"
+                  [lineChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [lineChartData]="item?.chartSeries?.series"
                 ></app-line-chart>
                 <app-line-chart
-                  *ngIf="
-                    selectedChart == 'line' &&
-                    i == 1 &&
-                    item?.chartSeries?.series
+                  *ngIf="selectedChart == 'line' && i == 1"
+                  [lineChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
                   "
-                  [lineChartData]="item?.chartSeries?.series"
                 ></app-line-chart>
               </div>
             </div>
@@ -385,31 +398,44 @@
                         <h4 className="top_item__index">1</h4>
                         <img
                           src="{{
-                            fullSalesData[1]?.topItemsData[0]?.image_location +
+                            fullSalesData[1]?.topItemsData?.byVolume[0]
+                              ?.image_location +
                               '/' +
-                              fullSalesData[1]?.topItemsData[0]?.image_id
+                              fullSalesData[1]?.topItemsData?.byVolume[0]
+                                ?.image_id
                           }}"
                           alt=""
                         />
                         <h4 className="top_item__item_id">
-                          {{ fullSalesData[1]?.topItemsData[0]?.item_id }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byVolume[0]?.item_id
+                          }}
                         </h4>
                         <h4 className="top_item__web_category">
-                          {{ fullSalesData[1]?.topItemsData[0]?.web_category }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byVolume[0]
+                              ?.web_category
+                          }}
                         </h4>
                         <h4 className="top_item__brand_name">
-                          {{ fullSalesData[1]?.topItemsData[0]?.brand_name }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byVolume[0]
+                              ?.brand_name
+                          }}
                         </h4>
                         <h4 className="top_item__total|">
                           {{
-                            fullSalesData[1]?.topItemsData[0]?.line_ordered_qty
+                            fullSalesData[1]?.topItemsData?.byVolume[0]
+                              ?.line_ordered_qty
                           }}
                         </h4>
                       </div>
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[1]?.topItemsData.slice(1);
+                          let data of fullSalesData[1]?.topItemsData?.byVolume.slice(
+                            1
+                          );
                           let i = index
                         "
                       >
@@ -433,9 +459,10 @@
                     <img
                       class="top_item__image"
                       src="{{
-                        fullSalesData[1]?.topItemsData[0]?.image_location +
+                        fullSalesData[1]?.topItemsData?.byVolume[0]
+                          ?.image_location +
                           '/' +
-                          fullSalesData[1]?.topItemsData[0]?.image_id
+                          fullSalesData[1]?.topItemsData?.byVolume[0]?.image_id
                       }}"
                       alt=""
                     />
@@ -457,32 +484,44 @@
                         <h4 className="top_item__index">1</h4>
                         <img
                           src="{{
-                            fullSalesData[1]?.topItemsData[0]?.image_location +
+                            fullSalesData[1]?.topItemsData?.byValue[0]
+                              ?.image_location +
                               '/' +
-                              fullSalesData[1]?.topItemsData[0]?.image_id
+                              fullSalesData[1]?.topItemsData?.byValue[0]
+                                ?.image_id
                           }}"
                           alt=""
                         />
                         <h4 className="top_item__item_id">
-                          {{ fullSalesData[1]?.topItemsData[0]?.item_id }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byValue[0]?.item_id
+                          }}
                         </h4>
                         <h4 className="top_item__web_category">
-                          {{ fullSalesData[1]?.topItemsData[0]?.web_category }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byValue[0]
+                              ?.web_category
+                          }}
                         </h4>
                         <h4 className="top_item__brand_name">
-                          {{ fullSalesData[1]?.topItemsData[0]?.brand_name }}
+                          {{
+                            fullSalesData[1]?.topItemsData?.byValue[0]
+                              ?.brand_name
+                          }}
                         </h4>
                         <h4 className="top_item__total|">
                           ${{
-                            fullSalesData[1]?.topItemsData[0]
-                              ?.original_order_total_amount
+                            fullSalesData[1]?.topItemsData?.byValue[0]
+                              ?.original_order_total_amount | shortNumber
                           }}
                         </h4>
                       </div>
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[1]?.topItemsData.slice(1);
+                          let data of fullSalesData[1]?.topItemsData?.byValue.slice(
+                            1
+                          );
                           let i = index
                         "
                       >
@@ -499,16 +538,17 @@
                           {{ data.brand_name }}
                         </h4>
                         <h4 className="top_item__index">
-                          ${{ data.original_order_total_amount }}
+                          ${{ data.original_order_total_amount | shortNumber }}
                         </h4>
                       </div>
                     </div>
                     <img
                       class="top_item__image"
                       src="{{
-                        fullSalesData[1]?.topItemsData[0]?.image_location +
+                        fullSalesData[1]?.topItemsData?.byValue[0]
+                          ?.image_location +
                           '/' +
-                          fullSalesData[1]?.topItemsData[0]?.image_id
+                          fullSalesData[1]?.topItemsData?.byValue[0]?.image_id
                       }}"
                       alt=""
                     />
@@ -535,31 +575,44 @@
                         <h4 className="top_item__index">1</h4>
                         <img
                           src="{{
-                            fullSalesData[0].topItemsData[0]?.image_location +
+                            fullSalesData[0].topItemsData?.byVolume[0]
+                              ?.image_location +
                               '/' +
-                              fullSalesData[0].topItemsData[0]?.image_id
+                              fullSalesData[0].topItemsData?.byVolume[0]
+                                ?.image_id
                           }}"
                           alt=""
                         />
                         <h4 className="top_item__item_id">
-                          {{ fullSalesData[0].topItemsData[0]?.item_id }}
+                          {{
+                            fullSalesData[0].topItemsData?.byVolume[0]?.item_id
+                          }}
                         </h4>
                         <h4 className="top_item__web_category">
-                          {{ fullSalesData[0].topItemsData[0]?.web_category }}
+                          {{
+                            fullSalesData[0].topItemsData?.byVolume[0]
+                              ?.web_category
+                          }}
                         </h4>
                         <h4 className="top_item__brand_name">
-                          {{ fullSalesData[0].topItemsData[0]?.brand_name }}
+                          {{
+                            fullSalesData[0].topItemsData?.byVolume[0]
+                              ?.brand_name
+                          }}
                         </h4>
                         <h4 className="top_item__total|">
                           {{
-                            fullSalesData[0].topItemsData[0]?.line_ordered_qty
+                            fullSalesData[0].topItemsData?.byVolume[0]
+                              ?.line_ordered_qty
                           }}
                         </h4>
                       </div>
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[0].topItemsData.slice(1);
+                          let data of fullSalesData[0]?.topItemsData?.byVolume.slice(
+                            1
+                          );
                           let i = index
                         "
                       >
@@ -583,9 +636,10 @@
                     <img
                       class="top_item__image"
                       src="{{
-                        fullSalesData[0].topItemsData[0]?.image_location +
+                        fullSalesData[0].topItemsData?.byVolume[0]
+                          ?.image_location +
                           '/' +
-                          fullSalesData[0].topItemsData[0]?.image_id
+                          fullSalesData[0].topItemsData?.byVolume[0]?.image_id
                       }}"
                       alt=""
                     />
@@ -607,32 +661,44 @@
                         <h4 className="top_item__index">1</h4>
                         <img
                           src="{{
-                            fullSalesData[0]?.topItemsData[0]?.image_location +
+                            fullSalesData[0]?.topItemsData?.byValue[0]
+                              ?.image_location +
                               '/' +
-                              fullSalesData[0]?.topItemsData[0]?.image_id
+                              fullSalesData[0]?.topItemsData?.byValue[0]
+                                ?.image_id
                           }}"
                           alt=""
                         />
                         <h4 className="top_item__item_id">
-                          {{ fullSalesData[0]?.topItemsData[0]?.item_id }}
+                          {{
+                            fullSalesData[0]?.topItemsData?.byValue[0]?.item_id
+                          }}
                         </h4>
                         <h4 className="top_item__web_category">
-                          {{ fullSalesData[0]?.topItemsData[0]?.web_category }}
+                          {{
+                            fullSalesData[0]?.topItemsData?.byValue[0]
+                              ?.web_category
+                          }}
                         </h4>
                         <h4 className="top_item__brand_name">
-                          {{ fullSalesData[0]?.topItemsData[0]?.brand_name }}
+                          {{
+                            fullSalesData[0]?.topItemsData?.byValue[0]
+                              ?.brand_name
+                          }}
                         </h4>
                         <h4 className="top_item__total|">
                           ${{
-                            fullSalesData[0]?.topItemsData[0]
-                              ?.original_order_total_amount
+                            fullSalesData[0]?.topItemsData?.byValue[0]
+                              ?.original_order_total_amount | shortNumber
                           }}
                         </h4>
                       </div>
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[0]?.topItemsData.slice(1);
+                          let data of fullSalesData[0]?.topItemsData?.byValue.slice(
+                            1
+                          );
                           let i = index
                         "
                       >
@@ -649,16 +715,17 @@
                           {{ data.brand_name }}
                         </h4>
                         <h4 className="top_item__index">
-                          ${{ data.original_order_total_amount }}
+                          ${{ data.original_order_total_amount | shortNumber }}
                         </h4>
                       </div>
                     </div>
                     <img
                       class="top_item__image"
                       src="{{
-                        fullSalesData[0]?.topItemsData[0]?.image_location +
+                        fullSalesData[0]?.topItemsData?.byValue[0]
+                          ?.image_location +
                           '/' +
-                          fullSalesData[0]?.topItemsData[0]?.image_id
+                          fullSalesData[0]?.topItemsData?.byValue[0]?.image_id
                       }}"
                       alt=""
                     />

@@ -70,13 +70,24 @@ export class SidebarComponent {
       link_name: 'Dashboard',
       link: '/dashboard',
       icon: faHome,
-      sub_menu: [],
+      sub_menu: [
+        {
+          link_name: 'Dashboard',
+          link: '/dashboard',
+          icon: faHome,
+        },
+      ],
     },
     {
       link_name: 'Sales',
       link: '/sales',
       icon: faCashRegister,
       sub_menu: [
+        {
+          link_name: 'Dashboard',
+          link: '/sales',
+          icon: faCashRegister,
+        },
         {
           link_name: 'Detail View',
           link: '/area-chart',
@@ -87,18 +98,24 @@ export class SidebarComponent {
           link: '/org-chart',
           icon: faSitemap,
         },
-        {
-          link_name: 'Org Chart 2',
-          link: '/org-chart-1',
-          icon: faSitemap,
-        },
+        // {
+        //   link_name: 'Org Chart 2',
+        //   link: '/org-chart-1',
+        //   icon: faSitemap,
+        // },
       ],
     },
     {
       link_name: 'Settings',
       link: '/settings',
       icon: faGear,
-      sub_menu: [],
+      sub_menu: [
+        {
+          link_name: 'Settings',
+          link: '/settings',
+          icon: faGear,
+        },
+      ],
     },
   ];
 
