@@ -298,10 +298,7 @@ export class SalesComponent {
           },
         });
       this.fullDate = 'Last 1 Month';
-    } else if (
-      range === '2h' ||
-      range === '6h'
-    ) {
+    } else if (range === '2h' || range === '6h') {
       let startDate = '';
       let endDate = '';
       if (range === '2h') {
@@ -416,26 +413,14 @@ export class SalesComponent {
         ' , ' +
         moment(endDate, 'YYYY-M-DD').format('MMM DD YYYY');
 
-      this.chartData.getOrderTotalByDayRange(beginDate, endDate).subscribe({
-        next: (resp: any) => {
-          this.originalOrdersTotalToday = resp.totalAmount;
-          this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
-            notation: 'compact',
-            compactDisplay: 'short',
-          }).format(this.originalOrdersTotalToday);
-          this.customGoalProgress =
-            ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(
-              1
-            ) + '%';
-          let dayData: any = [];
-          this.dayList = resp.data.map((item: any) => item.day);
-          resp.data.forEach((item: IDay) => {
-            const itemData = [item.day, item.total];
-            dayData.push(itemData);
-          });
-          this.chartData.dataArray.next(dayData);
-        },
-      });
+      this.chartData
+        .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
+        .subscribe({
+          next: (resp: any) => {
+            console.log('ABC', Object.values(resp));
+            this.fullSalesData = Object.values(resp);
+          },
+        });
     }
   }
 
