@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import {
   Component,
   Output,
@@ -9,11 +10,14 @@ import {
 import {
   faClock,
   faEllipsisVertical,
+  faFileExport,
   faSearch,
   faTableCells,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
+import { WorkBook, utils, write } from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-custom-grid',
@@ -29,6 +33,7 @@ export class CustomGridComponent {
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
   faTableCells = faTableCells;
+  faFileExport = faFileExport;
 
   isViewSelectContainerOpen = false;
 
@@ -49,12 +54,36 @@ export class CustomGridComponent {
     },
   ];
 
+  originalData: any = [];
+
+  createExcelFile(data: any[], fileName: string): void {
+    const worksheet: any = utils.json_to_sheet(data);
+    const workbook: WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const file: Blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(file, fileName + '.xlsx');
+  }
+
+  exportToExcel() {
+    this.createExcelFile(this.filteredData, 'order_book_line');
+  }
+
   onSelectTableChange(tableName: string) {
     this.chartData.getTableData(tableName).subscribe((res: any) => {
       console.log('order_book_line', res);
+      console.log('this.originalData', this.originalData);
       const tableData = res.map((row: any) => {
         return Object.values(row);
       });
+
       this.columns = Object.keys(res[0]);
       this.data = tableData;
       this.filteredData = tableData;
@@ -63,6 +92,91 @@ export class CustomGridComponent {
         tableName: tableName,
       });
     });
+  }
+  selectAll: boolean = true;
+
+  selectOrUnselectAllColumns() {
+    this.selectAll = !this.selectAll;
+    if (this.selectAll) {
+      this.columnsData = this.columnsData.map((column: any) => {
+        column.isSelected = true;
+        return column;
+      });
+      this.columns = this.columnsData.map((column: any) => {
+        return column.name;
+      });
+      const tableData = this.originalData.map((row: any) => {
+        return Object.values(row);
+      });
+      this.data = tableData;
+      this.filteredData = tableData;
+    } else {
+      this.columnsData = this.columnsData.map((column: any) => {
+        column.isSelected = false;
+        return column;
+      });
+      this.columns = [];
+      this.data = [];
+      this.filteredData = [];
+    }
+  }
+
+  onColumnSelectChange(columnName: string) {
+    //  if column is not selected, remove column from data
+    if (this.columns.find((column: any) => column === columnName)) {
+      console.log('column found');
+      this.columns = this.columns.filter((column: string) => {
+        return column !== columnName;
+      });
+      this.columnsData = this.columnsData.map((column: any) => {
+        if (column.name === columnName) {
+          column.isSelected = false;
+        }
+        return column;
+      });
+      // create a copy of original data
+      // const dataCopy = [...this.originalData];
+
+      const modifiedData = this.originalData.map((row: any) => {
+        const newRow: any = {};
+        this.columns.forEach((column: string) => {
+          newRow[column] = row[column];
+        });
+
+        return newRow;
+      });
+      const tableData = modifiedData.map((row: any) => {
+        return Object.values(row);
+      });
+      this.data = tableData;
+      this.filteredData = this.data;
+    }
+    // if column is selected, add column to data
+    else {
+      // filter original data and add only those columns in data that are in columns arrray
+      this.columns.unshift(columnName);
+      this.columnsData = this.columnsData.map((column: any) => {
+        if (column.name === columnName) {
+          column.isSelected = true;
+        }
+        return column;
+      });
+
+      console.log(this.originalData);
+      const modifiedData = this.originalData.map((row: any) => {
+        const newRow: any = {};
+        this.columns.forEach((column: string) => {
+          newRow[column] = row[column];
+        });
+
+        return newRow;
+      });
+      const tableData = modifiedData.map((row: any) => {
+        return Object.values(row);
+      });
+      this.data = tableData;
+      this.filteredData = this.data;
+    }
   }
 
   toggleViewSelectContainer() {
@@ -111,9 +225,16 @@ export class CustomGridComponent {
   }
 
   loader: boolean = false;
-
+  columnsData: any = [];
   ngOnInit(): void {
+    this.originalData = this.dataArray;
     this.columns = Object.keys(this.dataArray[0]);
+    this.columnsData = this.columns.map((column: string) => {
+      return {
+        name: column,
+        isSelected: true,
+      };
+    });
     const tableData = this.dataArray.map((row: any) => {
       return Object.values(row);
     });

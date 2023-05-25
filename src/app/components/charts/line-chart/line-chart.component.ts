@@ -55,7 +55,7 @@ export class LineChartComponent {
         title: {
           text: 'Sales',
           style: {
-            color: '#000',
+            color: '#fff',
             fontFamily: 'Poppins, sans-serif',
           },
         },
@@ -63,9 +63,9 @@ export class LineChartComponent {
         xAxis: {
           type: 'category',
           labels: {
-            rotation: 0,
+            rotation: 45,
             style: {
-              color: '#000',
+              color: '#fff',
               fontSize: '18px',
               fontFamily: 'Poppins, sans-serif',
             },
@@ -80,9 +80,8 @@ export class LineChartComponent {
             rotation: 0,
             style: {
               // height: '100px',
-              color: '#000',
+              color: '#fff',
               fontSize: '18px',
-
               fontFamily: 'Poppins, sans-serif',
             },
           },
@@ -131,7 +130,7 @@ export class LineChartComponent {
     });
 
     this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
       .subscribe({
         next: (resp: any) => {
           let yearsData: any = [];
@@ -147,7 +146,7 @@ export class LineChartComponent {
             title: {
               text: 'Sales',
               style: {
-                color: '#000',
+                color: '#fff',
                 fontFamily: 'Poppins, sans-serif',
               },
             },
@@ -155,9 +154,9 @@ export class LineChartComponent {
             xAxis: {
               type: 'category',
               labels: {
-                rotation: 0,
+                rotation: 45,
                 style: {
-                  color: '#000',
+                  color: '#fff',
                   fontFamily: 'Poppins, sans-serif',
                 },
               },
@@ -172,7 +171,7 @@ export class LineChartComponent {
                 rotation: 0,
                 style: {
                   // height: '100px',
-                  color: '#000',
+                  color: '#fff',
                   fontSize: '18px',
                   fontFamily: 'Poppins, sans-serif',
                 },
@@ -188,13 +187,13 @@ export class LineChartComponent {
               {
                 name: 'Sales',
                 data: yearsData,
-
+                lineWidth: 2,
                 dataLabels: {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
                   style: {
                     // height: '100px',
-                    color: '#000',
+                    color: '#fff',
                     fontSize: '14px',
                     fontFamily: 'Poppins, sans-serif',
                   },
@@ -209,7 +208,7 @@ export class LineChartComponent {
                   enabled: true, // Remove data labels from lines
                   color: '#fff',
                 },
-                color: '#2f7ed8', // Change color of lines
+                color: '#A5D7E8', // Change color of lines
               },
             ],
             plotOptions: {
@@ -256,7 +255,7 @@ export class LineChartComponent {
     //       title: {
     //         text: 'Sales',
     //         style: {
-    //           color: '#000',
+    //           color: '#fff',
     //           fontFamily: 'Poppins, sans-serif',
     //         },
     //       },
@@ -266,7 +265,7 @@ export class LineChartComponent {
     //         labels: {
     //           rotation: 0,
     //           style: {
-    //             color: '#000',
+    //             color: '#fff',
     //             fontFamily: 'Poppins, sans-serif',
     //           },
     //         },
@@ -281,7 +280,7 @@ export class LineChartComponent {
     //           rotation: 0,
     //           style: {
     //             // height: '100px',
-    //             color: '#000',
+    //             color: '#fff',
     //             fontSize: '18px',
     //             fontFamily: 'Poppins, sans-serif',
     //           },

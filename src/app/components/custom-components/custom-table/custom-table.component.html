@@ -1,20 +1,16 @@
 <app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
 
 <div class="table-wrapper">
-  <h3>Sales</h3>
+  <!-- <h3>Sales</h3> -->
   <table>
     <thead>
       <tr>
-        <th>Period</th>
-        <th>Sales Total</th>
-        <th>Status Quantity</th>
+        <th *ngFor="let column of columns">{{ column }}</th>
       </tr>
     </thead>
     <tbody *ngFor="let row of data">
       <tr>
-        <td>{{ row.period }}</td>
-        <td>{{ row.total }}</td>
-        <td></td>
+        <td *ngFor="let item of row">{{ item }}</td>
       </tr>
     </tbody>
   </table>
