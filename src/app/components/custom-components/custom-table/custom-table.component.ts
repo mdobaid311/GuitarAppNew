@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class CustomTableComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
-
+  @Input() customTableData: any;
   chartOptions: any;
 
   newDataArray: any = [];
@@ -43,26 +43,34 @@ export class CustomTableComponent {
     observer.observe(document.body, { attributes: true });
   }
   ngOnInit() {
-    this.chartData.booleanSubject.subscribe((permission) => {
-      permission ? (this.loader = true) : null;
+    // console.log(this.customTableData);
+    this.columns = Object.keys(this.customTableData[0]);
+    this.data = this.customTableData;
+    this.data = this.customTableData.map((item: any) => {
+      return Object.values(item);
     });
+    console.log(this.data)
+    console.log(this.columns);
+    // this.chartData.booleanSubject.subscribe((permission) => {
+    //   permission ? (this.loader = true) : null;
+    // });
 
-    this.subscription = this.chartData.dataArray.subscribe((array) => {
-      this.newDataArray = array.map((item: any) => {
-        const element = {
-          period: item[0],
-          total: item[1],
-        };
-        return element;
-      });
+    // this.subscription = this.chartData.dataArray.subscribe((array) => {
+    //   this.newDataArray = array.map((item: any) => {
+    //     const element = {
+    //       period: item[0],
+    //       total: item[1],
+    //     };
+    //     return element;
+    //   });
 
-      this.data = this.newDataArray;
-      this.loader = false;
-    });
-    this.chartData.booleanSubject.subscribe((permission) => {
-      permission ? null : this.loadInitialchart();
-    });
-    this.loadInitialchart();
+    //   this.data = this.newDataArray;
+    //   this.loader = false;
+    // });
+    // this.chartData.booleanSubject.subscribe((permission) => {
+    //   permission ? null : this.loadInitialchart();
+    // });
+    // this.loadInitialchart();
   }
 
   loadInitialchart() {
