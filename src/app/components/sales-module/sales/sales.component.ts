@@ -353,7 +353,7 @@ export class SalesComponent {
       const endDate = moment().format('YYYY-MM-DD HH:mm');
 
       this.chartData
-        .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
+        .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
