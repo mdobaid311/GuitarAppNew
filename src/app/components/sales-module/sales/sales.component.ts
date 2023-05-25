@@ -285,10 +285,10 @@ export class SalesComponent {
 
     this.currentRange = range;
     if (range === '1m') {
-      const startDate = moment('2023-05-05 16:28:21')
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
@@ -300,39 +300,49 @@ export class SalesComponent {
       this.fullDate = 'Last 1 Month';
     } else if (
       range === '2h' ||
-      range === '6h' ||
-      range === '12h' ||
-      range === '1d'
+      range === '6h'
     ) {
       let startDate = '';
       let endDate = '';
       if (range === '2h') {
-        startDate = moment('2023-05-05 16:28:21')
+        startDate = moment('2023-05-01 16:28:21')
           .subtract(2, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 2 Hours';
       } else if (range === '6h') {
-        startDate = moment('2023-05-05 16:28:21')
+        startDate = moment('2023-05-01 16:28:21')
           .subtract(6, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 6 Hours';
-      } else if (range === '12h') {
-        startDate = moment('2023-05-05 16:28:21')
+      }
+      this.chartData
+        .getFullSalesDataByRange(startDate, endDate, 15 * 60)
+        .subscribe({
+          next: (resp: any) => {
+            console.log('ABC', Object.values(resp));
+            this.fullSalesData = Object.values(resp);
+          },
+        });
+    } else if (range === '12h' || range === '1d') {
+      let startDate = '';
+      let endDate = '';
+      if (range === '12h') {
+        startDate = moment('2023-05-01 16:28:21')
           .subtract(12, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 12 Hours';
       } else if (range === '1d') {
-        startDate = moment('2023-05-05 16:28:21')
+        startDate = moment('2023-05-01 16:28:21')
           .subtract(1, 'days')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 24 Hours';
       }
       this.chartData
-        .getFullSalesDataByRange(startDate, endDate, 15*60)
+        .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
@@ -340,10 +350,10 @@ export class SalesComponent {
           },
         });
     } else if (range === '6m') {
-      const startDate = moment('2023-05-05 16:28:21')
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
@@ -355,10 +365,10 @@ export class SalesComponent {
         });
       this.fullDate = 'Last 6 Months';
     } else if (range === '1y') {
-      const startDate = moment('2023-05-05 16:28:21')
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-05 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
