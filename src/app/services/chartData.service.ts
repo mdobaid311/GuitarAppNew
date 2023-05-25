@@ -112,7 +112,7 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
   public getFullSalesDataByRange(startDate: any, endDate: any, intervaltime: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesDatatest?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
     return this.httpClient.get<any[]>(url);
   }
 
