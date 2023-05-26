@@ -72,7 +72,7 @@ export class SidebarComponent {
       icon: faHome,
       sub_menu: [
         {
-          link_name: 'Dashboard',
+          link_name: 'Home',
           link: '/dashboard',
           icon: faHome,
         },
@@ -89,12 +89,12 @@ export class SidebarComponent {
           icon: faCashRegister,
         },
         {
-          link_name: 'Detail View',
+          link_name: 'Analysis',
           link: '/area-chart',
           icon: faCashRegister,
         },
         {
-          link_name: 'Org Chart',
+          link_name: 'Flow',
           link: '/org-chart',
           icon: faSitemap,
         },
