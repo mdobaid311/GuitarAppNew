@@ -535,6 +535,13 @@ export class SalesComponent {
     categories: ['2020/21', '2019/20', '2018/19', '2017/18', '2016/17'],
     series: this.yearData,
   };
+
+  getSortedSlice(items: any[]): any[] {
+    if (items) {
+      return items.sort((a, b) => b.original_order_total_amount - a.original_order_total_amount).slice(0, 4);
+    }
+    return [];
+  }
 }
 
 class IItem {

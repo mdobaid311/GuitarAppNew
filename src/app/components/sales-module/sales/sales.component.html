@@ -314,8 +314,9 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item.salesCategories
-                          .ORDER_CAPTURE_CHANNEL_GROUPED
+                        let data of getSortedSlice(
+                          item?.salesCategories?.ORDER_CAPTURE_CHANNEL_GROUPED
+                        )
                       "
                     >
                       <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
@@ -326,7 +327,15 @@
                           }}</span
                         >
                         <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -339,9 +348,8 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED?.slice(
-                          0,
-                          4
+                        let data of getSortedSlice(
+                          item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED
                         )
                       "
                     >
@@ -353,7 +361,15 @@
                           }}</span
                         >
                         <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -366,9 +382,8 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item?.salesCategories?.ITEM_INFO_GROUPED.slice(
-                          0,
-                          4
+                        let data of getSortedSlice(
+                          item?.salesCategories?.ITEM_INFO_GROUPED
                         )
                       "
                     >
@@ -380,7 +395,15 @@
                           }}</span
                         >
                         <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %</span
+                        >
                       </div>
                     </div>
                   </div>
