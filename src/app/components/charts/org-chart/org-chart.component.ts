@@ -4,7 +4,7 @@ import { ChartService } from 'src/app/services/chartData.service';
 import * as moment from 'moment';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
- @Component({
+@Component({
   selector: 'app-org-chart',
   templateUrl: './org-chart.component.html',
   styleUrls: ['./org-chart.component.scss'],
@@ -23,72 +23,56 @@ export class OrgChartComponent {
   data: any = [
     {
       key: 'Sales',
-      original_order_total_amount: 1118980996,
+      original_order_total_amount: 802004864.56,
       children: [
         {
-          key: 'MF',
-          original_order_total_amount: 208939359,
-          children: [
-            {
-              key: 'CallCenter',
-              original_order_total_amount: 109396191,
-              children: [],
-            },
-            {
-              key: 'Web',
-              original_order_total_amount: 99294525,
-              children: [],
-            },
-            {
-              key: '',
-              original_order_total_amount: 172032,
-              children: [],
-            },
-            {
-              key: 'GCSTORE',
-              original_order_total_amount: 76611,
-              children: [],
-            },
-          ],
-        },
-        {
           key: 'GC',
-          original_order_total_amount: 910033981,
+          original_order_total_amount: 657261588.66,
           children: [
             {
               key: 'CallCenter',
-              original_order_total_amount: 200792009,
+              original_order_total_amount: 120735128.8,
               children: [],
             },
             {
               key: 'GCSTORE',
-              original_order_total_amount: 360956860,
+              original_order_total_amount: 257809712.88,
               children: [],
             },
             {
               key: 'Web',
-              original_order_total_amount: 348265929,
+              original_order_total_amount: 278715792.56,
               children: [],
             },
             {
-              key: '',
-              original_order_total_amount: 2653,
-              children: [],
-            },
-            {
-              key: 'Telephone',
-              original_order_total_amount: 16530,
+              key: null,
+              original_order_total_amount: 954.42,
               children: [],
             },
           ],
         },
         {
-          key: 'M123',
-          original_order_total_amount: 7656,
+          key: 'MF',
+          original_order_total_amount: 144743275.9,
           children: [
             {
+              key: 'CallCenter',
+              original_order_total_amount: 64018652.67,
+              children: [],
+            },
+            {
+              key: 'GCSTORE',
+              original_order_total_amount: 76218.96,
+              children: [],
+            },
+            {
               key: 'Web',
-              original_order_total_amount: 7656,
+              original_order_total_amount: 80511277.86,
+              children: [],
+            },
+            {
+              key: null,
+              original_order_total_amount: 137126.41,
               children: [],
             },
           ],
@@ -247,10 +231,10 @@ export class OrgChartComponent {
 
   onRangeSelect(range: any) {
     if (range === '1m') {
-      const startDate = moment()
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
 
       this.getDataForRange(startDate, endDate);
     } else if (
@@ -262,30 +246,38 @@ export class OrgChartComponent {
       let startDate = '';
       let endDate = '';
       if (range === '2h') {
-        startDate = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm');
-        endDate = moment().format('YYYY-MM-DD HH:mm');
+        startDate = moment('2023-05-01 16:28:21')
+          .subtract(2, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       } else if (range === '6h') {
-        startDate = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm');
-        endDate = moment().format('YYYY-MM-DD HH:mm');
+        startDate = moment('2023-05-01 16:28:21')
+          .subtract(6, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       } else if (range === '12h') {
-        startDate = moment().subtract(12, 'hours').format('YYYY-MM-DD HH:mm');
-        endDate = moment().format('YYYY-MM-DD HH:mm');
+        startDate = moment('2023-05-01 16:28:21')
+          .subtract(12, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       } else if (range === '1d') {
-        startDate = moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm');
-        endDate = moment().format('YYYY-MM-DD HH:mm');
+        startDate = moment('2023-05-01 16:28:21')
+          .subtract(1, 'days')
+          .format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       }
       this.getDataForRange(startDate, endDate);
     } else if (range === '6m') {
-      const startDate = moment()
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.getDataForRange(startDate, endDate);
     } else if (range === '1y') {
-      const startDate = moment()
+      const startDate = moment('2023-05-01 16:28:21')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment().format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.getDataForRange(startDate, endDate);
     }
   }
