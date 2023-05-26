@@ -82,54 +82,7 @@ export class OrgChartComponent {
   ];
 
   ngOnInit() {
-    this.loader = true;
-    // this.chartData.getOrgChartData().subscribe({
-    //   next: (resp: any) => {},
-    //   error: (error) => {},
-    // });
-
-    const totalAmounts: any = {};
-    this.data.forEach(({ key, original_order_total_amount, children }: any) => {
-      if (!totalAmounts[key]) {
-        totalAmounts[key] = original_order_total_amount;
-      } else {
-        totalAmounts[key] += original_order_total_amount;
-      }
-      children.forEach(({ original_order_total_amount }: any) => {
-        if (!totalAmounts[key]) {
-          totalAmounts[key] = original_order_total_amount;
-        } else {
-          totalAmounts[key] += original_order_total_amount;
-        }
-      });
-    });
-
-    // Recursively calculate the width for each node
-    const calculateWidth = (node: any, ancestorTotal: any) => {
-      const { key, original_order_total_amount, children } = node;
-      const width = (original_order_total_amount / ancestorTotal) * 100;
-      const updatedNode = {
-        ...node,
-        width,
-      };
-      if (children.length > 0) {
-        const updatedChildren = children.map((child: any) =>
-          calculateWidth(child, ancestorTotal)
-        );
-        updatedNode.children = updatedChildren;
-      }
-      return updatedNode;
-    };
-
-    // Update each node with its width
-    const updatedData = this.data.map((topLevelNode: any) => {
-      const ancestorTotal = totalAmounts[topLevelNode.key];
-      return calculateWidth(topLevelNode, ancestorTotal);
-    });
-    this.data = this.generateNode(updatedData);
-    this.loader = false;
-
-    // close here
+    this.getDataForRange('2023-05-05 00:00:00', '2023-05-05 23:59:59');
   }
 
   generateNode(children: any) {
@@ -213,9 +166,7 @@ export class OrgChartComponent {
       : null;
     if (beginDate && endDate) {
       this.fullDate = beginDate + ' to ' + endDate;
-      this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
-        next: (resp: any) => {},
-      });
+      this.getDataForRange(beginDate, endDate);
     }
   }
 
