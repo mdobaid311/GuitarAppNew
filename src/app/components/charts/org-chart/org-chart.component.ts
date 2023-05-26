@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ChartService } from 'src/app/services/chartData.service';
 import * as moment from 'moment';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCaretLeft,faMagnifyingGlassMinus, faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-org-chart',
   templateUrl: './org-chart.component.html',
@@ -19,6 +19,8 @@ export class OrgChartComponent {
   }
 
   faCaretLeft = faCaretLeft;
+  faMagnifyingGlassMinus = faMagnifyingGlassMinus;
+  faMagnifyingGlassPlus = faMagnifyingGlassPlus;
 
   data: any = [
     {
@@ -281,5 +283,12 @@ export class OrgChartComponent {
       },
       error: (error) => {},
     });
+  }
+
+  orgChartScale = 100;
+
+  onZoom(event: any) {
+    this.orgChartScale = 100 + +event.target.value;
+    console.log(this.orgChartScale);
   }
 }

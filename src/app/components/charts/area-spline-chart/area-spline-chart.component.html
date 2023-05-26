@@ -12,14 +12,6 @@
         </div>
       </div>
       <div class="spline_chart_container">
-        <div class="chart_container__left">
-          <app-custom-grid
-            *ngIf="data"
-            [dataArray]="data"
-            (onColumnHeaderClick)="onColumnHeaderClick($event)"
-            (onTableSelectChange)="onTableSelectChange($event)"
-          ></app-custom-grid>
-        </div>
         <div class="chart_container__right">
           <div #chartContainer class="chart"></div>
           <div class="sales_aggregation__details">
@@ -28,6 +20,14 @@
               Export Data
             </button> -->
           </div>
+        </div>
+        <div class="chart_container__left">
+          <app-custom-grid
+            *ngIf="data"
+            [dataArray]="data"
+            (onColumnHeaderClick)="onColumnHeaderClick($event)"
+            (onTableSelectChange)="onTableSelectChange($event)"
+          ></app-custom-grid>
         </div>
       </div>
     </div>
