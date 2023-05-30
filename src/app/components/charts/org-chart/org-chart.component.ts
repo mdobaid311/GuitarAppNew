@@ -3,7 +3,11 @@ import { Component } from '@angular/core';
 import { ChartService } from 'src/app/services/chartData.service';
 import * as moment from 'moment';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { faCaretLeft,faMagnifyingGlassMinus, faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretLeft,
+  faMagnifyingGlassMinus,
+  faMagnifyingGlassPlus,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-org-chart',
   templateUrl: './org-chart.component.html',
@@ -21,6 +25,16 @@ export class OrgChartComponent {
   faCaretLeft = faCaretLeft;
   faMagnifyingGlassMinus = faMagnifyingGlassMinus;
   faMagnifyingGlassPlus = faMagnifyingGlassPlus;
+
+  activeType = 'fulfillment';
+
+  startDate: any = '2023-05-05 00:00:00';
+  endDate: any = '2023-05-05 23:59:59';
+
+  changeType(type: string) {
+    this.activeType = type;
+    this.getDataForRange(this.startDate, this.endDate, type);
+  }
 
   data: any = [
     {
@@ -84,7 +98,11 @@ export class OrgChartComponent {
   ];
 
   ngOnInit() {
-    this.getDataForRange('2023-05-05 00:00:00', '2023-05-05 23:59:59');
+    this.getDataForRange(
+      '2023-05-05 00:00:00',
+      '2023-05-05 23:59:59',
+      'fulfillment'
+    );
   }
 
   generateNode(children: any) {
@@ -168,7 +186,7 @@ export class OrgChartComponent {
       : null;
     if (beginDate && endDate) {
       this.fullDate = beginDate + ' to ' + endDate;
-      this.getDataForRange(beginDate, endDate);
+      this.getDataForRange(beginDate, endDate, this.activeType);
     }
   }
 
@@ -189,56 +207,60 @@ export class OrgChartComponent {
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
 
-      this.getDataForRange(startDate, endDate);
+      this.getDataForRange(startDate, endDate, this.activeType);
     } else if (
       range === '2h' ||
       range === '6h' ||
       range === '12h' ||
       range === '1d'
     ) {
-      let startDate = '';
-      let endDate = '';
       if (range === '2h') {
-        startDate = moment('2023-05-01 16:28:21')
+        this.startDate = moment('2023-05-01 16:28:21')
           .subtract(2, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 2 hours'
       } else if (range === '6h') {
-        startDate = moment('2023-05-01 16:28:21')
+        this.startDate = moment('2023-05-01 16:28:21')
           .subtract(6, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 6 hours'
       } else if (range === '12h') {
-        startDate = moment('2023-05-01 16:28:21')
+        this.startDate = moment('2023-05-01 16:28:21')
           .subtract(12, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 12 hours'
       } else if (range === '1d') {
-        startDate = moment('2023-05-01 16:28:21')
+        this.startDate = moment('2023-05-01 16:28:21')
           .subtract(1, 'days')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 24 hours'
       }
-      this.getDataForRange(startDate, endDate);
+      this.getDataForRange(this.startDate, this.endDate, this.activeType);
     } else if (range === '6m') {
       const startDate = moment('2023-05-01 16:28:21')
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-      this.getDataForRange(startDate, endDate);
+      this.fullDate = 'Last 6 months'
+      this.getDataForRange(startDate, endDate, this.activeType);
     } else if (range === '1y') {
       const startDate = moment('2023-05-01 16:28:21')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-      this.getDataForRange(startDate, endDate);
+      this.fullDate = 'Last 12 months'
+      this.getDataForRange(startDate, endDate, this.activeType);
     }
   }
 
-  getDataForRange(startDate: any, endDate: any) {
+  getDataForRange(startDate: any, endDate: any, type: any) {
     this.loader = true;
     // startDate='2015-01-01 00:00'&endDate='2023-01-31 01:00
-    this.chartData.getOrgChartDataByRange(startDate, endDate).subscribe({
+    this.chartData.getOrgChartDataByRange(startDate, endDate, type).subscribe({
       next: (resp: any) => {
         const totalAmounts: any = {};
         resp.forEach(({ key, original_order_total_amount, children }: any) => {
