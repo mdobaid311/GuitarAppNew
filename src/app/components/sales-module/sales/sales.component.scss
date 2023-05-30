@@ -328,35 +328,22 @@ $desktop: 1200px;
                 color: var(--primary-color-1);
                 text-transform: uppercase;
                 text-align: center;
-                border-bottom: 1px dashed var(--primary-color-3);
+                // border-bottom: 1px dashed var(--primary-color-3);
                 font-size: 22px;
                 span {
                   color: var(--primary-color-3);
                 }
               }
 
-              .row_1_div_3_values {
-                display: flex;
-                align-self: flex-end;
-                width: 50%;
-                justify-content: space-between;
-
-                span {
-                  color: var(--primary-color-3);
-                  font-weight: 500;
-                  text-align: right;
-                  font-size: 18px;
-                  margin: 0 10px;
-                }
-
-                span:nth-child(2) {
-                  color: var(--primary-color-1);
-                }
-              }
               .sales_categories_container {
                 display: flex;
                 width: 100%;
-                .top_list__by_channel,
+
+                @media only screen and (max-width: $mobile) {
+                  width: 100%;
+                  flex-direction: column;
+                }
+
                 .top_list__by_item_info {
                   flex: 1;
                   box-shadow: var(--primary-boxshadow);
@@ -369,8 +356,8 @@ $desktop: 1200px;
                     text-align: center;
                     border-bottom: 1px dashed var(--primary-color-3);
 
-                    span{
-                      color: var(--primary-color-3) !important;
+                    span {
+                      color: var(--primary-color-3);
                     }
                   }
 
@@ -379,12 +366,31 @@ $desktop: 1200px;
                     flex-direction: column;
                     height: 100%;
 
+                    .top_list__item:nth-child(even) {
+                      span {
+                        color: var(--primary-color-3) !important;
+                      }
+                    }
+
                     .top_list__item {
-                      box-shadow: var(--primary-boxshadow);
+                      // box-shadow: var(--primary-boxshadow);
+                      border-bottom: 1px dashed var(--primary-color-3);
                       padding: 20px 5px;
                       margin: 10px 0;
                       display: flex;
                       justify-content: space-between;
+                      align-items: center;
+
+                      span {
+                        width: 25%;
+                        text-align: center;
+                        color: var(--primary-color-1);
+                        font-weight: bolder;
+                        font-size: 18px;
+                        margin: 0 10px;
+                        overflow: hidden;
+                      }
+
                       h4 {
                         margin: 0;
                       }
@@ -432,7 +438,6 @@ $desktop: 1200px;
                 color: var(--primary-color-3);
               }
             }
-
 
             .lists__container {
               display: flex;

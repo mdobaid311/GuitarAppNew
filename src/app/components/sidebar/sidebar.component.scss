@@ -60,7 +60,7 @@
 //     transition: all 0.1s ease-in-out;
 
 //     &:hover {
-//       background-color: rgba(0, 0, 0, 0.25);
+//       background-color: var(--primary-background-3);
 //       border-radius: 10px;
 //     }
 
@@ -140,7 +140,7 @@
 }
 
 .label-hamburger-menu:hover .bar {
-  /* box-shadow: 1px 1px 7px 1px RGBa(0, 0, 0, 0.3); */
+  /* box-shadow: 1px 1px 7px 1px var(--primary-background-3); */
 }
 
 .label-hamburger-menu .bar {
@@ -248,7 +248,7 @@
     height: 100%;
     object-fit: cover;
     padding: 5px;
-    background-color: #0d2039;
+    background-color: #0C274E;
     border-radius: 5px;
   }
 }
@@ -290,12 +290,12 @@
 }
 
 .sidebar .nav-links li:hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--primary-background-3);
   border-radius: 10px;
 }
 
 .sidebar .nav-links li.active {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--primary-background-3);
   border-radius: 10px;
 }
 

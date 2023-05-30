@@ -63,9 +63,9 @@ export class LineChartComponent {
         xAxis: {
           type: 'category',
           labels: {
-            rotation: 45,
+            rotation: 0,
             style: {
-              color: '#fff',
+              color: '#0C274E',
               fontSize: '18px',
               fontFamily: 'Poppins, sans-serif',
             },
@@ -94,22 +94,25 @@ export class LineChartComponent {
         },
         series: [
           {
-            name: 'Population',
+            name: 'Sales',
             data: array,
             dataLabels: {
               enabled: true, // Remove data labels from lines
             },
             color: '#A5D7E8', // Change color of lines
           },
-          {
-            name: 'Population',
-            data: this.newDataArray,
-            dataLabels: {
-              enabled: true, // Remove data labels from lines
-            },
-            color: '#2f7ed8', // Change color of lines
-          },
         ],
+        plotOptions: {
+          line: {
+            DashStyleValue: 'dot',
+            events: {
+              click: function (event: any) {
+                const name = +event.point.name;
+                alert('Value hello');
+              },
+            },
+          },
+        },
       };
       Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
       setTimeout(() => {
@@ -138,6 +141,7 @@ export class LineChartComponent {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           });
+          console.log(yearsData);
           this.chartOptions = {
             chart: {
               type: 'line',
@@ -153,10 +157,12 @@ export class LineChartComponent {
 
             xAxis: {
               type: 'category',
+
               labels: {
-                rotation: 45,
+                rotation: 0,
                 style: {
-                  color: '#fff',
+                  color: '#0C274E',
+                  fontSize: '18px',
                   fontFamily: 'Poppins, sans-serif',
                 },
               },
@@ -189,7 +195,7 @@ export class LineChartComponent {
                 data: yearsData,
                 lineWidth: 2,
                 dataLabels: {
-                  enabled: true, // Remove data labels from lines
+                  enabled: false, // Remove data labels from lines
                   color: '#fff',
                   style: {
                     // height: '100px',
@@ -200,19 +206,10 @@ export class LineChartComponent {
                 },
                 color: '#A5D7E8', // Change color of lines
               },
-              {
-                name: 'Sales',
-                data: yearsData,
-
-                dataLabels: {
-                  enabled: true, // Remove data labels from lines
-                  color: '#fff',
-                },
-                color: '#A5D7E8', // Change color of lines
-              },
             ],
             plotOptions: {
               line: {
+                dashStyle: 'dash',
                 events: {
                   click: function (event: any) {
                     const name = +event.point.name;
@@ -294,7 +291,7 @@ export class LineChartComponent {
     //       },
     //       series: [
     //         {
-    //           name: 'Population',
+    //           name: 'Sales',
     //           data: newData,
 
     //           dataLabels: {
@@ -304,7 +301,7 @@ export class LineChartComponent {
     //           color: '#A5D7E8', // Change color of lines
     //         },
     //         {
-    //           name: 'Population',
+    //           name: 'Sales',
     //           data: yearsData,
 
     //           dataLabels: {
@@ -344,9 +341,9 @@ export class LineChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#0D2039' : '#fff';
+      this.theme === 'dark' ? '#0C274E' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
-      this.theme === 'dark' ? '#fff' : '#000';
+      this.theme === 'dark' ? '#4AA4FF' : '#000';
     this.chartOptions.yAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.title.style.color =
