@@ -319,24 +319,21 @@
                         )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>
-                          {{
-                            (data.original_order_total_amount /
-                              item.salesCategories
-                                .original_order_total_amount) *
-                              100 | number : "1.2-2"
-                          }}
-                          %
-                        </span>
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -353,24 +350,21 @@
                         )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>
-                          {{
-                            (data.original_order_total_amount /
-                              item.salesCategories
-                                .original_order_total_amount) *
-                              100 | number : "1.2-2"
-                          }}
-                          %</span
-                        >
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -387,24 +381,21 @@
                         )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>
-                          {{
-                            (data.original_order_total_amount /
-                              item.salesCategories
-                                .original_order_total_amount) *
-                              100 | number : "1.2-2"
-                          }}
-                          %</span
-                        >
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %</span
+                      >
                     </div>
                   </div>
                 </div>

@@ -126,12 +126,14 @@
             }
           }
 
+          // make div draggable on overflow auto
           .org_chart_container {
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: auto;
-            height: 100%;
+            position: relative;
 
             &::-webkit-scrollbar {
               width: 5px !important;

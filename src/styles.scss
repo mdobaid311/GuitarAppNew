@@ -26,7 +26,7 @@ html {
 :root {
   --primary-color-1: #000;
   --primary-color-2: #817979;
-  --primary-color-3: #e7131a;
+  --primary-color-3: #4AA4FF;
   --primary-background-1: #e7131a;
   --primary-background-2: #f2f2f2;
   --primary-background-3: #fff;
@@ -38,8 +38,15 @@ html {
   --primary-color-2: #817979;
   --primary-background-1: #e7131a;
   --primary-background-2: #061429;
-  --primary-background-3: #0d2039;
+  --primary-background-3: #0C274E
+  ;
   --primary-boxshadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
+  // --primary-color-1: #ffffff;
+  // --primary-color-2: #817979;
+  // --primary-background-1: #e7131a;
+  // --primary-background-2: #061429;
+  // --primary-background-3: #0d2039;
+  // --primary-boxshadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
 }
 
 body {

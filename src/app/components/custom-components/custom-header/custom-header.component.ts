@@ -50,7 +50,7 @@ export class CustomHeaderComponent {
         }
         .dp1 .myDpSelectorArrow:after {
           border-color: rgba(108, 117, 125, 0);
-          border-bottom-color: #0D2039;
+          border-bottom-color: #0C274E;
         }
         .dp1 .myDpSelectorArrow:focus:before {
           border-bottom-color: #ADD8E6;
@@ -63,7 +63,7 @@ export class CustomHeaderComponent {
         }
         .dp1 .myDpDaycellWeekNbr {
           color: #fff;
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
 
 
@@ -72,7 +72,7 @@ export class CustomHeaderComponent {
           color: #bbb;
         }
         .dp1 .myDpWeekDayTitle {
-          background-color: #0D2039;
+          background-color: #0C274E;
           color: #fff;
           font-weight: bold;
         }
@@ -97,7 +97,7 @@ export class CustomHeaderComponent {
         .dp1 .myDpDaycell,
         .dp1 .myDpMonthcell,
         .dp1 .myDpYearcell {
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
         .dp1 .myDpRangeColor {
           background-color: #0B2447;
@@ -114,11 +114,11 @@ export class CustomHeaderComponent {
         .dp1 .myDpSelector,
         .dp1 .myDpMonthYearSelBar,
         .dp1 .myDpFooterBar {
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
         .dp1 .myDpDisabled {
           color: #fff;
-          background: repeating-linear-gradient(-45deg, #0D2039 7px, #d3d3d3 8px, transparent 7px, transparent 14px);
+          background: repeating-linear-gradient(-45deg, #0C274E 7px, #d3d3d3 8px, transparent 7px, transparent 14px);
         }
         .dp1 .myDpHighlight {
           color: 	#e7131a;

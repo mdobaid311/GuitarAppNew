@@ -79,7 +79,7 @@ export class AreaSplineChartComponent {
     this.chartOptions = {
       chart: {
         type: 'line',
-        backgroundColor: this.theme === 'dark' ? '#0D2039' : '#fff',
+        backgroundColor: this.theme === 'dark' ? '#0C274E' : '#fff',
       },
 
       xAxis: {
@@ -173,7 +173,7 @@ export class AreaSplineChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#0D2039' : '#fff';
+      this.theme === 'dark' ? '#0C274E' : '#fff';
     // this.chartOptions.series[0].color =
     //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
     // this.chartOptions.series[0].backgroundColor =
