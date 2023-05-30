@@ -4,6 +4,7 @@ import {
   Renderer2,
   HostListener,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
@@ -211,9 +212,7 @@ export class SalesComponent {
 
   constructor(
     private chartData: ChartService,
-    private router: Router,
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
+    private cdr: ChangeDetectorRef,
 
     calendar: NgbCalendar
   ) {
@@ -254,27 +253,48 @@ export class SalesComponent {
     }
   }
 
+  compareValue: any = {
+    MF: 0,
+    GC: 0,
+  };
+  customGoalProgressPercent:any ={
+    MF: 0,
+    GC: 0,
+  }
+
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
-    console.log('first');
+
     const beginDate = begin
       ? begin.year + '-' + begin.month + '-' + begin.day
       : null;
     const endDate = end ? end.year + '-' + end.month + '-' + end.day : null;
 
-    this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
-      next: (resp: any) => {
-        this.customGoal = resp[0].original_orders_total;
-        this.customGoalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.customGoal);
-        this.customGoalProgress =
-          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-          '%';
-      },
-    });
+    this.chartData
+      .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
+      .subscribe({
+        next: (resp: any) => {
+          const data: any = Object.values(resp);
+
+          this.compareValue = {
+            MF: data[0].totalStats.original_order_total_amount,
+            GC: data[1].totalStats.original_order_total_amount,
+          };
+
+          console.log(this.fullDate)
+
+          this.customGoalProgressPercent = {
+            MF: data[0].totalStats.original_order_total_amount / this.fullSalesData[0].totalStats.original_order_total_amount*100,
+            GC: data[1].totalStats.original_order_total_amount / this.fullSalesData[1].totalStats.original_order_total_amount *100
+            ,
+          }
+
+          console.log(this.customGoalProgressPercent)
+
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   onRangeSelect(range: any) {

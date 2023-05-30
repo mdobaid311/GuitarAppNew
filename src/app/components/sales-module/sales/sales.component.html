@@ -156,14 +156,21 @@
                 </div>
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
                 <app-custom-progress-bar
-                  [customGoalProgress]="customGoalProgress"
+                  [customGoalProgress]="customGoalProgressPercent[item.name] || 0"
                 ></app-custom-progress-bar>
                 <div class="div_1_progress_details">
-                  <span>{{ customGoalProgress }}</span>
+                  <span
+                    >{{
+                      ((compareValue[item.name] || 0) /
+                        (+item?.totalStats?.original_order_total_amount || 1) ||
+                        0) * 100 | number : "1.0-0"
+                    }}
+                    %</span
+                  >
 
                   <div class="div_1_progress_details__date_change">
                     <span (dblclick)="makeEditable()" *ngIf="!isEditable">
-                      ${{ customGoalAbbr }}
+                      ${{ compareValue[item.name] }}
                     </span>
                     <input
                       type="number"

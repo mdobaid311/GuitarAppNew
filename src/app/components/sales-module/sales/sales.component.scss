@@ -494,6 +494,10 @@ $desktop: 1200px;
                     display: flex;
                     align-items: center;
 
+                    // &:nth-child(even) {
+                    //  color: var(--primary-color-3);
+                    // }
+
                     h4:first-child {
                       flex: 0.5;
                     }
