@@ -291,7 +291,7 @@ export class Orgchart2Component {
   getDataForRange(startDate: any, endDate: any) {
     this.loader = true;
     // startDate='2015-01-01 00:00'&endDate='2023-01-31 01:00
-    this.chartData.getOrgChartDataByRange(startDate, endDate).subscribe({
+    this.chartData.getOrgChartDataByRange(startDate, endDate,"").subscribe({
       next: (resp: any) => {
         const totalAmounts: any = {};
         resp.forEach(({ key, original_order_total_amount, children }: any) => {

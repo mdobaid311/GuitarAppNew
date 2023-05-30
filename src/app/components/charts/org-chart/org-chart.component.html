@@ -21,13 +21,35 @@
           </div>
         </div>
         <div class="main_container__charts_container">
-          <div class="loader-container" *ngIf="loader">
-            <div class="loader"></div>
-          </div>
-          <div class="zoom_range">
-            <fa-icon [icon]="faMagnifyingGlassMinus" class="icon"></fa-icon>
-            <input type="range" (input)="onZoom($event)" />
-            <fa-icon [icon]="faMagnifyingGlassPlus" class="icon"></fa-icon>
+          <div class="zoom_and_select_type_container">
+            <div class="type_container">
+              <button
+                [ngClass]="
+                  activeType === 'order_capture_channel' ? 'active' : ''
+                "
+                (click)="changeType('order_capture_channel')"
+              >
+                Order Capture Channel
+              </button>
+
+              <button
+                [ngClass]="activeType === 'fulfillment' ? 'active' : ''"
+                (click)="changeType('fulfillment')"
+              >
+                Fulfillment
+              </button>
+              <button
+                [ngClass]="activeType === 'item_info' ? 'active' : ''"
+                (click)="changeType('item_info')"
+              >
+                Item Info
+              </button>
+            </div>
+            <div class="zoom_range">
+              <fa-icon [icon]="faMagnifyingGlassMinus" class="icon"></fa-icon>
+              <input type="range" (input)="onZoom($event)" />
+              <fa-icon [icon]="faMagnifyingGlassPlus" class="icon"></fa-icon>
+            </div>
           </div>
           <div class="org_chart_container">
             <p-organizationChart
@@ -49,7 +71,11 @@
                   <!-- <div>{{ node.data.name }}</div> -->
                   <h3>{{ node.data.value }}</h3>
                   <p>{{ node.data.width * 2 + "%" }}</p>
-                  <span>{{ node.data.title }}</span>
+                  <span>{{
+                    node.data.title.length > 15
+                      ? node.data.title.substring(0, 15) + "..."
+                      : node.data.title
+                  }}</span>
                 </div>
               </ng-template>
             </p-organizationChart>

@@ -538,7 +538,12 @@ export class SalesComponent {
 
   getSortedSlice(items: any[]): any[] {
     if (items) {
-      return items.sort((a, b) => b.original_order_total_amount - a.original_order_total_amount).slice(0, 4);
+      return items
+        .sort(
+          (a, b) =>
+            b.original_order_total_amount - a.original_order_total_amount
+        )
+        .slice(0, 4);
     }
     return [];
   }

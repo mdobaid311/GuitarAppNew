@@ -83,8 +83,8 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getOrgChartDataByRange(startDate: any, endDate: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/sales/getOrgChartData?start_date=${startDate}&end_date=${endDate}`;
+  public getOrgChartDataByRange(startDate: any, endDate: any,type:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/sales/getOrgChartData?start_date=${startDate}&end_date=${endDate}&type=${type}`;
     return this.httpClient.get<any[]>(url);
   }
 
