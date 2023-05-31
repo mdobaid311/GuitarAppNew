@@ -7,6 +7,7 @@ import { OrgChartComponent } from './components/charts/org-chart/org-chart.compo
 import { SalesComponent } from './components/sales-module/sales/sales.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { Orgchart2Component } from './components/charts/orgchart2/orgchart2.component';
+import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'org-chart-1', component: Orgchart2Component },
   { path: 'sales', component: SalesComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'timeline', component: TimelineComponent },
 ];
 
 @NgModule({

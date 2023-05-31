@@ -40,6 +40,7 @@ import { CustomGuitarLoaderComponent } from './components/custom-components/cust
 import { CustomGridComponent } from './components/charts/custom-grid/custom-grid.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     CustomGridComponent,
     LineChartComponent,
     ShortNumberPipe,
+    TimelineComponent,
   ],
   imports: [
     FormsModule,

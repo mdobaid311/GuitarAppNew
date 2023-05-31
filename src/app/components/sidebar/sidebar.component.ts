@@ -10,6 +10,7 @@ import {
   faGear,
   faCashRegister,
   faChevronDown,
+  faTimeline,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -103,6 +104,18 @@ export class SidebarComponent {
         //   link: '/org-chart-1',
         //   icon: faSitemap,
         // },
+      ],
+    },
+    {
+      link_name: 'Timeline',
+      link: '/timeline',
+      icon: faTimeline,
+      sub_menu: [
+        {
+          link_name: 'Timeline',
+          link: '/timeline',
+          icon: faTimeline,
+        },
       ],
     },
     {

@@ -126,10 +126,19 @@ $desktop: 1200px;
                 font-size: 20px;
                 font-weight: 400;
                 color: var(--primary-color-3);
+
+                @media only screen and (max-width: $mobile) {
+                  font-size: 25px;
+                }
               }
 
               h1 {
+                font-size: 40px;
                 font-weight: 400;
+
+                @media only screen and (max-width: $mobile) {
+                  font-size: 25px;
+                }
               }
             }
 
@@ -186,6 +195,7 @@ $desktop: 1200px;
 
                 .brand__name {
                   font-weight: 400;
+                  font-size: 35px;
                   color: var(--primary-color-3);
                 }
 
@@ -493,6 +503,10 @@ $desktop: 1200px;
                       object-fit: contain;
                       background: white;
                       border-radius: 10px;
+
+                      @media only screen and (max-width: $mobile) {
+                        width: 100px; height: 70px;
+                      }
                     }
                   }
                 }
@@ -501,16 +515,6 @@ $desktop: 1200px;
                   display: flex;
                   justify-content: space-between;
                   align-items: start;
-                  .top_item__image {
-                    object-fit: contain;
-                    width: 20%;
-                    margin-top: 70px;
-                    border-radius: 10px;
-
-                    @media only screen and (max-width: $mobile) {
-                      margin-top: 50px;
-                    }
-                  }
                 }
 
                 .top_list__items_list {

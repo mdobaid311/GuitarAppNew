@@ -78,7 +78,7 @@ export class AreaSplineChartComponent {
 
     this.chartOptions = {
       chart: {
-        type: 'line',
+        type: 'spline',
         backgroundColor: this.theme === 'dark' ? '#0C274E' : '#fff',
       },
 
@@ -120,26 +120,27 @@ export class AreaSplineChartComponent {
 
       series: [
         {
-          name: 'Population',
+          name: 'Sales',
           data: this.selectedColumnData,
 
           dataLabels: {
             enabled: true, // Remove data labels from lines
             color: '#fff',
           },
-          color: '#A5D7E8', // Change color of lines
-        },
-        {
-          name: 'Population',
-          data: this.selectedColumnData,
-
-          dataLabels: {
-            enabled: true, // Remove data labels from lines
-            color: '#fff',
-          },
-          color: '#2f7ed8', // Change color of lines
+          color: '#51FF14', // Change color of lines
         },
       ],
+      plotOptions: {
+        line: {
+          dashStyle: 'dash',
+          events: {
+            click: function (event: any) {
+              const name = +event.point.name;
+              alert('Value of clicked line: ' + name);
+            },
+          },
+        },
+      },
     };
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
@@ -156,7 +157,7 @@ export class AreaSplineChartComponent {
   }
 
   exportToExcel() {
-    console.log("export to excel")
+    console.log('export to excel');
     this.createExcelFile(this.data, this.excelFileName);
   }
 
