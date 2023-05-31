@@ -158,11 +158,16 @@
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
                 <app-custom-progress-bar
                   [customGoalProgress]="
-                    customGoalProgressPercent[item.name] || 0
+                    +customGoalProgressPercent[item.name] || 0
                   "
                 ></app-custom-progress-bar>
                 <div class="div_1_progress_details">
-                  <span>{{ customGoalProgressPercent[item.name] }} %</span>
+                  <span
+                    >{{
+                      +customGoalProgressPercent[item.name] | number : "1.2-2"
+                    }}
+                    %</span
+                  >
 
                   <div class="div_1_progress_details__date_change">
                     <span (dblclick)="makeEditable()" *ngIf="!isEditable">

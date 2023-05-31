@@ -257,10 +257,10 @@ export class SalesComponent {
     MF: 0,
     GC: 0,
   };
-  customGoalProgressPercent:any ={
+  customGoalProgressPercent: any = {
     MF: 0,
     GC: 0,
-  }
+  };
 
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
@@ -282,15 +282,18 @@ export class SalesComponent {
             GC: data[1].totalStats.original_order_total_amount,
           };
 
-          console.log(this.fullDate)
-
           this.customGoalProgressPercent = {
-            MF: data[0].totalStats.original_order_total_amount / this.fullSalesData[0].totalStats.original_order_total_amount*100,
-            GC: data[1].totalStats.original_order_total_amount / this.fullSalesData[1].totalStats.original_order_total_amount *100
-            ,
-          }
+            MF:
+              (data[0].totalStats.original_order_total_amount /
+                this.fullSalesData[0].totalStats.original_order_total_amount) *
+              100,
+            GC:
+              (data[1].totalStats.original_order_total_amount /
+                this.fullSalesData[1].totalStats.original_order_total_amount) *
+              100,
+          };
 
-          console.log(this.customGoalProgressPercent)
+          console.log(this.customGoalProgressPercent);
 
           this.cdr.detectChanges();
         },
@@ -495,6 +498,34 @@ export class SalesComponent {
     } else {
       this.pinActive = false;
     }
+
+    this.chartData
+      .getFullSalesDataByRange('2023-03-01', '2023-03-02 ', 1440 * 60)
+      .subscribe({
+        next: (resp: any) => {
+          const data: any = Object.values(resp);
+
+          this.compareValue = {
+            MF: data[0].totalStats.original_order_total_amount,
+            GC: data[1].totalStats.original_order_total_amount,
+          };
+
+          this.customGoalProgressPercent = {
+            MF:
+              (data[0].totalStats.original_order_total_amount /
+                this.fullSalesData[0].totalStats.original_order_total_amount) *
+              100,
+            GC:
+              (data[1].totalStats.original_order_total_amount /
+                this.fullSalesData[1].totalStats.original_order_total_amount) *
+              100,
+          };
+
+          console.log(this.customGoalProgressPercent);
+
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   onSelectChartChange(event: any) {
