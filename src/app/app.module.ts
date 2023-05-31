@@ -41,6 +41,7 @@ import { CustomGridComponent } from './components/charts/custom-grid/custom-grid
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
+import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { TimelineComponent } from './components/timeseries/timeline/timeline.com
     LineChartComponent,
     ShortNumberPipe,
     TimelineComponent,
+    HorizontalTimelineComponent,
   ],
   imports: [
     FormsModule,
