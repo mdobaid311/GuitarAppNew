@@ -186,3 +186,8 @@
 :host ::ng-deep .p-organizationchart .p-organizationchart-line-down {
   background: var(--primary-color-1);
 }
+
+.org_chart__org_chart{
+  width: 100%;
+  transform-origin: center;
+}
