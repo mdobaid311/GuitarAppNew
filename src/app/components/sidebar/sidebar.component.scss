@@ -60,7 +60,7 @@
 //     transition: all 0.1s ease-in-out;
 
 //     &:hover {
-//       background-color: var(--primary-background-3);
+//       background-color: #0B2447;
 //       border-radius: 10px;
 //     }
 
@@ -140,7 +140,7 @@
 }
 
 .label-hamburger-menu:hover .bar {
-  /* box-shadow: 1px 1px 7px 1px var(--primary-background-3); */
+  /* box-shadow: 1px 1px 7px 1px #0B2447; */
 }
 
 .label-hamburger-menu .bar {
@@ -294,12 +294,12 @@
 }
 
 .sidebar .nav-links li:hover {
-  background-color: var(--primary-background-3);
+  background-color: #0B2447;
   border-radius: 10px;
 }
 
 .sidebar .nav-links li.active {
-  background: var(--primary-background-3);
+  background: #0B2447;
   border-radius: 10px;
 }
 
@@ -512,8 +512,8 @@
   width: calc(100% - 60px);
 }
 
-@media (max-width: 420px) {
-  .sidebar.sidebar-close .nav-links li .sub-menu {
-    display: none;
-  }
-}
+// @media (max-width: 420px) {
+//   .sidebar.sidebar-close .nav-links li .sub-menu {
+//     display: none;
+//   }
+// }

@@ -99,7 +99,7 @@ export class LineChartComponent {
             dataLabels: {
               enabled: true, // Remove data labels from lines
             },
-            color: '#A5D7E8', // Change color of lines
+            color: '#51FF14', // Change color of lines
           },
         ],
         plotOptions: {
@@ -144,7 +144,7 @@ export class LineChartComponent {
           console.log(yearsData);
           this.chartOptions = {
             chart: {
-              type: 'line',
+              type: 'spline',
             },
 
             title: {
@@ -204,7 +204,7 @@ export class LineChartComponent {
                     fontFamily: 'Poppins, sans-serif',
                   },
                 },
-                color: '#A5D7E8', // Change color of lines
+                color: '#51FF14', // Change color of lines
               },
             ],
             plotOptions: {
