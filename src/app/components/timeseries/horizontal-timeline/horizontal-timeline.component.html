@@ -1,0 +1,33 @@
+<div class="timeline__screen">
+  <div class="timeline_container">
+    <div class="timeline__main_screen">
+      <!-- header -->
+      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <h3>Timeline</h3>
+          <app-custom-select
+            [options]="timelineSelectOptions"
+            [selectIcon]="faClock"
+          ></app-custom-select>
+        </div>
+        <div class="main_container__timeline">
+          <section class="time-line-box">
+            <div class="swiper-container text-center">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let item of series">
+                  <div class="timestamp">
+                    <span class="order_status">{{ item.value }}</span>
+                  </div>
+                  <div class="status">
+                    <span>{{ item.name }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ import {
   faCashRegister,
   faChevronDown,
   faTimeline,
+
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -116,6 +117,11 @@ export class SidebarComponent {
           link: '/timeline',
           icon: faTimeline,
         },
+        {
+          link_name: 'Timeline 2',
+          link: '/timeline-1',
+          icon: faTimeline,
+        }
       ],
     },
     {
