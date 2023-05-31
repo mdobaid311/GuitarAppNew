@@ -13,5 +13,10 @@ export class CustomProgressBarComponent {
 
   ngOnInit() {
     this.progress = this.customGoalProgress + '%';
+    console.log(this.customGoalProgress)
+  }
+
+  ngOnChanges() {
+    console.log(this.customGoalProgress);
   }
 }
