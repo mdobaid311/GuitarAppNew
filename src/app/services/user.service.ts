@@ -24,13 +24,13 @@ export class UserService {
   ) {}
 
   public login(username: any, password: any) {
-    const url = 'http://localhost:3000/v2/tables/login';
+    const url = `${APP_CONSTANTS.URI}/v2/tables/login`;
     const requestBody = { username: username, password: password };
     return this.httpClient.post<any[]>(url, requestBody);
   }
 
   public register(userData: any) {
-    const url = 'http://localhost:3000/v2/tables/register';
+    const url = `${APP_CONSTANTS.URI}/v2/tables/register`;
     const requestBody = userData;
     return this.httpClient.post<any[]>(url, requestBody);
   }
