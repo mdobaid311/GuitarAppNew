@@ -28,4 +28,10 @@ export class UserService {
     const requestBody = { username: username, password: password };
     return this.httpClient.post<any[]>(url, requestBody);
   }
+
+  public register(userData: any) {
+    const url = 'http://localhost:3000/v2/tables/register';
+    const requestBody = userData;
+    return this.httpClient.post<any[]>(url, requestBody);
+  }
 }
