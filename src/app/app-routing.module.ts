@@ -9,10 +9,11 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { Orgchart2Component } from './components/charts/orgchart2/orgchart2.component';
 import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
 import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
+import { UsMapComponent } from './components/charts/us-map/us-map.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', component: DashboardComponent },
   { path: 'area-chart', component: AreaSplineChartComponent },
   { path: 'org-chart', component: OrgChartComponent },
   { path: 'org-chart-1', component: Orgchart2Component },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'timeline', component: TimelineComponent },
   { path: 'timeline-1', component: HorizontalTimelineComponent },
+  { path: 'map', component: UsMapComponent },
 ];
 
 @NgModule({

@@ -21,6 +21,7 @@
           id="password"
           (change)="onPasswordChange($event)"
         />
+        <span *ngIf="loginError">Invalid Username or Password</span>
         <div class="sub_main">
           <div class="remember_me_checkbox">
             <input type="checkbox" />
@@ -30,6 +31,7 @@
             <a href="#">Forgot Password?</a>
           </div>
         </div>
+
         <!-- <input type="button" value="LOGIN" /> -->
         <button class="login-button" type="button" (click)="onLoginClick()">
           Login

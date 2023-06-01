@@ -1,0 +1,23 @@
+<div class="spline_chart__screen">
+  <div class="spline_chart_container">
+    <div class="spline_chart__main_screen">
+      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <div class="main_container__heading">
+        <div class="heading__flexbox">
+          <h3>Map</h3>
+        </div>
+      </div>
+      <div class="spline_chart_container">
+        <highcharts-chart
+          id="container"
+          [Highcharts]="Highcharts"
+          [constructorType]="chartConstructor"
+          [options]="chartOptions"
+          [(update)]="updateFlag"
+          style="width: 50%; height: 50%"
+        >
+        </highcharts-chart>
+      </div>
+    </div>
+  </div>
+</div>

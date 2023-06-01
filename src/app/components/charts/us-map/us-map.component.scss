@@ -1,0 +1,97 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
+.spline_chart__screen {
+  min-height: 100vh;
+  background: var(--primary-background-1);
+
+  .spline_chart_container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    @media only screen and (max-width: $mobile) {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .spline_chart__main_screen {
+      flex: 1;
+      background: var(--primary-background-2);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      width: 1292px;
+      // border-radius: 6px;
+
+      .main_container__heading {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+        padding: 10px 15px;
+
+        .heading__flexbox {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--primary-color-3);
+            cursor: pointer;
+          }
+
+          h3 {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary-color-1);
+          }
+        }
+      }
+
+      .spline_chart_container {
+        display: flex;
+        justify-content: center;
+        padding: 10px 15px;
+
+        @media only screen and (max-width: $mobile) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+#container {
+  height: 70%;
+  width: 70%;
+}
+
+.chartContainer {
+  height: 70%;
+  width: 70%;
+}
+// apply on ng deep
+
+:host ::ng-deep .highcharts-background {
+  fill: var(--primary-background-3) !important;
+  border-radius: 20px;
+  box-shadow: var(--primary-boxshadow);
+}
+
+:host ::ng-deep .highcharts-container {
+  border-radius: 20px;
+  box-shadow: var(--primary-boxshadow);
+}
+
+:host ::ng-deep text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color-1) !important;
+}
+
+:host ::ng-deep .highcharts-credits {
+  display: none !important;
+}
