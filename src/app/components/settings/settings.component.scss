@@ -62,7 +62,7 @@
 
           .create_user__button {
             display: flex;
-            background-color: var(--primary-background-2);
+            background-color: var(--primary-color-3);
             color: var(--primary-color-1);
             margin-top: 20px;
             padding: 10px;
@@ -71,7 +71,7 @@
             outline: none;
             cursor: pointer;
             &:hover {
-              filter: brightness(120%);
+              filter: brightness(105%);
             }
           }
 

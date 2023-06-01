@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 // @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;}
+  font-family: "Inter", sans-serif;
+}
 
 $mobile: 768px;
 $tablet: 1024px;
@@ -37,12 +38,11 @@ html {
 .dark-theme {
   --primary-color-1: #ffffff;
   --primary-color-2: #817979;
-  --primary-color-3: #4AA4FF;
-    --primary-color-4: #393787;
+  --primary-color-3: #4aa4ff;
+  --primary-color-4: #393787;
   --primary-background-1: #e7131a;
-  --primary-background-2: #0B2447;
-  --primary-background-3: #092141
-  ;
+  --primary-background-2: #0b2447;
+  --primary-background-3: #092141;
   --primary-boxshadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
   // --primary-color-1: #ffffff;
   // --primary-color-2: #817979;

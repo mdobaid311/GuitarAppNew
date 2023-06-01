@@ -4,9 +4,9 @@
 
 <div class="settings__screen">
   <div class="settings_container">
-     <div class="settings__main_screen">
+    <div class="settings__main_screen">
       <!-- header -->
-      <app-custom-header ></app-custom-header>
+      <app-custom-header></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Settings</h3>
@@ -27,14 +27,6 @@
             <h2>Create User</h2>
             <div class="fields">
               <div class="field">
-                <label for="userName">Username: </label>
-                <input type="text" id="userName" placeholder="Username" />
-              </div>
-              <div class="field">
-                <label for="email">Email: </label>
-                <input type="email" id="email" placeholder="Email" />
-              </div>
-              <div class="field">
                 <label for="firstName">First name: </label>
                 <input type="text" id="firstName" placeholder="First name" />
               </div>
@@ -43,11 +35,15 @@
                 <input type="text" id="lastName" placeholder="Last name" />
               </div>
               <div class="field">
+                <label for="userName">Email: </label>
+                <input type="email" id="userName" placeholder="Email" />
+              </div>
+              <div class="field">
                 <label for="role">Role: </label>
                 <input type="text" id="role" placeholder="Role" />
               </div>
               <div class="field">
-                <label for="phone">Phone: </label>
+                <label for="phone">Password: </label>
                 <input type="tel" id="phone" placeholder="Phone" />
               </div>
             </div>
@@ -62,7 +58,6 @@
                   <th>Firstname</th>
                   <th>Lastname</th>
                   <th>Email</th>
-                  <th>Phone</th>
                   <th>Role</th>
                   <th>Actions</th>
                 </tr>
@@ -72,7 +67,6 @@
                   <td>Mohammed</td>
                   <td>Obaid</td>
                   <td>mdobaid311@gmail.com</td>
-                  <td>9515281551</td>
                   <td>Admin</td>
                   <td></td>
                 </tr>

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBell, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-custom-header',
@@ -13,7 +15,6 @@ export class CustomHeaderComponent {
   faCalendar = faCalendar;
 
   customDate = new Date();
-
 
   @Output() onDateChanged: EventEmitter<any> = new EventEmitter<any>();
   @Input() fullDate: any;
@@ -141,10 +142,27 @@ export class CustomHeaderComponent {
   myDateInit: boolean = true;
   model: any = null;
 
-  constructor() {
-   }
+  constructor(private userService: UserService, private _router: Router) {}
+
+  currentUser: any | null;
 
   ngOnInit() {
+    // get the user from local storage
+    this.currentUser = JSON.parse(localStorage.getItem('user') as string);
+    if (this.currentUser) {
+      this.userService.setUser(this.currentUser);
+    } else {
+      this.userService.user$.subscribe((user) => {
+        if (!user) {
+          this._router.navigate(['/login']);
+        } else {
+          //store the user in localstorage
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUser = user;
+        }
+      });
+    }
+
     if (this.myDateInit) {
       // Initialize to specific date range with IMyDate object.
       // Begin date = today. End date = today + 3.

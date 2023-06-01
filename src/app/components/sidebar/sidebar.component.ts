@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import {
   faSitemap,
   faBars,
@@ -11,7 +11,7 @@ import {
   faCashRegister,
   faChevronDown,
   faTimeline,
-
+  faMap,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -29,26 +29,8 @@ export class SidebarComponent {
   faGear = faGear;
   faCashRegister = faCashRegister;
   faChevronDown = faChevronDown;
+  faMap = faMap;
 
-  // currentRoute: string;
-
-  // constructor(private router: Router) {
-  //   console.log(this.router.url);
-  //   this.currentRoute = this.router.url;
-  // }
-
-  // onHover() {
-  //   setTimeout(() => {
-  //     // console.log("sidebar onHover() setTimeout(() => {")
-  //     window.dispatchEvent(new Event('resize'));
-  //   }, 500);
-  // }
-
-  // ngOnInit() {
-  //   setTimeout(() => {
-  //     window.dispatchEvent(new Event('resize'));
-  //   }, 500);
-  // }
   openSidebar: boolean = false;
 
   expandSidebar() {
@@ -100,6 +82,11 @@ export class SidebarComponent {
           link: '/org-chart',
           icon: faSitemap,
         },
+        {
+          link_name: 'US Map',
+          link: '/map',
+          icon: faMap,
+        },
         // {
         //   link_name: 'Org Chart 2',
         //   link: '/org-chart-1',
@@ -121,7 +108,7 @@ export class SidebarComponent {
           link_name: 'Timeline 2',
           link: '/timeline-1',
           icon: faTimeline,
-        }
+        },
       ],
     },
     {
@@ -138,9 +125,17 @@ export class SidebarComponent {
     },
   ];
 
-  constructor(private elementRef: ElementRef) {}
+  isLoginPage: boolean = false;
 
-  ngOnInit() {}
+  constructor(private router: Router, private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = event.url === '/login';
+      }
+    });
+  }
 
   showSubmenu(itemEl: HTMLElement) {
     itemEl.classList.toggle('showMenu');

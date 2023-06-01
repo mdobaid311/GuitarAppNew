@@ -20,7 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrgChartComponent } from './components/charts/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- import { CustomModalComponent } from './components/custom-components/custom-modal/custom-modal.component';
+import { CustomModalComponent } from './components/custom-components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales-module/sales/sales.component';
@@ -42,6 +42,15 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
 import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
+import { UsMapComponent } from './components/charts/us-map/us-map.component';
+
+import * as Highcharts from 'highcharts';
+import MapModule from 'highcharts/modules/map';
+import DrilldownModule from 'highcharts/modules/drilldown';
+
+
+MapModule(Highcharts);
+DrilldownModule(Highcharts);
 
 @NgModule({
   declarations: [
@@ -55,7 +64,7 @@ import { HorizontalTimelineComponent } from './components/timeseries/horizontal-
     CustomHeaderComponent,
     SidebarComponent,
     OrgChartComponent,
-     CustomModalComponent,
+    CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
     DaySalesCardComponent,
@@ -71,6 +80,7 @@ import { HorizontalTimelineComponent } from './components/timeseries/horizontal-
     ShortNumberPipe,
     TimelineComponent,
     HorizontalTimelineComponent,
+    UsMapComponent,
   ],
   imports: [
     FormsModule,
