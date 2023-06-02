@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBell, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBell,
+  faCalendar,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import { UserService } from 'src/app/services/user.service';
@@ -13,6 +17,7 @@ import { UserService } from 'src/app/services/user.service';
 export class CustomHeaderComponent {
   faBell = faBell;
   faCalendar = faCalendar;
+  faRightFromBracket = faRightFromBracket;
 
   customDate = new Date();
 
@@ -21,6 +26,12 @@ export class CustomHeaderComponent {
   @Output() onRangeSelect = new EventEmitter<string>();
   @Output() changeDate = new EventEmitter<string>();
   @Input() showDateRangePicker: boolean = false;
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('user');
+    this._router.navigate(['/login']);
+  }
 
   myDpOptions: IAngularMyDpOptions = {
     dateRange: true,

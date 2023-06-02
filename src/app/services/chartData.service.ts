@@ -125,4 +125,9 @@ export class ChartService {
     const url = `${APP_CONSTANTS.URI}/v2/tables?table=${tableName}`;
     return this.httpClient.get<any[]>(url);
   }
+
+  public getMapData(startDate: any, endDate: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/map?start_date=${startDate}&end_date=${endDate}`;
+    return this.httpClient.get<any[]>(url);
+  }
 }

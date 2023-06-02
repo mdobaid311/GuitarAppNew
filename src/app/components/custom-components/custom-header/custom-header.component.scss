@@ -13,6 +13,7 @@ $desktop: 1200px;
   align-items: center;
   justify-content: space-between;
   z-index: 30000;
+  flex: 1;
 
   .main_screen__topbar_left {
     display: flex;
@@ -21,7 +22,7 @@ $desktop: 1200px;
     img {
       width: 90px;
       height: 48px;
-       padding-right: 15px;
+      padding-right: 15px;
       margin: 10px;
       border-right: 1px solid #ccc;
       object-fit: contain;
@@ -36,7 +37,13 @@ $desktop: 1200px;
     display: flex;
     align-items: center;
     margin: 10px;
+    flex: 1;
+    justify-content: flex-end;
 
+
+    @media (max-width: $mobile) {
+      margin-right: 10px;
+    }
     .custom_datepicker {
       margin-right: 20px;
       padding: 10px;
@@ -76,21 +83,6 @@ $desktop: 1200px;
       }
     }
 
-    .topbar_right__notification_bell {
-      width: 25px;
-      height: 25px;
-      margin-left: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .bell_icon {
-        object-fit: contain;
-        font-size: 20px;
-      }
-    }
-
     .topbar_right__profile {
       width: 25px;
       height: 25px;
@@ -100,6 +92,22 @@ $desktop: 1200px;
         object-fit: contain;
         height: 100%;
         width: 100%;
+      }
+    }
+
+    .logout__button {
+      width: 25px;
+      height: 25px;
+      margin-left: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color-1);
+      font-size: 20px;
+
+      .icon {
+        font-size: 20px;
       }
     }
   }

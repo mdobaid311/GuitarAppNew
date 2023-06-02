@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         if (data) {
           this.loginError = false;
           this.userService.setUser(data);
-          this._router.navigate(['/']);
+          this._router.navigate(['/dashboard']);
         }
       },
       (error) => {

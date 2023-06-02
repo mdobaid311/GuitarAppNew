@@ -4,7 +4,10 @@ import * as Highcharts from 'highcharts';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
-import USMap from '@highcharts/map-collection/countries/us/us-all.geo.json';
+import USMap from '@highcharts/map-collection/countries/us/us-all.topo.json';
+import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { ChartService } from 'src/app/services/chartData.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-us-map',
@@ -15,6 +18,15 @@ export class UsMapComponent {
   Highcharts: typeof Highcharts = Highcharts;
   chartConstructor = 'mapChart';
   updateFlag = true;
+
+  globalFromDate: NgbDate;
+  globalToDate: NgbDate | null = null;
+
+  todaysDate = moment(new Date()).format('YYYY-MM-DD');
+  fullDate: any = moment(new Date()).format('YYYY-MM-DD');
+
+  startDate: any = '2023-02-05 00:00:00';
+  endDate: any = '2023-02-05 23:59:59';
 
   data = [
     ['us-', 3684.11, '3.7K'],
@@ -105,6 +117,8 @@ export class UsMapComponent {
     ['us-wy', 880877.06, '881K'],
   ];
 
+  loader = false;
+
   chartOptions: any = {
     chart: {
       map: USMap as any,
@@ -148,33 +162,33 @@ export class UsMapComponent {
           color: '#F8F1F1',
         },
         {
-          from: 100000,
-          to: 1000000,
+          from: 10000,
+          to: 100000,
           color: '#E8AA42',
         },
         {
-          from: 1000000,
-          to: 5000000,
+          from: 100000,
+          to: 500000,
           color: '#C88EA7',
+        },
+        {
+          from: 500000,
+          to: 1000000,
+          color: '#18978F',
+        },
+        {
+          from: 1000000,
+          to: 2500000,
+          color: '#E8D2A6',
+        },
+        {
+          from: 2500000,
+          to: 5000000,
+          color: '#0E5E6F',
         },
         {
           from: 5000000,
           to: 10000000,
-          color: '#18978F',
-        },
-        {
-          from: 10000000,
-          to: 25000000,
-          color: '#E8D2A6',
-        },
-        {
-          from: 25000000,
-          to: 50000000,
-          color: '#0E5E6F',
-        },
-        {
-          from: 50000000,
-          to: 100000000,
           color: '#E76161',
         },
       ],
@@ -200,6 +214,7 @@ export class UsMapComponent {
           },
           color: '#fff',
           style: {
+            fontSize: '15px',
             color: '#fff',
           },
         },
@@ -209,12 +224,15 @@ export class UsMapComponent {
     ],
   };
 
-  constructor() {
+  constructor(private chartData: ChartService, calendar: NgbCalendar) {
     Highcharts.setOptions({
       lang: {
         numericSymbols: [' thousands', ' millions'],
       },
     });
+
+    this.globalFromDate = calendar.getToday();
+    this.globalToDate = calendar.getToday();
   }
 
   ngOnInit(): void {
@@ -223,5 +241,253 @@ export class UsMapComponent {
         numericSymbols: [' thousands', ' millions'],
       },
     });
+
+    this.chartData
+      .getMapData(this.startDate, this.endDate)
+      .subscribe((res: any) => {
+        this.data = res;
+        this.updateChart(res);
+      });
+  }
+
+  onGlobalDateRangeChanged(date: NgbDate) {
+    if (!this.globalFromDate && !this.globalToDate) {
+      this.globalFromDate = date;
+    } else if (
+      this.globalFromDate &&
+      !this.globalToDate &&
+      date.after(this.globalFromDate)
+    ) {
+      this.globalToDate = date;
+    } else {
+      this.globalToDate = null;
+      this.globalFromDate = date;
+    }
+
+    const beginDate =
+      this.globalFromDate.year +
+      '-' +
+      this.globalFromDate.month +
+      '-' +
+      this.globalFromDate.day;
+    const endDate = this.globalToDate
+      ? this.globalToDate.year +
+        '-' +
+        this.globalToDate.month +
+        '-' +
+        this.globalToDate.day
+      : null;
+    if (beginDate && endDate) {
+      this.fullDate = beginDate + ' to ' + endDate;
+      this.chartData.getMapData(beginDate, endDate).subscribe((res: any) => {
+        this.data = res;
+        this.updateChart(res);
+      });
+    }
+  }
+
+  changeDate(value: any) {
+    if (value === 'prev') {
+      this.fullDate = moment(this.fullDate)
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD');
+    } else if (value === 'next') {
+      this.fullDate = moment(this.fullDate).add(1, 'days').format('YYYY-MM-DD');
+    }
+  }
+
+  onRangeSelect(range: any) {
+    if (range === '1m') {
+      const startDate = moment('2023-05-01 16:28:21')
+        .subtract(1, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
+        this.data = res;
+        this.updateChart(res);
+      });
+    } else if (
+      range === '2h' ||
+      range === '6h' ||
+      range === '12h' ||
+      range === '1d'
+    ) {
+      if (range === '2h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(2, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.chartData
+          .getMapData(this.startDate, this.endDate)
+          .subscribe((res: any) => {
+            this.data = res;
+            this.updateChart(res);
+          });
+
+        this.fullDate = 'Last 2 hours';
+      } else if (range === '6h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(6, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.chartData
+          .getMapData(this.startDate, this.endDate)
+          .subscribe((res: any) => {
+            this.data = res;
+            this.updateChart(res);
+          });
+        this.fullDate = 'Last 6 hours';
+      } else if (range === '12h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(12, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.chartData
+          .getMapData(this.startDate, this.endDate)
+          .subscribe((res: any) => {
+            this.data = res;
+            this.updateChart(res);
+          });
+        this.fullDate = 'Last 12 hours';
+      } else if (range === '1d') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(1, 'days')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.chartData
+          .getMapData(this.startDate, this.endDate)
+          .subscribe((res: any) => {
+            this.data = res;
+            this.updateChart(res);
+          });
+        this.fullDate = 'Last 24 hours';
+      }
+    } else if (range === '6m') {
+      const startDate = moment('2023-05-01 16:28:21')
+        .subtract(6, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
+        this.data = res;
+        this.updateChart(res);
+      });
+      this.fullDate = 'Last 6 months';
+    } else if (range === '1y') {
+      const startDate = moment('2023-05-01 16:28:21')
+        .subtract(12, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
+        this.data = res;
+        this.updateChart(res);
+      });
+      this.fullDate = 'Last 12 months';
+    }
+  }
+
+  updateChart(data: any) {
+    this.chartOptions = {
+      chart: {
+        map: USMap as any,
+      },
+      title: {
+        text: 'Sales',
+        style: {
+          color: '#fff',
+          fontSize: '26px',
+          fontFamily: 'Poppins, sans-serif',
+        },
+      },
+      subtitle: {
+        // text: 'Sales by State',
+      },
+      exporting: {
+        enabled: true,
+      },
+      credits: {
+        enabled: true,
+      },
+      mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+          alignTo: 'spacingBox',
+        },
+      },
+      legend: {
+        enabled: true,
+        itemStyle: {
+          color: '#fff',
+        },
+        itemHoverStyle: {
+          color: '#4aa4ff',
+        },
+      },
+      colorAxis: {
+        dataClasses: [
+          {
+            to: 10000,
+            color: '#F8F1F1',
+          },
+          {
+            from: 10000,
+            to: 100000,
+            color: '#E8AA42',
+          },
+          {
+            from: 100000,
+            to: 500000,
+            color: '#C88EA7',
+          },
+          {
+            from: 500000,
+            to: 1000000,
+            color: '#18978F',
+          },
+          {
+            from: 1000000,
+            to: 2500000,
+            color: '#E8D2A6',
+          },
+          {
+            from: 2500000,
+            to: 5000000,
+            color: '#0E5E6F',
+          },
+          {
+            from: 5000000,
+            to: 10000000,
+            color: '#E76161',
+          },
+        ],
+
+        type: 'linear',
+      },
+      series: [
+        {
+          point: {},
+          type: 'map',
+          name: 'Sales',
+          states: {
+            hover: {
+              color: '#BADA55',
+            },
+          },
+          dataLabels: {
+            enabled: true,
+            format: '{point.value}',
+            // format : '{point.name}', to abbreviate the value
+            formatter: () => {
+              return '0';
+            },
+            color: '#fff',
+            style: {
+              color: '#fff',
+            },
+          },
+          data: data,
+          allAreas: false,
+        },
+      ],
+    };
   }
 }
