@@ -28,20 +28,22 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginClick() {
-    this.userService.login(this.username, this.password).subscribe(
-      (data) => {
-        console.log(data);
-        if (data) {
-          this.loginError = false;
-          this.userService.setUser(data);
-          this._router.navigate(['/dashboard']);
+    if (this.username.length > 0 && this.password.length > 0) {
+      this.userService.login(this.username, this.password).subscribe(
+        (data) => {
+          console.log(data);
+          if (data) {
+            this.loginError = false;
+            this.userService.setUser(data);
+            this._router.navigate(['/dashboard']);
+          }
+        },
+        (error) => {
+          this.loginError = true;
+          console.log('error');
         }
-      },
-      (error) => {
-        this.loginError = true;
-        console.log("error");
-      }
-    );
+      );
+    }
   }
 
   ngOnInit(): void {}
