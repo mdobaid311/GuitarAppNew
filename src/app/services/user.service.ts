@@ -34,4 +34,9 @@ export class UserService {
     const requestBody = userData;
     return this.httpClient.post<any[]>(url, requestBody);
   }
+
+  public getUsers() {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/users`;
+    return this.httpClient.get<any[]>(url);
+  }
 }

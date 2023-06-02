@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.2.6",
+    "@angular/animations": "^15.2.9",
     "@angular/cdk": "^15.2.6",
     "@angular/common": "^15.2.5",
     "@angular/compiler": "^15.2.0",
@@ -39,6 +39,7 @@
     "moment": "^2.29.4",
     "momentjs": "^2.0.0",
     "mydatepicker": "^2.6.11",
+    "ngx-toastr": "^17.0.2",
     "primeng": "^15.3.0",
     "proj4": "^2.9.0",
     "rxjs": "~7.8.0",
