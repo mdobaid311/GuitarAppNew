@@ -47,7 +47,7 @@ import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import * as Highcharts from 'highcharts';
 import MapModule from 'highcharts/modules/map';
 import DrilldownModule from 'highcharts/modules/drilldown';
-
+import { ToastrModule } from 'ngx-toastr';
 
 MapModule(Highcharts);
 DrilldownModule(Highcharts);
@@ -98,6 +98,7 @@ DrilldownModule(Highcharts);
     NgbPaginationModule,
     NgbAlertModule,
     NgbDatepickerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

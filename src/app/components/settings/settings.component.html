@@ -19,7 +19,7 @@
               <span>User Management</span>
             </div>
           </div>
-          <button class="create_user__button" (click)="toggleCreateUserForm()">
+          <button class="create_user__button" (click)="toggleCreateUserForm()" *ngIf="user.role==='admin'">
             Create User
             <fa-icon [icon]="faPlus" class="icon"></fa-icon>
           </button>
@@ -36,6 +36,7 @@
                   type="text"
                   id="firstName"
                   placeholder="First name"
+                  [value]="firstName"
                   (input)="onChange('firstName', $event)"
                 />
               </div>
@@ -45,6 +46,7 @@
                   type="text"
                   id="lastName"
                   placeholder="Last name"
+                  [value]="lastName"
                   (input)="onChange('lastName', $event)"
                 />
               </div>
@@ -54,6 +56,7 @@
                   type="email"
                   id="userName"
                   placeholder="Email"
+                  [value]="userName"
                   (input)="onChange('userName', $event)"
                 />
               </div>
@@ -63,6 +66,7 @@
                   type="text"
                   id="role"
                   placeholder="Role"
+                  [value]="role"
                   (input)="onChange('role', $event)"
                 />
               </div>
@@ -72,6 +76,7 @@
                   type="tel"
                   id="password"
                   placeholder="Password"
+                  [value]="password"
                   (input)="onChange('password', $event)"
                 />
               </div>
@@ -98,11 +103,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mohammed</td>
-                  <td>Obaid</td>
-                  <td>mdobaid311@gmail.com</td>
-                  <td>Admin</td>
+                <tr *ngFor="let user of users">
+                  <td>{{user.firstname}}</td>
+                  <td>{{user.lastname}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.role}}</td>
                   <td></td>
                 </tr>
                 <!-- <tr>

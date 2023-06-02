@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { DatetimeService } from 'src/app/services/datetime.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-settings',
@@ -15,14 +16,30 @@ export class SettingsComponent {
 
   constructor(
     private datetime: DatetimeService,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
+
+  user: any;
+
+  users: any;
 
   firstName: string = '';
   lastName: string = '';
   userName: string = '';
   role: string = '';
   password: string = '';
+
+  ngOnInit() {
+    this.userService.user$.subscribe((user) => {
+      this.user = user;
+      console.log(this.user);
+    });
+
+    this.userService.getUsers().subscribe((res) => {
+      this.users = res;
+    });
+  }
 
   onChange(fieldName: string, event: any) {
     switch (fieldName) {
@@ -53,9 +70,13 @@ export class SettingsComponent {
       role: this.role,
       password: this.password,
     };
-    console.log(data)
+    console.log(data);
     this.userService.register(data).subscribe((res) => {
       console.log(res);
+      if (res) {
+        this.toggleCreateUserForm();
+        this.toastr.success('New User Created Successfully');
+      }
     });
   }
 
