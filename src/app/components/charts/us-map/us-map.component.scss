@@ -63,18 +63,9 @@ $desktop: 1200px;
   }
 }
 
-#container {
-  height: 70%;
-  width: 70%;
-}
-
-.chartContainer {
-  height: 70%;
-  width: 70%;
-}
 // apply on ng deep
 
-.highcharts-background {
+:host ::ng-deep .highcharts-background {
   fill: var(--primary-background-3) !important;
   border-radius: 20px;
   box-shadow: var(--primary-boxshadow);
