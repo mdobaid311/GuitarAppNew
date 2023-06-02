@@ -151,6 +151,7 @@ export class AreaSplineChartComponent {
 
   excelFileName: string = 'order_book_line';
 
+
   onTableSelectChange(data: any) {
     this.data = data.data;
     this.excelFileName = data.tableName;

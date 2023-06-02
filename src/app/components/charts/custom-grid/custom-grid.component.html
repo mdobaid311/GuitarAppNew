@@ -1,6 +1,14 @@
 <app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
 
 <div class="chart_container__left">
+  <div class="custom__query">
+    <input
+      type="text"
+      placeholder="Enter a query"
+      (change)="onQueryChange($event)"
+    />
+    <button (click)="getQueryData()">Query</button>
+  </div>
   <div class="left__header">
     <h3>Sales</h3>
 

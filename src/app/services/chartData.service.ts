@@ -83,7 +83,7 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getOrgChartDataByRange(startDate: any, endDate: any,type:any) {
+  public getOrgChartDataByRange(startDate: any, endDate: any, type: any) {
     const url = `${APP_CONSTANTS.URI}/v2/sales/getOrgChartData?start_date=${startDate}&end_date=${endDate}&type=${type}`;
     return this.httpClient.get<any[]>(url);
   }
@@ -129,5 +129,13 @@ export class ChartService {
   public getMapData(startDate: any, endDate: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/map?start_date=${startDate}&end_date=${endDate}`;
     return this.httpClient.get<any[]>(url);
+  }
+
+  public getCustomQueryData(query: string) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
+    const requestBody = {
+      query: query,
+    };
+    return this.httpClient.post<any[]>(url, requestBody);
   }
 }
