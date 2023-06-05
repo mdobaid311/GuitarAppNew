@@ -132,7 +132,8 @@ export class SidebarComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isLoginPage = event.url === '/login';
+        this.isLoginPage = event.url === '/';
+        // this.isLoginPage = event.url === '/login';
       }
     });
   }
