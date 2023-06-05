@@ -48,6 +48,7 @@ import * as Highcharts from 'highcharts';
 import MapModule from 'highcharts/modules/map';
 import DrilldownModule from 'highcharts/modules/drilldown';
 import { ToastrModule } from 'ngx-toastr';
+import { MapComponent } from './components/charts/map/map.component';
 
 MapModule(Highcharts);
 DrilldownModule(Highcharts);
@@ -81,6 +82,7 @@ DrilldownModule(Highcharts);
     TimelineComponent,
     HorizontalTimelineComponent,
     UsMapComponent,
+    MapComponent,
   ],
   imports: [
     FormsModule,

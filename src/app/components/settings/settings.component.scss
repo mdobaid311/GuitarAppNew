@@ -37,7 +37,7 @@
         .main_container__settings_container {
           flex: 1;
           border-radius: 10px;
-          background: var(--primary-background-3);
+          background: var(--primary-background-2);
           box-shadow: var(--primary-boxshadow);
           padding: 20px;
           align-items: start;
@@ -121,7 +121,7 @@
                   font-size: 16px;
                   font-weight: 500;
                   color: var(--primary-color-1);
-                  background: var(--primary-background-2);
+                  background: var(--primary-background-3);
                 }
               }
             }
@@ -161,10 +161,12 @@
               border-spacing: 0;
               flex: 1;
               border-radius: 10px;
+              font-size: 20px;
 
               tr {
                 cursor: pointer;
                 border-radius: 10px;
+                background-color: var(--primary-background-2);
               }
 
               th {
@@ -174,6 +176,15 @@
                 padding: 16px;
                 cursor: pointer;
                 box-shadow: var(--primary-boxshadow);
+                // background: var(--primary-background-3);
+              }
+
+              thead {
+                tr {
+                  th {
+                    background-color: var(--primary-background-3) !important;
+                  }
+                }
               }
 
               td {
