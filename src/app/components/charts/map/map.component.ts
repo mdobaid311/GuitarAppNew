@@ -8,11 +8,11 @@ import { ChartService } from 'src/app/services/chartData.service';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-us-map',
-  templateUrl: './us-map.component.html',
-  styleUrls: ['./us-map.component.scss'],
+  selector: 'app-map',
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.scss'],
 })
-export class UsMapComponent {
+export class MapComponent {
   Highcharts: typeof Highcharts = Highcharts;
   chartConstructor = 'mapChart';
   updateFlag = true;
@@ -245,7 +245,7 @@ export class UsMapComponent {
         },
       },
       mapNavigation: {
-        enabled: false,
+        enabled: true,
         buttonOptions: {
           alignTo: 'spacingBox',
         },
