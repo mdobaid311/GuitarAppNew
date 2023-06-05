@@ -13,7 +13,7 @@ import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import { MapComponent } from './components/charts/map/map.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'area-chart', component: AreaSplineChartComponent },
   { path: 'org-chart', component: OrgChartComponent },

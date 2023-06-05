@@ -30,7 +30,8 @@ export class CustomHeaderComponent {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
-    this._router.navigate(['/login']);
+    this._router.navigate(['/']);
+    // this._router.navigate(['/login']);
   }
 
   myDpOptions: IAngularMyDpOptions = {
