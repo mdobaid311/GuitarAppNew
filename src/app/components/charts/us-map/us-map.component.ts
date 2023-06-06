@@ -707,6 +707,37 @@ export class UsMapComponent {
                 .getCityData(this.startDate, this.endDate, e.point.drilldown)
                 .subscribe((res: any) => {
                   cityData = res;
+                  const totalSum = res.reduce((acc: any, item: any) => {
+                    return acc + +item.original_order_total_amount;
+                  }, 0);
+
+                  const output = res.map((item: any) => {
+                    return [
+                      ('us-' + item.city.trim()).toLowerCase(),
+                      +item.original_order_total_amount,
+                      Math.round(
+                        (+item.original_order_total_amount / totalSum) * 10000
+                      ) / 100,
+                    ];
+                  });
+
+                  const sortedArray = output.sort((a: any, b: any) => {
+                    return b[1] - a[1];
+                  });
+
+                  const tableData = sortedArray.map((row: any) => {
+                    return Object.values(row);
+                  });
+                  this.originalData = sortedArray;
+
+                  this.columnsData = this.columns.map((column: string) => {
+                    return {
+                      name: column,
+                      isSelected: true,
+                    };
+                  });
+                  this.newData = tableData;
+                  this.filteredData = tableData;
 
                   // cityData format
                   //   {
