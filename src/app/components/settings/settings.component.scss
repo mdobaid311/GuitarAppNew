@@ -169,6 +169,11 @@
                 background-color: var(--primary-background-2);
               }
 
+              tr:nth-child(even) {
+                background-color: var(--primary-background-3);
+                color: var(--primary-color-3);
+              }
+
               th {
                 font-weight: bold;
                 text-align: left;

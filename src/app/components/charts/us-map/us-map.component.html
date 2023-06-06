@@ -22,9 +22,28 @@
           [options]="chartOptions"
           [(update)]="updateFlag"
           #chartContainer
-          style="width: 70%; height: 70%"
+          style="flex: 1; height: 60%"
+          class="map__container"
         >
         </highcharts-chart>
+        <div class="table__container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th *ngFor="let column of columns">
+                  {{ column }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of filteredData">
+                <td *ngFor="let column of row">
+                  {{ column ? column : ("null" | json) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

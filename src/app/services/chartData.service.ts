@@ -131,6 +131,11 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
+  public getCityData(startDate: any, endDate: any,city:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getCityData?start_date=${startDate}&end_date=${endDate}&city=${city}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
   public getCustomQueryData(query: string) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
     const requestBody = {
