@@ -160,9 +160,10 @@ export class MapComponent {
               // Handle error, the timeout is cleared on success
               let fail = setTimeout(() => {
                 if (!Highcharts.maps[mapKey]) {
-                  chart.showLoading(
-                    '<i class="icon-frown"></i> Failed loading ' + e.point.value
-                  );
+                  chart.showLoading(`
+                    <i class="icon-frown"></i>
+                    Failed loading ${e.point.name}
+                  `);
                   fail = setTimeout(() => {
                     chart.hideLoading();
                   }, 1000);
@@ -172,7 +173,7 @@ export class MapComponent {
               // Show the spinner
               chart.showLoading(
                 '<i class="icon-spinner icon-spin icon-3x"></i>'
-              ); // Font Awesome spinner
+              );
 
               // Load the drilldown map
               fetch(
@@ -191,23 +192,13 @@ export class MapComponent {
                   // const drillDownData = Highcharts.geojson(mapData);
                   Highcharts.maps[mapKey] = data;
 
-                  data.forEach((d, i) => {
-                    d.mapLocation =
-                      'countries/' +
-                      d.properties['hc-key'] +
-                      '/' +
-                      d.properties['hc-key'] +
-                      '-all';
-                    d.drilldown = d.properties['hc-key'];
-                  });
-
                   // Hide loading and add series
                   chart.hideLoading();
                   clearTimeout(fail);
                   chart.addSeriesAsDrilldown(e.point, {
                     name: e.point.value,
                     mapData: Highcharts.maps[mapKey],
-                    data: [],
+                    data: data,
                     type: 'map',
                     cities: {
                       hover: {

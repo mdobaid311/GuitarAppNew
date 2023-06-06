@@ -56,6 +56,83 @@ $desktop: 1200px;
         padding: 10px 15px;
 
         @media only screen and (max-width: $mobile) {
+          flex-direction: column;
+        }
+
+        .map__container {
+          flex: 1;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          padding: 10px 15px;
+          overflow: visible !important;
+        }
+
+        .table__container {
+          display: flex;
+          width: 100%;
+          flex: 1;
+          max-height: 80vh;
+          overflow: auto !important;
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            flex: 1;
+            border-radius: 10px;
+            font-size: 20px;
+            margin: 0 20px;
+            max-height: 1000px;
+            overflow: scroll !important;
+
+            tr {
+              cursor: pointer;
+              border-radius: 10px;
+              background-color: var(--primary-background-2);
+            }
+
+            tr:nth-child(even) {
+              background-color: var(--primary-background-3);
+              color: var(--primary-color-3);
+            }
+
+            th {
+              font-weight: bold;
+              text-align: left;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+              padding: 16px;
+              cursor: pointer;
+              box-shadow: var(--primary-boxshadow);
+              // background: var(--primary-background-3);
+            }
+
+            thead {
+              tr {
+                th {
+                  background-color: var(--primary-background-3) !important;
+                }
+              }
+            }
+
+            td {
+              border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+              padding: 16px;
+              border: 1px solid transparent;
+              box-shadow: var(--primary-boxshadow);
+            }
+
+            td:hover {
+              border-bottom: 1px solid var(--primary-color-1);
+            }
+
+            tr:hover {
+              background-color: var(--primary-background-2);
+            }
+          }
+        }
+
+        @media only screen and (max-width: $mobile) {
           width: 100%;
         }
       }
