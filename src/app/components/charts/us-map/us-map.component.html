@@ -37,9 +37,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-                <td *ngFor="let column of row">
-                  {{ column ? column : ("null" | json) }}
+                <td *ngFor="let column of row.slice(0, 2)">
+                  {{ column ? column : 0 }}
                 </td>
+                <td>{{ row[2] }} %</td>
               </tr>
             </tbody>
           </table>
