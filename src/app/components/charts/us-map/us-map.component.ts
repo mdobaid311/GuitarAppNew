@@ -159,8 +159,8 @@ export class UsMapComponent {
         isSelected: true,
       };
     });
-    this.newData = tableData;
-    this.filteredData = tableData;
+
+    this.filteredData = tableData.slice(0, 10);
 
     const data = Highcharts.geojson(USMap);
 
@@ -736,8 +736,8 @@ export class UsMapComponent {
                       isSelected: true,
                     };
                   });
-                  this.newData = tableData;
-                  this.filteredData = tableData;
+
+                  this.filteredData = tableData.slice(0, 10);
 
                   // cityData format
                   //   {
