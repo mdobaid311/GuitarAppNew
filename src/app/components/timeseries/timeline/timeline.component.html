@@ -2,199 +2,47 @@
   <div class="timeline_container">
     <div class="timeline__main_screen">
       <!-- header -->
-      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <app-custom-header></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Timeline</h3>
-          <app-custom-select
-            [options]="timelineSelectOptions"
-            [selectIcon]="faClock"
-          ></app-custom-select>
+          <div class="date_picker">
+            <button
+              (click)="dp.toggleCalendar()"
+              angular-mydatepicker
+              [options]="myDpOptions"
+              (dateChanged)="onDateChanged($event)"
+              #dp="angular-mydatepicker"
+            >
+              Change Date
+              <fa-icon
+                [icon]="faCalendar"
+                class="icon"
+                class="date-selector-input-box"
+              ></fa-icon>
+            </button>
+            <!-- <app-custom-select
+              [options]="timelineSelectOptions"
+              [selectIcon]="faClock"
+            ></app-custom-select> -->
+          </div>
         </div>
         <div class="main_container__timeline">
           <table>
             <thead>
               <tr>
-                <th>May 2023</th>
-                <th>Booked</th>
-                <th>Backordered</th>
-                <th>Cancelled</th>
-                <th>Store Resources</th>
-                <th>Sent to DC</th>
-                <th>Sent to Store</th>
-                <th>Sent to Vendor</th>
-                <th>DC to Customer</th>
-                <th>DC to Store</th>
-                <th>Store to Customer</th>
-                <th>Store to Store</th>
-                <th>Store - Store Pickup</th>
-                <th>Ready for Pickup</th>
-                <th>Customer Picked Up</th>
-                <th>Returns</th>
+                <th></th>
+                <th>Total</th>
+                <th *ngFor="let item of timeseriesDates">{{ item }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>01</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>02</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>03</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>04</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>05</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>06</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>07</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>08</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>09</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+              <tr *ngFor="let row of timeseriesData">
+                <td>
+                  {{ row.status_name }}
+                </td>
+                <td>{{ row.sum }}</td>
+                <td *ngFor="let item of row.date_values">{{ item }}</td>
               </tr>
             </tbody>
           </table>

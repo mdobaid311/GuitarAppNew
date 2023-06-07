@@ -37,9 +37,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-                <td *ngFor="let column of row.slice(0, 2)">
-                  {{ column ? column : 0 }}
-                </td>
+
+                <td>{{ row[0] }} </td>
+                <td>{{ row[1] |shortNumber}} </td>
                 <td>{{ row[2] }} %</td>
               </tr>
             </tbody>
