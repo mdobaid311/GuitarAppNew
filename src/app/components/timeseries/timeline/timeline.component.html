@@ -5,8 +5,15 @@
       <app-custom-header></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
-          <h3>Timeline</h3>
+          <h3>Time Series</h3>
+
           <div class="date_picker">
+            <input
+              type="text"
+              placeholder="Search..."
+              (input)="onSearch($event)"
+            />
+            <button (click)="toggleTimeSeriesModal()">View Timeseries</button>
             <button
               (click)="dp.toggleCalendar()"
               angular-mydatepicker
@@ -21,10 +28,25 @@
                 class="date-selector-input-box"
               ></fa-icon>
             </button>
-            <!-- <app-custom-select
-              [options]="timelineSelectOptions"
-              [selectIcon]="faClock"
-            ></app-custom-select> -->
+            <div class="view_selection_container">
+              <fa-icon
+                [icon]="faEllipsisVertical"
+                class="icon"
+                (click)="toggleStatusSelectionContainer()"
+              ></fa-icon>
+              <div class="view__options" *ngIf="statusSelectionContainer">
+                <button>Seelct ALl</button>
+                <div class="view_option" *ngFor="let row of rowsData">
+                  <input
+                    type="checkbox"
+                    name="{{ row.name }}"
+                    [checked]="row.isSelected"
+                    (click)="onRowSelectChange(row.name)"
+                  />
+                  <span> {{ row.name }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="main_container__timeline">
@@ -49,5 +71,12 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="timeseries__container" *ngIf="timeSeriesModal">
+  <div class="overlay" (click)="toggleTimeSeriesModal()"></div>
+  <div class="modal">
+    <app-horizontal-timeline></app-horizontal-timeline>
   </div>
 </div>

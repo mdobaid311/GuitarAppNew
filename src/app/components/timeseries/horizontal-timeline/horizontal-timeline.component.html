@@ -1,33 +1,42 @@
-<div class="timeline__screen">
-  <div class="timeline_container">
-    <div class="timeline__main_screen">
-      <!-- header -->
-      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
-      <div class="main_screen__main_container">
-        <div class="main_container__heading">
-          <h3>Timeline</h3>
-          <app-custom-select
-            [options]="timelineSelectOptions"
-            [selectIcon]="faClock"
-          ></app-custom-select>
-        </div>
-        <div class="main_container__timeline">
+<div class="main_container__timeline">
+  <table>
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Time Series</th>
+        <!-- <th *ngFor="let item of timeseriesDates">{{ item }}</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of timeseriesTimelineData">
+        <td>
+          {{ row.status_name }}
+        </td>
+        <!-- <td>{{ row.sum }}</td> -->
+        <td class="statusPoints">
           <section class="time-line-box">
             <div class="swiper-container text-center">
               <div class="swiper-wrapper">
-                <div class="swiper-slide" *ngFor="let item of series">
+                <div
+                  class="swiper-slide"
+                  *ngFor="let item of row.lineTotalSum; let i = index"
+                >
                   <div class="timestamp">
-                    <span class="order_status">{{ item.value }}</span>
+                    <span class="order_status">{{
+                      timeseriesTimelineDates[i]
+                        ? timeseriesTimelineDates[i]
+                        : row.lastDate
+                    }}</span>
                   </div>
                   <div class="status">
-                    <span>{{ item.name }}</span>
+                    <span>{{ item }}</span>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-        </div>
-      </div>
-    </div>
-  </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

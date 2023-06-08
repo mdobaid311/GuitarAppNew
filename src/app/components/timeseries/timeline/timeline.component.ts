@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { faClock, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faCalendar,
+  faEllipsisVertical,
+} from '@fortawesome/free-solid-svg-icons';
 import data from './data.json';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import moment from 'moment';
@@ -14,6 +18,7 @@ export class TimelineComponent {
 
   faClock = faClock;
   faCalendar = faCalendar;
+  faEllipsisVertical = faEllipsisVertical;
 
   timelineSelectOptions = [
     { name: '1', icon: faClock },
@@ -25,10 +30,78 @@ export class TimelineComponent {
 
   timeseriesDates: any;
   timeseriesData: any;
+  originalData: any;
+
+  rowsData: any;
+  rows: any;
+
+
 
   ngOnInit() {
     this.timeseriesDates = data.dates;
     this.timeseriesData = data.timeSeries;
+    this.originalData = data.timeSeries;
+
+
+    this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
+      return [...acc, item.status_name];
+    }, []);
+
+    this.rowsData = this.rows.map((column: string) => {
+      return {
+        name: column,
+        isSelected: true,
+      };
+    });
+  }
+
+  onRowSelectChange(rowName: any) {
+    //  if row is selected, remove the row from data
+
+    this.timeseriesData = this.timeseriesData.filter((item: any) => {
+      return item.status_name !== rowName;
+    });
+
+    console.log(this.timeseriesData);
+
+    this.rowsData = this.rowsData.map((row: any) => {
+      if (row.name === rowName) {
+        row.isSelected = !row.isSelected;
+      }
+      return row;
+    });
+
+    //  if row is not selected, add the row to data from original data
+
+    if (!this.rowsData.find((row: any) => row.name === rowName).isSelected) {
+      const rowData = this.originalData.find(
+        (item: any) => item.status_name === rowName
+      );
+      this.timeseriesData = [...this.timeseriesData, rowData];
+    }
+
+    console.log(this.timeseriesData);
+  }
+
+  timeSeriesModal = false;
+
+  toggleTimeSeriesModal() {
+    this.timeSeriesModal = !this.timeSeriesModal;
+    console.log(this.timeSeriesModal);
+  }
+
+  statusSelectionContainer = false;
+
+  toggleStatusSelectionContainer() {
+    this.statusSelectionContainer = !this.statusSelectionContainer;
+  }
+
+  onSearch(event: any) {
+    this.timeseriesData = this.originalData.filter((item: any) => {
+      return item.status_name
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase());
+    });
   }
 
   onDateChanged(event: IMyDateModel) {

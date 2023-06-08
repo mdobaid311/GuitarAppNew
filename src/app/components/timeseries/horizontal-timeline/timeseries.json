@@ -1,0 +1,209 @@
+{
+  "timeLineDates": ["2023-04-03", "2023-04-13", "2023-04-18", "2023-04-28"],
+  "mergedData": [
+    {
+      "status_name": "Created",
+      "lastDate": "2023-05-24",
+      "QtySum": [13243, 13270, 13272, 13277, 13284],
+      "lineTotalSum": [2742210, 2745536, 2745626, 2748404, 2751104]
+    },
+    {
+      "status_name": "Back Ordered",
+      "lastDate": "2023-05-24",
+      "QtySum": [557, 619, 636, 643, 672],
+      "lineTotalSum": [120708, 135836, 139031, 145586, 169628]
+    },
+    {
+      "status_name": "Shipment Stopped",
+      "lastDate": "2023-05-24",
+      "QtySum": [89, 91, 91, 91, 92],
+      "lineTotalSum": [8123, 8123, 8123, 8123, 8261]
+    },
+    {
+      "status_name": "BackOrderedOMS",
+      "lastDate": "2023-05-24",
+      "QtySum": [577, 636, 640, 642, 642],
+      "lineTotalSum": [172259, 182352, 182352, 183547, 183547]
+    },
+    {
+      "status_name": "BackOrderedDAXAllocated",
+      "lastDate": "2023-05-24",
+      "QtySum": [128, 159, 162, 174, 205],
+      "lineTotalSum": [46166, 56293, 59488, 72960, 101660]
+    },
+    {
+      "status_name": "Unscheduled",
+      "lastDate": "2023-05-24",
+      "QtySum": [1181, 1579, 1623, 1672, 1729],
+      "lineTotalSum": [63804, 116928, 130444, 139318, 145605]
+    },
+    {
+      "status_name": "UnscheduledPODAX",
+      "lastDate": "2023-05-24",
+      "QtySum": [626, 899, 1113, 1262, 1833],
+      "lineTotalSum": [53656, 225392, 359551, 444674, 857548]
+    },
+    {
+      "status_name": "RecievedPODAX",
+      "lastDate": "2023-05-24",
+      "QtySum": [3, 14, 14, 15, 17],
+      "lineTotalSum": [832, 1140, 1140, 1322, 1746]
+    },
+    {
+      "status_name": "Back Ordered From Node",
+      "lastDate": "2023-05-24",
+      "QtySum": [405, 442, 444, 445, 446],
+      "lineTotalSum": [98947, 104425, 104425, 105023, 105161]
+    },
+    {
+      "status_name": "Scheduled",
+      "lastDate": "2023-05-24",
+      "QtySum": [12408, 12913, 12999, 13111, 13318],
+      "lineTotalSum": [2545015, 2701473, 2738828, 2788726, 2905735]
+    },
+    {
+      "status_name": "ScheduledPODAX",
+      "lastDate": "2023-05-24",
+      "QtySum": [1154, 1832, 2038, 2306, 3111],
+      "lineTotalSum": [250340, 451654, 520326, 668783, 1016545]
+    },
+    {
+      "status_name": "ScheduledPODAXAllocated",
+      "lastDate": "2023-05-24",
+      "QtySum": [250, 356, 416, 488, 636],
+      "lineTotalSum": [19238, 87744, 118920, 161526, 263209]
+    },
+    {
+      "status_name": "Awaiting Chained Order Creation",
+      "lastDate": "2023-05-24",
+      "QtySum": [40, 40, 40, 40, 40],
+      "lineTotalSum": [7728, 7728, 7728, 7728, 7728]
+    },
+    {
+      "status_name": "Chained Order Created",
+      "lastDate": "2023-05-24",
+      "QtySum": [40, 40, 40, 40, 40],
+      "lineTotalSum": [7728, 7728, 7728, 7728, 7728]
+    },
+    {
+      "status_name": "Released",
+      "lastDate": "2023-05-24",
+      "QtySum": [10491, 10762, 10810, 10884, 10965],
+      "lineTotalSum": [2324253, 2422361, 2430549, 2455386, 2484224]
+    },
+    {
+      "status_name": "Stop Shipment Requested",
+      "lastDate": "2023-05-24",
+      "QtySum": [90, 92, 92, 92, 93],
+      "lineTotalSum": [8155, 8155, 8155, 8155, 8293]
+    },
+    {
+      "status_name": "Stop Shipment Failed",
+      "lastDate": "2023-05-23",
+      "QtySum": [1, 1, 1, 1, 1],
+      "lineTotalSum": [668, 668, 668, 668, 668]
+    },
+    {
+      "status_name": "Release In Review",
+      "lastDate": "2023-05-24",
+      "QtySum": [13, 13, 15, 16, 21],
+      "lineTotalSum": [949, 949, 1534, 1558, 1877]
+    },
+    {
+      "status_name": "Included In Shipment",
+      "lastDate": "2023-05-24",
+      "QtySum": [6091, 6236, 6249, 6253, 6259],
+      "lineTotalSum": [1899297, 1961483, 1962344, 1964734, 1970207]
+    },
+    {
+      "status_name": "Backroom Picked",
+      "lastDate": "2023-05-24",
+      "QtySum": [2887, 2983, 2985, 2986, 2986],
+      "lineTotalSum": [944811, 994845, 995275, 995873, 995873]
+    },
+    {
+      "status_name": "Sent To Fulfillment Center",
+      "lastDate": "2023-05-24",
+      "QtySum": [3235, 3306, 3313, 3315, 3319],
+      "lineTotalSum": [1046828, 1079162, 1079593, 1080788, 1088089]
+    },
+    {
+      "status_name": "Shipped",
+      "lastDate": "2023-05-24",
+      "QtySum": [9731, 10157, 10198, 10289, 10366],
+      "lineTotalSum": [2160492, 2318294, 2328314, 2357507, 2384181]
+    },
+    {
+      "status_name": "Invoiced",
+      "lastDate": "2023-05-24",
+      "QtySum": [17, 17, 17, 17, 17],
+      "lineTotalSum": [34771, 34771, 34771, 34771, 34771]
+    },
+    {
+      "status_name": "Pending Sales Ticket Creation",
+      "lastDate": "2023-05-24",
+      "QtySum": [1475, 1475, 1475, 1475, 1475],
+      "lineTotalSum": [163897, 163897, 163897, 163897, 163897]
+    },
+    {
+      "status_name": "Lessons Sales Ticket failure",
+      "lastDate": "2023-05-17",
+      "QtySum": [1, 1, 1, 1, 1],
+      "lineTotalSum": [105, 105, 105, 105, 105]
+    },
+    {
+      "status_name": "Lessons Invoiced",
+      "lastDate": "2023-05-24",
+      "QtySum": [1470, 1471, 1471, 1471, 1471],
+      "lineTotalSum": [163209, 163314, 163314, 163314, 163314]
+    },
+    {
+      "status_name": "Pending COA Credit",
+      "lastDate": "2023-05-24",
+      "QtySum": [17, 17, 17, 17, 17],
+      "lineTotalSum": [34771, 34771, 34771, 34771, 34771]
+    },
+    {
+      "status_name": "COA Credit Submitted",
+      "lastDate": "2023-05-24",
+      "QtySum": [17, 17, 17, 17, 17],
+      "lineTotalSum": [34771, 34771, 34771, 34771, 34771]
+    },
+    {
+      "status_name": "Shipped to Customer",
+      "lastDate": "2023-05-24",
+      "QtySum": [1514, 1626, 1628, 1633, 1633],
+      "lineTotalSum": [512676, 566002, 567130, 570093, 570093]
+    },
+    {
+      "status_name": "Pending Receipt",
+      "lastDate": "2023-05-24",
+      "QtySum": [1481, 1623, 1630, 1640, 1647],
+      "lineTotalSum": [532380, 580392, 582079, 593238, 596771]
+    },
+    {
+      "status_name": "Ready for Customer Pickup",
+      "lastDate": "2023-05-24",
+      "QtySum": [1277, 2450, 2465, 2485, 2496],
+      "lineTotalSum": [366311, 763797, 768346, 785007, 787658]
+    },
+    {
+      "status_name": "Customer Picked Up",
+      "lastDate": "2023-05-24",
+      "QtySum": [891, 2224, 2344, 2448, 2491],
+      "lineTotalSum": [263690, 706812, 748207, 770719, 787025]
+    },
+    {
+      "status_name": "Return Created",
+      "lastDate": "2023-05-24",
+      "QtySum": [108, 527, 590, 708, 790],
+      "lineTotalSum": [48305, 248357, 288908, 337647, 373649]
+    },
+    {
+      "status_name": "Return Received",
+      "lastDate": "2023-05-24",
+      "QtySum": [86, 473, 551, 668, 770],
+      "lineTotalSum": [39024, 217546, 263013, 315302, 364970]
+    }
+  ]
+}
