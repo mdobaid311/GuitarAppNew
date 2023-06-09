@@ -85,6 +85,7 @@ $desktop: 1200px;
             margin: 0 20px;
             max-height: 1000px;
             overflow: scroll !important;
+            table-layout: fixed; /* Added */
 
             tr {
               cursor: pointer;
@@ -101,10 +102,13 @@ $desktop: 1200px;
               font-weight: bold;
               text-align: left;
               border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-              padding: 16px;
+              /* padding: 16px; */ /* Removed */
               cursor: pointer;
               box-shadow: var(--primary-boxshadow);
-              // background: var(--primary-background-3);
+              width: 100%; /* Added */
+              box-sizing: border-box; /* Added */
+              padding: 16px; /* Added */
+              /* background: var(--primary-background-3); */
             }
 
             thead {
@@ -117,9 +121,12 @@ $desktop: 1200px;
 
             td {
               border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-              padding: 16px;
+              /* padding: 16px; */ /* Removed */
               border: 1px solid transparent;
               box-shadow: var(--primary-boxshadow);
+              width: 100%; /* Added */
+              box-sizing: border-box; /* Added */
+              padding: 16px; /* Added */
             }
 
             td:hover {
@@ -130,6 +137,7 @@ $desktop: 1200px;
               background-color: var(--primary-background-2);
             }
           }
+
         }
 
         @media only screen and (max-width: $mobile) {
