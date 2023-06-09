@@ -77,6 +77,8 @@
 <div class="timeseries__container" *ngIf="timeSeriesModal">
   <div class="overlay" (click)="toggleTimeSeriesModal()"></div>
   <div class="modal">
-    <app-horizontal-timeline></app-horizontal-timeline>
+    <app-horizontal-timeline
+      [timeseriesDate]="selectedDate"
+    ></app-horizontal-timeline>
   </div>
 </div>

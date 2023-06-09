@@ -136,16 +136,23 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getTimeSeriesData(date: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/timeSeriesData?date=${date}`;
-    return this.httpClient.get<any[]>(url);
-  }
-
   public getCustomQueryData(query: string) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
     const requestBody = {
       query: query,
     };
     return this.httpClient.post<any[]>(url, requestBody);
+  }
+
+  // Time series data
+
+  public getTimeSeriesData(date: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/timeSeriesData?date=${date}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getTimeSeriesMilestones(date: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getDataForTimeSeries?date=${date}`;
+    return this.httpClient.get<any[]>(url);
   }
 }
