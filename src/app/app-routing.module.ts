@@ -11,6 +11,7 @@ import { TimelineComponent } from './components/timeseries/timeline/timeline.com
 import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
 import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import { MapComponent } from './components/charts/map/map.component';
+import { ReturnsComponent } from './components/returns-module/returns/returns.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -20,10 +21,14 @@ const routes: Routes = [
   { path: 'org-chart-1', component: Orgchart2Component },
   { path: 'sales', component: SalesComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'timeline', component: TimelineComponent },
+  { path: 'timeseries', component: TimelineComponent },
   { path: 'timeline-1', component: HorizontalTimelineComponent },
   { path: 'map', component: UsMapComponent },
   { path: 'map-2', component: MapComponent },
+  {
+    path: 'returns',
+    component: ReturnsComponent,
+  },
 ];
 
 @NgModule({

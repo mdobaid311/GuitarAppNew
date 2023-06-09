@@ -76,6 +76,28 @@ export class TimelineComponent {
     console.log(this.timeseriesData);
   }
 
+  allSelected = true;
+
+  onSelectAllRows() {
+    this.allSelected = !this.allSelected;
+
+    this.rowsData.forEach((row: any) => {
+      row.isSelected = this.allSelected;
+    });
+
+    this.timeseriesData = [];
+
+    this.rowsData.forEach((row: any) => {
+      if (row.isSelected) {
+        const rowData = this.originalData.find(
+          (item: any) => item.status_name === row.name
+        );
+        if (rowData) {
+          this.timeseriesData.push(rowData);
+        }
+      }
+    });
+  }
 
   timeSeriesModal = false;
 

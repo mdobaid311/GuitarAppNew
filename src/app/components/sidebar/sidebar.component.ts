@@ -12,6 +12,7 @@ import {
   faChevronDown,
   faTimeline,
   faMap,
+  faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -30,6 +31,7 @@ export class SidebarComponent {
   faCashRegister = faCashRegister;
   faChevronDown = faChevronDown;
   faMap = faMap;
+  faRotateLeft = faRotateLeft;
 
   openSidebar: boolean = false;
 
@@ -87,27 +89,29 @@ export class SidebarComponent {
           link: '/map',
           icon: faMap,
         },
-        // {
-        //   link_name: 'Org Chart 2',
-        //   link: '/org-chart-1',
-        //   icon: faSitemap,
-        // },
       ],
     },
     {
-      link_name: 'Timeline',
-      link: '/timeline',
+      link_name: 'Timeseries',
+      link: '/timeseries',
       icon: faTimeline,
       sub_menu: [
         {
-          link_name: 'Timeline',
-          link: '/timeline',
+          link_name: 'Timeseries',
+          link: '/timeseries',
           icon: faTimeline,
         },
+      ],
+    },
+    {
+      link_name: 'Returns',
+      link: '/returns',
+      icon: faRotateLeft,
+      sub_menu: [
         {
-          link_name: 'Timeline 2',
-          link: '/timeline-1',
-          icon: faTimeline,
+          link_name: 'Returns',
+          link: '/returns',
+          icon: faRotateLeft,
         },
       ],
     },

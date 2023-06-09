@@ -35,7 +35,9 @@
                 (click)="toggleStatusSelectionContainer()"
               ></fa-icon>
               <div class="view__options" *ngIf="statusSelectionContainer">
-                <button>Seelct ALl</button>
+                <button (click)="onSelectAllRows()">
+                  {{ allSelected ? "Unselect All" : "Select All" }}
+                </button>
                 <div class="view_option" *ngFor="let row of rowsData">
                   <input
                     type="checkbox"
