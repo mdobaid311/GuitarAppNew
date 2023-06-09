@@ -35,13 +35,10 @@ export class TimelineComponent {
   rowsData: any;
   rows: any;
 
-
-
   ngOnInit() {
     this.timeseriesDates = data.dates;
     this.timeseriesData = data.timeSeries;
     this.originalData = data.timeSeries;
-
 
     this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
       return [...acc, item.status_name];
@@ -56,32 +53,29 @@ export class TimelineComponent {
   }
 
   onRowSelectChange(rowName: any) {
-    //  if row is selected, remove the row from data
+    // Find the selected row
+    const selectedRow = this.rowsData.find((row: any) => row.name === rowName);
 
-    this.timeseriesData = this.timeseriesData.filter((item: any) => {
-      return item.status_name !== rowName;
-    });
+    // Toggle the isSelected property of the selected row
+    selectedRow.isSelected = !selectedRow.isSelected;
 
-    console.log(this.timeseriesData);
+    // Update the timeseriesData based on the isSelected property
+    this.timeseriesData = [];
 
-    this.rowsData = this.rowsData.map((row: any) => {
-      if (row.name === rowName) {
-        row.isSelected = !row.isSelected;
+    this.rowsData.forEach((row: any) => {
+      if (row.isSelected) {
+        const rowData = this.originalData.find(
+          (item: any) => item.status_name === row.name
+        );
+        if (rowData) {
+          this.timeseriesData.push(rowData);
+        }
       }
-      return row;
     });
-
-    //  if row is not selected, add the row to data from original data
-
-    if (!this.rowsData.find((row: any) => row.name === rowName).isSelected) {
-      const rowData = this.originalData.find(
-        (item: any) => item.status_name === rowName
-      );
-      this.timeseriesData = [...this.timeseriesData, rowData];
-    }
 
     console.log(this.timeseriesData);
   }
+
 
   timeSeriesModal = false;
 
@@ -104,14 +98,15 @@ export class TimelineComponent {
     });
   }
 
-  onDateChanged(event: IMyDateModel) {
-    console.log(event.singleDate?.formatted);
-    // convert from this format 21.04.2023 to this format 2023-04-21
+  selectedDate: any = '2023-03-22';
 
+  onDateChanged(event: IMyDateModel) {
     const formattedDate = moment(
       event.singleDate?.formatted,
       'DD.MM.YYYY'
     ).format('YYYY-MM-DD');
+
+    this.selectedDate = formattedDate;
 
     this.chartService.getTimeSeriesData(formattedDate).subscribe((res: any) => {
       console.log(res);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faClock, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import data from './data.json';
 import timeseriesData from './timeseries.json';
@@ -12,6 +12,8 @@ import { ChartService } from 'src/app/services/chartData.service';
   styleUrls: ['./horizontal-timeline.component.scss'],
 })
 export class HorizontalTimelineComponent {
+  @Input() timeseriesDate: any;
+
   timelineSelectOptions = [
     { name: '1', icon: faClock },
     { name: '2', icon: faClock },
@@ -58,7 +60,14 @@ export class HorizontalTimelineComponent {
     this.timeseriesTimelineData = timeseriesData.mergedData;
     this.timeseriesTimelineDates = timeseriesData.timeLineDates;
 
-    console.log(this.timeseriesTimelineData);
+    this.chartService
+      .getTimeSeriesMilestones(this.timeseriesDate)
+      .subscribe((res: any) => {
+        console.log(res);
+
+        this.timeseriesTimelineData = res.mergedData;
+        this.timeseriesTimelineDates = res.timeLineDates;
+      });
   }
 
   onDateChanged(event: IMyDateModel) {
