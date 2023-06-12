@@ -1,0 +1,286 @@
+<app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
+<div class="returns__screen">
+  <div class="returns_container">
+    <div class="returns__main_screen">
+      <!-- header -->
+      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <div class="heading__flexbox">
+            <h3>Returns</h3>
+          </div>
+        </div>
+        <div class="main_container__returns_container">
+          <div class="overall_total_return_stats">
+            <div class="overall_total__stats_contianer">
+              <h1>By Value</h1>
+              <div class="totals">
+                <div class="overall_total__stats__item">
+                  <h3>Return Booked</h3>
+                  <h1>
+                    ${{
+                      returnsData.returnStats[0].returns_booked | shortNumber
+                    }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>=</h1></div>
+                <div class="overall_total__stats__item">
+                  <h3>Return Recieved</h3>
+                  <h1>
+                    ${{
+                      returnsData.returnStats[0].return_received_value
+                        | shortNumber
+                    }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+                <div class="overall_total__stats__item">
+                  <h3>Return NPR'ed</h3>
+                  <h1>
+                    ${{ returnsData.returnStats[0].npr_value | shortNumber }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+                <div class="overall_total__stats__item">
+                  <h3>Pending Return</h3>
+                  <h1>
+                    ${{
+                      returnsData.returnStats[0].yet_to_return_value
+                        | shortNumber
+                    }}
+                  </h1>
+                </div>
+              </div>
+            </div>
+
+            <div class="overall_total__stats_contianer">
+              <h1>By Volume</h1>
+              <div class="totals">
+                <div class="overall_total__stats__item">
+                  <h3>Return Booked</h3>
+                  <h1>
+                    {{
+                      returnsData.returnStats[0].return_qty_booked | shortNumber
+                    }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>=</h1></div>
+                <div class="overall_total__stats__item">
+                  <h3>Return Recieved</h3>
+                  <h1>
+                    {{
+                      returnsData.returnStats[0].received_quantity | shortNumber
+                    }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+                <div class="overall_total__stats__item">
+                  <h3>Return NPR'ed</h3>
+                  <h1>
+                    {{ returnsData.returnStats[0].npr_quantity | shortNumber }}
+                  </h1>
+                </div>
+                <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+                <div class="overall_total__stats__item">
+                  <h3>Pending Return</h3>
+                  <h1>
+                    {{
+                      returnsData.returnStats[0].yet_to_receive_quantity
+                        | shortNumber
+                    }}
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sales_categories_container">
+            <div class="top_list__by_item_info">
+              <h3>
+                <span> Return Fulfilled From </span>
+              </h3>
+              <div class="top_list__items_list">
+                <div
+                  class="top_list__item"
+                  *ngFor="let item of returnsData.returnsFulfilled"
+                >
+                  <span>{{ item.sales_fulfillment_type }}</span>
+                  <span>{{ item.total_units | shortNumber }}</span>
+                  <span>${{ item.total_value | shortNumber }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="top_list__by_item_info">
+              <h3>
+                <span> Return Fulfilled Type </span>
+              </h3>
+              <div class="top_list__items_list">
+                <div
+                  class="top_list__item"
+                  *ngFor="let item of returnsData.returnByFulfillmentType"
+                >
+                  <span>{{ item.sales_order_fulfillment_type }}</span>
+                  <span>{{ item.total_units | shortNumber }}</span>
+                  <span>${{ item.total_value | shortNumber }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="top_list__by_item_info">
+              <h3>
+                <span> Exchange Order Stats </span>
+              </h3>
+              <div class="top_list__items_list">
+                <div
+                  class="top_list__item"
+                  *ngFor="let item of returnsData.exchangeOrder"
+                >
+                  <span>{{ item.exchange_type }}</span>
+                  <span>{{ item.order_count | shortNumber }}</span>
+                  <span>${{ item.exchange_book_amount | shortNumber }}</span>
+                  <span
+                    >${{
+                      item.pending_refund_to_use_for_exchange | shortNumber
+                    }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tables">
+            <div class="row">
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Return Reasons </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnReason.slice(0, 5)"
+                  >
+                    <span>{{ item.common_code_short_description }}</span>
+                    <span>{{ item.total_units | shortNumber }}</span>
+                    <span>${{ item.total_value | shortNumber }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Return By Item info </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="
+                      let item of returnsData.returnsByItemInfo.slice(0, 5)
+                    "
+                  >
+                    <span>{{ item.item_info }}</span>
+                    <span>{{ item.line_units | shortNumber }}</span>
+                    <span>{{ item.line_charge | shortNumber }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Return By Item (Top 10) Value </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsByItems"
+                  >
+                    <span>{{ item.item_id }}</span>
+                    <span>{{ item.item_category_name }}</span>
+
+                    <span>${{ item.line_charge | shortNumber }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Return By Item (Top 10) Value </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsByItems"
+                  >
+                    <span>{{ item.item_id }}</span>
+                    <span>{{ item.item_category_name }}</span>
+                    <span>{{ item.line_units | shortNumber }} Units</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Web Category (Top 10) Value </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsQtyByCategory"
+                  >
+                    <span>{{ item.item_category_name }}</span>
+                    <span>${{ item.sum | shortNumber }} Units</span>
+                  </div>
+                </div>
+              </div>
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Web Category (Top 10) Volume </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsValByCategory"
+                  >
+                    <span>{{ item.item_category_name }}</span>
+                    <span>${{ item.sum | shortNumber }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Brand Name (Top 10) Value </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsQtyByBrandName"
+                  >
+                    <span>{{ item.item_brand_name }}</span>
+                    <span>{{ item.sum | shortNumber }} Units</span>
+                  </div>
+                </div>
+              </div>
+              <div class="top_list__by_item_info">
+                <h3>
+                  <span> Brand Name (Top 10) Volume </span>
+                </h3>
+                <div class="top_list__items_list">
+                  <div
+                    class="top_list__item"
+                    *ngFor="let item of returnsData.returnsValByBrandName"
+                  >
+                    <span>{{ item.item_brand_name }}</span>
+                    <span>${{ item.sum | shortNumber }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

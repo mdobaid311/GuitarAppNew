@@ -1,7 +1,7 @@
 <div class="main_screen__topbar">
   <div class="main_screen__topbar_left">
-    <img src="./assets/11111 1 (1).png" alt="" />
-    <span>Welcome, Obaid</span>
+    <img src="../../../../assets/the_guitar_center_company_logo.png" alt="" />
+    <span>Welcome, {{ currentUser.firstname && currentUser.firstname }}</span>
   </div>
   <div class="main_screen__topbar_right">
     <!-- <div class="custom_datepicker">
@@ -26,15 +26,15 @@
         (changeDate)="changeDateHandler($event)"
       ></app-custom-daterange-picker>
     </div>
-    <div class="topbar_right__search">
+    <!-- <div class="topbar_right__search">
       <input type="text" placeholder="Search something..." />
-    </div>
+    </div> -->
     <app-theme-switch></app-theme-switch>
-    <div class="topbar_right__notification_bell">
-      <fa-icon [icon]="faBell" class="bell_icon"></fa-icon>
-    </div>
     <div class="topbar_right__profile" routerLink="/settings">
       <img src="../../../assets/user.png" alt="" />
+    </div>
+    <div class="logout__button" (click)="logout()">
+      <fa-icon [icon]="faRightFromBracket" class="icon"></fa-icon>
     </div>
   </div>
 </div>

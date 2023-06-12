@@ -20,7 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrgChartComponent } from './components/charts/org-chart/org-chart.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- import { CustomModalComponent } from './components/custom-components/custom-modal/custom-modal.component';
+import { CustomModalComponent } from './components/custom-components/custom-modal/custom-modal.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 import { CustomProgressBarComponent } from './components/custom-components/custom-progress-bar/custom-progress-bar.component';
 import { SalesComponent } from './components/sales-module/sales/sales.component';
@@ -40,6 +40,19 @@ import { CustomGuitarLoaderComponent } from './components/custom-components/cust
 import { CustomGridComponent } from './components/charts/custom-grid/custom-grid.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
+import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
+import { UsMapComponent } from './components/charts/us-map/us-map.component';
+
+import * as Highcharts from 'highcharts';
+import MapModule from 'highcharts/modules/map';
+import DrilldownModule from 'highcharts/modules/drilldown';
+import { ToastrModule } from 'ngx-toastr';
+import { MapComponent } from './components/charts/map/map.component';
+import { ReturnsComponent } from './components/returns-module/returns/returns.component';
+
+MapModule(Highcharts);
+DrilldownModule(Highcharts);
 
 @NgModule({
   declarations: [
@@ -53,7 +66,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     CustomHeaderComponent,
     SidebarComponent,
     OrgChartComponent,
-     CustomModalComponent,
+    CustomModalComponent,
     CustomProgressBarComponent,
     SalesComponent,
     DaySalesCardComponent,
@@ -67,6 +80,11 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     CustomGridComponent,
     LineChartComponent,
     ShortNumberPipe,
+    TimelineComponent,
+    HorizontalTimelineComponent,
+    UsMapComponent,
+    MapComponent,
+    ReturnsComponent,
   ],
   imports: [
     FormsModule,
@@ -84,6 +102,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     NgbPaginationModule,
     NgbAlertModule,
     NgbDatepickerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

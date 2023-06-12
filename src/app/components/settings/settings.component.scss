@@ -1,5 +1,4 @@
 .settings__screen {
-  min-height: 100vh;
   background: var(--primary-background-1);
 
   .settings_container {
@@ -38,7 +37,7 @@
         .main_container__settings_container {
           flex: 1;
           border-radius: 10px;
-          background: var(--primary-background-3);
+          background: var(--primary-background-2);
           box-shadow: var(--primary-boxshadow);
           padding: 20px;
           align-items: start;
@@ -63,7 +62,7 @@
 
           .create_user__button {
             display: flex;
-            background-color: var(--primary-background-2);
+            background-color: var(--primary-color-3);
             color: var(--primary-color-1);
             margin-top: 20px;
             padding: 10px;
@@ -72,7 +71,7 @@
             outline: none;
             cursor: pointer;
             &:hover {
-              filter: brightness(120%);
+              filter: brightness(105%);
             }
           }
 
@@ -122,7 +121,7 @@
                   font-size: 16px;
                   font-weight: 500;
                   color: var(--primary-color-1);
-                  background: var(--primary-background-2);
+                  background: var(--primary-background-3);
                 }
               }
             }
@@ -162,10 +161,17 @@
               border-spacing: 0;
               flex: 1;
               border-radius: 10px;
+              font-size: 20px;
 
               tr {
                 cursor: pointer;
                 border-radius: 10px;
+                background-color: var(--primary-background-2);
+              }
+
+              tr:nth-child(even) {
+                background-color: var(--primary-background-3);
+                color: var(--primary-color-3);
               }
 
               th {
@@ -175,6 +181,15 @@
                 padding: 16px;
                 cursor: pointer;
                 box-shadow: var(--primary-boxshadow);
+                // background: var(--primary-background-3);
+              }
+
+              thead {
+                tr {
+                  th {
+                    background-color: var(--primary-background-3) !important;
+                  }
+                }
               }
 
               td {

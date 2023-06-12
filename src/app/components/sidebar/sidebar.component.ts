@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import {
   faSitemap,
   faBars,
@@ -10,6 +10,9 @@ import {
   faGear,
   faCashRegister,
   faChevronDown,
+  faTimeline,
+  faMap,
+  faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -27,26 +30,9 @@ export class SidebarComponent {
   faGear = faGear;
   faCashRegister = faCashRegister;
   faChevronDown = faChevronDown;
+  faMap = faMap;
+  faRotateLeft = faRotateLeft;
 
-  // currentRoute: string;
-
-  // constructor(private router: Router) {
-  //   console.log(this.router.url);
-  //   this.currentRoute = this.router.url;
-  // }
-
-  // onHover() {
-  //   setTimeout(() => {
-  //     // console.log("sidebar onHover() setTimeout(() => {")
-  //     window.dispatchEvent(new Event('resize'));
-  //   }, 500);
-  // }
-
-  // ngOnInit() {
-  //   setTimeout(() => {
-  //     window.dispatchEvent(new Event('resize'));
-  //   }, 500);
-  // }
   openSidebar: boolean = false;
 
   expandSidebar() {
@@ -72,7 +58,7 @@ export class SidebarComponent {
       icon: faHome,
       sub_menu: [
         {
-          link_name: 'Dashboard',
+          link_name: 'Home',
           link: '/dashboard',
           icon: faHome,
         },
@@ -89,20 +75,44 @@ export class SidebarComponent {
           icon: faCashRegister,
         },
         {
-          link_name: 'Detail View',
+          link_name: 'Analysis',
           link: '/area-chart',
           icon: faCashRegister,
         },
         {
-          link_name: 'Org Chart',
+          link_name: 'Flow',
           link: '/org-chart',
           icon: faSitemap,
         },
-        // {
-        //   link_name: 'Org Chart 2',
-        //   link: '/org-chart-1',
-        //   icon: faSitemap,
-        // },
+        {
+          link_name: 'US Map',
+          link: '/map',
+          icon: faMap,
+        },
+      ],
+    },
+    {
+      link_name: 'Timeseries',
+      link: '/timeseries',
+      icon: faTimeline,
+      sub_menu: [
+        {
+          link_name: 'Timeseries',
+          link: '/timeseries',
+          icon: faTimeline,
+        },
+      ],
+    },
+    {
+      link_name: 'Returns',
+      link: '/returns',
+      icon: faRotateLeft,
+      sub_menu: [
+        {
+          link_name: 'Returns',
+          link: '/returns',
+          icon: faRotateLeft,
+        },
       ],
     },
     {
@@ -119,9 +129,18 @@ export class SidebarComponent {
     },
   ];
 
-  constructor(private elementRef: ElementRef) {}
+  isLoginPage: boolean = false;
 
-  ngOnInit() {}
+  constructor(private router: Router, private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = event.url === '/';
+        // this.isLoginPage = event.url === '/login';
+      }
+    });
+  }
 
   showSubmenu(itemEl: HTMLElement) {
     itemEl.classList.toggle('showMenu');

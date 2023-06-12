@@ -4,9 +4,9 @@
 
 <div class="settings__screen">
   <div class="settings_container">
-     <div class="settings__main_screen">
+    <div class="settings__main_screen">
       <!-- header -->
-      <app-custom-header ></app-custom-header>
+      <app-custom-header></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <h3>Settings</h3>
@@ -19,39 +19,75 @@
               <span>User Management</span>
             </div>
           </div>
-          <button class="create_user__button" (click)="toggleCreateUserForm()">
+          <button class="create_user__button" (click)="toggleCreateUserForm()" *ngIf="user.role==='admin'">
             Create User
             <fa-icon [icon]="faPlus" class="icon"></fa-icon>
           </button>
-          <form class="create_user__form" *ngIf="showCreateUserForm">
+          <form
+            class="create_user__form"
+            *ngIf="showCreateUserForm"
+            (ngSubmit)="onSubmit()"
+          >
             <h2>Create User</h2>
             <div class="fields">
               <div class="field">
-                <label for="userName">Username: </label>
-                <input type="text" id="userName" placeholder="Username" />
-              </div>
-              <div class="field">
-                <label for="email">Email: </label>
-                <input type="email" id="email" placeholder="Email" />
-              </div>
-              <div class="field">
                 <label for="firstName">First name: </label>
-                <input type="text" id="firstName" placeholder="First name" />
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="First name"
+                  [value]="firstName"
+                  (input)="onChange('firstName', $event)"
+                />
               </div>
               <div class="field">
                 <label for="lastName">Last name: </label>
-                <input type="text" id="lastName" placeholder="Last name" />
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Last name"
+                  [value]="lastName"
+                  (input)="onChange('lastName', $event)"
+                />
+              </div>
+              <div class="field">
+                <label for="userName">Email: </label>
+                <input
+                  type="email"
+                  id="userName"
+                  placeholder="Email"
+                  [value]="userName"
+                  (input)="onChange('userName', $event)"
+                />
               </div>
               <div class="field">
                 <label for="role">Role: </label>
-                <input type="text" id="role" placeholder="Role" />
+                <input
+                  type="text"
+                  id="role"
+                  placeholder="Role"
+                  [value]="role"
+                  (input)="onChange('role', $event)"
+                />
               </div>
               <div class="field">
-                <label for="phone">Phone: </label>
-                <input type="tel" id="phone" placeholder="Phone" />
+                <label for="password">Password: </label>
+                <input
+                  type="tel"
+                  id="password"
+                  placeholder="Password"
+                  [value]="password"
+                  (input)="onChange('password', $event)"
+                />
               </div>
             </div>
-            <button class="create_user__form_button">Create</button>
+            <button
+              class="create_user__form_button"
+              type="submit"
+              (input)="onChange('firstName', $event)"
+            >
+              Create
+            </button>
           </form>
 
           <div class="users_list__table">
@@ -62,18 +98,16 @@
                   <th>Firstname</th>
                   <th>Lastname</th>
                   <th>Email</th>
-                  <th>Phone</th>
                   <th>Role</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mohammed</td>
-                  <td>Obaid</td>
-                  <td>mdobaid311@gmail.com</td>
-                  <td>9515281551</td>
-                  <td>Admin</td>
+                <tr *ngFor="let user of users">
+                  <td>{{user.firstname}}</td>
+                  <td>{{user.lastname}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.role}}</td>
                   <td></td>
                 </tr>
                 <!-- <tr>

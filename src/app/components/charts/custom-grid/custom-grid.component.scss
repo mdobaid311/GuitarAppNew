@@ -11,6 +11,7 @@
     align-items: center;
     padding: 10px;
 
+
     .search_container {
       display: flex;
       align-items: center;
@@ -163,6 +164,11 @@
       border-collapse: collapse;
       border-spacing: 0;
       overflow-x: scroll;
+      thead {
+        position: sticky;
+        top: 0;
+        background: var(--primary-background-3);
+      }
 
       th {
         font-weight: bold;
@@ -171,6 +177,7 @@
         padding: 16px;
         cursor: pointer;
         min-width: 300px;
+        text-transform: uppercase;
       }
 
       td {
@@ -182,10 +189,54 @@
       tr:hover {
         background-color: var(--primary-background-3);
       }
+
+      tr:nth-child(even) {
+        background-color: var(--primary-background-3);
+        color: var(--primary-color-3);
+      }
     }
   }
 
   .selected {
     background-color: var(--primary-background-3);
+  }
+}
+
+.custom__query {
+  display: flex;
+  padding: 10px 5px;
+
+  input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    background: transparent;
+    font-size: 22px;
+    flex: 1;
+    color: var(--primary-color-1);
+    cursor: pointer;
+    border-bottom: 1px solid var(--primary-background-1);
+  }
+
+  button {
+    border: none;
+    outline: none;
+    padding: 10px;
+    background: var(--primary-background-1);
+    color: var(--primary-color-1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    width: 100px;
+
+    &:hover  {
+      filter: brightness(1.2);
+    }
+    .icon {
+      font-size: 20px;
+      color: var(--primary-color-3);
+    }
   }
 }

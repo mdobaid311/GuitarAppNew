@@ -8,11 +8,14 @@
   background: #f2f2f2;
   display: flex;
   justify-content: center;
+  padding: 20px;
+
 }
 
 .login_screen_header img {
   align-self: flex-end;
-  margin: 20px;
+  height: 100%;
+  object-fit: contain;
 }
 
 .login_screen_main {
@@ -38,6 +41,11 @@
   margin-top: 150px;
   width: 100%;
   max-width: 305px;
+
+  span {
+    color: #cd2418;
+    text-align: center;
+  }
 }
 
 label {
