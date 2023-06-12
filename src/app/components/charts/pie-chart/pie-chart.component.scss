@@ -45,3 +45,9 @@
 .chartContainer {
   height: 400px;
 }
+
+:host ::ng-deep .highcharts-background {
+  fill: var(--primary-background-3) !important;
+  border-radius: 20px;
+  box-shadow: var(--primary-boxshadow);
+}

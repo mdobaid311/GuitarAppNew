@@ -67,11 +67,7 @@ $desktop: 1200px;
 
 // apply on ng deep
 
-:host ::ng-deep .highcharts-background {
-  fill: var(--primary-background-3) !important;
-  border-radius: 20px;
-  box-shadow: var(--primary-boxshadow);
-}
+
 
 :host ::ng-deep .highcharts-container {
   border-radius: 20px;

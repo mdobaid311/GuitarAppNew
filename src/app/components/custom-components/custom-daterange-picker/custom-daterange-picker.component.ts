@@ -90,7 +90,7 @@ export class CustomDaterangePickerComponent {
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)||date.equals(this.fromDate)) {
       this.toDate = date;
     } else {
       this.toDate = null;
@@ -100,7 +100,6 @@ export class CustomDaterangePickerComponent {
       this.datePickerVisible = false;
     }
     this.onDateChange.emit(date);
-    console.log('DATE', date);
   }
 
   isHovered(date: NgbDate) {
