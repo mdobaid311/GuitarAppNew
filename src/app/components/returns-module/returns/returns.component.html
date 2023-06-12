@@ -3,7 +3,13 @@
   <div class="returns_container">
     <div class="returns__main_screen">
       <!-- header -->
-      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <app-custom-header
+      [showDateRangePicker]="true"
+      (onDateChanged)="onGlobalDateRangeChanged($event)"
+      (changeDate)="changeDate($event)"
+      (onRangeSelect)="onRangeSelect($event)"
+      [fullDate]="fullDate"
+      ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <div class="heading__flexbox">

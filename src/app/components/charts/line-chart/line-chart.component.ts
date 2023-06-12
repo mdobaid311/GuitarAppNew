@@ -94,6 +94,9 @@ export class LineChartComponent {
         },
         series: [
           {
+            marker:{
+              enabled:false
+            },
             name: 'Sales',
             data: array,
             dataLabels: {
@@ -159,6 +162,7 @@ export class LineChartComponent {
               type: 'category',
 
               labels: {
+                enabled:false,
                 rotation: 0,
                 style: {
                   color: '#0C274E',
@@ -191,6 +195,9 @@ export class LineChartComponent {
             },
             series: [
               {
+                marker:{
+                  enabled:false
+                },
                 name: 'Sales',
                 data: yearsData,
                 lineWidth: 2,
@@ -231,103 +238,6 @@ export class LineChartComponent {
         },
       });
 
-    // this.chartData.getOrderTotalYears().subscribe({
-    //   next: (resp) => {
-    //     let yearsData: any = [];
-    //     console.log('Year data', resp);
-    //     resp.forEach((item: IYear) => {
-    //       const itemData = [item.year, item.total];
-    //       yearsData.push(itemData);
-    //     });
-
-    //     const newData = yearsData.map((item: any) => {
-    //       return item[1] + Math.random() * 100000000;
-    //     });
-
-    //     this.chartOptions = {
-    //       chart: {
-    //         type: 'line',
-    //       },
-
-    //       title: {
-    //         text: 'Sales',
-    //         style: {
-    //           color: '#fff',
-    //           fontFamily: 'Poppins, sans-serif',
-    //         },
-    //       },
-
-    //       xAxis: {
-    //         type: 'category',
-    //         labels: {
-    //           rotation: 0,
-    //           style: {
-    //             color: '#fff',
-    //             fontFamily: 'Poppins, sans-serif',
-    //           },
-    //         },
-    //       },
-    //       yAxis: {
-    //         min: 0,
-    //         title: {
-    //           text: 'Dollars in 1000' + "'" + 's',
-    //         },
-
-    //         labels: {
-    //           rotation: 0,
-    //           style: {
-    //             // height: '100px',
-    //             color: '#fff',
-    //             fontSize: '18px',
-    //             fontFamily: 'Poppins, sans-serif',
-    //           },
-    //         },
-    //       },
-    //       legend: {
-    //         enabled: false,
-    //       },
-    //       tooltip: {
-    //         pointFormat: 'Sales: <b>{point.y:.1f}</b>',
-    //       },
-    //       series: [
-    //         {
-    //           name: 'Sales',
-    //           data: newData,
-
-    //           dataLabels: {
-    //             enabled: true, // Remove data labels from lines
-    //             color: '#fff',
-    //           },
-    //           color: '#A5D7E8', // Change color of lines
-    //         },
-    //         {
-    //           name: 'Sales',
-    //           data: yearsData,
-
-    //           dataLabels: {
-    //             enabled: true, // Remove data labels from lines
-    //             color: '#fff',
-    //           },
-    //           color: '#2f7ed8', // Change color of lines
-    //         },
-    //       ],
-    //       plotOptions: {
-    //         line: {
-    //           events: {
-    //             click: function (event: any) {
-    //               const name = +event.point.name;
-    //               alert('Value of clicked line: ' + name);
-    //             },
-    //           },
-    //         },
-    //       },
-    //     };
-    //     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-    //     this.updateChartTheme();
-    //     this.loader = false;
-    //   },
-    //   error: (error) => {},
-    // });
   }
 
   onPinToDashboard() {

@@ -168,7 +168,13 @@ export class UsMapComponent {
       d.drilldown = d.properties['hc-key'];
       const index = this.data.findIndex((x) => x[0] === d.drilldown);
       d.value = Math.floor(+this.data[index][1]);
+      d.abbr = Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        compactDisplay: 'short',
+      }).format(+d.value);
     });
+
+    console.log(data);
 
     this.chartOptions = {
       chart: {
@@ -259,6 +265,10 @@ export class UsMapComponent {
                               (x: any) => x.city === d.properties.name
                             )?.original_order_total_amount
                           : 0;
+                        d.abbr = Intl.NumberFormat('en-US', {
+                          notation: 'compact',
+                          compactDisplay: 'short',
+                        }).format(+d.value);
                       });
                       //
 
@@ -290,10 +300,9 @@ export class UsMapComponent {
                         },
                         dataLabels: {
                           enabled: true,
-                          format: '{point.value}',
+                          format: '{point.abbr}',
                           // format : '{point.name}', to abbreviate the value
                           formatter: function (e: any) {
-                            console.log(e, 'event');
                             return e.value + 'sale';
                           },
                           color: '#fff',
@@ -342,42 +351,42 @@ export class UsMapComponent {
         },
       },
       colorAxis: {
-        dataClasses: [
-          {
-            to: 100000,
-            color: '#F8F1F1',
-          },
-          {
-            from: 10000,
-            to: 100000,
-            color: '#E8AA42',
-          },
-          {
-            from: 100000,
-            to: 500000,
-            color: '#C88EA7',
-          },
-          {
-            from: 500000,
-            to: 1000000,
-            color: '#18978F',
-          },
-          {
-            from: 1000000,
-            to: 2500000,
-            color: '#E8D2A6',
-          },
-          {
-            from: 2500000,
-            to: 5000000,
-            color: '#0E5E6F',
-          },
-          {
-            from: 5000000,
-            to: 10000000,
-            color: '#E76161',
-          },
-        ],
+        // dataClasses: [
+        //   {
+        //     to: 100000,
+        //     color: '#F8F1F1',
+        //   },
+        //   {
+        //     from: 10000,
+        //     to: 100000,
+        //     color: '#E8AA42',
+        //   },
+        //   {
+        //     from: 100000,
+        //     to: 500000,
+        //     color: '#C88EA7',
+        //   },
+        //   {
+        //     from: 500000,
+        //     to: 1000000,
+        //     color: '#18978F',
+        //   },
+        //   {
+        //     from: 1000000,
+        //     to: 2500000,
+        //     color: '#E8D2A6',
+        //   },
+        //   {
+        //     from: 2500000,
+        //     to: 5000000,
+        //     color: '#0E5E6F',
+        //   },
+        //   {
+        //     from: 5000000,
+        //     to: 10000000,
+        //     color: '#E76161',
+        //   },
+        // ],
 
         type: 'linear',
       },
@@ -394,10 +403,9 @@ export class UsMapComponent {
 
           dataLabels: {
             enabled: true, // true to show the value
-            format: '{point.name}',
+            format: '{point.abbr}',
 
             formatter: function (e: any) {
-              console.log('first');
               return e.value + 'sale';
             },
             color: '#fff',
@@ -502,7 +510,6 @@ export class UsMapComponent {
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
         this.data1 = res;
-        console.log(res);
         const tableData = res.map((row: any) => {
           return Object.values(row);
         });
@@ -533,7 +540,6 @@ export class UsMapComponent {
           .getMapData(this.startDate, this.endDate)
           .subscribe((res: any) => {
             this.data1 = res;
-            console.log(res);
             const tableData = res.map((row: any) => {
               return Object.values(row);
             });
@@ -560,7 +566,6 @@ export class UsMapComponent {
           .getMapData(this.startDate, this.endDate)
           .subscribe((res: any) => {
             this.data1 = res;
-            console.log(res);
             const tableData = res.map((row: any) => {
               return Object.values(row);
             });
@@ -586,7 +591,6 @@ export class UsMapComponent {
           .getMapData(this.startDate, this.endDate)
           .subscribe((res: any) => {
             this.data1 = res;
-            console.log(res);
             const tableData = res.map((row: any) => {
               return Object.values(row);
             });
@@ -612,7 +616,6 @@ export class UsMapComponent {
           .getMapData(this.startDate, this.endDate)
           .subscribe((res: any) => {
             this.data1 = res;
-            console.log(res);
             const tableData = res.map((row: any) => {
               return Object.values(row);
             });
@@ -637,7 +640,6 @@ export class UsMapComponent {
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
         this.data1 = res;
-        console.log(res);
         const tableData = res.map((row: any) => {
           return Object.values(row);
         });
@@ -661,7 +663,6 @@ export class UsMapComponent {
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
       this.chartData.getMapData(startDate, endDate).subscribe((res: any) => {
         this.data1 = res;
-        console.log(res);
         const tableData = res.map((row: any) => {
           return Object.values(row);
         });
@@ -690,6 +691,10 @@ export class UsMapComponent {
       if (index !== -1) {
         d.value = res[index][1];
       }
+      d.abbr = Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        compactDisplay: 'short',
+      }).format(+d.value);
     });
 
     this.chartOptions = {
@@ -772,6 +777,7 @@ export class UsMapComponent {
                     .then((response) => response.json())
                     .then((mapData) => {
                       const data = Highcharts.geojson(mapData);
+
                       data.forEach((d, i) => {
                         // return original_order_total_amount if city matches  else 0
                         d.value = cityData.find(
@@ -781,6 +787,10 @@ export class UsMapComponent {
                               (x: any) => x.city === d.properties.name
                             )?.original_order_total_amount
                           : 0;
+                        d.abbr = Intl.NumberFormat('en-US', {
+                          notation: 'compact',
+                          compactDisplay: 'short',
+                        }).format(+d.value);
                       });
                       //
 
@@ -812,10 +822,9 @@ export class UsMapComponent {
                         },
                         dataLabels: {
                           enabled: true,
-                          format: '{point.value}',
+                          format: '{point.abbr}',
                           // format : '{point.name}', to abbreviate the value
                           formatter: function (e: any) {
-                            console.log(e, 'event');
                             return e.value + 'sale';
                           },
                           color: '#fff',
@@ -864,42 +873,42 @@ export class UsMapComponent {
         },
       },
       colorAxis: {
-        dataClasses: [
-          {
-            to: 100000,
-            color: '#F8F1F1',
-          },
-          {
-            from: 10000,
-            to: 100000,
-            color: '#E8AA42',
-          },
-          {
-            from: 100000,
-            to: 500000,
-            color: '#C88EA7',
-          },
-          {
-            from: 500000,
-            to: 1000000,
-            color: '#18978F',
-          },
-          {
-            from: 1000000,
-            to: 2500000,
-            color: '#E8D2A6',
-          },
-          {
-            from: 2500000,
-            to: 5000000,
-            color: '#0E5E6F',
-          },
-          {
-            from: 5000000,
-            to: 10000000,
-            color: '#E76161',
-          },
-        ],
+        // dataClasses: [
+        //   {
+        //     to: 100000,
+        //     color: '#F8F1F1',
+        //   },
+        //   {
+        //     from: 10000,
+        //     to: 100000,
+        //     color: '#E8AA42',
+        //   },
+        //   {
+        //     from: 100000,
+        //     to: 500000,
+        //     color: '#C88EA7',
+        //   },
+        //   {
+        //     from: 500000,
+        //     to: 1000000,
+        //     color: '#18978F',
+        //   },
+        //   {
+        //     from: 1000000,
+        //     to: 2500000,
+        //     color: '#E8D2A6',
+        //   },
+        //   {
+        //     from: 2500000,
+        //     to: 5000000,
+        //     color: '#0E5E6F',
+        //   },
+        //   {
+        //     from: 5000000,
+        //     to: 10000000,
+        //     color: '#E76161',
+        //   },
+        // ],
 
         type: 'linear',
       },
@@ -916,12 +925,8 @@ export class UsMapComponent {
 
           dataLabels: {
             enabled: true, // true to show the value
-            format: '{point.name}',
+            format: '{point.abbr}',
 
-            formatter: function (e: any) {
-              console.log('first');
-              return e.value + 'sale';
-            },
             color: '#fff',
             style: {
               fontSize: '13px',
@@ -930,7 +935,7 @@ export class UsMapComponent {
           },
           allAreas: false,
           mapData: data,
-          data: this.data,
+          data: data,
         },
       ],
       drilldown: {

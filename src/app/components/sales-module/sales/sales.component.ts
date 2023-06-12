@@ -436,15 +436,42 @@ export class SalesComponent {
         ' , ' +
         moment(endDate, 'YYYY-M-DD').format('MMM DD YYYY');
 
-      this.chartData
-        .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
-        .subscribe({
-          next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
-            this.fullSalesData = Object.values(resp);
-          },
-        });
+      // if the difference between the dates is less than 1 week, then we will show the data in 1 hour interval
+      this.loader = true;
+      const diff = moment(endDate).diff(moment(beginDate), 'days');
+      if (diff <= 7) {
+        this.chartData
+          .getFullSalesDataByRange(beginDate, endDate, 15 * 60)
+          .subscribe({
+            next: (resp: any) => {
+              console.log('ABC', Object.values(resp));
+              this.fullSalesData = Object.values(resp);
+            },
+          });
+      }
+      // if the difference between the dates is less than 1 month, then we will show the data in 1 day interval
+      else if (diff <= 30) {
+        this.chartData
+          .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
+          .subscribe({
+            next: (resp: any) => {
+              console.log('ABC', Object.values(resp));
+              this.fullSalesData = Object.values(resp);
+            },
+          });
+      } else {
+        this.chartData
+          .getFullSalesDataByRange(beginDate, endDate, 172800)
+          .subscribe({
+            next: (resp: any) => {
+              console.log('ABC', Object.values(resp));
+              this.fullSalesData = Object.values(resp);
+            },
+          });
+      }
+      this.loader = false;
     }
+
   }
 
   makeNonEditable() {
@@ -598,27 +625,4 @@ export class SalesComponent {
     }
     return [];
   }
-}
-
-class IItem {
-  'monthName': string;
-  'total': number;
-}
-
-class IDay {
-  'day': string;
-  'total': number;
-}
-
-class IHour {
-  'hour': string;
-  'total': number;
-}
-class IMonth {
-  'month': string;
-  'total': number;
-}
-class IYear {
-  'year': string;
-  'total': number;
 }

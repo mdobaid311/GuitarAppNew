@@ -107,8 +107,7 @@
               <div class="overall_total__stats__item">
                 <h3>Margin</h3>
                 <h1>
-                  $
-                  {{
+                  ${{
                     ((+fullSalesData[0]?.totalStats.line_margin || 0) +
                       (+fullSalesData[1]?.totalStats.line_margin || 0)
                       | shortNumber) || 0
@@ -419,23 +418,36 @@
                   <div class="top_items__list_header">
                     <h3>By Volume</h3>
                     <div class="board_leader">
-                      <span>Board Leader</span>
+                      <div class="board_leader_details">
+                        <span>Board Leader</span>
+                        <span>{{
+                          fullSalesData[0].topItemsData?.byVolume[0]?.brand_name
+                        }}</span>
+                        <span>
+                          Total:
+                          {{
+                            fullSalesData[0].topItemsData?.byVolume[0]
+                              ?.line_ordered_qty | shortNumber
+                          }}
+                        </span>
+                      </div>
                       <img
-                        class="top_item__image"
-                        src="{{
-                          fullSalesData[0].topItemsData?.byVolume[0]
-                            ?.image_location +
-                            '/' +
-                            fullSalesData[0].topItemsData?.byVolume[0]?.image_id
-                        }}"
-                        alt=""
-                      />
+                      class="top_item__image"
+                      src="{{
+                        fullSalesData[0].topItemsData?.byVolume[0]
+                          ?.image_location +
+                          '/' +
+                          fullSalesData[0].topItemsData?.byVolume[0]?.image_id
+                      }}"
+                      alt=""
+                    />
                     </div>
+
                   </div>
 
                   <div class="top_list__container">
                     <div class="top_list__items_list">
-                      <div class="top_list__item">
+                      <div class="top_list__item top_list__item_header">
                         <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
@@ -474,7 +486,18 @@
                   <div class="top_items__list_header">
                     <h3>By Value</h3>
                     <div class="board_leader">
-                      <span>Board Leader</span>
+                      <div class="board_leader_details">
+                        <span>Board Leader</span>
+                        <span>{{
+                          fullSalesData[0].topItemsData?.byVolume[0]?.brand_name
+                        }}</span>
+                        <span>
+                          Total: ${{
+                            fullSalesData[0].topItemsData?.byValue[0]
+                              ?.original_order_total_amount | shortNumber
+                          }}
+                        </span>
+                      </div>
                       <img
                         class="top_item__image"
                         src="{{
@@ -490,7 +513,7 @@
 
                   <div class="top_list__container">
                     <div class="top_list__items_list">
-                      <div class="top_list__item">
+                      <div class="top_list__item top_list__item_header">
                         <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
@@ -536,7 +559,19 @@
                   <div class="top_items__list_header">
                     <h3>By Volume</h3>
                     <div class="board_leader">
-                      <span>Board Leader</span>
+                      <div class="board_leader_details">
+                        <span>Board Leader</span>
+                        <span>{{
+                          fullSalesData[1].topItemsData?.byVolume[0]?.brand_name
+                        }}</span>
+                        <span>
+                          Total:
+                          {{
+                            fullSalesData[1].topItemsData?.byVolume[0]
+                              ?.line_ordered_qty | shortNumber
+                          }}
+                        </span>
+                      </div>
                       <img
                         class="top_item__image"
                         src="{{
@@ -552,7 +587,7 @@
 
                   <div class="top_list__container">
                     <div class="top_list__items_list">
-                      <div class="top_list__item">
+                      <div class="top_list__item top_list__item_header">
                         <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
@@ -591,7 +626,18 @@
                   <div class="top_items__list_header">
                     <h3>By Value</h3>
                     <div class="board_leader">
-                      <span>Board Leader</span>
+                      <div class="board_leader_details">
+                        <span>Board Leader</span>
+                        <span>{{
+                          fullSalesData[1].topItemsData?.byVolume[0]?.brand_name
+                        }}</span>
+                        <span>
+                          Total: ${{
+                            fullSalesData[1].topItemsData?.byValue[0]
+                              ?.original_order_total_amount | shortNumber
+                          }}
+                        </span>
+                      </div>
                       <img
                         class="top_item__image"
                         src="{{
@@ -607,7 +653,7 @@
 
                   <div class="top_list__container">
                     <div class="top_list__items_list">
-                      <div class="top_list__item">
+                      <div class="top_list__item top_list__item_header">
                         <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>

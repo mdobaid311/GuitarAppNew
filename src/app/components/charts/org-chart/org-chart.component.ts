@@ -115,12 +115,7 @@ export class OrgChartComponent {
         data: {
           title: node.key || 'Others',
           width: Math.round(node.width),
-          value:
-            '$' +
-              Intl.NumberFormat('en-US', {
-                notation: 'compact',
-                compactDisplay: 'short',
-              }).format(node.original_order_total_amount) || 0,
+          value: node.original_order_total_amount,
           // color: this.generateRandomColorHex(),
         },
         children:
