@@ -119,12 +119,13 @@
                 <h3>ROI</h3>
                 <h1>
                   {{
-                    ((+fullSalesData[0]?.totalStats.line_margin || 0) +
-                      (+fullSalesData[1]?.totalStats.line_margin || 0) * 100) /
-                      ((+fullSalesData[0]?.totalStats.line_inventory_cost ||
-                        0) +
-                        +fullSalesData[1]?.totalStats.line_inventory_cost || 0)
-                      | number : "1.0-0"
+                    (((+fullSalesData[0]?.totalStats.line_margin || 0) +
+                      (+fullSalesData[1]?.totalStats.line_margin || 0)) /
+                      ((+fullSalesData[0]?.totalStats
+                        .original_order_total_amount || 0) +
+                        +fullSalesData[1]?.totalStats
+                          .original_order_total_amount || 0)) *
+                      100 | number : "1.0-0"
                   }}
                   %
                 </h1>
@@ -156,14 +157,21 @@
                 </div>
                 <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
                 <app-custom-progress-bar
-                  [customGoalProgress]="customGoalProgress"
+                  [customGoalProgress]="
+                    +customGoalProgressPercent[item.name] || 0
+                  "
                 ></app-custom-progress-bar>
                 <div class="div_1_progress_details">
-                  <span>{{ customGoalProgress }}</span>
+                  <span
+                    >{{
+                      +customGoalProgressPercent[item.name] | number : "1.2-2"
+                    }}
+                    %</span
+                  >
 
                   <div class="div_1_progress_details__date_change">
                     <span (dblclick)="makeEditable()" *ngIf="!isEditable">
-                      ${{ customGoalAbbr }}
+                      ${{ compareValue[item.name] }}
                     </span>
                     <input
                       type="number"
@@ -314,20 +322,26 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item.salesCategories
-                          .ORDER_CAPTURE_CHANNEL_GROUPED
+                        let data of getSortedSlice(
+                          item?.salesCategories?.ORDER_CAPTURE_CHANNEL_GROUPED
+                        )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -339,22 +353,26 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED?.slice(
-                          0,
-                          4
+                        let data of getSortedSlice(
+                          item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED
                         )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -366,22 +384,26 @@
                     <div
                       class="top_list__item"
                       *ngFor="
-                        let data of item?.salesCategories?.ITEM_INFO_GROUPED.slice(
-                          0,
-                          4
+                        let data of getSortedSlice(
+                          item?.salesCategories?.ITEM_INFO_GROUPED
                         )
                       "
                     >
-                      <h4>{{ data.name ? data.name : "OTHERS" }}</h4>
-                      <div class="row_1_div_3_values">
-                        <span
-                          >${{
-                            data.original_order_total_amount | shortNumber
-                          }}</span
-                        >
-                        <span>({{ data.line_ordered_qty }} units)</span>
-                        <span>10%</span>
-                      </div>
+                      <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                      <span
+                        >${{
+                          data.original_order_total_amount | shortNumber
+                        }}</span
+                      >
+                      <span>({{ data.line_ordered_qty }} units)</span>
+                      <span>
+                        {{
+                          (data.original_order_total_amount /
+                            item.salesCategories.original_order_total_amount) *
+                            100 | number : "1.2-2"
+                        }}
+                        %</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -394,63 +416,42 @@
               <h3 class="top_items_title">Top Items Sold in <span>MF</span></h3>
               <div class="lists__container">
                 <div class="top_items__list">
-                  <h3>By Volume</h3>
+                  <div class="top_items__list_header">
+                    <h3>By Volume</h3>
+                    <div class="board_leader">
+                      <span>Board Leader</span>
+                      <img
+                        class="top_item__image"
+                        src="{{
+                          fullSalesData[0].topItemsData?.byVolume[0]
+                            ?.image_location +
+                            '/' +
+                            fullSalesData[0].topItemsData?.byVolume[0]?.image_id
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
                   <div class="top_list__container">
                     <div class="top_list__items_list">
                       <div class="top_list__item">
-                        <h4 className="top_item__index"></h4>
+                        <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
                         <h4 className="top_item__web_category">WEB CATEGORY</h4>
                         <h4 className="top_item__brand_name">BRAND NAME</h4>
                         <h4 className="top_item__total">TOTAL</h4>
                       </div>
-                      <div class="top_list__item top_item__in_list">
-                        <h4 className="top_item__index">1</h4>
-                        <img
-                          src="{{
-                            fullSalesData[0].topItemsData?.byVolume[0]
-                              ?.image_location +
-                              '/' +
-                              fullSalesData[0].topItemsData?.byVolume[0]
-                                ?.image_id
-                          }}"
-                          alt=""
-                        />
-                        <h4 className="top_item__item_id">
-                          {{
-                            fullSalesData[0].topItemsData?.byVolume[0]?.item_id
-                          }}
-                        </h4>
-                        <h4 className="top_item__web_category">
-                          {{
-                            fullSalesData[0].topItemsData?.byVolume[0]
-                              ?.web_category
-                          }}
-                        </h4>
-                        <h4 className="top_item__brand_name">
-                          {{
-                            fullSalesData[0].topItemsData?.byVolume[0]
-                              ?.brand_name
-                          }}
-                        </h4>
-                        <h4 className="top_item__total|">
-                          {{
-                            fullSalesData[0].topItemsData?.byVolume[0]
-                              ?.line_ordered_qty
-                          }}
-                        </h4>
-                      </div>
+
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[0]?.topItemsData?.byVolume.slice(
-                            1
-                          );
+                          let data of fullSalesData[0]?.topItemsData?.byVolume;
                           let i = index
                         "
                       >
-                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <h4 className="top_item__index">{{ i + 1 }}</h4>
                         <img
                           src="{{ data.image_location + '/' + data.image_id }}"
                           alt=""
@@ -467,102 +468,61 @@
                         </h4>
                       </div>
                     </div>
-                    <img
-                      class="top_item__image"
-                      src="{{
-                        fullSalesData[0].topItemsData?.byVolume[0]
-                          ?.image_location +
-                          '/' +
-                          fullSalesData[0].topItemsData?.byVolume[0]?.image_id
-                      }}"
-                      alt=""
-                    />
                   </div>
                 </div>
                 <div class="top_items__list">
-                  <h3>By Value</h3>
+                  <div class="top_items__list_header">
+                    <h3>By Value</h3>
+                    <div class="board_leader">
+                      <span>Board Leader</span>
+                      <img
+                        class="top_item__image"
+                        src="{{
+                          fullSalesData[0].topItemsData?.byValue[0]
+                            ?.image_location +
+                            '/' +
+                            fullSalesData[0].topItemsData?.byValue[0]?.image_id
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
                   <div class="top_list__container">
                     <div class="top_list__items_list">
                       <div class="top_list__item">
-                        <h4 className="top_item__index"></h4>
+                        <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
                         <h4 className="top_item__web_category">WEB CATEGORY</h4>
                         <h4 className="top_item__brand_name">BRAND NAME</h4>
                         <h4 className="top_item__total">TOTAL</h4>
                       </div>
-                      <div class="top_list__item top_item__in_list">
-                        <h4 className="top_item__index">1</h4>
-                        <img
-                          src="{{
-                            fullSalesData[0]?.topItemsData?.byValue[0]
-                              ?.image_location +
-                              '/' +
-                              fullSalesData[0]?.topItemsData?.byValue[0]
-                                ?.image_id
-                          }}"
-                          alt=""
-                        />
-                        <h4 className="top_item__item_id">
-                          {{
-                            fullSalesData[0]?.topItemsData?.byValue[0]?.item_id
-                          }}
-                        </h4>
-                        <h4 className="top_item__web_category">
-                          {{
-                            fullSalesData[0]?.topItemsData?.byValue[0]
-                              ?.web_category
-                          }}
-                        </h4>
-                        <h4 className="top_item__brand_name">
-                          {{
-                            fullSalesData[0]?.topItemsData?.byValue[0]
-                              ?.brand_name
-                          }}
-                        </h4>
-                        <h4 className="top_item__total|">
-                          ${{
-                            fullSalesData[0]?.topItemsData?.byValue[0]
-                              ?.original_order_total_amount | shortNumber
-                          }}
-                        </h4>
-                      </div>
+
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[0]?.topItemsData?.byValue.slice(
-                            1
-                          );
+                          let data of fullSalesData[0]?.topItemsData?.byValue;
                           let i = index
                         "
                       >
-                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <h4 className="top_item__index">{{ i + 1 }}</h4>
                         <img
                           src="{{ data.image_location + '/' + data.image_id }}"
                           alt=""
                         />
                         <h4 className="top_item__index">{{ data.item_id }}</h4>
                         <h4 className="top_item__index">
-                          {{ data?.web_category }}
+                          {{ data.web_category }}
                         </h4>
                         <h4 className="top_item__index">
-                          {{ data?.brand_name }}
+                          {{ data.brand_name }}
                         </h4>
                         <h4 className="top_item__index">
-                          ${{ data?.original_order_total_amount | shortNumber }}
+                          ${{ data.original_order_total_amount }}
                         </h4>
                       </div>
                     </div>
-                    <img
-                      class="top_item__image"
-                      src="{{
-                        fullSalesData[0]?.topItemsData?.byValue[0]
-                          ?.image_location +
-                          '/' +
-                          fullSalesData[0]?.topItemsData?.byValue[0]?.image_id
-                      }}"
-                      alt=""
-                    />
                   </div>
                 </div>
               </div>
@@ -573,63 +533,42 @@
               </h3>
               <div class="lists__container">
                 <div class="top_items__list">
-                  <h3>By Volume</h3>
+                  <div class="top_items__list_header">
+                    <h3>By Volume</h3>
+                    <div class="board_leader">
+                      <span>Board Leader</span>
+                      <img
+                        class="top_item__image"
+                        src="{{
+                          fullSalesData[1].topItemsData?.byVolume[0]
+                            ?.image_location +
+                            '/' +
+                            fullSalesData[1].topItemsData?.byVolume[0]?.image_id
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
                   <div class="top_list__container">
                     <div class="top_list__items_list">
                       <div class="top_list__item">
-                        <h4 className="top_item__index"></h4>
+                        <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
                         <h4 className="top_item__web_category">WEB CATEGORY</h4>
                         <h4 className="top_item__brand_name">BRAND NAME</h4>
                         <h4 className="top_item__total">TOTAL</h4>
                       </div>
-                      <div class="top_list__item">
-                        <h4 className="top_item__index">1</h4>
-                        <img
-                          src="{{
-                            fullSalesData[1]?.topItemsData?.byVolume[0]
-                              ?.image_location +
-                              '/' +
-                              fullSalesData[1]?.topItemsData?.byVolume[0]
-                                ?.image_id
-                          }}"
-                          alt=""
-                        />
-                        <h4 className="top_item__item_id">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byVolume[0]?.item_id
-                          }}
-                        </h4>
-                        <h4 className="top_item__web_category">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byVolume[0]
-                              ?.web_category
-                          }}
-                        </h4>
-                        <h4 className="top_item__brand_name">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byVolume[0]
-                              ?.brand_name
-                          }}
-                        </h4>
-                        <h4 className="top_item__total|">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byVolume[0]
-                              ?.line_ordered_qty
-                          }}
-                        </h4>
-                      </div>
+
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[1]?.topItemsData?.byVolume.slice(
-                            1
-                          );
+                          let data of fullSalesData[1]?.topItemsData?.byVolume;
                           let i = index
                         "
                       >
-                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <h4 className="top_item__index">{{ i + 1 }}</h4>
                         <img
                           src="{{ data.image_location + '/' + data.image_id }}"
                           alt=""
@@ -646,76 +585,45 @@
                         </h4>
                       </div>
                     </div>
-                    <img
-                      class="top_item__image"
-                      src="{{
-                        fullSalesData[1]?.topItemsData?.byVolume[0]
-                          ?.image_location +
-                          '/' +
-                          fullSalesData[1]?.topItemsData?.byVolume[0]?.image_id
-                      }}"
-                      alt=""
-                    />
                   </div>
                 </div>
                 <div class="top_items__list">
-                  <h3>By Value</h3>
+                  <div class="top_items__list_header">
+                    <h3>By Value</h3>
+                    <div class="board_leader">
+                      <span>Board Leader</span>
+                      <img
+                        class="top_item__image"
+                        src="{{
+                          fullSalesData[1].topItemsData?.byValue[0]
+                            ?.image_location +
+                            '/' +
+                            fullSalesData[1].topItemsData?.byValue[0]?.image_id
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
                   <div class="top_list__container">
                     <div class="top_list__items_list">
                       <div class="top_list__item">
-                        <h4 className="top_item__index"></h4>
+                        <h4 className="top_item__index">SI</h4>
                         <img src="" alt="" />
                         <h4 className="top_item__item_id">ITEM ID</h4>
                         <h4 className="top_item__web_category">WEB CATEGORY</h4>
                         <h4 className="top_item__brand_name">BRAND NAME</h4>
                         <h4 className="top_item__total">TOTAL</h4>
                       </div>
-                      <div class="top_list__item top_item__in_list">
-                        <h4 className="top_item__index">1</h4>
-                        <img
-                          src="{{
-                            fullSalesData[1]?.topItemsData?.byValue[0]
-                              ?.image_location +
-                              '/' +
-                              fullSalesData[1]?.topItemsData?.byValue[0]
-                                ?.image_id
-                          }}"
-                          alt=""
-                        />
-                        <h4 className="top_item__item_id">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byValue[0]?.item_id
-                          }}
-                        </h4>
-                        <h4 className="top_item__web_category">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byValue[0]
-                              ?.web_category
-                          }}
-                        </h4>
-                        <h4 className="top_item__brand_name">
-                          {{
-                            fullSalesData[1]?.topItemsData?.byValue[0]
-                              ?.brand_name
-                          }}
-                        </h4>
-                        <h4 className="top_item__total|">
-                          ${{
-                            fullSalesData[1]?.topItemsData?.byValue[0]
-                              ?.original_order_total_amount | shortNumber
-                          }}
-                        </h4>
-                      </div>
+
                       <div
                         class="top_list__item"
                         *ngFor="
-                          let data of fullSalesData[1]?.topItemsData?.byValue.slice(
-                            1
-                          );
+                          let data of fullSalesData[1]?.topItemsData?.byValue;
                           let i = index
                         "
                       >
-                        <h4 className="top_item__index">{{ i + 2 }}</h4>
+                        <h4 className="top_item__index">{{ i + 1 }}</h4>
                         <img
                           src="{{ data.image_location + '/' + data.image_id }}"
                           alt=""
@@ -728,20 +636,10 @@
                           {{ data.brand_name }}
                         </h4>
                         <h4 className="top_item__index">
-                          ${{ data.original_order_total_amount | shortNumber }}
+                          ${{ data.original_order_total_amount }}
                         </h4>
                       </div>
                     </div>
-                    <img
-                      class="top_item__image"
-                      src="{{
-                        fullSalesData[1]?.topItemsData?.byValue[0]
-                          ?.image_location +
-                          '/' +
-                          fullSalesData[1]?.topItemsData?.byValue[0]?.image_id
-                      }}"
-                      alt=""
-                    />
                   </div>
                 </div>
               </div>

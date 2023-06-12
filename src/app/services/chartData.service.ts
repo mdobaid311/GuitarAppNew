@@ -82,8 +82,9 @@ export class ChartService {
     const url = `${environment.SERVICE_APIS.ORG_CHART}?startDate='2015-01-01 00:00'&endDate='2023-01-31 01:00'`;
     return this.httpClient.get<any[]>(url);
   }
-  public getOrgChartDataByRange(startDate: any, endDate: any) {
-    const url = `${environment.SERVICE_APIS.ORG_CHART}/range?startDate=${startDate}&endDate=${endDate}}`;
+
+  public getOrgChartDataByRange(startDate: any, endDate: any, type: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/sales/getOrgChartData?start_date=${startDate}&end_date=${endDate}&type=${type}`;
     return this.httpClient.get<any[]>(url);
   }
 
@@ -111,7 +112,11 @@ export class ChartService {
     const url = `${APP_CONSTANTS.URI}/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
     return this.httpClient.get<any[]>(url);
   }
-  public getFullSalesDataByRange(startDate: any, endDate: any, intervaltime: any) {
+  public getFullSalesDataByRange(
+    startDate: any,
+    endDate: any,
+    intervaltime: any
+  ) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
     return this.httpClient.get<any[]>(url);
   }
@@ -121,6 +126,33 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
+  public getMapData(startDate: any, endDate: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/map?start_date=${startDate}&end_date=${endDate}`;
+    return this.httpClient.get<any[]>(url);
+  }
 
+  public getCityData(startDate: any, endDate: any, city: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getCityData?start_date=${startDate}&end_date=${endDate}&city=${city}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getCustomQueryData(query: string) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
+    const requestBody = {
+      query: query,
+    };
+    return this.httpClient.post<any[]>(url, requestBody);
+  }
+
+  // Time series data
+
+  public getTimeSeriesData(date: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/timeSeriesData?date=${date}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getTimeSeriesMilestones(date: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getDataForTimeSeries?date=${date}`;
+    return this.httpClient.get<any[]>(url);
+  }
 }
-

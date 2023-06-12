@@ -78,8 +78,8 @@ export class AreaSplineChartComponent {
 
     this.chartOptions = {
       chart: {
-        type: 'line',
-        backgroundColor: this.theme === 'dark' ? '#0D2039' : '#fff',
+        type: 'spline',
+        backgroundColor: this.theme === 'dark' ? '#0C274E' : '#fff',
       },
 
       xAxis: {
@@ -120,26 +120,27 @@ export class AreaSplineChartComponent {
 
       series: [
         {
-          name: 'Population',
+          name: 'Sales',
           data: this.selectedColumnData,
 
           dataLabels: {
             enabled: true, // Remove data labels from lines
             color: '#fff',
           },
-          color: '#A5D7E8', // Change color of lines
-        },
-        {
-          name: 'Population',
-          data: this.selectedColumnData,
-
-          dataLabels: {
-            enabled: true, // Remove data labels from lines
-            color: '#fff',
-          },
-          color: '#2f7ed8', // Change color of lines
+          color: '#51FF14', // Change color of lines
         },
       ],
+      plotOptions: {
+        line: {
+          dashStyle: 'dash',
+          events: {
+            click: function (event: any) {
+              const name = +event.point.name;
+              alert('Value of clicked line: ' + name);
+            },
+          },
+        },
+      },
     };
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
@@ -150,13 +151,14 @@ export class AreaSplineChartComponent {
 
   excelFileName: string = 'order_book_line';
 
+
   onTableSelectChange(data: any) {
     this.data = data.data;
     this.excelFileName = data.tableName;
   }
 
   exportToExcel() {
-    console.log("export to excel")
+    console.log('export to excel');
     this.createExcelFile(this.data, this.excelFileName);
   }
 
@@ -173,7 +175,7 @@ export class AreaSplineChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#0D2039' : '#fff';
+      this.theme === 'dark' ? '#0C274E' : '#fff';
     // this.chartOptions.series[0].color =
     //   this.theme === 'dark' ? '#FFFFFF' : '#2f7ed8';
     // this.chartOptions.series[0].backgroundColor =

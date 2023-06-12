@@ -1,0 +1,172 @@
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
+.us_chart__screen {
+  min-height: 100vh;
+  background: var(--primary-background-1);
+
+  .us_chart_container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    @media only screen and (max-width: $mobile) {
+      width: 100%;
+    }
+
+    .us_chart__main_screen {
+      flex: 1;
+      background: var(--primary-background-2);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      width: 1292px;
+      // border-radius: 6px;
+
+      .main_container__heading {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+        padding: 10px 15px;
+
+        .heading__flexbox {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--primary-color-3);
+            cursor: pointer;
+          }
+
+          h3 {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary-color-1);
+          }
+        }
+      }
+
+      .us_chart_container {
+        display: flex;
+        justify-content: center;
+        padding: 10px 15px;
+
+        @media only screen and (max-width: $mobile) {
+          flex-direction: column;
+        }
+
+        .map__container {
+          flex: 3;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          padding: 10px 15px;
+          overflow: visible !important;
+        }
+
+        .table__container {
+          display: flex;
+          width: 100%;
+          flex: 2;
+          max-height: 80vh;
+          overflow: auto !important;
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            flex: 1;
+            border-radius: 10px;
+            font-size: 20px;
+            margin: 0 20px;
+            max-height: 1000px;
+            overflow: scroll !important;
+            table-layout: fixed; /* Added */
+
+            tr {
+              cursor: pointer;
+              border-radius: 10px;
+              background-color: var(--primary-background-2);
+            }
+
+            tr:nth-child(even) {
+              background-color: var(--primary-background-3);
+              color: var(--primary-color-3);
+            }
+
+            th {
+              font-weight: bold;
+              text-align: left;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+              /* padding: 16px; */ /* Removed */
+              cursor: pointer;
+              box-shadow: var(--primary-boxshadow);
+              width: 100%; /* Added */
+              box-sizing: border-box; /* Added */
+              padding: 16px; /* Added */
+              /* background: var(--primary-background-3); */
+            }
+
+            thead {
+              tr {
+                th {
+                  background-color: var(--primary-background-3) !important;
+                }
+              }
+            }
+
+            td {
+              border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+              /* padding: 16px; */ /* Removed */
+              border: 1px solid transparent;
+              box-shadow: var(--primary-boxshadow);
+              width: 100%; /* Added */
+              box-sizing: border-box; /* Added */
+              padding: 16px; /* Added */
+            }
+
+            td:hover {
+              border-bottom: 1px solid var(--primary-color-1);
+            }
+
+            tr:hover {
+              background-color: var(--primary-background-2);
+            }
+          }
+
+        }
+
+        @media only screen and (max-width: $mobile) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// apply on ng deep
+
+:host ::ng-deep .highcharts-background {
+  fill: var(--primary-background-3) !important;
+  border-radius: 20px;
+  box-shadow: var(--primary-boxshadow);
+}
+
+:host ::ng-deep .highcharts-container {
+  border-radius: 20px;
+  box-shadow: var(--primary-boxshadow);
+}
+
+:host ::ng-deep text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color-1) !important;
+}
+
+:host ::ng-deep .highcharts-credits {
+  display: none !important;
+}

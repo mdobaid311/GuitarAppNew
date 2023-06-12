@@ -257,7 +257,7 @@ export class ColumnChartComponent {
       : 'light';
 
     this.chartOptions.chart.backgroundColor =
-      this.theme === 'dark' ? '#0D2039' : '#fff';
+      this.theme === 'dark' ? '#0C274E' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.yAxis.labels.style.color =

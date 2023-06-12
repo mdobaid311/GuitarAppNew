@@ -6,9 +6,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./custom-progress-bar.component.scss'],
 })
 export class CustomProgressBarComponent {
-  @Input() customGoalProgress = 0;
-  progress = this.customGoalProgress + '%';
+  @Input() customGoalProgress: number = 0;
+  progress: string = '';
 
-  constructor() {
-   }
+  constructor() {}
+
+  ngOnInit() {
+    this.progress = this.customGoalProgress + '%';
+    console.log(this.progress +"progress");
+
+  }
+
+  ngOnChanges() {
+    this.progress = this.customGoalProgress + '%';
+    console.log(this.progress +"chnages");
+  }
 }

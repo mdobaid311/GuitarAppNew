@@ -1,0 +1,292 @@
+{
+  "dates": [
+    "2023-03-22",
+    "2023-03-23",
+    "2023-03-24",
+    "2023-03-25",
+    "2023-03-26",
+    "2023-03-27",
+    "2023-03-28",
+    "2023-03-29",
+    "2023-03-30",
+    "2023-03-31",
+    "2023-04-01",
+    "2023-04-02",
+    "2023-04-03",
+    "2023-04-04",
+    "2023-04-05",
+    "2023-04-06",
+    "2023-04-07",
+    "2023-04-08",
+    "2023-04-09",
+    "2023-04-10",
+    "2023-04-11"
+  ],
+  "timeSeries": [
+    {
+      "status_name": "Created",
+      "sum": 16091,
+      "date_values": [
+        15881, 34, 21, 1, 0, 11, 9, 40, 3, 4, 1, 2, 2, 1, 2, 1, 1, 24, 30, 1, 12
+      ]
+    },
+    {
+      "status_name": "Back Ordered",
+      "sum": 847,
+      "date_values": [
+        332, 211, 61, 25, 14, 34, 15, 55, 6, 5, 2, 2, 5, 3, 0, 0, 25, 3, 1, 5, 2
+      ]
+    },
+    {
+      "status_name": "Shipment Stopped",
+      "sum": 83,
+      "date_values": [
+        53, 25, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "BackOrderedOMS",
+      "sum": 805,
+      "date_values": [
+        308, 287, 91, 36, 15, 37, 10, 14, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "BackOrderedDAXAllocated",
+      "sum": 276,
+      "date_values": [
+        96, 29, 6, 5, 9, 4, 9, 7, 1, 5, 2, 2, 5, 3, 0, 0, 28, 3, 2, 7, 3
+      ]
+    },
+    {
+      "status_name": "Unscheduled",
+      "sum": 1935,
+      "date_values": [
+        465, 474, 46, 18, 10, 44, 27, 252, 11, 16, 6, 2, 29, 24, 46, 14, 18, 0,
+        6, 12, 10
+      ]
+    },
+    {
+      "status_name": "UnscheduledPODAX",
+      "sum": 3429,
+      "date_values": [
+        333, 208, 137, 137, 144, 194, 174, 160, 185, 154, 119, 110, 94, 32, 0,
+        0, 174, 55, 42, 36, 17
+      ]
+    },
+    {
+      "status_name": "RecievedPODAX",
+      "sum": 86,
+      "date_values": [
+        24, 48, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Back Ordered From Node",
+      "sum": 523,
+      "date_values": [
+        221, 179, 53, 23, 9, 20, 6, 7, 2, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Scheduled",
+      "sum": 19275,
+      "date_values": [
+        13973, 1405, 761, 575, 559, 351, 281, 302, 104, 30, 19, 11, 27, 21, 68,
+        10, 70, 29, 42, 28, 27
+      ]
+    },
+    {
+      "status_name": "ScheduledPODAX",
+      "sum": 5114,
+      "date_values": [
+        987, 386, 218, 143, 44, 123, 180, 182, 97, 68, 45, 109, 67, 94, 77, 69,
+        102, 77, 117, 55, 256
+      ]
+    },
+    {
+      "status_name": "ScheduledPODAXAllocated",
+      "sum": 688,
+      "date_values": [
+        137, 29, 9, 11, 13, 12, 11, 8, 7, 16, 9, 6, 9, 5, 0, 0, 58, 4, 6, 18, 11
+      ]
+    },
+    {
+      "status_name": "Awaiting Chained Order Creation",
+      "sum": 71,
+      "date_values": [
+        69, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Chained Order Created",
+      "sum": 71,
+      "date_values": [
+        68, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Chained Order Cancel Requested",
+      "sum": 2,
+      "date_values": [
+        0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Released",
+      "sum": 12995,
+      "date_values": [
+        11632, 420, 180, 28, 17, 68, 31, 16, 20, 10, 12, 4, 9, 14, 58, 4, 34, 1,
+        8, 16, 4
+      ]
+    },
+    {
+      "status_name": "Stop Shipment Requested",
+      "sum": 85,
+      "date_values": [
+        53, 27, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Stop Shipment Failed",
+      "sum": 2,
+      "date_values": [
+        0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Release In Review",
+      "sum": 21,
+      "date_values": [
+        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0
+      ]
+    },
+    {
+      "status_name": "Release Failure",
+      "sum": 2,
+      "date_values": [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Included In Shipment",
+      "sum": 6737,
+      "date_values": [
+        5985, 397, 194, 24, 12, 58, 10, 13, 6, 0, 2, 2, 2, 0, 0, 1, 15, 0, 0, 1,
+        0
+      ]
+    },
+    {
+      "status_name": "Backroom Picked",
+      "sum": 3204,
+      "date_values": [
+        1465, 1424, 190, 21, 8, 34, 13, 17, 7, 5, 0, 0, 0, 0, 0, 0, 8, 0, 0, 1,
+        1
+      ]
+    },
+    {
+      "status_name": "Sent To Fulfillment Center",
+      "sum": 3642,
+      "date_values": [
+        3247, 196, 96, 20, 7, 34, 7, 6, 3, 0, 1, 1, 1, 0, 0, 1, 8, 0, 0, 1, 0
+      ]
+    },
+    {
+      "status_name": "Shipped",
+      "sum": 12323,
+      "date_values": [
+        6777, 3995, 573, 93, 31, 102, 52, 27, 39, 11, 19, 9, 7, 17, 53, 16, 34,
+        5, 2, 30, 11
+      ]
+    },
+    {
+      "status_name": "Invoiced",
+      "sum": 236,
+      "date_values": [
+        228, 4, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Pending Sales Ticket Creation",
+      "sum": 1668,
+      "date_values": [
+        1668, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Lessons Invoiced",
+      "sum": 1667,
+      "date_values": [
+        1667, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Pending COA Credit",
+      "sum": 14,
+      "date_values": [
+        14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "COA Credit Submitted",
+      "sum": 14,
+      "date_values": [
+        14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+    },
+    {
+      "status_name": "Shipped to Customer",
+      "sum": 1953,
+      "date_values": [
+        689, 925, 183, 16, 9, 41, 24, 12, 12, 7, 5, 0, 0, 1, 1, 1, 7, 0, 0, 5, 1
+      ]
+    },
+    {
+      "status_name": "Pending Receipt",
+      "sum": 1974,
+      "date_values": [
+        851, 870, 125, 24, 9, 17, 8, 7, 7, 0, 3, 0, 3, 1, 5, 5, 2, 1, 1, 1, 1
+      ]
+    },
+    {
+      "status_name": "Ready for Customer Pickup",
+      "sum": 2705,
+      "date_values": [
+        392, 422, 326, 19, 1, 632, 620, 152, 48, 9, 0, 0, 5, 4, 3, 3, 2, 0, 0,
+        8, 12
+      ]
+    },
+    {
+      "status_name": "Customer Picked Up",
+      "sum": 2700,
+      "date_values": [
+        241, 223, 211, 82, 40, 356, 339, 525, 121, 82, 58, 39, 32, 32, 62, 32,
+        26, 5, 0, 23, 28
+      ]
+    },
+    {
+      "status_name": "Return Created",
+      "sum": 966,
+      "date_values": [
+        8, 26, 43, 55, 32, 67, 70, 67, 50, 43, 35, 27, 27, 17, 47, 39, 26, 19,
+        3, 23, 19
+      ]
+    },
+    {
+      "status_name": "Return Received",
+      "sum": 936,
+      "date_values": [
+        7, 21, 25, 46, 29, 45, 57, 61, 43, 33, 43, 28, 35, 23, 55, 42, 32, 22,
+        4, 23, 19
+      ]
+    },
+    {
+      "status_name": "Return Invoiced",
+      "sum": 2,
+      "date_values": [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+      ]
+    }
+  ]
+}
+

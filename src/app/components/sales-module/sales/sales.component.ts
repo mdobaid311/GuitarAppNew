@@ -4,6 +4,7 @@ import {
   Renderer2,
   HostListener,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
@@ -123,7 +124,7 @@ export class SalesComponent {
         }
         .dp1 .myDpSelectorArrow:after {
           border-color: rgba(108, 117, 125, 0);
-          border-bottom-color: #0D2039;
+          border-bottom-color: #0C274E;
         }
         .dp1 .myDpSelectorArrow:focus:before {
           border-bottom-color: #ADD8E6;
@@ -136,14 +137,14 @@ export class SalesComponent {
         }
         .dp1 .myDpDaycellWeekNbr {
           color: #fff;
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
         .dp1 .myDpPrevMonth,
         .dp1 .myDpNextMonth {
           color: #bbb;
         }
         .dp1 .myDpWeekDayTitle {
-          background-color: #0D2039;
+          background-color: #0C274E;
           color: #fff;
           font-weight: bold;
         }
@@ -168,7 +169,7 @@ export class SalesComponent {
         .dp1 .myDpDaycell,
         .dp1 .myDpMonthcell,
         .dp1 .myDpYearcell {
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
         .dp1 .myDpRangeColor {
           background-color: #0B2447;
@@ -185,11 +186,11 @@ export class SalesComponent {
         .dp1 .myDpSelector,
         .dp1 .myDpMonthYearSelBar,
         .dp1 .myDpFooterBar {
-          background-color: #0D2039;
+          background-color: #0C274E;
         }
         .dp1 .myDpDisabled {
           color: #fff;
-          background: repeating-linear-gradient(-45deg, #0D2039 7px, #d3d3d3 8px, transparent 7px, transparent 14px);
+          background: repeating-linear-gradient(-45deg, #0C274E 7px, #d3d3d3 8px, transparent 7px, transparent 14px);
         }
         .dp1 .myDpHighlight {
           color: 	#e7131a;
@@ -211,9 +212,7 @@ export class SalesComponent {
 
   constructor(
     private chartData: ChartService,
-    private router: Router,
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
+    private cdr: ChangeDetectorRef,
 
     calendar: NgbCalendar
   ) {
@@ -254,27 +253,51 @@ export class SalesComponent {
     }
   }
 
+  compareValue: any = {
+    MF: 0,
+    GC: 0,
+  };
+  customGoalProgressPercent: any = {
+    MF: 0,
+    GC: 0,
+  };
+
   onDateChanged(event: IMyDateModel) {
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
-    console.log('first');
+
     const beginDate = begin
       ? begin.year + '-' + begin.month + '-' + begin.day
       : null;
     const endDate = end ? end.year + '-' + end.month + '-' + end.day : null;
 
-    this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
-      next: (resp: any) => {
-        this.customGoal = resp[0].original_orders_total;
-        this.customGoalAbbr = Intl.NumberFormat('en-US', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(this.customGoal);
-        this.customGoalProgress =
-          ((this.originalOrdersTotalToday / this.customGoal) * 100).toFixed(1) +
-          '%';
-      },
-    });
+    this.chartData
+      .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
+      .subscribe({
+        next: (resp: any) => {
+          const data: any = Object.values(resp);
+
+          this.compareValue = {
+            MF: data[0].totalStats.original_order_total_amount,
+            GC: data[1].totalStats.original_order_total_amount,
+          };
+
+          this.customGoalProgressPercent = {
+            MF:
+              (data[0].totalStats.original_order_total_amount /
+                this.fullSalesData[0].totalStats.original_order_total_amount) *
+              100,
+            GC:
+              (data[1].totalStats.original_order_total_amount /
+                this.fullSalesData[1].totalStats.original_order_total_amount) *
+              100,
+          };
+
+          console.log(this.customGoalProgressPercent);
+
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   onRangeSelect(range: any) {
@@ -475,6 +498,34 @@ export class SalesComponent {
     } else {
       this.pinActive = false;
     }
+
+    this.chartData
+      .getFullSalesDataByRange('2023-03-01', '2023-03-02 ', 1440 * 60)
+      .subscribe({
+        next: (resp: any) => {
+          const data: any = Object.values(resp);
+
+          this.compareValue = {
+            MF: data[0].totalStats.original_order_total_amount,
+            GC: data[1].totalStats.original_order_total_amount,
+          };
+
+          this.customGoalProgressPercent = {
+            MF:
+              (data[0].totalStats.original_order_total_amount /
+                this.fullSalesData[0].totalStats.original_order_total_amount) *
+              100,
+            GC:
+              (data[1].totalStats.original_order_total_amount /
+                this.fullSalesData[1].totalStats.original_order_total_amount) *
+              100,
+          };
+
+          console.log(this.customGoalProgressPercent);
+
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   onSelectChartChange(event: any) {
@@ -535,6 +586,18 @@ export class SalesComponent {
     categories: ['2020/21', '2019/20', '2018/19', '2017/18', '2016/17'],
     series: this.yearData,
   };
+
+  getSortedSlice(items: any[]): any[] {
+    if (items) {
+      return items
+        .sort(
+          (a, b) =>
+            b.original_order_total_amount - a.original_order_total_amount
+        )
+        .slice(0, 4);
+    }
+    return [];
+  }
 }
 
 class IItem {

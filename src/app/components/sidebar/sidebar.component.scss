@@ -1,126 +1,6 @@
-// $mobile: 768px;
-// $tablet: 1024px;
-// $desktop: 1200px;
-
-// .sidebar {
-//   height: 100%;
-//   width: 60px; /* set the initial width */
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   background-color: var(--primary-background-1);
-//   z-index: 10000;
-//   border-radius: 0 5px 5px 0;
-//   transition: all 0.5s ease-in-out;
-
-//   @media (max-width: $mobile) {
-//     height: 100%;
-//   }
-
-//   &.active {
-//     width: 230px;
-
-//     .label {
-//       display: block;
-//     }
-//   }
-
-//   &:hover {
-//     width: 230px;
-//     border-radius: 0 15px 15px 0;
-//   }
-
-//   &:hover .sidebar__item {
-//     .label {
-//       transition: display 0.5s 1s ease-in-out;
-//       display: block;
-//     }
-//   }
-
-//   &:hover .sidebar__item .active {
-//     font-size: 22px;
-//   }
-
-//   &:hover .sidebar__item .icon {
-//     font-size: 22px;
-//   }
-
-//   &:hover .icon.active {
-//     transform: rotate(-5deg);
-//     animation: bounce 0.5s ease-in-out 1;
-//   }
-
-//   .sidebar__item {
-//     width: 100%;
-//     height: 60px;
-//     display: flex;
-//     align-items: center;
-//     padding: 20px;
-//     cursor: pointer;
-//     transition: all 0.1s ease-in-out;
-
-//     &:hover {
-//       background-color: rgba(0, 0, 0, 0.25);
-//       border-radius: 10px;
-//     }
-
-//     .label {
-//       padding: 0 10px;
-//       display: none;
-//       color: white;
-//       animation: visible 0.7s ease-in-out 1;
-//       font-weight: 600;
-//     }
-
-//     .icon {
-//       color: white;
-//       font-size: 18px;
-//     }
-
-//     .icon.active {
-//       color: #0b2447;
-//     }
-
-//     .active {
-//       color: #0b2447;
-//     }
-//   }
-
-//   .sidebar__subitem {
-//     display: none;
-//   }
-
-//   &:hover .sidebar__subitem {
-//     display: flex;
-//     margin-left: 25px;
-//     transition: display 0.5s 1s ease-in-out;
-//   }
-// }
-
-// @keyframes bounce {
-//   0% {
-//     transform: translateY(0);
-//   }
-//   50% {
-//     transform: translateY(-10px);
-//   }
-//   100% {
-//     transform: translateY(0);
-//   }
-// }
-
-// @keyframes visible {
-//   0% {
-//     opacity: 0;
-//   }
-//   30% {
-//     opacity: 0;
-//   }
-
-//   100% {
-//     opacity: 1;
-//   }
-// }
+.isLoginPage {
+  display: none;
+}
 
 /* Hamburger Menu */
 .hamburger-menu {
@@ -140,7 +20,7 @@
 }
 
 .label-hamburger-menu:hover .bar {
-  /* box-shadow: 1px 1px 7px 1px RGBa(0, 0, 0, 0.3); */
+  /* box-shadow: 1px 1px 7px 1px #0B2447; */
 }
 
 .label-hamburger-menu .bar {
@@ -231,6 +111,7 @@
   width: 260px;
   background: var(--primary-background-1);
   z-index: 100;
+
   transition: all 0.5s ease;
 }
 
@@ -242,19 +123,23 @@
   width: 100%;
   padding: 20px 10px 10px 10px;
 
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     padding: 5px;
-    background-color: #0D2039;
-      border-radius: 5px;
+    background-color: #0c274e;
+    border-radius: 5px;
   }
 }
 
 /* .sidebar.sidebar-close .logo-details {
   padding: 20px 10px;
 } */
+
+.sidebar-hidden {
+  display: none;
+}
 
 .sidebar .logo-details .logo {
   height: 40px;
@@ -268,7 +153,6 @@
 }
 
 .sidebar .nav-links {
-  height: 100%;
   width: 260px;
   padding-bottom: 150px;
   overflow: auto;
@@ -281,7 +165,6 @@
 .sidebar .nav-links li {
   list-style: none;
   margin: 10px 0;
-
 }
 
 .sidebar .nav-links > li {
@@ -290,12 +173,12 @@
 }
 
 .sidebar .nav-links li:hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: #0b2447;
   border-radius: 10px;
 }
 
 .sidebar .nav-links li.active {
-  background: rgba(0, 0, 0, 0.3);
+  background: #0b2447;
   border-radius: 10px;
 }
 
@@ -336,7 +219,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 
 .sidebar .nav-links li .icon {
   height: 50px;
@@ -402,6 +284,7 @@
   background: var(--primary-background-1);
   display: none;
   transition: all 0.4s ease;
+  z-index: 2000;
 }
 
 .sidebar .nav-links li.showMenu .sub-menu {
@@ -508,8 +391,8 @@
   width: calc(100% - 60px);
 }
 
-@media (max-width: 420px) {
-  .sidebar.sidebar-close .nav-links li .sub-menu {
-    display: none;
-  }
-}
+// @media (max-width: 420px) {
+//   .sidebar.sidebar-close .nav-links li .sub-menu {
+//     display: none;
+//   }
+// }
