@@ -13,7 +13,7 @@
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <div class="heading_container">
-            <h3>Sales</h3>
+            <h3>Sales - Dashboard</h3>
             <div class="view_selection_container">
               <fa-icon
                 [icon]="faEllipsisVertical"
@@ -317,7 +317,14 @@
                   <h3>
                     Sales By Channel <span>{{ item.name }}</span>
                   </h3>
+
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <span>CHANNEL NAME</span>
+                      <span> TOTAL AMOUNT</span>
+                      <span>TOTAL QUANTITY</span>
+                      <span> PERCENTAGE </span>
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="
@@ -349,6 +356,12 @@
                     Sales By fulfilment <span>{{ item.name }}</span>
                   </h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item top_list__item_header">
+                      <span>FULFILLMENT TYPE NAME</span>
+                      <span> TOTAL AMOUNT</span>
+                      <span>TOTAL QUANTITY</span>
+                      <span> PERCENTAGE </span>
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="
@@ -380,6 +393,12 @@
                     Sales By Item Info <span>{{ item.name }}</span>
                   </h3>
                   <div class="top_list__items_list">
+                    <div class="top_list__item">
+                      <span>ITEM INFO NAME</span>
+                      <span> TOTAL AMOUNT</span>
+                      <span>TOTAL QUANTITY</span>
+                      <span> PERCENTAGE </span>
+                    </div>
                     <div
                       class="top_list__item"
                       *ngFor="
@@ -432,17 +451,16 @@
                         </span>
                       </div>
                       <img
-                      class="top_item__image"
-                      src="{{
-                        fullSalesData[0].topItemsData?.byVolume[0]
-                          ?.image_location +
-                          '/' +
-                          fullSalesData[0].topItemsData?.byVolume[0]?.image_id
-                      }}"
-                      alt=""
-                    />
+                        class="top_item__image"
+                        src="{{
+                          fullSalesData[0].topItemsData?.byVolume[0]
+                            ?.image_location +
+                            '/' +
+                            fullSalesData[0].topItemsData?.byVolume[0]?.image_id
+                        }}"
+                        alt=""
+                      />
                     </div>
-
                   </div>
 
                   <div class="top_list__container">

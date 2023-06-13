@@ -80,12 +80,12 @@ export class SidebarComponent {
           icon: faCashRegister,
         },
         {
-          link_name: 'Flow',
+          link_name: 'Flowchart',
           link: '/org-chart',
           icon: faSitemap,
         },
         {
-          link_name: 'US Map',
+          link_name: 'By Region',
           link: '/map',
           icon: faMap,
         },

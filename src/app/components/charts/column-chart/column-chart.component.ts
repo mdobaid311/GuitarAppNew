@@ -72,12 +72,20 @@ export class ColumnChartComponent {
         xAxis: {
           type: 'category',
           labels: {
+            formatter: function (e: any): any {
+              const interval = Math.round(array.length / 6);
+              if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
+              else return '';
+            },
+            enabled: true,
             rotation: 0,
             style: {
-              color: '#000',
-              fontSize: '13px',
-              fontFamily: 'Verdana, sans-serif',
+              color: '#0C274E',
+              fontSize: '18px',
+              fontFamily: 'Poppins, sans-serif',
+              width: '40px',
             },
+            step: 1,
           },
         },
         yAxis: {
@@ -160,11 +168,20 @@ export class ColumnChartComponent {
             xAxis: {
               type: 'category',
               labels: {
+                formatter: function (e: any): any {
+                  const interval = Math.round(yearsData.length / 6);
+                  if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
+                  else return '';
+                },
+                enabled: true,
                 rotation: 0,
                 style: {
-                  color: '#000',
-                  fontFamily: 'Verdana, sans-serif',
+                  color: '#0C274E',
+                  fontSize: '18px',
+                  fontFamily: 'Poppins, sans-serif',
+                  width: '40px',
                 },
+                step: 1,
               },
             },
             // yAxis: {

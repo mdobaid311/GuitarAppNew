@@ -37,6 +37,7 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
+    this.loader = true;
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
     });
@@ -62,13 +63,25 @@ export class LineChartComponent {
 
         xAxis: {
           type: 'category',
+          showLastLabel: true,
+          showFirstLabel: true,
           labels: {
+            formatter: function (e: any): any {
+              const interval = Math.round(array.length / 6);
+
+              if (e.isFirst || e.isLast || e.pos % interval === 0)
+                return e.value;
+              else return '';
+            },
+            enabled: true,
             rotation: 0,
             style: {
               color: '#0C274E',
               fontSize: '18px',
               fontFamily: 'Poppins, sans-serif',
+              width: '40px',
             },
+            step: 1,
           },
         },
         yAxis: {
@@ -94,8 +107,8 @@ export class LineChartComponent {
         },
         series: [
           {
-            marker:{
-              enabled:false
+            marker: {
+              enabled: false,
             },
             name: 'Sales',
             data: array,
@@ -159,16 +172,27 @@ export class LineChartComponent {
             },
 
             xAxis: {
+              startOnTick: true,
+              endOnTick: true,
               type: 'category',
-
+              showLastLabel: true,
+              showFirstLabel: true,
               labels: {
-                enabled:false,
+                formatter: function (e: any): any {
+                  const interval = Math.round(yearsData.length / 6);
+                  if (e.isFirst || e.isLast || e.pos % interval === 0)
+                    return e.value;
+                  else return '';
+                },
+                enabled: true,
                 rotation: 0,
                 style: {
                   color: '#0C274E',
                   fontSize: '18px',
                   fontFamily: 'Poppins, sans-serif',
+                  width: '40px',
                 },
+                step: 1,
               },
             },
             yAxis: {
@@ -195,8 +219,8 @@ export class LineChartComponent {
             },
             series: [
               {
-                marker:{
-                  enabled:false
+                marker: {
+                  enabled: false,
                 },
                 name: 'Sales',
                 data: yearsData,
@@ -237,7 +261,6 @@ export class LineChartComponent {
           this.loader = false;
         },
       });
-
   }
 
   onPinToDashboard() {
@@ -254,6 +277,8 @@ export class LineChartComponent {
       this.theme === 'dark' ? '#0C274E' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#4AA4FF' : '#000';
+    this.chartOptions.xAxis.labels.style.textOverflow='allow',
+    this.chartOptions.xAxis.labels.style.width=100,
     this.chartOptions.yAxis.labels.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
     this.chartOptions.title.style.color =

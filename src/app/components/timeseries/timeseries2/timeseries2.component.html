@@ -1,0 +1,86 @@
+<div class="timeline__screen">
+  <div class="timeline_container">
+    <div class="timeline__main_screen">
+      <!-- header -->
+      <app-custom-header></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <h3>Time Series</h3>
+
+          <div class="date_picker">
+            <input
+              type="text"
+              placeholder="Search..."
+              (input)="onSearch($event)"
+            />
+            <button (click)="toggleTimeSeriesModal()">View Timeseries</button>
+            <button
+              (click)="dp.toggleCalendar()"
+              angular-mydatepicker
+              [options]="myDpOptions"
+              (dateChanged)="onDateChanged($event)"
+              #dp="angular-mydatepicker"
+            >
+              Change Date
+              <fa-icon
+                [icon]="faCalendar"
+                class="icon"
+                class="date-selector-input-box"
+              ></fa-icon>
+            </button>
+            <div class="view_selection_container">
+              <fa-icon
+                [icon]="faEllipsisVertical"
+                class="icon"
+                (click)="toggleStatusSelectionContainer()"
+              ></fa-icon>
+              <div class="view__options" *ngIf="statusSelectionContainer">
+                <button (click)="onSelectAllRows()">
+                  {{ allSelected ? "Unselect All" : "Select All" }}
+                </button>
+                <div class="view_option" *ngFor="let row of rowsData">
+                  <input
+                    type="checkbox"
+                    name="{{ row.name }}"
+                    [checked]="row.isSelected"
+                    (click)="onRowSelectChange(row.name)"
+                  />
+                  <span> {{ row.name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main_container__timeline">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Total</th>
+                <th *ngFor="let item of timeseriesDates">{{ item }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of timeseriesData">
+                <td>
+                  {{ row.status_name }}
+                </td>
+                <td>{{ row.sum }}</td>
+                <td *ngFor="let item of row.date_values">{{ item }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeseries__container" *ngIf="timeSeriesModal">
+  <div class="overlay" (click)="toggleTimeSeriesModal()"></div>
+  <div class="modal">
+    <app-horizontal-timeline
+      [timeseriesDate]="selectedDate"
+    ></app-horizontal-timeline>
+  </div>
+</div>

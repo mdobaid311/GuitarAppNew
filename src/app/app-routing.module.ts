@@ -12,6 +12,7 @@ import { HorizontalTimelineComponent } from './components/timeseries/horizontal-
 import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import { MapComponent } from './components/charts/map/map.component';
 import { ReturnsComponent } from './components/returns-module/returns/returns.component';
+import { Timeseries2Component } from './components/timeseries/timeseries2/timeseries2.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: 'sales', component: SalesComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'timeseries', component: TimelineComponent },
-  { path: 'timeline-1', component: HorizontalTimelineComponent },
+  { path: 'timeseries-1', component: Timeseries2Component },
   { path: 'map', component: UsMapComponent },
   { path: 'map-2', component: MapComponent },
   {

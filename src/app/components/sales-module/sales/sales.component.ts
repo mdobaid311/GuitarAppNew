@@ -266,6 +266,8 @@ export class SalesComponent {
     const begin = event.dateRange?.beginDate;
     const end = event.dateRange?.endDate;
 
+    this.loader = true;
+
     const beginDate = begin
       ? begin.year + '-' + begin.month + '-' + begin.day
       : null;
@@ -298,6 +300,7 @@ export class SalesComponent {
           this.cdr.detectChanges();
         },
       });
+      this.loader = false;
   }
 
   onRangeSelect(range: any) {
@@ -404,6 +407,7 @@ export class SalesComponent {
   }
 
   onGlobalDateRangeChanged(date: NgbDate) {
+    this.loader = true;
     if (!this.globalFromDate && !this.globalToDate) {
       this.globalFromDate = date;
     } else if (
@@ -471,7 +475,7 @@ export class SalesComponent {
       }
       this.loader = false;
     }
-
+    this.loader = false;
   }
 
   makeNonEditable() {

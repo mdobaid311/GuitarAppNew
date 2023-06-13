@@ -46,26 +46,28 @@
   max-height: 300px;
   overflow-y: scroll;
   padding: 10px;
-  h3{
-    padding: 5px;
+}
+
+.table-wrapper h3 {
+  padding: 5px;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Add this line */
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid var(--primary-color-1);
+    text-align: left;
+    width: 33.33%;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
 
-    th,
-    td {
-      padding: 10px;
-      border: 1px solid var(--primary-color-1);
-      text-align: left;
-      // border-radius: 10px;
-      width: 33.33%;
-    }
-
-    th {
-      background-color: var(--primary-background-2);
-      text-transform: uppercase;
-    }
+  th {
+    background-color: var(--primary-background-2);
+    text-transform: uppercase;
   }
 }
 

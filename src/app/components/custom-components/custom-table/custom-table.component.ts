@@ -43,9 +43,24 @@ export class CustomTableComponent {
     observer.observe(document.body, { attributes: true });
   }
   ngOnInit() {
-    // console.log(this.customTableData);
+    //  add percentages also to each object in customTableData
+
+    const total = this.customTableData.reduce((acc: any, curr: any) => {
+      return acc + curr.original_order_total_amount;
+    }, 0);
+
+
+
+     this.customTableData.forEach((element: any) => {
+      element.percentage = ((element.original_order_total_amount / total) * 100).toFixed(2) + "%";
+     })
+
     this.columns = Object.keys(this.customTableData[0]);
     this.data = this.customTableData;
+    // sort data by percentage
+    this.data.sort((a: any, b: any) => {
+      return b.original_order_total_amount - a.original_order_total_amount;
+    });
     this.data = this.customTableData.map((item: any) => {
       return Object.values(item);
     });

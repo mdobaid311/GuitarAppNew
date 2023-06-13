@@ -36,12 +36,11 @@ $desktop: 2000px;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            margin: 0 20px;
 
             h3 {
-              font-size: 35px;
+              font-size: 30px;
               font-weight: 700;
-              color: var(--primary-color-1);
+              color: var(--primary-color-1)
             }
 
             .icon {
@@ -388,6 +387,13 @@ $desktop: 2000px;
                     flex-direction: column;
                     height: 100%;
 
+                    .top_list__item:first-child {
+                      span {
+                        color: var(--primary-header) !important;
+                        font-weight: 600 !important;
+                      }
+                    }
+
                     .top_list__item:nth-child(even) {
                       span {
                         color: var(--primary-color-3) !important;
@@ -497,9 +503,11 @@ $desktop: 2000px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    flex: 1;
                     .board_leader_details {
                       display: flex;
                       flex-direction: column;
+                      justify-content: start;
                     }
 
                     span {
@@ -516,8 +524,8 @@ $desktop: 2000px;
                     }
 
                     img {
-                      width: 150px;
-                      height: 100px;
+                      width: 200px;
+                      height: 150px;
                       object-fit: contain;
                       background: white;
                       border-radius: 10px;
