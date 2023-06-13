@@ -307,6 +307,8 @@ export class SalesComponent {
     this.loader = true;
 
     this.currentRange = range;
+    this.chartData.selectedRange.next(range);
+    
     if (range === '1m') {
       const startDate = moment('2023-05-01 16:28:21')
         .subtract(1, 'months')
