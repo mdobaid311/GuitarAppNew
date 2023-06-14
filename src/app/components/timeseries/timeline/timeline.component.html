@@ -57,12 +57,13 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Total</th>
-                <th>M1</th>
-                <th>M2</th>
-                <th>M3</th>
-                <th>M4</th>
-                <th>M5</th>
+                <th></th>
+                <th *ngFor="let date of timeseriesDates">
+                  <div class="milestone_detail">
+                    <span>{{ date.milestone }} days</span>
+                    <span>{{ date.date }}</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -83,22 +84,6 @@
                     <fa-icon [icon]="faArrowRight" class="icon"></fa-icon>
                   </div>
                 </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td *ngFor="let date of timeseriesDates">
-                  <div class="milestone_detail">
-                    <span>{{date.milestone}} days</span>
-                    <span>{{ date.date }}</span>
-                  </div>
-                </td>
-                <!-- <td >
-                  <div class="milestone_detail">
-                    <span>5</span>
-                    <span>{{item.lastDate}}</span>
-                  </div>
-                </td> -->
               </tr>
             </tbody>
           </table>
