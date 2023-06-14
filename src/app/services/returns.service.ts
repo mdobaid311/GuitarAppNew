@@ -9,8 +9,8 @@ import { APP_CONSTANTS } from '../constants';
 export class ReturnsService {
   constructor(private httpClient: HttpClient) {}
 
-  public getReturnsData(date: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/returns/getReturnsData?date=${date}`;
+  public getReturnsData(startDate: any,endDate:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/returns/getReturnsData?startDate=${startDate}&endDate=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
 }
