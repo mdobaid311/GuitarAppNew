@@ -174,7 +174,17 @@ export class UsMapComponent {
       }).format(+d.value);
     });
 
-    console.log(data);
+    const sortedArrayForTreshold = data.sort((a: any, b: any) => {
+      return b.value - a.value;
+    });
+
+    const tresholds = {
+      first: sortedArrayForTreshold[10].value,
+      second: sortedArrayForTreshold[20].value,
+      third: sortedArrayForTreshold[sortedArrayForTreshold.length - 1].value,
+    };
+
+    console.log(tresholds);
 
     this.chartOptions = {
       chart: {
@@ -315,8 +325,8 @@ export class UsMapComponent {
                 });
             }
           },
-          drillup: function () {
-            // this.setTitle(null, { text: '' });
+          drillup: (e: any) => {
+            this.filteredData = tableData.slice(0, 10);
           },
         },
       },
@@ -351,44 +361,22 @@ export class UsMapComponent {
         },
       },
       colorAxis: {
-        // dataClasses: [
-        //   {
-        //     to: 100000,
-        //     color: '#F8F1F1',
-        //   },
-        //   {
-        //     from: 10000,
-        //     to: 100000,
-        //     color: '#E8AA42',
-        //   },
-        //   {
-        //     from: 100000,
-        //     to: 500000,
-        //     color: '#C88EA7',
-        //   },
-        //   {
-        //     from: 500000,
-        //     to: 1000000,
-        //     color: '#18978F',
-        //   },
-        //   {
-        //     from: 1000000,
-        //     to: 2500000,
-        //     color: '#E8D2A6',
-        //   },
-        //   {
-        //     from: 2500000,
-        //     to: 5000000,
-        //     color: '#0E5E6F',
-        //   },
-        //   {
-        //     from: 5000000,
-        //     to: 10000000,
-        //     color: '#E76161',
-        //   },
-        // ],
-
-        type: 'linear',
+        dataClasses: [
+          {
+            to: tresholds.first,
+            color: '#F8F1F1',
+          },
+          {
+            from: tresholds.second,
+            to: tresholds.first,
+            color: '#E8AA42',
+          },
+          {
+            from: tresholds.third,
+            to: tresholds.second,
+            color: '#C88EA7',
+          },
+        ],
       },
       series: [
         {
@@ -405,12 +393,9 @@ export class UsMapComponent {
             enabled: true, // true to show the value
             format: '{point.abbr}',
 
-            formatter: function (e: any) {
-              return e.value + 'sale';
-            },
             color: '#fff',
             style: {
-              fontSize: '13px',
+              fontSize: '18px',
               color: '#fff',
             },
           },
@@ -683,6 +668,22 @@ export class UsMapComponent {
   }
 
   updateChart(res: any) {
+
+    const tableData = res.map((row: any) => {
+      return Object.values(row);
+    });
+    this.originalData = res;
+
+    this.columnsData = this.columns.map((column: string) => {
+      return {
+        name: column,
+        isSelected: true,
+      };
+    });
+
+    this.filteredData = tableData.slice(0, 10);
+
+
     const data = Highcharts.geojson(USMap);
 
     data.forEach((d, i) => {
@@ -696,6 +697,16 @@ export class UsMapComponent {
         compactDisplay: 'short',
       }).format(+d.value);
     });
+
+    const sortedArrayForTreshold = data.sort((a: any, b: any) => {
+      return b.value - a.value;
+    });
+
+    const tresholds = {
+      first: sortedArrayForTreshold[10].value,
+      second: sortedArrayForTreshold[20].value,
+      third: sortedArrayForTreshold[sortedArrayForTreshold.length - 1].value,
+    };
 
     this.chartOptions = {
       chart: {
@@ -837,8 +848,8 @@ export class UsMapComponent {
                 });
             }
           },
-          drillup: function () {
-            // this.setTitle(null, { text: '' });
+          drillup: (e: any) => {
+            this.filteredData = tableData.slice(0, 10);
           },
         },
       },
@@ -873,44 +884,22 @@ export class UsMapComponent {
         },
       },
       colorAxis: {
-        // dataClasses: [
-        //   {
-        //     to: 100000,
-        //     color: '#F8F1F1',
-        //   },
-        //   {
-        //     from: 10000,
-        //     to: 100000,
-        //     color: '#E8AA42',
-        //   },
-        //   {
-        //     from: 100000,
-        //     to: 500000,
-        //     color: '#C88EA7',
-        //   },
-        //   {
-        //     from: 500000,
-        //     to: 1000000,
-        //     color: '#18978F',
-        //   },
-        //   {
-        //     from: 1000000,
-        //     to: 2500000,
-        //     color: '#E8D2A6',
-        //   },
-        //   {
-        //     from: 2500000,
-        //     to: 5000000,
-        //     color: '#0E5E6F',
-        //   },
-        //   {
-        //     from: 5000000,
-        //     to: 10000000,
-        //     color: '#E76161',
-        //   },
-        // ],
-
-        type: 'linear',
+        dataClasses: [
+          {
+            to: tresholds.first,
+            color: '#F8F1F1',
+          },
+          {
+            from: tresholds.second,
+            to: tresholds.first,
+            color: '#E8AA42',
+          },
+          {
+            from: tresholds.third,
+            to: tresholds.second,
+            color: '#C88EA7',
+          },
+        ],
       },
       series: [
         {

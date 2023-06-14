@@ -13,7 +13,8 @@
               placeholder="Search..."
               (input)="onSearch($event)"
             />
-            <button (click)="toggleTimeSeriesModal()">View Timeseries</button>
+            <!-- <button (click)="toggleTimeSeriesModal()">View Timeseries</button> -->
+            <button (click)="toggleSetMilestonesContainer()">Milestones</button>
             <button
               (click)="dp.toggleCalendar()"
               angular-mydatepicker
@@ -57,6 +58,55 @@
               <tr>
                 <th></th>
                 <th>Total</th>
+                <th>M1</th>
+                <th>M2</th>
+                <th>M3</th>
+                <th>M4</th>
+                <th>M5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of timeseriesData">
+                <td>
+                  {{ row.status_name }}
+                </td>
+                <td>{{ row.sum }}</td>
+                <td
+                  class="milestone__value_box"
+                  *ngFor="let item of row.lineTotalSum"
+                >
+                  <div class="milestone">
+                    <fa-icon [icon]="faArrowLeft" class="icon"></fa-icon>
+                    <span class="value_circle"
+                      >${{ item > 0 ? (item | shortNumber) : 0 }}</span
+                    >
+                    <fa-icon [icon]="faArrowRight" class="icon"></fa-icon>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td *ngFor="let date of timeseriesDates">
+                  <div class="milestone_detail">
+                    <span>{{date.milestone}} days</span>
+                    <span>{{ date.date }}</span>
+                  </div>
+                </td>
+                <!-- <td >
+                  <div class="milestone_detail">
+                    <span>5</span>
+                    <span>{{item.lastDate}}</span>
+                  </div>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <!-- <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Total</th>
                 <th *ngFor="let item of timeseriesDates">{{ item }}</th>
               </tr>
             </thead>
@@ -69,18 +119,82 @@
                 <td *ngFor="let item of row.date_values">{{ item }}</td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="timeseries__container" *ngIf="timeSeriesModal">
+<div class="timeseries__container" *ngIf="showSetMilestonesContainer">
+  <div class="overlay" (click)="toggleSetMilestonesContainer()"></div>
+  <div class="modal">
+    <div class="milestones__container">
+      <div class="milestones__header">
+        <h1>Milestones</h1>
+        <fa-icon
+          [icon]="faTimes"
+          class="icon"
+          (click)="toggleSetMilestonesContainer()"
+        ></fa-icon>
+      </div>
+      <div class="milestones">
+        <div class="milestone">
+          <label for="milestone_1">Milestone 1: </label>
+          <input
+            type="number"
+            name="milestone_1"
+            placeholder="Enter Milestone 1"
+            (input)="changeMilestone($event, 1)"
+          />
+        </div>
+        <div class="milestone">
+          <label for="milestone_2">Milestone 2: </label>
+          <input
+            type="number"
+            name="milestone_2"
+            placeholder="Enter Milestone 2"
+            (input)="changeMilestone($event, 2)"
+          />
+        </div>
+        <div class="milestone">
+          <label for="milestone_3">Milestone 3: </label>
+          <input
+            type="number"
+            name="milestone_3"
+            placeholder="Enter Milestone 3"
+            (input)="changeMilestone($event, 3)"
+          />
+        </div>
+        <div class="milestone">
+          <label for="milestone_4">Milestone 4: </label>
+          <input
+            type="number"
+            name="milestone_4"
+            placeholder="Enter Milestone 4"
+            (input)="changeMilestone($event, 4)"
+          />
+        </div>
+        <div class="milestone">
+          <label for="milestone_5">Milestone 5: </label>
+          <input
+            type="number"
+            name="milestone_5"
+            placeholder="Enter Milestone 5"
+            (input)="changeMilestone($event, 5)"
+          />
+        </div>
+      </div>
+      <button (click)="saveMilestone()">Save and run</button>
+      <span>{{ saveMilestoneMessage }}</span>
+    </div>
+  </div>
+</div>
+<!-- <div class="timeseries__container" *ngIf="timeSeriesModal">
   <div class="overlay" (click)="toggleTimeSeriesModal()"></div>
   <div class="modal">
     <app-horizontal-timeline
       [timeseriesDate]="selectedDate"
     ></app-horizontal-timeline>
   </div>
-</div>
+</div> -->

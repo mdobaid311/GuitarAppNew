@@ -95,6 +95,7 @@
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
               0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            // table-layout: fixed;
 
             * {
               border: none;
@@ -110,17 +111,26 @@
                 background: var(--primary-background-2);
                 padding: 0.75rem 1.5rem;
                 vertical-align: middle;
+                text-align: center;
+                font-size: 20px;
               }
             }
 
             tbody {
               tr:nth-child(odd) td {
                 background: var(--primary-background-3);
+                .value_circle:nth-child(even) {
+                  border: 3px solid var(--primary-color-1);
+                }
               }
 
               tr:nth-child(even) td {
                 background: var(--primary-background-2);
                 color: var(--primary-color-3);
+
+                .value_circle:nth-child(even) {
+                  border: 3px solid var(--primary-color-3);
+                }
               }
               td {
                 color: var(--primary-color-1);
@@ -130,6 +140,47 @@
                 font-size: 1.125rem;
                 font-weight: normal;
                 text-align: center;
+              }
+
+              .milestone__value_box {
+                padding: 1.5rem 0;
+                border-left: 3px dotted var(--primary-color-4);
+                .milestone {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                }
+                .value_circle {
+                  font-size: 22px;
+                  border-radius: 20px;
+                  padding: 10px 15px;
+                }
+
+                .icon {
+                  font-size: 30px;
+                  margin: 0 5px;
+                }
+              }
+
+              .milestone_detail {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                span:first-child {
+                  font-size: 25px;
+                  font-weight: 600;
+                  margin-bottom: 10px;
+                  color: var(--primary-color-3);
+                }
+
+                span {
+                  font-size: 20px;
+                  font-weight: 600;
+                  margin-bottom: 10px;
+                  color: var(--primary-color-1);
+                }
               }
             }
 
@@ -194,13 +245,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 50vh;
-    min-height: 800px;
+    // height: 50vh;
+    // min-height: 800px;
     z-index: 9998;
     overflow-y: scroll;
     border-radius: 20px;
-  border: 6px solid #fff;
-
+    border: 6px solid #fff;
   }
 }
 
@@ -293,5 +343,94 @@
   &:hover {
     color: var(--primary-color-3);
     cursor: pointer;
+  }
+}
+
+.milestones__container {
+  background: var(--primary-background-2);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .milestones__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .icon{
+      font-size: 35px;
+      margin-left: 15px;
+      padding: 5px;
+      &:hover {
+        color: var(--primary-color-3);
+        cursor: pointer;
+      }
+    }
+  }
+
+  span {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color-1);
+  }
+
+  h1 {
+    color: var(--primary-color-3);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .milestones {
+    display: flex;
+    flex-direction: column;
+
+    .milestone {
+      // each milestone has an input and a label
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      padding: 10px 5px;
+      font-size: 20px;
+
+      input {
+        border: none;
+        outline: none;
+        padding: 10px;
+        background: transparent;
+        width: 200px;
+        color: var(--primary-color-1);
+        cursor: pointer;
+        border-bottom: 1px solid var(--primary-background-1);
+        font-size: 20px;
+      }
+      label {
+        color: var(--primary-color-1);
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+  button {
+    background: var(--primary-background-1);
+    color: var(--primary-color-1);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 10px;
+    cursor: pointer;
+    box-shadow: var(--primary-boxshadow);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: var(--primary-background-3);
+      color: var(--primary-color-3);
+    }
   }
 }

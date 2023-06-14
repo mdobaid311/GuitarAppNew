@@ -101,6 +101,11 @@ export class SidebarComponent {
           link: '/timeseries',
           icon: faTimeline,
         },
+        {
+          link_name: 'Milestones',
+          link: '/timeseries-milestones',
+          icon: faTimeline,
+        },
       ],
     },
     {

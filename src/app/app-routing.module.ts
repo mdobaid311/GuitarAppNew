@@ -22,8 +22,8 @@ const routes: Routes = [
   { path: 'org-chart-1', component: Orgchart2Component },
   { path: 'sales', component: SalesComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'timeseries', component: TimelineComponent },
-  { path: 'timeseries-1', component: Timeseries2Component },
+  { path: 'timeseries-milestones', component: TimelineComponent },
+  { path: 'timeseries', component: Timeseries2Component },
   { path: 'map', component: UsMapComponent },
   { path: 'map-2', component: MapComponent },
   {

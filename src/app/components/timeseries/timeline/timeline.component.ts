@@ -3,22 +3,31 @@ import {
   faClock,
   faCalendar,
   faEllipsisVertical,
+  faArrowLeft,
+  faArrowRight,faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import data from './data.json';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import moment from 'moment';
 import { ChartService } from 'src/app/services/chartData.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
 })
 export class TimelineComponent {
-  constructor(private chartService: ChartService) {}
+  constructor(
+    private chartService: ChartService,
+    private userService: UserService
+  ) {}
 
   faClock = faClock;
   faCalendar = faCalendar;
   faEllipsisVertical = faEllipsisVertical;
+  faArrowLeft = faArrowLeft;
+  faArrowRight = faArrowRight;
+  faTimes = faTimes;
 
   timelineSelectOptions = [
     { name: '1', icon: faClock },
@@ -31,14 +40,17 @@ export class TimelineComponent {
   timeseriesDates: any;
   timeseriesData: any;
   originalData: any;
-
+userMileStone:any;
   rowsData: any;
   rows: any;
 
+  user: any;
   ngOnInit() {
-    this.timeseriesDates = data.dates;
-    this.timeseriesData = data.timeSeries;
-    this.originalData = data.timeSeries;
+    console.log(data);
+    this.timeseriesDates = data.timeLineDates;
+    this.timeseriesData = data.mergedData;
+    this.originalData = data.mergedData;
+    this.userMileStone = data.userMilestones;
 
     this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
       return [...acc, item.status_name];
@@ -50,6 +62,16 @@ export class TimelineComponent {
         isSelected: true,
       };
     });
+
+    this.userService.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
+
+  showSetMilestonesContainer = false;
+
+  toggleSetMilestonesContainer() {
+    this.showSetMilestonesContainer = !this.showSetMilestonesContainer;
   }
 
   onRowSelectChange(rowName: any) {
@@ -130,11 +152,15 @@ export class TimelineComponent {
 
     this.selectedDate = formattedDate;
 
-    this.chartService.getTimeSeriesData(formattedDate).subscribe((res: any) => {
-      console.log(res);
-      this.timeseriesDates = res.dates;
-      this.timeseriesData = res.timeSeries;
-    });
+    this.chartService
+      .getTimeSeriesMilestones(formattedDate, 69)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.timeseriesDates = res.timeLineDates;
+        this.timeseriesData = res.mergedData;
+        this.originalData = res.mergedData;
+        this.userMileStone = res.userMilestones;
+      });
   }
 
   myDpOptions: IAngularMyDpOptions = {
@@ -240,4 +266,59 @@ export class TimelineComponent {
        `,
     },
   };
+
+  milestone1 = 0;
+  milestone2 = 0;
+  milestone3 = 0;
+  milestone4 = 0;
+  milestone5 = 0;
+
+  changeMilestone(event: any, milestone: any) {
+    console.log(event.target.value);
+    if (milestone == 1) {
+      this.milestone1 = event.target.value;
+    }
+    if (milestone == 2) {
+      this.milestone2 = event.target.value;
+    }
+    if (milestone == 3) {
+      this.milestone3 = event.target.value;
+    }
+    if (milestone == 4) {
+      this.milestone4 = event.target.value;
+    }
+    if (milestone == 5) {
+      this.milestone5 = event.target.value;
+    }
+  }
+
+  saveMilestoneMessage: string = '';
+
+  saveMilestone() {
+    const milestoneData = {
+      userid: this.user?.id,
+      msone: this.milestone1,
+      mstwo: this.milestone2,
+      msthree: this.milestone3,
+      msfour: this.milestone4,
+      msfive: this.milestone5,
+      mssix: 1,
+    };
+
+    this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
+
+      this.saveMilestoneMessage = res.message;
+    });
+
+    this.chartService
+      .getTimeSeriesMilestones(this.selectedDate, 69)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.timeseriesDates = res.timeLineDates;
+        this.timeseriesData = res.mergedData;
+        this.originalData = res.mergedData;
+        this.userMileStone = res.userMilestones;
+      });
+
+  }
 }

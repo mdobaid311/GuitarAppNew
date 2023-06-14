@@ -4,16 +4,16 @@
     <div class="returns__main_screen">
       <!-- header -->
       <app-custom-header
-      [showDateRangePicker]="true"
-      (onDateChanged)="onGlobalDateRangeChanged($event)"
-      (changeDate)="changeDate($event)"
-      (onRangeSelect)="onRangeSelect($event)"
-      [fullDate]="fullDate"
+        [showDateRangePicker]="true"
+        (onDateChanged)="onGlobalDateRangeChanged($event)"
+        (changeDate)="changeDate($event)"
+        (onRangeSelect)="onRangeSelect($event)"
+        [fullDate]="fullDate"
       ></app-custom-header>
       <div class="main_screen__main_container">
         <div class="main_container__heading">
           <div class="heading__flexbox">
-            <h3>Returns</h3>
+            <h3>Returns - Dashboard</h3>
           </div>
         </div>
         <div class="main_container__returns_container">
@@ -109,13 +109,29 @@
                 <span> Return Fulfilled From </span>
               </h3>
               <div class="top_list__items_list">
+                <div class="top_list__item header__title">
+                  <span>SALES FULFILLMENT TYPE</span>
+                  <span>TOTAL UNITS</span>
+                  <span>TOTAL VALUE</span>
+                  <span>PERCENTAGE</span>
+                </div>
                 <div
                   class="top_list__item"
-                  *ngFor="let item of returnsData.returnsFulfilled"
+                  *ngFor="
+                    let item of returnsData.returnsFulfilledResult
+                      .returnsFulfilled
+                  "
                 >
                   <span>{{ item.sales_fulfillment_type }}</span>
                   <span>{{ item.total_units | shortNumber }}</span>
                   <span>${{ item.total_value | shortNumber }}</span>
+                  <span
+                    >{{
+                      (+item.total_value /
+                        +returnsData.returnsFulfilledResult.total_value_sum) *
+                        100 | number : "1.0-2"
+                    }}%</span
+                  >
                 </div>
               </div>
             </div>
@@ -124,13 +140,30 @@
                 <span> Return Fulfilled Type </span>
               </h3>
               <div class="top_list__items_list">
+                <div class="top_list__item header__title">
+                  <span>SALES ORDER FULFILLMENT TYPE</span>
+                  <span>TOTAL UNITS</span>
+                  <span>TOTAL VALUE</span>
+                  <span>PERCENTAGE</span>
+                </div>
                 <div
                   class="top_list__item"
-                  *ngFor="let item of returnsData.returnByFulfillmentType"
+                  *ngFor="
+                    let item of returnsData.returnByFulfillmentTypeResult
+                      .returnByFulfillmentType
+                  "
                 >
                   <span>{{ item.sales_order_fulfillment_type }}</span>
                   <span>{{ item.total_units | shortNumber }}</span>
                   <span>${{ item.total_value | shortNumber }}</span>
+                  <span
+                    >{{
+                      (+item.total_value /
+                        +returnsData.returnByFulfillmentTypeResult
+                          .total_value) *
+                        100 | number : "1.0-2"
+                    }}%</span
+                  >
                 </div>
               </div>
             </div>
@@ -139,17 +172,28 @@
                 <span> Exchange Order Stats </span>
               </h3>
               <div class="top_list__items_list">
+                <div class="top_list__item header__title">
+                  <span>EXCHANGE TYPE</span>
+                  <span>TOTAL UNITS</span>
+                  <span>TOTAL VALUE</span>
+                  <span>PERCENTAGE</span>
+                </div>
                 <div
                   class="top_list__item"
-                  *ngFor="let item of returnsData.exchangeOrder"
+                  *ngFor="
+                    let item of returnsData.exchangeOrderResult.exchangeOrder
+                  "
                 >
                   <span>{{ item.exchange_type }}</span>
                   <span>{{ item.order_count | shortNumber }}</span>
                   <span>${{ item.exchange_book_amount | shortNumber }}</span>
                   <span
-                    >${{
-                      item.pending_refund_to_use_for_exchange | shortNumber
-                    }}</span
+                    >{{
+                      (+item.exchange_book_amount /
+                        +returnsData.exchangeOrderResult
+                          .exchange_book_amount_sum) *
+                        100 | number : "1.0-2"
+                    }}%</span
                   >
                 </div>
               </div>
@@ -163,13 +207,28 @@
                   <span> Return Reasons </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>COMMON CODE </span>
+                    <span>TOTAL UNITS</span>
+                    <span>TOTAL VALUE</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnReason.slice(0, 5)"
+                    *ngFor="
+                      let item of returnsData.returnReasonResult.returnReason
+                    "
                   >
                     <span>{{ item.common_code_short_description }}</span>
                     <span>{{ item.total_units | shortNumber }}</span>
                     <span>${{ item.total_value | shortNumber }}</span>
+                    <span
+                      >{{
+                        (+item.total_value /
+                          +returnsData.returnReasonResult.total_value) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
@@ -178,15 +237,29 @@
                   <span> Return By Item info </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>ITEM INFO </span>
+                    <span>TOTAL UNITS</span>
+                    <span>TOTAL VALUE</span>
+                    <span> PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
                     *ngFor="
-                      let item of returnsData.returnsByItemInfo.slice(0, 5)
+                      let item of returnsData.returnsByItemInfoResult
+                        .returnsByItemInfo
                     "
                   >
                     <span>{{ item.item_info }}</span>
                     <span>{{ item.line_units | shortNumber }}</span>
-                    <span>{{ item.line_charge | shortNumber }}</span>
+                    <span>${{ item.line_charge | shortNumber }}</span>
+                    <span
+                      >{{
+                        (+item.line_charge /
+                          +returnsData.returnsByItemInfoResult.line_charge) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
@@ -197,14 +270,30 @@
                   <span> Return By Item (Top 10) Value </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>ITEM ID </span>
+                    <span>ITEM CATEGORY NAME</span>
+                    <span>LINE CHARGE</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsByItems"
+                    *ngFor="
+                      let item of returnsData.returnsByItemsResult
+                        .returnsByItems
+                    "
                   >
                     <span>{{ item.item_id }}</span>
                     <span>{{ item.item_category_name }}</span>
 
                     <span>${{ item.line_charge | shortNumber }}</span>
+                    <span
+                      >{{
+                        (+item.line_charge /
+                          +returnsData.returnsByItemsResult.line_charge) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
@@ -213,13 +302,27 @@
                   <span> Return By Item (Top 10) Value </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>ITEM ID </span>
+                    <span>ITEM CATEGORY NAME</span>
+                    <span>TOTAL UNITS</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsByItems"
+                    *ngFor="let item of returnsData.returnsByItemsResult.returnsByItems"
                   >
                     <span>{{ item.item_id }}</span>
                     <span>{{ item.item_category_name }}</span>
                     <span>{{ item.line_units | shortNumber }} Units</span>
+                    <span
+                      >{{
+                        (+item.line_charge /
+                          +returnsData.returnsByItemsResult
+                            .line_charge) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
@@ -227,29 +330,54 @@
             <div class="row">
               <div class="top_list__by_item_info">
                 <h3>
-                  <span> Web Category (Top 10) Value </span>
+                  <span> Web Category (Top 10) VOLUME </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>ITEM CATEGORY NAME</span>
+                    <span>TOTAL UNITS</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsQtyByCategory"
+                    *ngFor="let item of returnsData.returnsQtyByCategoryResult.returnsQtyByCategory"
                   >
                     <span>{{ item.item_category_name }}</span>
-                    <span>${{ item.sum | shortNumber }} Units</span>
+                    <span>{{ item.sum | shortNumber }} Units</span>
+                    <span
+                      >{{
+                        (+item.sum /
+                          +returnsData.returnsQtyByCategoryResult
+                            .sum) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
               <div class="top_list__by_item_info">
                 <h3>
-                  <span> Web Category (Top 10) Volume </span>
+                  <span> Web Category (Top 10) VALUE </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>ITEM CATEGORY NAME </span>
+                    <span>TOTAL VALUE</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsValByCategory"
+                    *ngFor="let item of returnsData.returnsValByCategoryResult.returnsValByCategory"
                   >
                     <span>{{ item.item_category_name }}</span>
                     <span>${{ item.sum | shortNumber }}</span>
+                                 <span
+                    >{{
+                      (+item.sum /
+                        +returnsData.returnsValByCategoryResult.sum
+                        ) * 100 | number : "1.0-2"
+                    }}%</span
+                  >
                   </div>
                 </div>
               </div>
@@ -257,29 +385,54 @@
             <div class="row">
               <div class="top_list__by_item_info">
                 <h3>
-                  <span> Brand Name (Top 10) Value </span>
+                  <span> Brand Name (Top 10) VOLUME </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>BRAND NAME</span>
+                    <span>TOTAL UNITS</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsQtyByBrandName"
+                    *ngFor="let item of returnsData.returnsQtyByBrandNameResult.returnsQtyByBrandName"
                   >
                     <span>{{ item.item_brand_name }}</span>
                     <span>{{ item.sum | shortNumber }} Units</span>
+                    <span
+                      >{{
+                        (+item.sum /
+                          +returnsData.returnsQtyByBrandNameResult
+                            .sum) *
+                          100 | number : "1.0-2"
+                      }}%</span
+                    >
                   </div>
                 </div>
               </div>
               <div class="top_list__by_item_info">
                 <h3>
-                  <span> Brand Name (Top 10) Volume </span>
+                  <span> Brand Name (Top 10) VALUE </span>
                 </h3>
                 <div class="top_list__items_list">
+                  <div class="top_list__item header__title">
+                    <span>BRAND NAME </span>
+                    <span>TOTAL VALUE</span>
+                    <span>PERCENTAGE</span>
+                  </div>
                   <div
                     class="top_list__item"
-                    *ngFor="let item of returnsData.returnsValByBrandName"
+                    *ngFor="let item of returnsData.returnsValByBrandNameResult.returnsValByBrandName"
                   >
                     <span>{{ item.item_brand_name }}</span>
                     <span>${{ item.sum | shortNumber }}</span>
+                                 <span
+                    >{{
+                      (+item.sum /
+                        +returnsData.returnsValByBrandNameResult.sum
+                        ) * 100 | number : "1.0-2"
+                    }}%</span
+                  >
                   </div>
                 </div>
               </div>

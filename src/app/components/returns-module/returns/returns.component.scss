@@ -278,3 +278,10 @@ $desktop: 1200px;
     }
   }
 }
+
+
+.top_list__item:nth-child(1) {
+  span {
+    color: var(--primary-color-2) !important;
+  }
+}

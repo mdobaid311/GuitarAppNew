@@ -61,7 +61,7 @@ export class HorizontalTimelineComponent {
     this.timeseriesTimelineDates = timeseriesData.timeLineDates;
 
     this.chartService
-      .getTimeSeriesMilestones(this.timeseriesDate)
+      .getTimeSeriesMilestones(this.timeseriesDate,69)
       .subscribe((res: any) => {
         console.log(res);
 

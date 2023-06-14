@@ -144,6 +144,7 @@ export class ChartService {
     return this.httpClient.post<any[]>(url, requestBody);
   }
 
+
   // Time series data
 
   public getTimeSeriesData(date: any) {
@@ -151,8 +152,15 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getTimeSeriesMilestones(date: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/getDataForTimeSeries?date=${date}`;
+  public getTimeSeriesMilestones(date: any,userid:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getDataForTimeSeries?date=${date}&userid=${userid}`;
     return this.httpClient.get<any[]>(url);
   }
+
+  public setUserMilestones(msData: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/returns/mileStoneInfo`;
+    const requestBody =  msData
+    return this.httpClient.post<any[]>(url, requestBody);
+  }
+
 }
