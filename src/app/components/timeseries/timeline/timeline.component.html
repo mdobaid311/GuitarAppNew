@@ -78,6 +78,7 @@
             <thead>
               <tr>
                 <th></th>
+                <th>Total</th>
                 <th></th>
                 <th *ngFor="let date of timeseriesDates; let index = index">
                   <div class="milestone__header">
@@ -95,6 +96,7 @@
                 <td>
                   {{ row.status_name }}
                 </td>
+                <td>{{ row.lineTotalSumTotal | shortNumber }}</td>
                 <td>{{ row.sum }}</td>
                 <td
                   class="milestone__value_box"
@@ -103,7 +105,8 @@
                   <div class="milestone">
                     <fa-icon [icon]="faArrowLeft" class="icon"></fa-icon>
                     <span class="value_circle"
-                      >${{ item > 0 ? (item | shortNumber) : 0 }} | {{
+                      >${{ item > 0 ? (item | shortNumber) : 0 }} |
+                      {{
                         (item / row.lineTotalSumTotal) * 100 | number : "1.0-2"
                       }}%</span
                     >
@@ -113,24 +116,6 @@
               </tr>
             </tbody>
           </table>
-          <!-- <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Total</th>
-                <th *ngFor="let item of timeseriesDates">{{ item }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of timeseriesData">
-                <td>
-                  {{ row.status_name }}
-                </td>
-                <td>{{ row.sum }}</td>
-                <td *ngFor="let item of row.date_values">{{ item }}</td>
-              </tr>
-            </tbody>
-          </table> -->
         </div>
         <div
           class="main_container__timeline"
