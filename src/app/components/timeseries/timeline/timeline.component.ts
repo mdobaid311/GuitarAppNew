@@ -4,9 +4,12 @@ import {
   faCalendar,
   faEllipsisVertical,
   faArrowLeft,
-  faArrowRight,faTimes
+  faArrowRight,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import data from './data.json';
+import timeseriesData from './data_timeseries.json';
+
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import moment from 'moment';
 import { ChartService } from 'src/app/services/chartData.service';
@@ -40,32 +43,84 @@ export class TimelineComponent {
   timeseriesDates: any;
   timeseriesData: any;
   originalData: any;
-userMileStone:any;
+  userMileStone: any;
   rowsData: any;
   rows: any;
 
   user: any;
+
+  activeType: string = 'fullseries';
+  loader: boolean = false;
+
+  changeActiveType(type: string) {
+    this.activeType = type;
+    this.loader = true;
+    if (this.activeType === 'milestones') {
+      this.chartService
+        .getTimeSeriesMilestones(this.selectedDate, 69)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.timeseriesDates = res.timeLineDates;
+          this.timeseriesData = res.mergedData;
+          this.originalData = res.mergedData;
+          this.userMileStone = res.userMilestones;
+          this.loader = false;
+        });
+
+    } else if (this.activeType === 'fullseries') {
+      this.chartService
+        .getTimeSeriesData(this.selectedDate)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.timeseriesDates = res.dates;
+          this.originalData = res.timeSeries;
+          this.timeseriesData = res.timeSeries;
+          this.loader = false;
+        });
+    }
+  }
+
   ngOnInit() {
-    console.log(data);
-    this.timeseriesDates = data.timeLineDates;
-    this.timeseriesData = data.mergedData;
-    this.originalData = data.mergedData;
-    this.userMileStone = data.userMilestones;
+    this.loader = true;
+    if (this.activeType === 'milestones') {
+      console.log(data);
+      this.timeseriesDates = data.timeLineDates;
+      this.timeseriesData = data.mergedData;
+      this.originalData = data.mergedData;
+      this.userMileStone = data.userMilestones;
 
-    this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
-      return [...acc, item.status_name];
-    }, []);
+      this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
+        return [...acc, item.status_name];
+      }, []);
 
-    this.rowsData = this.rows.map((column: string) => {
-      return {
-        name: column,
-        isSelected: true,
-      };
-    });
+      this.rowsData = this.rows.map((column: string) => {
+        return {
+          name: column,
+          isSelected: true,
+        };
+      });
 
-    this.userService.user$.subscribe((user) => {
-      this.user = user;
-    });
+      this.userService.user$.subscribe((user) => {
+        this.user = user;
+      });
+      this.loader = false;
+    } else if (this.activeType === 'fullseries') {
+      this.timeseriesDates = timeseriesData.dates;
+      this.timeseriesData = timeseriesData.timeSeries;
+      this.originalData = timeseriesData.timeSeries;
+
+      this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
+        return [...acc, item.status_name];
+      }, []);
+
+      this.rowsData = this.rows.map((column: string) => {
+        return {
+          name: column,
+          isSelected: true,
+        };
+      });
+      this.loader = false;
+    }
   }
 
   showSetMilestonesContainer = false;
@@ -75,13 +130,10 @@ userMileStone:any;
   }
 
   onRowSelectChange(rowName: any) {
-    // Find the selected row
     const selectedRow = this.rowsData.find((row: any) => row.name === rowName);
 
-    // Toggle the isSelected property of the selected row
     selectedRow.isSelected = !selectedRow.isSelected;
 
-    // Update the timeseriesData based on the isSelected property
     this.timeseriesData = [];
 
     this.rowsData.forEach((row: any) => {
@@ -94,8 +146,6 @@ userMileStone:any;
         }
       }
     });
-
-    console.log(this.timeseriesData);
   }
 
   allSelected = true;
@@ -152,15 +202,25 @@ userMileStone:any;
 
     this.selectedDate = formattedDate;
 
-    this.chartService
-      .getTimeSeriesMilestones(formattedDate, 69)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.timeseriesDates = res.timeLineDates;
-        this.timeseriesData = res.mergedData;
-        this.originalData = res.mergedData;
-        this.userMileStone = res.userMilestones;
-      });
+    if (this.activeType === 'milestones') {
+      this.chartService
+        .getTimeSeriesMilestones(formattedDate, 69)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.timeseriesDates = res.timeLineDates;
+          this.timeseriesData = res.mergedData;
+          this.originalData = res.mergedData;
+          this.userMileStone = res.userMilestones;
+        });
+    } else if (this.activeType === 'fullseries') {
+      this.chartService
+        .getTimeSeriesData(formattedDate)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.timeseriesDates = res.dates;
+          this.timeseriesData = res.timeSeries;
+        });
+    }
   }
 
   myDpOptions: IAngularMyDpOptions = {
@@ -306,7 +366,6 @@ userMileStone:any;
     };
 
     this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
-
       this.saveMilestoneMessage = res.message;
     });
 
@@ -319,6 +378,5 @@ userMileStone:any;
         this.originalData = res.mergedData;
         this.userMileStone = res.userMilestones;
       });
-
   }
 }
