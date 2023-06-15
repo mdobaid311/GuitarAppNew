@@ -26,6 +26,7 @@
               <div class="column_selector">
                 <label for="x_axis">X-Axis:</label>
                 <select name="x_axis" (change)="onColumnChange('x', $event)">
+                  <option value="" disabled selected>Select X</option>
                   <option *ngFor="let column of columns" [value]="column">
                     {{ column }}
                   </option>
@@ -33,17 +34,16 @@
               </div>
               <div class="column_selector">
                 <label for="y_axis">Y-Axis:</label>
-                <select
-                  name="y_axis"
-                  id=""
-                  (change)="onColumnChange('y', $event)"
-                >
+                <select name="y_axis" (change)="onColumnChange('y', $event)">
+                  <option value="" disabled selected>Select Y</option>
                   <option *ngFor="let column of columns" [value]="column">
                     {{ column }}
                   </option>
                 </select>
               </div>
-              <button (click)="createChart()"><fa-icon [icon]="faChartLine"></fa-icon> Create</button>
+              <button (click)="createChart()">
+                <fa-icon [icon]="faChartLine"></fa-icon> Create
+              </button>
             </div>
             <div class="run__query_button">
               <button (click)="getQueryResult()">
@@ -61,8 +61,8 @@
           </div>
         </div>
       </div>
-      <div class="chart__container"  *ngIf="showChart">
-        <div class="chartContainer" #chartContainer></div>
+      <div class="chart__container" >
+        <div class="chartContainer" #chartContainer *ngIf="showChart"></div>
       </div>
     </div>
   </div>

@@ -369,7 +369,7 @@ export class AreaSplineChartComponent {
     if (this.xAxisColumn === '' || this.yAxisColumn === '') {
       return;
     }
-    // this.showChart = !this.showChart;
+    this.showChart = true;
     console.log(this.showChart);
     const data = this.data.map((item: any) => {
       return [item[this.xAxisColumn], +item[this.yAxisColumn]];
