@@ -49,7 +49,7 @@ export class TimelineComponent {
 
   user: any;
 
-  activeType: string = 'fullseries';
+  activeType: string = 'milestones';
   loader: boolean = false;
 
   changeActiveType(type: string) {
@@ -66,7 +66,6 @@ export class TimelineComponent {
           this.userMileStone = res.userMilestones;
           this.loader = false;
         });
-
     } else if (this.activeType === 'fullseries') {
       this.chartService
         .getTimeSeriesData(this.selectedDate)
@@ -331,7 +330,6 @@ export class TimelineComponent {
   milestone2 = 0;
   milestone3 = 0;
   milestone4 = 0;
-  milestone5 = 0;
 
   changeMilestone(event: any, milestone: any) {
     console.log(event.target.value);
@@ -347,9 +345,6 @@ export class TimelineComponent {
     if (milestone == 4) {
       this.milestone4 = event.target.value;
     }
-    if (milestone == 5) {
-      this.milestone5 = event.target.value;
-    }
   }
 
   saveMilestoneMessage: string = '';
@@ -361,7 +356,7 @@ export class TimelineComponent {
       mstwo: this.milestone2,
       msthree: this.milestone3,
       msfour: this.milestone4,
-      msfive: this.milestone5,
+      msfive: 1,
       mssix: 1,
     };
 

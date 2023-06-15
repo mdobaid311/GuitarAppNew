@@ -51,6 +51,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MapComponent } from './components/charts/map/map.component';
 import { ReturnsComponent } from './components/returns-module/returns/returns.component';
 import { Timeseries2Component } from './components/timeseries/timeseries2/timeseries2.component';
+import { Sales2Component } from './components/sales-module/sales2/sales2.component';
 
 MapModule(Highcharts);
 DrilldownModule(Highcharts);
@@ -87,6 +88,7 @@ DrilldownModule(Highcharts);
     MapComponent,
     ReturnsComponent,
     Timeseries2Component,
+    Sales2Component,
   ],
   imports: [
     FormsModule,

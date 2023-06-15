@@ -79,10 +79,13 @@
               <tr>
                 <th></th>
                 <th></th>
-                <th *ngFor="let date of timeseriesDates">
-                  <div class="milestone_detail">
-                    <span>{{ date.milestone }} days</span>
-                    <span>{{ date.date }}</span>
+                <th *ngFor="let date of timeseriesDates; let index = index">
+                  <div class="milestone__header">
+                    <div class="milestone_detail">
+                      <span>{{ date.milestone }} days</span>
+                      <span>{{ date.date }}</span>
+                    </div>
+                    <span class="milestone__number">M{{ index + 1 }}</span>
                   </div>
                 </th>
               </tr>
@@ -202,15 +205,6 @@
             name="milestone_4"
             placeholder="Enter Milestone 4"
             (input)="changeMilestone($event, 4)"
-          />
-        </div>
-        <div class="milestone">
-          <label for="milestone_5">Milestone 5: </label>
-          <input
-            type="number"
-            name="milestone_5"
-            placeholder="Enter Milestone 5"
-            (input)="changeMilestone($event, 5)"
           />
         </div>
       </div>

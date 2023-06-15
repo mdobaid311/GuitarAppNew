@@ -26,11 +26,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-sales',
-  templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss'],
+  selector: 'app-sales2',
+  templateUrl: './sales2.component.html',
+  styleUrls: ['./sales2.component.scss'],
 })
-export class SalesComponent {
+export class Sales2Component {
   @ViewChild('selectChartType') selectChartType: any;
   @ViewChild('selectButton') selectButton: any;
 
@@ -86,6 +86,21 @@ export class SalesComponent {
   }
 
   selectedChart = 'line';
+
+  activeTab: any = 'byType';
+
+  activeBrandTab: any = {
+    GC: 'chart',
+    MF: 'chart',
+  };
+
+  changeActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
+
+  changeActiveBrandTab(tabName: string, brand: string) {
+    this.activeBrandTab[brand] = tabName;
+  }
 
   chartTypeOptions = [
     { name: 'column', icon: faChartColumn },
@@ -210,7 +225,6 @@ export class SalesComponent {
     this.isEditable = true;
   }
 
-
   constructor(
     private chartData: ChartService,
     private cdr: ChangeDetectorRef,
@@ -301,7 +315,7 @@ export class SalesComponent {
           this.cdr.detectChanges();
         },
       });
-      this.loader = false;
+    this.loader = false;
   }
 
   onRangeSelect(range: any) {
@@ -479,7 +493,6 @@ export class SalesComponent {
       this.loader = false;
     }
     this.loader = false;
-
   }
 
   makeNonEditable() {

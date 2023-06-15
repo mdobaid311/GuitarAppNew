@@ -1,0 +1,628 @@
+<app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
+<div class="sales__screen">
+  <div class="sales_container">
+    <div class="sales__main_screen">
+      <!-- header -->
+      <app-custom-header
+        (onDateChanged)="onGlobalDateRangeChanged($event)"
+        (changeDate)="changeDate($event)"
+        (onRangeSelect)="onRangeSelect($event)"
+        [fullDate]="fullDate"
+        [showDateRangePicker]="true"
+      ></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <div class="heading_container">
+            <h3>Sales - Dashboard</h3>
+            <div class="view_selection_container">
+              <fa-icon
+                [icon]="faEllipsisVertical"
+                class="icon"
+                (click)="toggleViewSelectContainer()"
+              ></fa-icon>
+              <div class="view__options" *ngIf="isViewSelectContainerOpen">
+                <div class="view_option" routerLink="/area-chart">
+                  Sales Analysis
+                </div>
+                <div class="view_option" routerLink="/org-chart">
+                  Sales flow
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <h3>Edit</h3> -->
+        </div>
+        <div class="main_sales__container">
+          <!-- Overall total stats -->
+          <div class="overall_total__stats_contianer">
+            <div class="overall_total__stats__item">
+              <h3>Total (Booked)</h3>
+              <h1>
+                ${{
+                  ((+fullSalesData[0]?.totalStats.original_order_total_amount ||
+                    0) +
+                    (+fullSalesData[1]?.totalStats
+                      .original_order_total_amount || 0) | shortNumber) || 0
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item_sign"><h1>=</h1></div>
+            <div class="overall_total__stats__item">
+              <h3>Line Price Total</h3>
+              <h1>
+                ${{
+                  ((+fullSalesData[0]?.totalStats.line_price_total || 0) +
+                    (+fullSalesData[1]?.totalStats.line_price_total || 0)
+                    | shortNumber) || 0
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+            <div class="overall_total__stats__item">
+              <h3>Shipping Charges</h3>
+              <h1>
+                ${{
+                  ((+fullSalesData[0]?.totalStats.shipping_cost || 0) +
+                    (+fullSalesData[1]?.totalStats.shipping_cost || 0)
+                    | shortNumber) || 0
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item_sign"><h1>-</h1></div>
+
+            <div class="overall_total__stats__item">
+              <h3>Discount</h3>
+              <h1>
+                ${{
+                  ((+fullSalesData[0]?.totalStats.discount || 0) +
+                    (+fullSalesData[1]?.totalStats.discount || 0)
+                    | shortNumber) || 0
+                }}
+              </h1>
+            </div>
+            <div class="overall_total__stats__item_sign"><h1>+</h1></div>
+
+            <div class="overall_total__stats__item">
+              <h3>Tax</h3>
+              <h1>
+                ${{
+                  ((+fullSalesData[0]?.totalStats.tax || 0) +
+                    (+fullSalesData[1]?.totalStats.tax || 0) | shortNumber) || 0
+                }}
+              </h1>
+            </div>
+
+            <div class="overall_total__stats_subcontianer">
+              <div class="overall_total__stats__item">
+                <h3>Total (Units)</h3>
+                <h1>
+                  {{
+                    ((+fullSalesData[0]?.totalStats.line_ordered_qty || 0) +
+                      (+fullSalesData[1]?.totalStats.line_ordered_qty || 0)
+                      | shortNumber) || 0
+                  }}
+                </h1>
+              </div>
+              <div class="overall_total__stats__item">
+                <h3>Margin</h3>
+                <h1>
+                  ${{
+                    ((+fullSalesData[0]?.totalStats.line_margin || 0) +
+                      (+fullSalesData[1]?.totalStats.line_margin || 0)
+                      | shortNumber) || 0
+                  }}
+                </h1>
+              </div>
+              <div class="overall_total__stats__item">
+                <h3>ROI</h3>
+                <h1>
+                  {{
+                    (((+fullSalesData[0]?.totalStats.line_margin || 0) +
+                      (+fullSalesData[1]?.totalStats.line_margin || 0)) /
+                      ((+fullSalesData[0]?.totalStats
+                        .original_order_total_amount || 0) +
+                        +fullSalesData[1]?.totalStats
+                          .original_order_total_amount || 0)) *
+                      100 | number : "1.0-0"
+                  }}
+                  %
+                </h1>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngFor="let item of fullSalesData; let i = index"
+            class="sales_container__row"
+          >
+            <div class="sales__container__header">
+              <h1>{{ item.name }}</h1>
+              <div class="sales__view_selection__container">
+                <button
+                  (click)="changeActiveBrandTab('chart', item.name)"
+                  [ngClass]="
+                    activeBrandTab[item.name] === 'chart' ? 'active' : ''
+                  "
+                >
+                  Chart
+                </button>
+                <button
+                  (click)="changeActiveBrandTab('byType', item.name)"
+                  [ngClass]="
+                    activeBrandTab[item.name] === 'byType' ? 'active' : ''
+                  "
+                >
+                  By Type
+                </button>
+                <button
+                  (click)="changeActiveBrandTab('topItems', item.name)"
+                  [ngClass]="
+                    activeBrandTab[item.name] === 'topItems' ? 'active' : ''
+                  "
+                >
+                  Top Items
+                </button>
+              </div>
+            </div>
+
+            <div
+              *ngIf="activeBrandTab[item.name] === 'chart'"
+              class="row"
+              [ngClass]="expandChart ? 'expanded' : ''"
+            >
+              <div class="row_1_div_1">
+                <h1 class="brand__name">{{ item.name }}</h1>
+                <div class="row_1_div_1__values">
+                  <h1>
+                    ${{
+                      (+item?.totalStats?.original_order_total_amount || 0
+                        | shortNumber) || 0
+                    }}
+                  </h1>
+                  <!-- <h3>
+                    ({{
+                      (+item?.totalStats?.line_ordered_qty || 0
+                        | shortNumber) || 0
+                    }}
+                    units)
+                  </h3> -->
+                </div>
+                <h3>{{ fullDate === todaysDate ? "Today" : fullDate }}</h3>
+                <app-custom-progress-bar
+                  [customGoalProgress]="
+                    +customGoalProgressPercent[item.name] || 0
+                  "
+                ></app-custom-progress-bar>
+                <div class="div_1_progress_details">
+                  <span
+                    >{{
+                      +customGoalProgressPercent[item.name] | number : "1.2-2"
+                    }}
+                    %</span
+                  >
+
+                  <div class="div_1_progress_details__date_change">
+                    <span (dblclick)="makeEditable()" *ngIf="!isEditable">
+                      ${{ compareValue[item.name] }}
+                    </span>
+                    <input
+                      type="number"
+                      (ngModel)="(customGoal)"
+                      value="{{ customGoal }}"
+                      *ngIf="isEditable"
+                      (blur)="makeNonEditable()"
+                      (change)="setCustomGoal($event)"
+                    />
+                    <!-- <fa-icon
+                  [icon]="faCalendar"
+                  class="icon"
+                  (click)="toggleChangeModal()"
+                ></fa-icon> -->
+                    <fa-icon
+                      [icon]="faCalendar"
+                      class="icon"
+                      class="date-selector-input-box"
+                      (click)="dp.toggleCalendar()"
+                      angular-mydatepicker
+                      [options]="myDpOptions"
+                      (dateChanged)="onDateChanged($event)"
+                      #dp="angular-mydatepicker"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div class="row_1_div_2">
+                <div class="chart__header">
+                  <div class="pintab" (click)="onPinToDashboard()">
+                    <fa-icon
+                      [icon]="faThumbtack"
+                      [ngClass]="pinActive ? 'cckd' : ''"
+                    ></fa-icon>
+                  </div>
+                  <div class="chart__header__right">
+                    <app-custom-select
+                      (onSelectChartChange)="onSelectChartChange($event)"
+                      [selectIcon]="faChartLine"
+                      [options]="chartTypeOptions"
+                    ></app-custom-select>
+                    <fa-icon
+                      [icon]="faExpand"
+                      class="icon"
+                      (click)="onExpandChart()"
+                    ></fa-icon>
+                  </div>
+                </div>
+
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 0"
+                  [barChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-bar-chart>
+                <app-bar-chart
+                  *ngIf="selectedChart == 'bar' && i == 1"
+                  [barChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-bar-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 0"
+                  [columnChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-column-chart>
+                <app-column-chart
+                  *ngIf="selectedChart == 'column' && i == 1"
+                  [columnChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-column-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 0"
+                  [pieChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-pie-chart>
+                <app-pie-chart
+                  *ngIf="selectedChart == 'pie' && i == 1"
+                  [pieChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-pie-chart>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 0"
+                  [customTableData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-custom-table>
+                <app-custom-table
+                  *ngIf="selectedChart == 'table' && i == 1"
+                  [customTableData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-custom-table>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 0"
+                  [lineChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-line-chart>
+                <app-line-chart
+                  *ngIf="selectedChart == 'line' && i == 1"
+                  [lineChartData]="
+                    item?.chartSeries?.series.length > 0
+                      ? item?.chartSeries?.series
+                      : []
+                  "
+                ></app-line-chart>
+              </div>
+            </div>
+
+            <div
+              *ngIf="activeBrandTab[item.name] === 'byType'"
+              class="sales_container__row"
+            >
+              <div class="row_1_div_3">
+                <h3 class="sales_by_category_title">
+                  <!-- <span> {{ item.name }}</span> -->
+                </h3>
+                <div class="sales_categories_container">
+                  <div class="top_list__by_item_info">
+                    <h3>
+                      Sales By Channel <span>{{ item.name }}</span>
+                    </h3>
+
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <span>CHANNEL NAME</span>
+                        <span> TOTAL AMOUNT</span>
+                        <span>TOTAL QUANTITY</span>
+                        <span> PERCENTAGE </span>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of getSortedSlice(
+                            item?.salesCategories?.ORDER_CAPTURE_CHANNEL_GROUPED
+                          )
+                        "
+                      >
+                        <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top_list__by_item_info">
+                    <h3>
+                      Sales By fulfilment <span>{{ item.name }}</span>
+                    </h3>
+                    <div class="top_list__items_list">
+                      <div class="top_list__item top_list__item_header">
+                        <span>FULFILLMENT TYPE NAME</span>
+                        <span> TOTAL AMOUNT</span>
+                        <span>TOTAL QUANTITY</span>
+                        <span> PERCENTAGE </span>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of getSortedSlice(
+                            item?.salesCategories?.LINE_FULFILLMENT_TYPE_GROUPED
+                          )
+                        "
+                      >
+                        <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top_list__by_item_info">
+                    <h3>
+                      Sales By Item Info <span>{{ item.name }}</span>
+                    </h3>
+                    <div class="top_list__items_list">
+                      <div class="top_list__item">
+                        <span>ITEM INFO NAME</span>
+                        <span> TOTAL AMOUNT</span>
+                        <span>TOTAL QUANTITY</span>
+                        <span> PERCENTAGE </span>
+                      </div>
+                      <div
+                        class="top_list__item"
+                        *ngFor="
+                          let data of getSortedSlice(
+                            item?.salesCategories?.ITEM_INFO_GROUPED
+                          )
+                        "
+                      >
+                        <span>{{ data.name ? data.name : "OTHERS" }}</span>
+                        <span
+                          >${{
+                            data.original_order_total_amount | shortNumber
+                          }}</span
+                        >
+                        <span>({{ data.line_ordered_qty }} units)</span>
+                        <span>
+                          {{
+                            (data.original_order_total_amount /
+                              item.salesCategories
+                                .original_order_total_amount) *
+                              100 | number : "1.2-2"
+                          }}
+                          %</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              *ngIf="activeBrandTab[item.name] === 'topItems'"
+              class="top_sales__by_brand"
+            >
+              <div class="brand__top_list_container">
+                <h3 class="top_items_title">
+                  Top Items Sold in <span>{{ item.name }}</span>
+                </h3>
+                <div class="lists__container">
+                  <div class="top_items__list">
+                    <div class="top_items__list_header">
+                      <h3>By Volume</h3>
+                      <div class="board_leader">
+                        <div class="board_leader_details">
+                          <span>Board Leader</span>
+                          <span>{{
+                            item?.topItemsData?.byVolume[0]?.brand_name
+                          }}</span>
+                          <span>
+                            Total:
+                            {{
+                              item?.topItemsData?.byVolume[0]?.line_ordered_qty
+                                | shortNumber
+                            }}
+                          </span>
+                        </div>
+                        <img
+                          class="top_item__image"
+                          src="{{
+                            item?.topItemsData?.byVolume[0]?.image_location +
+                              '/' +
+                              item?.topItemsData?.byVolume[0]?.image_id
+                          }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+
+                    <div class="top_list__container">
+                      <div class="top_list__items_list">
+                        <div class="top_list__item top_list__item_header">
+                          <h4 className="top_item__index">SI</h4>
+                          <img src="" alt="" />
+                          <h4 className="top_item__item_id">ITEM ID</h4>
+                          <h4 className="top_item__web_category">
+                            WEB CATEGORY
+                          </h4>
+                          <h4 className="top_item__brand_name">BRAND NAME</h4>
+                          <h4 className="top_item__total">TOTAL</h4>
+                        </div>
+
+                        <div
+                          class="top_list__item"
+                          *ngFor="
+                            let data of item?.topItemsData?.byVolume;
+                            let i = index
+                          "
+                        >
+                          <h4 className="top_item__index">{{ i + 1 }}</h4>
+                          <img
+                            src="{{
+                              data.image_location + '/' + data.image_id
+                            }}"
+                            alt=""
+                          />
+                          <h4 className="top_item__index">
+                            {{ data.item_id }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            {{ data.web_category }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            {{ data.brand_name }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            {{ data.line_ordered_qty }}
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top_items__list">
+                    <div class="top_items__list_header">
+                      <h3>By Value</h3>
+                      <div class="board_leader">
+                        <div class="board_leader_details">
+                          <span>Board Leader</span>
+                          <span>{{
+                            item?.topItemsData?.byVolume[0]?.brand_name
+                          }}</span>
+                          <span>
+                            Total: ${{
+                              item?.topItemsData?.byValue[0]
+                                ?.original_order_total_amount | shortNumber
+                            }}
+                          </span>
+                        </div>
+                        <img
+                          class="top_item__image"
+                          src="{{
+                            item?.topItemsData?.byValue[0]?.image_location +
+                              '/' +
+                              item?.topItemsData?.byValue[0]?.image_id
+                          }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+
+                    <div class="top_list__container">
+                      <div class="top_list__items_list">
+                        <div class="top_list__item top_list__item_header">
+                          <h4 className="top_item__index">SI</h4>
+                          <img src="" alt="" />
+                          <h4 className="top_item__item_id">ITEM ID</h4>
+                          <h4 className="top_item__web_category">
+                            WEB CATEGORY
+                          </h4>
+                          <h4 className="top_item__brand_name">BRAND NAME</h4>
+                          <h4 className="top_item__total">TOTAL</h4>
+                        </div>
+
+                        <div
+                          class="top_list__item"
+                          *ngFor="
+                            let data of item?.topItemsData?.byValue;
+                            let i = index
+                          "
+                        >
+                          <h4 className="top_item__index">{{ i + 1 }}</h4>
+                          <img
+                            src="{{
+                              data.image_location + '/' + data.image_id
+                            }}"
+                            alt=""
+                          />
+                          <h4 className="top_item__index">
+                            {{ data.item_id }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            {{ data.web_category }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            {{ data.brand_name }}
+                          </h4>
+                          <h4 className="top_item__index">
+                            ${{ data.original_order_total_amount }}
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

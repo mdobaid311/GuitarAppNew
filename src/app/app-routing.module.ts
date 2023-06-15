@@ -13,6 +13,7 @@ import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import { MapComponent } from './components/charts/map/map.component';
 import { ReturnsComponent } from './components/returns-module/returns/returns.component';
 import { Timeseries2Component } from './components/timeseries/timeseries2/timeseries2.component';
+import { Sales2Component } from './components/sales-module/sales2/sales2.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'area-chart', component: AreaSplineChartComponent },
   { path: 'org-chart', component: OrgChartComponent },
   { path: 'org-chart-1', component: Orgchart2Component },
-  { path: 'sales', component: SalesComponent },
+  { path: 'sales-1', component: SalesComponent },
+  { path: 'sales', component: Sales2Component },
   { path: 'settings', component: SettingsComponent },
   { path: 'timeseries-milestones', component: TimelineComponent },
   { path: 'timeseries', component: Timeseries2Component },

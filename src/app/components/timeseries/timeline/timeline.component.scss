@@ -164,6 +164,19 @@
                 vertical-align: middle;
                 text-align: center;
                 font-size: 20px;
+
+                .milestone__header {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: relative;
+
+                  .milestone__number {
+                    position: absolute;
+                    bottom:0 ;
+                    right: -40px;
+                  }
+                }
               }
             }
 
