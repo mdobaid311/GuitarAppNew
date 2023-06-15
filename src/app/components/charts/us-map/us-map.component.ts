@@ -6,6 +6,7 @@ import USMap from '@highcharts/map-collection/countries/us/us-all.topo.json';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { ChartService } from 'src/app/services/chartData.service';
 import moment from 'moment';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-us-map',
@@ -17,7 +18,7 @@ export class UsMapComponent {
   chartConstructor = 'mapChart';
   updateFlag = true;
 
-  columns = ['State', 'Total', 'Percentage'];
+  columns = ['State', 'Total', 'Count', 'Percentage'];
   filteredData: any;
 
   globalFromDate: NgbDate;
@@ -29,99 +30,99 @@ export class UsMapComponent {
   startDate: any = '2023-02-05 00:00:00';
   endDate: any = '2023-02-05 23:59:59';
 
+  faTimes = faTimes;
+
   data = [
-    ['us-ca', 133533949.36, 16.65],
-    ['us-tx', 86648409.71, 10.8],
-    ['us-fl', 58147459.49, 7.25],
-    ['us-ny', 41936401.1, 5.23],
-    ['us-ga', 25824161.1, 3.22],
-    ['us-il', 25143058.65, 3.14],
-    ['us-nc', 22157756.51, 2.76],
-    ['us-tn', 21078776.94, 2.63],
-    ['us-nj', 20676809.35, 2.58],
-    ['us-az', 20235865.25, 2.52],
-    ['us-va', 19959863.66, 2.49],
-    ['us-oh', 19110738.44, 2.38],
-    ['us-pa', 19080728.94, 2.38],
-    ['us-mi', 18432266.84, 2.3],
-    ['us-wa', 18233361.75, 2.27],
-    ['us-or', 18123941.79, 2.26],
-    ['us-ma', 17384547.38, 2.17],
-    ['us-co', 16977149.93, 2.12],
-    ['us-md', 13602412.67, 1.7],
-    ['us-mn', 10809427.99, 1.35],
-    ['us-in', 10571979.78, 1.32],
-    ['us-ct', 10432508.99, 1.3],
-    ['us-sc', 10264786.14, 1.28],
-    ['us-al', 10231794.36, 1.28],
-    ['us-mo', 10028829.09, 1.25],
-    ['us-nv', 10024003.99, 1.25],
-    ['us-la', 9339909.74, 1.16],
-    ['us-wi', 9017259.02, 1.12],
-    ['us-ok', 8925096.88, 1.11],
-    ['us-de', 8757519.86, 1.09],
-    ['us-ky', 8095082.15, 1.01],
-    ['us-ut', 7679263.75, 0.96],
-    ['us-ks', 6934160.28, 0.86],
-    ['us-ar', 5836443.62, 0.73],
-    ['us-nh', 5805467.31, 0.72],
-    ['us-ia', 5018812.24, 0.63],
-    ['us-nm', 4553619.16, 0.57],
-    ['us-ms', 4522140.58, 0.56],
-    ['us-ne', 4372633.8, 0.55],
-    ['us-id', 3863796.82, 0.48],
-    ['us-me', 2677173.73, 0.33],
-    ['us-hi', 2332261.8, 0.29],
-    ['us-sd', 2135101.7, 0.27],
-    ['us-wv', 2118384.85, 0.26],
-    ['us-mt', 1963009.22, 0.24],
-    ['us-ri', 1887858.45, 0.24],
-    ['us-dc', 1508777.36, 0.19],
-    ['us-vt', 1430722.26, 0.18],
-    ['us-nd', 1419586.89, 0.18],
-    ['us-ak', 1386057.57, 0.17],
-    ['us-wy', 880877.06, 0.11],
-    ['us-pr', 464360.84, 0.06],
-    ['us-ae', 181034.02, 0.02],
-    ['us-ap', 173767.61, 0.02],
-    ['us-vi', 30308.69, 0],
-    ['us-aa', 7179.64, 0],
-    ['us-on', 6551.03, 0],
-    ['us-corozal', 5129.91, 0],
-    ['us-', 3684.11, 0],
-    ['us-tx', 3149.94, 0],
-    ['us-bolivar', 2972.65, 0],
-    ['us-us', 2069.08, 0],
-    ['us-virginia', 2035.17, 0],
-    ['us-va', 1687.86, 0],
-    ['us-qc', 1298.99, 0],
-    ['us-gu', 1186.08, 0],
-    ['us-ontario', 963.47, 0],
-    ['us-ab', 949, 0],
-    ['us-fl', 791.76, 0],
-    ['us-puerto rico', 749, 0],
-    ['us-nb', 479.99, 0],
-    ['us-fm', 357, 0],
-    ['us-alberta', 281.79, 0],
-    ['us-bc', 265.94, 0],
-    ['us-campbell river', 179.1, 0],
-    ['us-???', 169, 0],
-    ['us-select', 158.35, 0],
-    ['us-abingdon', 156.9, 0],
-    ['us-mn', 152.7, 0],
-    ['us-ca', 131.34, 0],
-    ['us-las vegas', 130.02, 0],
-    ['us-californie', 119.95, 0],
-    ['us-sk', 89.99, 0],
-    ['us-nueva esparta', 74.99, 0],
-    ['us-kharkivska obl', 70, 0],
-    ['us-alberta', 69.99, 0],
-    ['us-3903', 53.36, 0],
-    ['us-guerrero cuauhtemoc', 50, 0],
-    ['us-alabama', 0, 0],
-    ['us-california', 0, 0],
-    ['us-louisiana', 0, 0],
-    ['us-wisconsin', 0, 0],
+    ['us-ca', 130066755.06, 16.65, 197791],
+    ['us-tx', 84661683.89, 10.84, 121359],
+    ['us-fl', 56873971.89, 7.28, 85945],
+    ['us-ny', 41000786.14, 5.25, 66462],
+    ['us-ga', 25305160.24, 3.24, 37529],
+    ['us-il', 24406919.16, 3.12, 47587],
+    ['us-nc', 21672162.69, 2.77, 39648],
+    ['us-tn', 20592754.22, 2.64, 31468],
+    ['us-az', 19651441.56, 2.52, 31266],
+    ['us-va', 19581483.87, 2.51, 30339],
+    ['us-nj', 19471599.73, 2.49, 34462],
+    ['us-pa', 18689174.82, 2.39, 39755],
+    ['us-oh', 18561489.97, 2.38, 35981],
+    ['us-mi', 17823452.32, 2.28, 35332],
+    ['us-wa', 17753230.22, 2.27, 33206],
+    ['us-or', 17724770.84, 2.27, 26674],
+    ['us-ma', 16920696.28, 2.17, 29401],
+    ['us-co', 16425820.65, 2.1, 28510],
+    ['us-md', 13216293.3, 1.69, 21664],
+    ['us-mn', 10530383.56, 1.35, 20773],
+    ['us-in', 10260548.75, 1.31, 21176],
+    ['us-ct', 10234874, 1.31, 14674],
+    ['us-sc', 10067313.62, 1.29, 17326],
+    ['us-al', 10050671.42, 1.29, 15546],
+    ['us-nv', 9813176.75, 1.26, 14481],
+    ['us-mo', 9640853.19, 1.23, 20957],
+    ['us-la', 9098289, 1.16, 13609],
+    ['us-ok', 8726468.17, 1.12, 13796],
+    ['us-wi', 8707209.42, 1.11, 17951],
+    ['us-de', 8658690.27, 1.11, 7206],
+    ['us-ky', 7880152.98, 1.01, 15718],
+    ['us-ut', 7428676.2, 0.95, 12763],
+    ['us-ks', 6696311.54, 0.86, 11535],
+    ['us-ar', 5645348.98, 0.72, 10239],
+    ['us-nh', 5640949.02, 0.72, 8929],
+    ['us-ia', 4867352.49, 0.62, 10223],
+    ['us-ms', 4373543.45, 0.56, 7048],
+    ['us-nm', 4346911.39, 0.56, 8768],
+    ['us-ne', 4301019.87, 0.55, 6928],
+    ['us-id', 3802700.49, 0.49, 6699],
+    ['us-me', 2628902.08, 0.34, 5502],
+    ['us-hi', 2225345.22, 0.28, 3434],
+    ['us-sd', 2096232.54, 0.27, 2772],
+    ['us-wv', 2054525.39, 0.26, 4712],
+    ['us-mt', 1900179.52, 0.24, 3190],
+    ['us-ri', 1841244.26, 0.24, 4114],
+    ['us-dc', 1486939.73, 0.19, 1509],
+    ['us-nd', 1389624.51, 0.18, 2583],
+    ['us-vt', 1376655.76, 0.18, 3060],
+    ['us-ak', 1364808.75, 0.17, 2113],
+    ['us-wy', 831079.78, 0.11, 1677],
+    ['us-pr', 432164.48, 0.06, 667],
+    ['us-ae', 179190.1, 0.02, 307],
+    ['us-ap', 171509.71, 0.02, 213],
+    ['us-vi', 30308.69, 0, 39],
+    ['us-aa', 6983, 0, 45],
+    ['us-on', 6551.03, 0, 11],
+    ['us-corozal', 5129.91, 0, 3],
+    ['us-', 3684.11, 0, 19],
+    ['us-tx', 3149.94, 0, 3],
+    ['us-bolivar', 2972.65, 0, 5],
+    ['us-us', 2069.08, 0, 4],
+    ['us-virginia', 2035.17, 0, 3],
+    ['us-va', 1687.86, 0, 2],
+    ['us-qc', 1298.99, 0, 2],
+    ['us-gu', 1186.08, 0, 12],
+    ['us-ontario', 963.47, 0, 5],
+    ['us-ab', 949, 0, 1],
+    ['us-fl', 791.76, 0, 2],
+    ['us-puerto rico', 749, 0, 1],
+    ['us-nb', 479.99, 0, 1],
+    ['us-fm', 357, 0, 3],
+    ['us-bc', 265.94, 0, 1],
+    ['us-alberta', 175.8, 0, 4],
+    ['us-???', 169, 0, 1],
+    ['us-abingdon', 156.9, 0, 1],
+    ['us-mn', 152.7, 0, 1],
+    ['us-ca', 131.34, 0, 3],
+    ['us-las vegas', 130.02, 0, 1],
+    ['us-californie', 119.95, 0, 1],
+    ['us-sk', 89.99, 0, 1],
+    ['us-nueva esparta', 74.99, 0, 1],
+    ['us-kharkivska obl', 70, 0, 1],
+    ['us-alberta', 69.99, 0, 1],
+    ['us-3903', 53.36, 0, 1],
+    ['us-guerrero cuauhtemoc', 50, 0, 1],
+    ['us-alabama', 0, 0, 1],
+    ['us-california', 0, 0, 1],
+    ['us-louisiana', 0, 0, 1],
+    ['us-wisconsin', 0, 0, 3],
   ];
 
   mapView = USMap.objects.default['hc-recommended-mapview'];
@@ -145,8 +146,16 @@ export class UsMapComponent {
 
   originalData: any;
   columnsData: any;
-
   newData: any;
+
+  showTresholdsModal = false;
+
+  toggleShowTresholdsModal() {
+    this.showTresholdsModal = !this.showTresholdsModal;
+  }
+
+saveTresholds() {}
+
   ngOnInit() {
     const tableData = this.data.map((row: any) => {
       return Object.values(row);
@@ -167,7 +176,8 @@ export class UsMapComponent {
     data.forEach((d, i) => {
       d.drilldown = d.properties['hc-key'];
       const index = this.data.findIndex((x) => x[0] === d.drilldown);
-      d.value = Math.floor(+this.data[index][1]);
+      d.value = Math.floor(+this.data[index][1]) ? +this.data[index][1] : 0;
+      d.count = Math.floor(+this.data[index][3]);
       d.abbr = Intl.NumberFormat('en-US', {
         notation: 'compact',
         compactDisplay: 'short',
@@ -184,10 +194,11 @@ export class UsMapComponent {
       third: sortedArrayForTreshold[sortedArrayForTreshold.length - 1].value,
     };
 
-    console.log(tresholds);
-
     this.chartOptions = {
       chart: {
+        marker: {
+          enabled: false,
+        },
         map: USMap as any,
         events: {
           drilldown: (e: any) => {
@@ -275,6 +286,15 @@ export class UsMapComponent {
                               (x: any) => x.city === d.properties.name
                             )?.original_order_total_amount
                           : 0;
+
+                        d.count = cityData.find(
+                          (x: any) => x.city === d.properties.name
+                        )?.count
+                          ? cityData.find(
+                              (x: any) => x.city === d.properties.name
+                            )?.count
+                          : 0;
+
                         d.abbr = Intl.NumberFormat('en-US', {
                           notation: 'compact',
                           compactDisplay: 'short',
@@ -330,7 +350,17 @@ export class UsMapComponent {
           },
         },
       },
-      tooltip: { enabled: true },
+      tooltip: {
+        enabled: true,
+        pointFormat:
+          'Name: {point.name}<br/> Total: {point.abbr}<br/> Count: {point.count}',
+
+        color: '#fff',
+        style: {
+          fontSize: '15px',
+          color: '#000',
+        },
+      },
       title: {
         text: 'Sales',
         style: {
@@ -355,6 +385,7 @@ export class UsMapComponent {
         enabled: true,
         itemStyle: {
           color: '#fff',
+          fontSize: '18px',
         },
         itemHoverStyle: {
           color: '#4aa4ff',
@@ -363,18 +394,21 @@ export class UsMapComponent {
       colorAxis: {
         dataClasses: [
           {
-            to: tresholds.first,
-            color: '#F8F1F1',
+            from: tresholds.first,
+            color: '#025464',
+            name: 'High',
           },
           {
             from: tresholds.second,
             to: tresholds.first,
-            color: '#E8AA42',
+            color: '#3C486B',
+            name: 'Medium',
           },
           {
             from: tresholds.third,
             to: tresholds.second,
-            color: '#C88EA7',
+            color: '#4F709C',
+            name: 'Low',
           },
         ],
       },
@@ -385,7 +419,7 @@ export class UsMapComponent {
           name: 'Sales',
           states: {
             hover: {
-              color: '#BADA55',
+              color: '#57C5B6',
             },
           },
 
@@ -668,7 +702,6 @@ export class UsMapComponent {
   }
 
   updateChart(res: any) {
-
     const tableData = res.map((row: any) => {
       return Object.values(row);
     });
@@ -683,21 +716,23 @@ export class UsMapComponent {
 
     this.filteredData = tableData.slice(0, 10);
 
-
     const data = Highcharts.geojson(USMap);
 
     data.forEach((d, i) => {
       d.drilldown = d.properties['hc-key'];
       const index = res.findIndex((x: any) => x[0] === d.drilldown);
       if (index !== -1) {
-        d.value = res[index][1];
+        d.value = res[index][1] ? res[index][1] : 0;
+      } else {
+        d.value = 0;
       }
+      d.count = res[index] ? res[index][3] : 0;
       d.abbr = Intl.NumberFormat('en-US', {
         notation: 'compact',
         compactDisplay: 'short',
       }).format(+d.value);
     });
-
+    console.log(data);
     const sortedArrayForTreshold = data.sort((a: any, b: any) => {
       return b.value - a.value;
     });
@@ -798,6 +833,13 @@ export class UsMapComponent {
                               (x: any) => x.city === d.properties.name
                             )?.original_order_total_amount
                           : 0;
+                        d.count = cityData.find(
+                          (x: any) => x.city === d.properties.name
+                        )?.count
+                          ? cityData.find(
+                              (x: any) => x.city === d.properties.name
+                            )?.count
+                          : 0;
                         d.abbr = Intl.NumberFormat('en-US', {
                           notation: 'compact',
                           compactDisplay: 'short',
@@ -853,7 +895,17 @@ export class UsMapComponent {
           },
         },
       },
-      tooltip: { enabled: true },
+      tooltip: {
+        enabled: true,
+        pointFormat:
+          'Name: {point.name}<br/> Total: {point.abbr}<br/> Count: {point.count}',
+
+        color: '#fff',
+        style: {
+          fontSize: '15px',
+          color: '#000',
+        },
+      },
       title: {
         text: 'Sales',
         style: {
@@ -886,18 +938,21 @@ export class UsMapComponent {
       colorAxis: {
         dataClasses: [
           {
-            to: tresholds.first,
-            color: '#F8F1F1',
+            from: tresholds.first,
+            color: '#025464',
+            name: 'High',
           },
           {
             from: tresholds.second,
             to: tresholds.first,
-            color: '#E8AA42',
+            color: '#3C486B',
+            name: 'Medium',
           },
           {
             from: tresholds.third,
             to: tresholds.second,
-            color: '#C88EA7',
+            color: '#4F709C',
+            name: 'Low',
           },
         ],
       },
@@ -908,7 +963,7 @@ export class UsMapComponent {
           name: 'Sales',
           states: {
             hover: {
-              color: '#BADA55',
+              color: '#57C5B6',
             },
           },
 
@@ -918,7 +973,7 @@ export class UsMapComponent {
 
             color: '#fff',
             style: {
-              fontSize: '13px',
+              fontSize: '18px',
               color: '#fff',
             },
           },

@@ -32,7 +32,9 @@
               (input)="onSearch($event)"
             />
             <!-- <button (click)="toggleTimeSeriesModal()">View Timeseries</button> -->
-            <button (click)="toggleSetMilestonesContainer()">Milestones</button>
+            <button (click)="toggleSetMilestonesContainer()">
+              Set Milestones
+            </button>
             <button
               (click)="dp.toggleCalendar()"
               angular-mydatepicker
@@ -96,7 +98,9 @@
                 <td>
                   {{ row.status_name }}
                 </td>
-                <td>{{ row.lineTotalSumTotal | shortNumber }}</td>
+                <td class="status__total">
+                  {{ row.lineTotalSumTotal | shortNumber }}
+                </td>
                 <td>{{ row.sum }}</td>
                 <td
                   class="milestone__value_box"
@@ -165,6 +169,7 @@
             name="milestone_1"
             placeholder="Enter Milestone 1"
             (input)="changeMilestone($event, 1)"
+            [value]="userMileStone[0]"
           />
         </div>
         <div class="milestone">
@@ -174,6 +179,7 @@
             name="milestone_2"
             placeholder="Enter Milestone 2"
             (input)="changeMilestone($event, 2)"
+            [value]="userMileStone[1]"
           />
         </div>
         <div class="milestone">
@@ -183,6 +189,7 @@
             name="milestone_3"
             placeholder="Enter Milestone 3"
             (input)="changeMilestone($event, 3)"
+            [value]="userMileStone[2]"
           />
         </div>
         <div class="milestone">
@@ -192,6 +199,7 @@
             name="milestone_4"
             placeholder="Enter Milestone 4"
             (input)="changeMilestone($event, 4)"
+            [value]="userMileStone[3]"
           />
         </div>
       </div>

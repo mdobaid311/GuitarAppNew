@@ -58,6 +58,22 @@ export class CustomGridComponent {
 
   query: string = '';
 
+  ngOnChanges() {
+    this.originalData = this.dataArray;
+    this.columns = Object.keys(this.dataArray[0]);
+    this.columnsData = this.columns.map((column: string) => {
+      return {
+        name: column,
+        isSelected: true,
+      };
+    });
+    const tableData = this.dataArray.map((row: any) => {
+      return Object.values(row);
+    });
+    this.data = tableData;
+    this.filteredData = tableData;
+  }
+
   onQueryChange(event: any) {
     this.query = event.target.value;
   }
@@ -260,6 +276,7 @@ export class CustomGridComponent {
   loader: boolean = false;
   columnsData: any = [];
   ngOnInit(): void {
+    console.log('data');
     this.originalData = this.dataArray;
     this.columns = Object.keys(this.dataArray[0]);
     this.columnsData = this.columns.map((column: string) => {

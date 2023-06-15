@@ -87,6 +87,7 @@ export class TimelineComponent {
       this.timeseriesData = data.mergedData;
       this.originalData = data.mergedData;
       this.userMileStone = data.userMilestones;
+      console.log(this.userMileStone);
 
       this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
         return [...acc, item.status_name];

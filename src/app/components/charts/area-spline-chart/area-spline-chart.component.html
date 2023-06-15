@@ -1,6 +1,6 @@
-<div class="spline_chart__screen">
-  <div class="spline_chart_container">
-    <div class="spline_chart__main_screen">
+<div class="sales_analysis__screen">
+  <div class="sales_analysis_container">
+    <div class="sales_analysis__main_screen">
       <app-custom-header [showDateRangePicker]="true"></app-custom-header>
       <div class="main_container__heading">
         <div class="heading__flexbox">
@@ -11,18 +11,8 @@
           >
         </div>
       </div>
-      <div class="spline_chart_container">
-        <div class="chart_container__right">
-          <div #chartContainer class="chart"></div>
-          <div class="sales_aggregation__details">
-            <!-- <button (click)="exportToExcel()">
-              <fa-icon [icon]="faFileExport" class="icon"></fa-icon>
-              Export Data
-            </button> -->
-          </div>
-        </div>
-        <div class="chart_container__left">
-
+      <div class="table_and_query__container">
+        <div class="table__container">
           <app-custom-grid
             *ngIf="data"
             [dataArray]="data"
@@ -30,6 +20,49 @@
             (onTableSelectChange)="onTableSelectChange($event)"
           ></app-custom-grid>
         </div>
+        <div class="query__container">
+          <div class="query__container_header">
+            <div class="chart_columns_selection_container">
+              <div class="column_selector">
+                <label for="x_axis">X-Axis:</label>
+                <select name="x_axis" (change)="onColumnChange('x', $event)">
+                  <option *ngFor="let column of columns" [value]="column">
+                    {{ column }}
+                  </option>
+                </select>
+              </div>
+              <div class="column_selector">
+                <label for="y_axis">Y-Axis:</label>
+                <select
+                  name="y_axis"
+                  id=""
+                  (change)="onColumnChange('y', $event)"
+                >
+                  <option *ngFor="let column of columns" [value]="column">
+                    {{ column }}
+                  </option>
+                </select>
+              </div>
+              <button (click)="createChart()"><fa-icon [icon]="faChartLine"></fa-icon> Create</button>
+            </div>
+            <div class="run__query_button">
+              <button (click)="getQueryResult()">
+                <fa-icon [icon]="faPlay"></fa-icon> Run
+              </button>
+            </div>
+          </div>
+          <div class="query__text_box_container">
+            <textarea
+              name=""
+              id=""
+              (input)="onQueryChange($event)"
+              placeholder="Query..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="chart__container"  *ngIf="showChart">
+        <div class="chartContainer" #chartContainer></div>
       </div>
     </div>
   </div>

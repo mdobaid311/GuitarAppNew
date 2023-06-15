@@ -12,6 +12,7 @@
       <div class="main_container__heading">
         <div class="heading__flexbox">
           <h3>Sales - By Region</h3>
+          <button (click)="toggleShowTresholdsModal()">Set Tresholds</button>
         </div>
       </div>
       <div class="us_chart_container">
@@ -37,15 +38,62 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-
-                <td>{{ row[0] }} </td>
-                <td>{{ row[1] |shortNumber}} </td>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] | shortNumber }}</td>
+                <td>{{ row[3] | shortNumber }} Orders</td>
                 <td>{{ row[2] }} %</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeseries__container" *ngIf="showTresholdsModal">
+  <div class="overlay" (click)="toggleShowTresholdsModal()"></div>
+  <div class="modal">
+    <div class="tresholds__container">
+      <div class="tresholds__header">
+        <h1>Tresholds</h1>
+        <fa-icon
+          [icon]="faTimes"
+          class="icon"
+          (click)="toggleShowTresholdsModal()"
+        ></fa-icon>
+      </div>
+      <div class="tresholds">
+        <div class="treshold">
+          <label for="treshold_1">Treshold 1: </label>
+          <input
+            type="number"
+            name="treshold_1"
+            placeholder="Enter treshold 1"
+            [value]="0"
+          />
+        </div>
+        <div class="treshold">
+          <label for="treshold_2">Treshold 2: </label>
+          <input
+            type="number"
+            name="treshold_2"
+            placeholder="Enter treshold 2"
+            [value]="0"
+          />
+        </div>
+        <div class="treshold">
+          <label for="treshold_3">Treshold 3: </label>
+          <input
+            type="number"
+            name="treshold_3"
+            placeholder="Enter treshold 3"
+            [value]="0"
+          />
+        </div>
+      </div>
+      <button (click)="saveTresholds()">Save and run</button>
+      <!-- <span>{{ savetresholdMessage }}</span> -->
     </div>
   </div>
 </div>

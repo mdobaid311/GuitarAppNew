@@ -173,7 +173,7 @@
 
                   .milestone__number {
                     position: absolute;
-                    bottom:0 ;
+                    bottom: 0;
                     right: -40px;
                   }
                 }
@@ -202,8 +202,11 @@
                 padding: 1.5rem 1.5rem;
                 vertical-align: middle;
                 font-size: 1.125rem;
-                font-weight: normal;
                 text-align: center;
+
+                .status__total {
+                  font-weight: 200;
+                }
               }
 
               .milestone__value_box {
@@ -254,7 +257,7 @@
             tr > td:nth-child(2) {
               position: sticky;
               left: 300px;
-              font-weight: 700;
+
               text-transform: uppercase;
             }
           }
