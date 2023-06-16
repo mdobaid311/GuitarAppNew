@@ -176,21 +176,16 @@ $desktop: 1200px;
   border-radius: 20px;
   box-shadow: var(--primary-boxshadow);
 }
-
-:host ::ng-deep .highcharts-container {
-  border-radius: 20px;
-  box-shadow: var(--primary-boxshadow);
+:host ::ng-deep .highcharts-title {
+ font-weight: 600 !important;
+fill: var(--primary-color-1) !important;
 }
 
-:host ::ng-deep text {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary-color-1) !important;
+:host ::ng-deep .highcharts-legend-item text {
+ font-weight: 600 !important;
+fill: var(--primary-color-1) !important;
 }
 
-:host ::ng-deep .highcharts-credits {
-  display: none !important;
-}
 
 
 .timeseries__container {
@@ -309,6 +304,19 @@ $desktop: 1200px;
       &:hover {
         background: var(--primary-background-3);
         color: var(--primary-color-3);
+      }
+    }
+
+    p{
+      margin-bottom: 10px;
+      text-align: center;
+      color: var(--primary-color-1);
+      font-size: 20px;
+      font-weight:400;
+      span{
+        color: var(--primary-color-3);
+        font-weight: 600;
+        margin-left: 10px;
       }
     }
   }

@@ -18,6 +18,8 @@ import { ChartService } from 'src/app/services/chartData.service';
 import { WorkBook, utils, write } from 'xlsx';
 import { saveAs } from 'file-saver';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -27,8 +29,8 @@ import { Subject } from 'rxjs';
 export class AreaSplineChartComponent {
   chartOptions: any;
   @Input() options: any;
+  @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
 
-  @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   faClock = faClock;
   faSearch = faSearch;
   faCaretLeft = faCaretLeft;
@@ -43,9 +45,32 @@ export class AreaSplineChartComponent {
     { name: '1 Day' },
   ];
 
+  theme = 'light';
+  selectedColumnData: any[] = [];
+  selectedColumnHeader: string = '';
+  data: any;
+  filteredData: any;
+
+  excelFileName: string = 'order_book_line';
+
+  queryTextArea: any;
+
+  originalData: any;
+  columnsData: any = [];
+  dataSubject: Subject<any> = new Subject<any>();
+
+  columns: any = [];
+
+  queryError: boolean = false;
+
+  xAxisColumn = '';
+  yAxisColumn = '';
+  showChart = false;
+  showSaveQuery = false;
+
   constructor(
     private chartData: ChartService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,private userService: UserService,  private toastr: ToastrService
   ) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -59,8 +84,7 @@ export class AreaSplineChartComponent {
     });
     observer.observe(document.body, { attributes: true });
   }
-
-  theme = 'light';
+user: any;
 
   lineChartData: any[] = [
     ['Mar-30', 12132.49],
@@ -105,90 +129,6 @@ export class AreaSplineChartComponent {
     saveAs(file, fileName + '.xlsx');
   }
 
-  selectedColumnData: any[] = [];
-  selectedColumnHeader: string = '';
-
-  onColumnHeaderClick(header: string) {
-    console.log('header', header);
-    this.selectedColumnHeader = header;
-    this.selectedColumnData = this.data
-      .map((row: any) => Math.floor(row[header]))
-      .slice(0, 50);
-
-    this.chartOptions = {
-      chart: {
-        type: 'spline',
-        backgroundColor: this.theme === 'dark' ? '#0C274E' : '#fff',
-      },
-
-      xAxis: {
-        type: 'category',
-        labels: {
-          rotation: 0,
-          style: {
-            color: '#fff',
-            fontFamily: 'Verdana, sans-serif',
-          },
-        },
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Dollars in 1000' + "'" + 's',
-        },
-
-        labels: {
-          rotation: 0,
-          style: {
-            // height: '100px',
-            color: '#fff',
-            fontSize: '13px',
-            fontFamily: 'Verdana, sans-serif',
-          },
-        },
-      },
-      legend: {
-        enabled: false,
-      },
-      tooltip: {
-        pointFormat: 'Sales: <b>{point.y:.1f}</b>',
-      },
-      credits: {
-        enabled: false,
-      },
-
-      series: [
-        {
-          name: 'Sales',
-          data: this.selectedColumnData,
-
-          dataLabels: {
-            enabled: true, // Remove data labels from lines
-            color: '#fff',
-          },
-          color: '#51FF14', // Change color of lines
-        },
-      ],
-      plotOptions: {
-        line: {
-          dashStyle: 'dash',
-          events: {
-            click: function (event: any) {
-              const name = +event.point.name;
-              alert('Value of clicked line: ' + name);
-            },
-          },
-        },
-      },
-    };
-    Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-  }
-
-  data: any;
-  filteredData: any;
-
-  excelFileName: string = 'order_book_line';
-
   onTableSelectChange(data: any) {
     this.data = data.data;
     this.excelFileName = data.tableName;
@@ -199,7 +139,19 @@ export class AreaSplineChartComponent {
     this.createExcelFile(this.data, this.excelFileName);
   }
 
+  userQueriesData:any
+
   ngOnInit(): void {
+
+    this.user = this.userService.user$.subscribe((res: any) => {
+      this.user = res;
+    })
+
+    this.userService.getUserConfigurationData(69).subscribe((res: any) => {
+       this.userQueriesData = res.queriesData;
+       console.log(this.userQueriesData)
+    })
+
     this.chartData.getTableData('order_book_line').subscribe((res: any) => {
       this.data = res;
       this.columns = Object.keys(this.data[0]);
@@ -325,48 +277,61 @@ export class AreaSplineChartComponent {
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  queryTextArea: any;
-
   onQueryChange(e: any) {
     this.queryTextArea = e.target.value;
   }
 
-  originalData: any;
-  columnsData: any = [];
-  dataSubject: Subject<any> = new Subject<any>();
-
-  columns: any = [];
-
   getQueryResult() {
     console.log('query', this.queryTextArea);
 
-    this.chartData
-      .getCustomQueryData(this.queryTextArea)
-      .subscribe((res: any) => {
+    this.chartData.getCustomQueryData(this.queryTextArea).subscribe(
+      (res: any) => {
+        this.showSaveQuery = true;
+        if (res.length === 1) {
+          this.queryError = true;
+
+          this.toastr.error("Single column cannot be plotted");
+          this.showSaveQuery = false;
+          return;
+        }
+        this.queryError = false;
         this.data = res;
         this.columns = Object.keys(this.data[0]);
         this.changeDetectorRef.markForCheck();
-      });
+      },
+      (error: any) => {
+        console.error('An error occurred:', error.error);
+        this.queryError = true;
+       this.toastr.error(error.error);
+      }
+    );
   }
-
-  xAxisColumn = '';
-  yAxisColumn = '';
 
   onColumnChange(type: any, e: any) {
-    console.log(e.target.value);
+    this.queryError = false;
+    if (
+      this.xAxisColumn === e.target.value ||
+      this.yAxisColumn === e.target.value
+    ) {
+      this.queryError = true;
+      this.toastr.error('Column already selected');
+      return;
+    }
+    this.queryError = false;
     if (type === 'x') {
       this.xAxisColumn = e.target.value;
+       this.queryError = false;
     } else {
       this.yAxisColumn = e.target.value;
+       this.queryError = false;
     }
-    // console.log('x', this.xAxisColumn, 'y', this.yAxisColumn);
   }
-
-  showChart = true;
 
   createChart() {
     // create an array of arrays where each array should have two values (x and y) for the chart
     if (this.xAxisColumn === '' || this.yAxisColumn === '') {
+      this.queryError = true;
+      this.toastr.error('Please select x and y axis');
       return;
     }
     this.showChart = true;
@@ -382,5 +347,45 @@ export class AreaSplineChartComponent {
       else return '';
     };
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
+  }
+
+  queryName:any
+
+  onQueryNameChange(e: any) {
+    this.queryName = e.target.value;
+  }
+
+  saveQuery() {
+    const userid = this.user?.id;
+    const query = this.queryTextArea;
+    const queryName = this.queryName;
+    const xaxis   = this.xAxisColumn;
+    const yaxis   = this.yAxisColumn;
+
+    if (!queryName || !query || !xaxis || !yaxis) {
+      this.toastr.error('Please fill all the fields');
+      return;
+    }
+    const data = {
+      userid,
+      queryVal: query,
+      name: queryName,
+      xaxis,
+      yaxis,
+    }
+    this.userService.saveQuery(data).subscribe((res: any) => {
+      this.toastr.success('Query Saved Successfully');
+    })
+  }
+
+  showSavedQueriesContainer: boolean = false;
+
+  toggleSavedQueriesContainer() {
+    this.showSavedQueriesContainer = !this.showSavedQueriesContainer;
+  }
+
+  onSavedQueryRun(query: any) {
+    this.queryTextArea = query.query;
+    this.getQueryResult();
   }
 }

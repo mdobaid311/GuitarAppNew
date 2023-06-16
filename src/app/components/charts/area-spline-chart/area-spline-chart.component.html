@@ -16,7 +16,7 @@
           <app-custom-grid
             *ngIf="data"
             [dataArray]="data"
-            (onColumnHeaderClick)="onColumnHeaderClick($event)"
+
             (onTableSelectChange)="onTableSelectChange($event)"
           ></app-custom-grid>
         </div>
@@ -41,8 +41,11 @@
                   </option>
                 </select>
               </div>
-              <button (click)="createChart()">
+              <button (click)="createChart()" [disabled]="queryError">
                 <fa-icon [icon]="faChartLine"></fa-icon> Create
+              </button>
+              <button (click)="toggleSavedQueriesContainer()" [ngClass]="showSavedQueriesContainer ? 'active' : ''">
+                <fa-icon [icon]="faChartLine"></fa-icon> Saved
               </button>
             </div>
             <div class="run__query_button">
@@ -51,7 +54,7 @@
               </button>
             </div>
           </div>
-          <div class="query__text_box_container">
+          <div class="query__text_box_container" *ngIf="!showSavedQueriesContainer">
             <textarea
               name=""
               id=""
@@ -59,10 +62,24 @@
               placeholder="Query..."
             ></textarea>
           </div>
+          <div class="saved__queries__container">
+            <div class="saved_query__container" *ngFor="let query of userQueriesData ">
+              <span>{{query.name}}</span>
+              <button (click)="onSavedQueryRun(query)">Run</button>
+            </div>
+          </div>
+          <div class="query__save_container" *ngIf="showSaveQuery &&!showSavedQueriesContainer ">
+            <input type="text" placeholder="Enter Query Name" (input)="onQueryNameChange($event)" />
+            <button (click)="saveQuery()">Save</button>
+          </div>
         </div>
       </div>
-      <div class="chart__container" >
-        <div class="chartContainer" #chartContainer *ngIf="showChart"></div>
+
+      <div
+        class="chart__container"
+        [ngStyle]="{ display: showChart ? 'block' : 'none' }"
+      >
+        <div class="chartContainer" #chartContainer></div>
       </div>
     </div>
   </div>

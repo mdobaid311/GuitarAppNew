@@ -103,6 +103,17 @@ $desktop: 1200px;
             }
           }
 
+          button:disabled {
+            background: var(--primary-background-3);
+            color: var(--primary-color-3);
+            cursor: not-allowed;
+          }
+
+          button.active {
+            background: var(--primary-background-3);
+            color: var(--primary-color-3);
+          }
+
           .query__container_header {
             display: flex;
             justify-content: space-between;
@@ -139,10 +150,9 @@ $desktop: 1200px;
 
           .query__text_box_container {
             display: flex;
-            height: 100%;
+            flex: 1;
             textarea {
               width: 100%;
-              height: 100%;
               border: none;
               outline: none;
               resize: none;
@@ -151,9 +161,69 @@ $desktop: 1200px;
               color: var(--primary-color-1);
               font-size: 20px;
               font-weight: 500;
-
+              flex: 1;
               border-radius: 6px;
               box-shadow: var(--primary-boxshadow);
+            }
+          }
+          .query__error_container {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            border-radius: 6px;
+            box-shadow: var(--primary-boxshadow);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 20px;
+            color: #e7131a;
+          }
+          .query__save_container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            box-shadow: var(--primary-boxshadow);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 20px;
+            color: #e7131a;
+
+            input {
+              border: none;
+              outline: none;
+              padding: 10px;
+              background: transparent;
+              font-size: 18px;
+              flex: 1;
+              color: var(--primary-color-1);
+              cursor: pointer;
+              border-bottom: 1px solid var(--primary-background-1);
+            }
+          }
+
+          .saved__queries__container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            align-items: center;
+            width: 100%;
+
+            .saved_query__container {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+              padding: 10px 20px;
+              box-shadow: var(--primary-boxshadow);
+              border-radius: 6px;
+              span {
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--primary-color-1);
+                flex: 1;
+              }
             }
           }
         }
@@ -165,7 +235,6 @@ $desktop: 1200px;
     }
   }
 }
-
 
 :host ::ng-deep .highcharts-background {
   fill: var(--primary-background-3) !important;

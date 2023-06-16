@@ -39,4 +39,28 @@ export class UserService {
     const url = `${APP_CONSTANTS.URI}/v2/tables/users`;
     return this.httpClient.get<any[]>(url);
   }
+
+  public getThresholdInfo(userId:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getThresholdInfo?userid=${userId}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public setThresholds(tsData: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/thresholdInfo`;
+    const requestBody =  tsData
+    return this.httpClient.post<any[]>(url, requestBody);
+  }
+
+  public saveQuery(queryData: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/returns/createQueriesInfo`;
+    const requestBody =  queryData
+    return this.httpClient.post<any[]>(url, requestBody);
+  }
+
+  public getUserConfigurationData(userId:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/returns/getUserConfigurations?userid=${userId}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+
 }

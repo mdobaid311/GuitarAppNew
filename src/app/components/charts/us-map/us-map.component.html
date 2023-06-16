@@ -21,7 +21,7 @@
           [Highcharts]="Highcharts"
           [constructorType]="chartConstructor"
           [options]="chartOptions"
-          [(update)]="updateFlag"
+          *ngIf="chartOptions"
           #chartContainer
           style="flex: 3; height: 80%"
           class="map__container"
@@ -38,7 +38,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-                <td>{{ row[0] }}</td>
+                <td>{{stateNamesMap[row[0].split('-')[1]]  }}</td>
                 <td>{{ row[1] | shortNumber }}</td>
                 <td>{{ row[3] | shortNumber }} Orders</td>
                 <td>{{ row[2] }} %</td>
@@ -70,7 +70,8 @@
             type="number"
             name="treshold_1"
             placeholder="Enter treshold 1"
-            [value]="0"
+            [value]="userTresholds.tsone"
+            (input)="changeTreshold($event, 1)"
           />
         </div>
         <div class="treshold">
@@ -79,7 +80,8 @@
             type="number"
             name="treshold_2"
             placeholder="Enter treshold 2"
-            [value]="0"
+            [value]="userTresholds.tstwo"
+            (input)="changeTreshold($event, 2)"
           />
         </div>
         <div class="treshold">
@@ -88,10 +90,12 @@
             type="number"
             name="treshold_3"
             placeholder="Enter treshold 3"
-            [value]="0"
+            [value]="userTresholds.tsthree"
+            (input)="changeTreshold($event,3)"
           />
         </div>
       </div>
+      <p>Remaining states: <span>{{statesRemaingingForTreshold}}</span></p>
       <button (click)="saveTresholds()">Save and run</button>
       <!-- <span>{{ savetresholdMessage }}</span> -->
     </div>

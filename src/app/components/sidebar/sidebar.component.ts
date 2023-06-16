@@ -93,7 +93,7 @@ export class SidebarComponent {
     },
     {
       link_name: 'Timeseries',
-      link: '/timeseries',
+      link: '/timeseries-milestones',
       icon: faTimeline,
       sub_menu: [
         {

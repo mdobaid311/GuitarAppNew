@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import data from './data.json';
 import timeseriesData from './data_timeseries.json';
-
+import { ToastrService } from 'ngx-toastr';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
 import moment from 'moment';
 import { ChartService } from 'src/app/services/chartData.service';
@@ -22,7 +22,7 @@ import { UserService } from 'src/app/services/user.service';
 export class TimelineComponent {
   constructor(
     private chartService: ChartService,
-    private userService: UserService
+    private userService: UserService,private toastr: ToastrService
   ) {}
 
   faClock = faClock;
@@ -348,21 +348,23 @@ export class TimelineComponent {
     }
   }
 
-  saveMilestoneMessage: string = '';
+
 
   saveMilestone() {
     const milestoneData = {
       userid: this.user?.id,
-      msone: this.milestone1,
-      mstwo: this.milestone2,
-      msthree: this.milestone3,
-      msfour: this.milestone4,
+      msone: this.milestone1 ? this.milestone1 : this.userMileStone[0],
+      mstwo: this.milestone2 ? this.milestone2 : this.userMileStone[1],
+      msthree: this.milestone3 ? this.milestone3 : this.userMileStone[2],
+      msfour: this.milestone4 ? this.milestone4 : this.userMileStone[3],
       msfive: 1,
       mssix: 1,
     };
 
     this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
-      this.saveMilestoneMessage = res.message;
+
+      this.toastr.success( res.message);
+      this.showSetMilestonesContainer = false;
     });
 
     this.chartService
