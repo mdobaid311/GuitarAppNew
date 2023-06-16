@@ -22,7 +22,8 @@ import { UserService } from 'src/app/services/user.service';
 export class TimelineComponent {
   constructor(
     private chartService: ChartService,
-    private userService: UserService,private toastr: ToastrService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   faClock = faClock;
@@ -80,30 +81,34 @@ export class TimelineComponent {
   }
 
   ngOnInit() {
-    this.loader = true;
     if (this.activeType === 'milestones') {
-      console.log(data);
-      this.timeseriesDates = data.timeLineDates;
-      this.timeseriesData = data.mergedData;
-      this.originalData = data.mergedData;
-      this.userMileStone = data.userMilestones;
-      console.log(this.userMileStone);
-
-      this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
-        return [...acc, item.status_name];
-      }, []);
-
-      this.rowsData = this.rows.map((column: string) => {
-        return {
-          name: column,
-          isSelected: true,
-        };
-      });
-
       this.userService.user$.subscribe((user) => {
         this.user = user;
+
+        const userid = this?.user.id;
+        console.log('first');
+        this.chartService
+          .getTimeSeriesMilestones('2023-01-28', userid)
+          .subscribe((res: any) => {
+            this.loader = true;
+            console.log(res);
+            this.timeseriesDates = res.timeLineDates;
+            this.timeseriesData = res.mergedData;
+            this.originalData = res.mergedData;
+            this.userMileStone = res.userMilestones;
+            this.rows = this.timeseriesData.reduce((acc: any, item: any) => {
+              return [...acc, item.status_name];
+            }, []);
+
+            this.rowsData = this.rows.map((column: string) => {
+              return {
+                name: column,
+                isSelected: true,
+              };
+            });
+            this.loader = false;
+          });
       });
-      this.loader = false;
     } else if (this.activeType === 'fullseries') {
       this.timeseriesDates = timeseriesData.dates;
       this.timeseriesData = timeseriesData.timeSeries;
@@ -206,7 +211,6 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesMilestones(formattedDate, 69)
         .subscribe((res: any) => {
-          console.log(res);
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
           this.originalData = res.mergedData;
@@ -348,8 +352,6 @@ export class TimelineComponent {
     }
   }
 
-
-
   saveMilestone() {
     const milestoneData = {
       userid: this.user?.id,
@@ -361,20 +363,21 @@ export class TimelineComponent {
       mssix: 1,
     };
 
+    console.log(milestoneData);
+    const userid = this.user?.id;
     this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
-
-      this.toastr.success( res.message);
+      this.toastr.success(res.message);
       this.showSetMilestonesContainer = false;
-    });
 
-    this.chartService
-      .getTimeSeriesMilestones(this.selectedDate, 69)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.timeseriesDates = res.timeLineDates;
-        this.timeseriesData = res.mergedData;
-        this.originalData = res.mergedData;
-        this.userMileStone = res.userMilestones;
-      });
+      this.chartService
+        .getTimeSeriesMilestones('2023-01-28', userid)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.timeseriesDates = res.timeLineDates;
+          this.timeseriesData = res.mergedData;
+          this.originalData = res.mergedData;
+          this.userMileStone = res.userMilestones;
+        });
+    });
   }
 }

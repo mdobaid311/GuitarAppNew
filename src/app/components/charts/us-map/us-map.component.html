@@ -38,7 +38,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-                <td>{{stateNamesMap[row[0].split('-')[1]]  }}</td>
+                <td>{{nameMap(row[0])}}</td>
                 <td>{{ row[1] | shortNumber }}</td>
                 <td>{{ row[3] | shortNumber }} Orders</td>
                 <td>{{ row[2] }} %</td>

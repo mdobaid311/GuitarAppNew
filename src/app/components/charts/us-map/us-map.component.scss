@@ -186,6 +186,12 @@ fill: var(--primary-color-1) !important;
 fill: var(--primary-color-1) !important;
 }
 
+:host ::ng-deep .highcharts-button text  {
+  font-size: 22px;
+ font-weight: 600 !important;
+fill: var(--primary-color-3) !important;
+}
+
 
 
 .timeseries__container {

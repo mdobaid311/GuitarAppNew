@@ -1011,4 +1011,12 @@ export class UsMapComponent {
 
      window.location.reload();
   }
+
+  nameMap(name: any) {
+     if(this.stateNamesMap[name.split('-')[1]]){
+      return this.stateNamesMap[name.split('-')[1]];
+    }else{
+      return name;
+    }
+  }
 }
