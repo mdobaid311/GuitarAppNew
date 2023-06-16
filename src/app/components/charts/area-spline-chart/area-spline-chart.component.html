@@ -62,7 +62,7 @@
               placeholder="Query..."
             ></textarea>
           </div>
-          <div class="saved__queries__container">
+          <div class="saved__queries__container" *ngIf="showSavedQueriesContainer" >
             <div class="saved_query__container" *ngFor="let query of userQueriesData ">
               <span>{{query.name}}</span>
               <button (click)="onSavedQueryRun(query)">Run</button>
