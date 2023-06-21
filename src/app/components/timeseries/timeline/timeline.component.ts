@@ -380,4 +380,14 @@ export class TimelineComponent {
         });
     });
   }
+
+  showTotalsFlag = false;
+
+  showTotals() {
+    this.showTotalsFlag = true;
+  }
+
+  showPercentage() {
+    this.showTotalsFlag = false;
+  }
 }

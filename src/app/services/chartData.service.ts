@@ -117,12 +117,12 @@ export class ChartService {
     endDate: any,
     intervaltime: any
   ) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
 
-  public getTableData(tableName: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables?table=${tableName}`;
+  public getTableData(tableName: any, startDate: any, endDate: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables?table=${tableName}&startDate=${startDate}&endDate=${endDate}`;
     return this.httpClient.get<any[]>(url);
   }
 
@@ -136,14 +136,15 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getCustomQueryData(query: string) {
+  public getCustomQueryData(query: string,startDate: any, endDate: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
     const requestBody = {
       query: query,
+      startDate: startDate,
+      endDate: endDate
     };
     return this.httpClient.post<any[]>(url, requestBody);
   }
-
 
   // Time series data
 
@@ -152,15 +153,14 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getTimeSeriesMilestones(date: any,userid:any) {
+  public getTimeSeriesMilestones(date: any, userid: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/getDataForTimeSeries?date=${date}&userid=${userid}`;
     return this.httpClient.get<any[]>(url);
   }
 
   public setUserMilestones(msData: any) {
     const url = `${APP_CONSTANTS.URI}/v2/returns/mileStoneInfo`;
-    const requestBody =  msData
+    const requestBody = msData;
     return this.httpClient.post<any[]>(url, requestBody);
   }
-
 }

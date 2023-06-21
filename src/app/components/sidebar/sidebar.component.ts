@@ -13,6 +13,7 @@ import {
   faTimeline,
   faMap,
   faRotateLeft,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -32,7 +33,7 @@ export class SidebarComponent {
   faChevronDown = faChevronDown;
   faMap = faMap;
   faRotateLeft = faRotateLeft;
-
+  faBell = faBell;
   openSidebar: boolean = false;
 
   expandSidebar() {
@@ -112,6 +113,18 @@ export class SidebarComponent {
           link_name: 'Returns',
           link: '/returns',
           icon: faRotateLeft,
+        },
+      ],
+    },
+    {
+      link_name: 'Alert Management',
+      link: '/alert',
+      icon: faBell,
+      sub_menu: [
+        {
+          link_name: 'Alerts',
+          link: '/alert',
+          icon: faBell,
         },
       ],
     },

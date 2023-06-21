@@ -12,7 +12,7 @@
       <div class="main_container__heading">
         <div class="heading__flexbox">
           <h3>Sales - By Region</h3>
-          <button (click)="toggleShowTresholdsModal()">Set Tresholds</button>
+          <button (click)="toggleShowThresholdsModal()">Set Thresholds</button>
         </div>
       </div>
       <div class="us_chart_container">
@@ -51,53 +51,53 @@
   </div>
 </div>
 
-<div class="timeseries__container" *ngIf="showTresholdsModal">
-  <div class="overlay" (click)="toggleShowTresholdsModal()"></div>
+<div class="timeseries__container" *ngIf="showThresholdsModal">
+  <div class="overlay" (click)="toggleShowThresholdsModal()"></div>
   <div class="modal">
-    <div class="tresholds__container">
-      <div class="tresholds__header">
-        <h1>Tresholds</h1>
+    <div class="thresholds__container">
+      <div class="thresholds__header">
+        <h1>Thresholds</h1>
         <fa-icon
           [icon]="faTimes"
           class="icon"
-          (click)="toggleShowTresholdsModal()"
+          (click)="toggleShowThresholdsModal()"
         ></fa-icon>
       </div>
-      <div class="tresholds">
-        <div class="treshold">
-          <label for="treshold_1">Treshold 1: </label>
+      <div class="thresholds">
+        <div class="threshold">
+          <label for="High">High: </label>
           <input
             type="number"
-            name="treshold_1"
-            placeholder="Enter treshold 1"
-            [value]="userTresholds.tsone"
-            (input)="changeTreshold($event, 1)"
+            name="High"
+            placeholder="Enter High"
+            [value]="userThresholds.tsone"
+            (input)="changeThreshold($event, 1)"
           />
         </div>
-        <div class="treshold">
-          <label for="treshold_2">Treshold 2: </label>
+        <div class="threshold">
+          <label for="Medium">Medium: </label>
           <input
             type="number"
-            name="treshold_2"
-            placeholder="Enter treshold 2"
-            [value]="userTresholds.tstwo"
-            (input)="changeTreshold($event, 2)"
+            name="Medium"
+            placeholder="Low Medium"
+            [value]="userThresholds.tstwo"
+            (input)="changeThreshold($event, 2)"
           />
         </div>
-        <div class="treshold">
-          <label for="treshold_3">Treshold 3: </label>
+        <div class="threshold">
+          <label for="Low">Low: </label>
           <input
             type="number"
-            name="treshold_3"
-            placeholder="Enter treshold 3"
-            [value]="userTresholds.tsthree"
-            (input)="changeTreshold($event,3)"
+            name="Low"
+            placeholder="Enter Low"
+            [value]="userThresholds.tsthree"
+            (input)="changeThreshold($event,3)"
           />
         </div>
       </div>
-      <p>Remaining states: <span>{{statesRemaingingForTreshold}}</span></p>
-      <button (click)="saveTresholds()">Save and run</button>
-      <!-- <span>{{ savetresholdMessage }}</span> -->
+      <p>Remaining states: <span>{{statesRemaingingForThreshold}}</span></p>
+      <button (click)="saveThresholds()">Save and run</button>
+      <!-- <span>{{ savethresholdMessage }}</span> -->
     </div>
   </div>
 </div>

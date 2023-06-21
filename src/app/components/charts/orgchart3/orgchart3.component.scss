@@ -1,0 +1,211 @@
+.org_chart__screen {
+  background: var(--primary-background-1);
+
+  .org_chart_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
+
+    .org_chart__main_screen {
+      flex: 1;
+      background: var(--primary-background-2);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.1);
+      width: 1292px;
+      height: 100%;
+      .main_screen__main_container {
+        margin: 10px;
+        padding: 10px 15px;
+        height: 100%;
+
+        .main_container__heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+
+          .heading__flexbox {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span {
+              font-size: 18px;
+              font-weight: 500;
+              color: var(--primary-color-3);
+              cursor: pointer;
+            }
+
+            h3 {
+              font-size: 30px;
+              font-weight: 700;
+              color: var(--primary-color-1);
+            }
+          }
+        }
+
+        .main_container__charts_container {
+          display: flex;
+          flex-direction: column;
+          height: 80%;
+
+          .zoom_and_select_type_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .type_container {
+              button {
+                background: var(--primary-background-3);
+                color: var(--primary-color-1);
+                border: none;
+                border-radius: 6px;
+                padding: 10px 20px;
+                font-size: 15px;
+                font-weight: 600;
+                margin: 0 10px;
+                cursor: pointer;
+                box-shadow: var(--primary-boxshadow);
+                transition: all 0.3s ease;
+                &:hover {
+                  background: var(--primary-background-2);
+                  color: var(--primary-color-3);
+                }
+              }
+
+              .active {
+                background: var(--primary-background-1);
+                color: #fff;
+
+                &:hover {
+                  background: var(--primary-background-1);
+                  color: #fff;
+                }
+              }
+            }
+
+            .zoom_range {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+
+              .icon {
+                font-size: 22px;
+                cursor: pointer;
+                margin: 0 10px;
+              }
+
+              input {
+                background: linear-gradient(
+                  to right,
+                  var(--primary-background-1) 0%,
+                  var(--primary-background-1) 100%
+                );
+
+                border-radius: 1px;
+                height: 7px;
+                outline: none;
+                transition: background 450ms ease-in;
+                -webkit-appearance: none;
+
+                &::-webkit-slider-thumb {
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 10%;
+                  -webkit-appearance: none;
+                  cursor: ew-resize;
+                  border: 0.2px solid var(--primary-color-2);
+                  background: var(--primary-background-2);
+                }
+              }
+            }
+          }
+
+          // make div draggable on overflow auto
+          .org_chart_container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            position: relative;
+
+            &::-webkit-scrollbar {
+              width: 5px !important;
+              height: 5px !important;
+            }
+          }
+
+          .org_chart__node {
+            color: var(--primary-color-1);
+            background: var(--primary-background-3);
+            border-radius: 5%;
+            min-width: 200px;
+            min-height: 80px;
+            padding: 15px;
+            // transform: rotate(90deg);
+            display: flex;
+            flex-direction: column;
+            // min-height: 60px;
+            // min-width: 60px;
+
+            justify-content: center;
+            align-items: center;
+            span {
+              color: var(--primary-color-3);
+              font-weight: 500;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .chart_node {
+  background: var(--primary-background-3);
+  color: var(--primary-color-1);
+  border-radius: 5%;
+  padding: 5px;
+  border: 1px solid var(--primary-color-1);
+}
+
+:host ::ng-deep .p-organizationchart .p-organizationchart-line-left {
+  border-color: var(--primary-color-1);
+}
+:host ::ng-deep .p-organizationchart .p-organizationchart-line-right {
+  border-color: var(--primary-color-1);
+}
+
+:host ::ng-deep .p-organizationchart .p-organizationchart-line-down {
+  background: var(--primary-color-1);
+}
+
+:host ::ng-deep .ngx-org-box {
+  background: var(--primary-background-3);
+  color: var(--primary-color-1);
+  border-radius: 5%;
+  padding: 15px;
+  border: 1px solid var(--primary-color-1);
+}
+
+:host ::ng-deep .ngx-org-name {
+  color: var(--primary-color-3);
+  font-weight: 500;
+  font-size: 22px;
+  margin: 5px 0;
+}
+
+:host ::ng-deep .ngx-org-title {
+  font-weight: 500;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.org_chart__org_chart {
+  width: 100%;
+  transform-origin: center;
+}

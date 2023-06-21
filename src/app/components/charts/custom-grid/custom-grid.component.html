@@ -63,7 +63,7 @@
           <th
             *ngFor="let column of columns"
             (click)="headerClickHandler(column)"
-            [ngClass]="{ selected: selectedColumnHeader === column }"
+            [ngClass]="{ selected: xColumn === column || yColumn === column }"
           >
             {{ column }}
           </th>

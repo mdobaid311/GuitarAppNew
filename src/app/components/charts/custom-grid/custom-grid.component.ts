@@ -27,6 +27,8 @@ import { saveAs } from 'file-saver';
 export class CustomGridComponent {
   @Output() onColumnHeaderClick = new EventEmitter<string>();
   @Input() dataArray: any[] = [];
+  @Input() startDate: any;
+  @Input() endDate: any;
   @Output() onTableSelectChange = new EventEmitter<any>();
 
   faClock = faClock;
@@ -78,29 +80,6 @@ export class CustomGridComponent {
     this.query = event.target.value;
   }
 
-  getQueryData() {
-    console.log('query', this.query);
-    this.chartData.getCustomQueryData(this.query).subscribe((res: any) => {
-      const tableData = res.map((row: any) => {
-        return Object.values(row);
-      });
-      this.originalData = res;
-      this.columns = Object.keys(res[0]);
-      this.columnsData = this.columns.map((column: string) => {
-        return {
-          name: column,
-          isSelected: true,
-        };
-      });
-      this.data = tableData;
-      this.filteredData = tableData;
-      this.onTableSelectChange.emit({
-        data: res,
-        tableName: 'Custom_table',
-      });
-    });
-  }
-
   createExcelFile(data: any[], fileName: string): void {
     const worksheet: any = utils.json_to_sheet(data);
     const workbook: WorkBook = {
@@ -122,25 +101,28 @@ export class CustomGridComponent {
   }
 
   onSelectTableChange(tableName: string) {
-    this.chartData.getTableData(tableName).subscribe((res: any) => {
-      const tableData = res.map((row: any) => {
-        return Object.values(row);
+    console.log(this.startDate, this.endDate);
+    this.chartData
+      .getTableData(tableName, this.startDate, this.endDate)
+      .subscribe((res: any) => {
+        const tableData = res.map((row: any) => {
+          return Object.values(row);
+        });
+        this.originalData = res;
+        this.columns = Object.keys(res[0]);
+        this.data = tableData;
+        this.filteredData = tableData;
+        this.columnsData = this.columns.map((column: string) => {
+          return {
+            name: column,
+            isSelected: true,
+          };
+        });
+        this.onTableSelectChange.emit({
+          data: res,
+          tableName: tableName,
+        });
       });
-      this.originalData = res;
-      this.columns = Object.keys(res[0]);
-      this.data = tableData;
-      this.filteredData = tableData;
-      this.columnsData = this.columns.map((column: string) => {
-        return {
-          name: column,
-          isSelected: true,
-        };
-      });
-      this.onTableSelectChange.emit({
-        data: res,
-        tableName: tableName,
-      });
-    });
   }
   selectAll: boolean = true;
 
@@ -253,10 +235,21 @@ export class CustomGridComponent {
     { name: '1 Day' },
   ];
 
+  xColumn: any = '';
+  yColumn: any = '';
+
   headerClickHandler(header: string) {
     this.selectedColumnHeader = header;
     this.selectedColumnData = this.data.map((row: any) => row[header]);
     this.onColumnHeaderClick.emit(header);
+
+    if (!this.xColumn) {
+      this.xColumn = header;
+    } else if (!this.yColumn) {
+      this.yColumn = header;
+    } else if (this.xColumn && this.yColumn) {
+      this.yColumn = header;
+    }
   }
 
   theme = 'light';

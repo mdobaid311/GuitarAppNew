@@ -14,7 +14,7 @@
         <div class="main_container__heading">
           <div class="heading_container">
             <h3>Sales - Dashboard</h3>
-            <div class="view_selection_container">
+            <!-- <div class="view_selection_container">
               <fa-icon
                 [icon]="faEllipsisVertical"
                 class="icon"
@@ -28,6 +28,13 @@
                   Sales flow
                 </div>
               </div>
+            </div> -->
+            <div class="brand_selection_container">
+              <select name="brand_selection" id="" (input)="onBrandSelect($event)">
+                <option value="ALL">All</option>
+                <option value="GC">GC</option>
+                <option value="MF">MF</option>
+              </select>
             </div>
           </div>
           <!-- <h3>Edit</h3> -->

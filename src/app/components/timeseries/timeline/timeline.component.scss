@@ -183,7 +183,7 @@
             tbody {
               tr:nth-child(odd) td {
                 background: var(--primary-background-3);
-                .value_circle:nth-child(even) {
+                .value_circle.totals {
                   border: 3px solid var(--primary-color-1);
                 }
               }
@@ -192,7 +192,7 @@
                 background: var(--primary-background-2);
                 color: var(--primary-color-3);
 
-                .value_circle:nth-child(even) {
+                .value_circle.totals {
                   border: 3px solid var(--primary-color-3);
                 }
               }
@@ -212,6 +212,7 @@
               .milestone__value_box {
                 padding: 10px 0;
                 border-left: 1px solid var(--primary-color-1);
+                width: 300px;
                 .milestone {
                   display: flex;
                   align-items: center;
@@ -223,9 +224,22 @@
                   padding: 10px 15px;
                 }
 
+                .value_circle.totals {
+                  display: none;
+                }
+
                 .icon {
                   font-size: 30px;
                   margin: 0 5px;
+                }
+              }
+
+              .milestone__value_box:hover {
+                .value_circle.percentage {
+                  display: none;
+                }
+                .value_circle.totals {
+                  display: block;
                 }
               }
             }

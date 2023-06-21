@@ -62,16 +62,16 @@ export class UsMapComponent {
   columnsData: any;
   newData: any;
 
-  showTresholdsModal = false;
+  showThresholdsModal = false;
   stateNamesMap: any;
 
   user: any;
 
-  toggleShowTresholdsModal() {
-    this.showTresholdsModal = !this.showTresholdsModal;
+  toggleShowThresholdsModal() {
+    this.showThresholdsModal = !this.showThresholdsModal;
   }
 
-  userTresholds: any;
+  userThresholds: any;
 
   ngOnInit() {
     this.stateNamesMap = stateNamesMap;
@@ -104,11 +104,11 @@ export class UsMapComponent {
       }).format(+d.value);
     });
 
-    const sortedArrayForTreshold = data.sort((a: any, b: any) => {
+    const sortedArrayForThreshold = data.sort((a: any, b: any) => {
       return b.value - a.value;
     });
 
-    let tresholds;
+    let thresholds;
 
     this.userService.user$
       .pipe(
@@ -118,25 +118,27 @@ export class UsMapComponent {
         })
       )
       .subscribe((res: any) => {
-        this.userTresholds = res.result[0];
-        this.statesRemaingingForTreshold =
+        this.userThresholds = res.result[0];
+        this.statesRemaingingForThreshold =
           51 -
-          this.userTresholds?.tsone -
-          this.userTresholds?.tstwo -
-          this.userTresholds?.tsthree;
+          this.userThresholds?.tsone -
+          this.userThresholds?.tstwo -
+          this.userThresholds?.tsthree;
 
+        const threshold1 = +this.userThresholds?.tsone;
+        const threshold2 = +this.userThresholds?.tstwo + threshold1;
+        const threshold3 = +this.userThresholds?.tsthree + threshold2;
 
-          const threshold1 =  +this.userTresholds?.tsone
-          const threshold2 =  +this.userTresholds?.tstwo + threshold1
-          const threshold3 =  +this.userTresholds?.tsthree + threshold2
+        this.threshold1 = +this.userThresholds?.tsone;
+        this.threshold2 = +this.userThresholds?.tstwo;
+        this.threshold3 = +this.userThresholds?.tsthree;
 
-
-        tresholds = {
-          first: sortedArrayForTreshold[threshold1].value,
-          second: sortedArrayForTreshold[threshold2].value,
-          third: sortedArrayForTreshold[threshold3 - 1].value,
+        thresholds = {
+          first: sortedArrayForThreshold[threshold1].value,
+          second: sortedArrayForThreshold[threshold2].value,
+          third: sortedArrayForThreshold[threshold3 - 1].value,
         };
-        console.log(tresholds + 'tresholds');
+        console.log(thresholds + 'thresholds');
 
         this.chartOptions = {
           chart: {
@@ -332,19 +334,19 @@ export class UsMapComponent {
           colorAxis: {
             dataClasses: [
               {
-                from: tresholds.first,
+                from: thresholds.first,
                 color: '#025464',
                 name: 'High',
               },
               {
-                from: tresholds.second,
-                to: tresholds.first,
+                from: thresholds.second,
+                to: thresholds.first,
                 color: '#3C486B',
                 name: 'Medium',
               },
               {
-                from: tresholds.third,
-                to: tresholds.second,
+                from: thresholds.third,
+                to: thresholds.second,
                 color: '#4F709C',
                 name: 'Low',
               },
@@ -673,20 +675,19 @@ export class UsMapComponent {
       }).format(+d.value);
     });
     console.log(data);
-    const sortedArrayForTreshold = data.sort((a: any, b: any) => {
+    const sortedArrayForThreshold = data.sort((a: any, b: any) => {
       return b.value - a.value;
     });
 
-    const threshold1 =  +this.userTresholds?.tsone
-    const threshold2 =  +this.userTresholds?.tstwo + threshold1
-    const threshold3 =  +this.userTresholds?.tsthree + threshold2
+    const threshold1 = +this.userThresholds?.tsone;
+    const threshold2 = +this.userThresholds?.tstwo + threshold1;
+    const threshold3 = +this.userThresholds?.tsthree + threshold2;
 
-
-  let tresholds = {
-    first: sortedArrayForTreshold[threshold1].value,
-    second: sortedArrayForTreshold[threshold2].value,
-    third: sortedArrayForTreshold[threshold3 - 1].value,
-  };
+    let thresholds = {
+      first: sortedArrayForThreshold[threshold1].value,
+      second: sortedArrayForThreshold[threshold2].value,
+      third: sortedArrayForThreshold[threshold3 - 1].value,
+    };
 
     this.chartOptions = {
       chart: {
@@ -883,19 +884,19 @@ export class UsMapComponent {
       colorAxis: {
         dataClasses: [
           {
-            from: tresholds.first,
+            from: thresholds.first,
             color: '#025464',
             name: 'High',
           },
           {
-            from: tresholds.second,
-            to: tresholds.first,
+            from: thresholds.second,
+            to: thresholds.first,
             color: '#3C486B',
             name: 'Medium',
           },
           {
-            from: tresholds.third,
-            to: tresholds.second,
+            from: thresholds.third,
+            to: thresholds.second,
             color: '#4F709C',
             name: 'Low',
           },
@@ -967,55 +968,56 @@ export class UsMapComponent {
 
   ngAfterViewInit() {}
 
-  treshold1 = 0;
-  treshold2 = 0;
-  treshold3 = 0;
+  threshold1 = 0;
+  threshold2 = 0;
+  threshold3 = 0;
 
-  statesRemaingingForTreshold = 51;
+  statesRemaingingForThreshold = 51;
 
-  changeTreshold(event: any, treshold: any) {
+  changeThreshold(event: any, threshold: any) {
     console.log(event.target.value);
+    console.log(this.threshold1, this.threshold2, this.threshold3);
 
-    if (treshold == 1) {
-      this.treshold1 = event.target.value;
-      this.statesRemaingingForTreshold =
-        51 - this.treshold1 - this.treshold2 - this.treshold3;
+    if (threshold == 1) {
+      this.threshold1 = event.target.value;
     }
-    if (treshold == 2) {
-      this.treshold2 = event.target.value;
-      this.statesRemaingingForTreshold =
-        51 - this.treshold1 - this.treshold2 - this.treshold3;
+    if (threshold == 2) {
+      this.threshold2 = event.target.value;
     }
-    if (treshold == 3) {
-      this.treshold3 = event.target.value;
-      this.statesRemaingingForTreshold =
-        51 - this.treshold1 - this.treshold2 - this.treshold3;
+    if (threshold == 3) {
+      this.threshold3 = event.target.value;
     }
+
+    this.statesRemaingingForThreshold =
+      51 -
+      Number(this.threshold1) -
+      Number(this.threshold2) -
+      Number(this.threshold3);
   }
 
-  saveTresholdMessage: string = '';
+  saveThresholdMessage: string = '';
 
-  saveTresholds() {
-    const tresholdData = {
-      userid: this.userTresholds?.userid,
-      tsone: this.treshold1 ?    this.treshold1: this.userTresholds.tsone,
-      tstwo: this.treshold2 ?    this.treshold2: this.userTresholds.tstwo,
-      tsthree: this.treshold3 ?    this.treshold3: this.userTresholds.tsthree,
+  saveThresholds() {
+    const thresholdData = {
+      userid: this.userThresholds?.userid,
+      tsone: this.threshold1 ? this.threshold1 : this.userThresholds.tsone,
+      tstwo: this.threshold2 ? this.threshold2 : this.userThresholds.tstwo,
+      tsthree: this.threshold3 ? this.threshold3 : this.userThresholds.tsthree,
     };
 
-     this.userService.setThresholds(tresholdData).subscribe((res: any) => {
-      this.toastr.success('Tresholds saved successfully');
+    this.userService.setThresholds(thresholdData).subscribe((res: any) => {
+      this.toastr.success('Thresholds saved successfully');
       console.log(res);
     });
-    this.showTresholdsModal = false;
+    this.showThresholdsModal = false;
 
-     window.location.reload();
+    window.location.reload();
   }
 
   nameMap(name: any) {
-     if(this.stateNamesMap[name.split('-')[1]]){
+    if (this.stateNamesMap[name.split('-')[1]]) {
       return this.stateNamesMap[name.split('-')[1]];
-    }else{
+    } else {
       return name;
     }
   }

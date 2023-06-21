@@ -3,6 +3,7 @@ import {
   ElementRef,
   Input,
   ViewChild,
+  HostListener,
   ChangeDetectorRef,
 } from '@angular/core';
 import {
@@ -12,6 +13,8 @@ import {
   faFileExport,
   faChartLine,
   faPlay,
+  faTimes,
+  faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
@@ -20,6 +23,8 @@ import { saveAs } from 'file-saver';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import moment from 'moment';
 
 @Component({
   selector: 'app-area-spline-chart',
@@ -36,6 +41,9 @@ export class AreaSplineChartComponent {
   faCaretLeft = faCaretLeft;
   faFileExport = faFileExport;
   faChartLine = faChartLine;
+  faTimes = faTimes;
+  faEllipsisVertical = faEllipsisVertical;
+
   faPlay = faPlay;
   intervalsList = [
     { name: '15 Min' },
@@ -63,14 +71,40 @@ export class AreaSplineChartComponent {
 
   queryError: boolean = false;
 
-  xAxisColumn = '';
-  yAxisColumn = '';
+  xAxisColumn: any = '';
+  yAxisColumn: any = '';
   showChart = false;
   showSaveQuery = false;
+  user: any;
+  userQueriesData: any;
+  queryName: any;
+  showSavedQueriesContainer: boolean = false;
+  showScheduleQueryContainer: boolean = false;
+
+  scheduledQuery: any;
+  email: any;
+
+  schedulingQuery: any;
+
+  globalFromDate: NgbDate | any;
+  globalToDate: NgbDate | any;
+
+  todaysDate = moment(new Date()).format('YYYY-MM-DD');
+  fullDate: any = moment(new Date()).format('YYYY-MM-DD');
+
+  startDate: any = '2023-05-04 00:00:00';
+  endDate: any = '2023-05-05 23:59:59';
+
+  currentSelectedTable: any = 'order_book_line';
+
+  isAnalysisOptionsContainerOpen: any = false;
 
   constructor(
     private chartData: ChartService,
-    private changeDetectorRef: ChangeDetectorRef,private userService: UserService,  private toastr: ToastrService
+    private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private elementRef: ElementRef
   ) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -84,7 +118,14 @@ export class AreaSplineChartComponent {
     });
     observer.observe(document.body, { attributes: true });
   }
-user: any;
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.isAnalysisOptionsContainerOpen = false;
+    }
+  }
 
   lineChartData: any[] = [
     ['Mar-30', 12132.49],
@@ -130,6 +171,7 @@ user: any;
   }
 
   onTableSelectChange(data: any) {
+    this.currentSelectedTable = data.tableName;
     this.data = data.data;
     this.excelFileName = data.tableName;
   }
@@ -139,23 +181,22 @@ user: any;
     this.createExcelFile(this.data, this.excelFileName);
   }
 
-  userQueriesData:any
-
   ngOnInit(): void {
-
     this.user = this.userService.user$.subscribe((res: any) => {
       this.user = res;
-    })
+    });
 
     this.userService.getUserConfigurationData(69).subscribe((res: any) => {
-       this.userQueriesData = res.queriesData;
-       console.log(this.userQueriesData)
-    })
-
-    this.chartData.getTableData('order_book_line').subscribe((res: any) => {
-      this.data = res;
-      this.columns = Object.keys(this.data[0]);
+      this.userQueriesData = res.queriesData;
+      console.log(this.userQueriesData);
     });
+
+    this.chartData
+      .getTableData(this.currentSelectedTable, this.startDate, this.endDate)
+      .subscribe((res: any) => {
+        this.data = res;
+        this.columns = Object.keys(this.data[0]);
+      });
 
     const lineChartData = this.lineChartData;
 
@@ -284,27 +325,29 @@ user: any;
   getQueryResult() {
     console.log('query', this.queryTextArea);
 
-    this.chartData.getCustomQueryData(this.queryTextArea).subscribe(
-      (res: any) => {
-        this.showSaveQuery = true;
-        if (res.length === 1) {
+    this.chartData
+      .getCustomQueryData(this.queryTextArea, this.startDate, this.endDate)
+      .subscribe(
+        (res: any) => {
+          this.showSaveQuery = true;
+          console.log(res);
+          if (Object.keys(res[0]).length === 1) {
+            this.queryError = true;
+            this.toastr.warning('Single column cannot be plotted');
+            this.showSaveQuery = false;
+            return;
+          }
+          this.queryError = false;
+          this.data = res;
+          this.columns = Object.keys(this.data[0]);
+          this.changeDetectorRef.markForCheck();
+        },
+        (error: any) => {
+          console.error('An error occurred:', error.error);
           this.queryError = true;
-
-          this.toastr.error("Single column cannot be plotted");
-          this.showSaveQuery = false;
-          return;
+          this.toastr.error(error.error);
         }
-        this.queryError = false;
-        this.data = res;
-        this.columns = Object.keys(this.data[0]);
-        this.changeDetectorRef.markForCheck();
-      },
-      (error: any) => {
-        console.error('An error occurred:', error.error);
-        this.queryError = true;
-       this.toastr.error(error.error);
-      }
-    );
+      );
   }
 
   onColumnChange(type: any, e: any) {
@@ -320,10 +363,10 @@ user: any;
     this.queryError = false;
     if (type === 'x') {
       this.xAxisColumn = e.target.value;
-       this.queryError = false;
+      this.queryError = false;
     } else {
       this.yAxisColumn = e.target.value;
-       this.queryError = false;
+      this.queryError = false;
     }
   }
 
@@ -349,8 +392,6 @@ user: any;
     Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
   }
 
-  queryName:any
-
   onQueryNameChange(e: any) {
     this.queryName = e.target.value;
   }
@@ -359,8 +400,8 @@ user: any;
     const userid = this.user?.id;
     const query = this.queryTextArea;
     const queryName = this.queryName;
-    const xaxis   = this.xAxisColumn;
-    const yaxis   = this.yAxisColumn;
+    const xaxis = this.xAxisColumn;
+    const yaxis = this.yAxisColumn;
 
     if (!queryName || !query || !xaxis || !yaxis) {
       this.toastr.error('Please fill all the fields');
@@ -372,13 +413,11 @@ user: any;
       name: queryName,
       xaxis,
       yaxis,
-    }
+    };
     this.userService.saveQuery(data).subscribe((res: any) => {
       this.toastr.success('Query Saved Successfully');
-    })
+    });
   }
-
-  showSavedQueriesContainer: boolean = false;
 
   toggleSavedQueriesContainer() {
     this.showSavedQueriesContainer = !this.showSavedQueriesContainer;
@@ -386,6 +425,169 @@ user: any;
 
   onSavedQueryRun(query: any) {
     this.queryTextArea = query.query;
+    console.log(this.queryTextArea);
     this.getQueryResult();
+  }
+
+  toggleScheduleQueryContainer() {
+    this.showScheduleQueryContainer = !this.showScheduleQueryContainer;
+  }
+
+  openQueryScheduleContainer(query: any) {
+    this.scheduledQuery = query.query;
+    this.showScheduleQueryContainer = true;
+  }
+
+  onSavedQuerySchedule() {
+    const data = {
+      query: this.scheduledQuery,
+      toList: this.email,
+      time: 12,
+    };
+
+    this.userService.scheduleQuery(data).subscribe((res: any) => {
+      console.log('scheduled');
+    });
+    this.toastr.success('Query Scheduled Successfully');
+    this.showScheduleQueryContainer = false;
+  }
+
+  onEmailChange(e: any) {
+    this.email = e.target.value;
+  }
+
+  onGlobalDateRangeChanged(date: NgbDate) {
+    if (!this.globalFromDate && !this.globalToDate) {
+      this.globalFromDate = date;
+    } else if (
+      this.globalFromDate &&
+      !this.globalToDate &&
+      date.after(this.globalFromDate)
+    ) {
+      this.globalToDate = date;
+    } else {
+      this.globalToDate = null;
+      this.globalFromDate = date;
+    }
+
+    const beginDate =
+      this.globalFromDate.year +
+      '-' +
+      this.globalFromDate.month +
+      '-' +
+      this.globalFromDate.day;
+    const endDate = this.globalToDate
+      ? this.globalToDate.year +
+        '-' +
+        this.globalToDate.month +
+        '-' +
+        this.globalToDate.day
+      : null;
+    if (beginDate && endDate) {
+      this.fullDate = beginDate + ' to ' + endDate;
+      this.startDate = beginDate + ' 00:00:00';
+      this.endDate = endDate + ' 23:59:59';
+      if (this.queryTextArea) {
+        this.getQueryResult();
+      } else {
+        this.chartData
+          .getTableData(this.currentSelectedTable, this.startDate, this.endDate)
+          .subscribe((res: any) => {
+            this.data = res;
+            this.columns = Object.keys(this.data[0]);
+          });
+      }
+
+      console.log(this.startDate, this.endDate);
+    }
+  }
+
+  onRangeSelect(range: any) {
+    if (range === '1m') {
+      this.startDate = moment('2023-05-01 16:28:21')
+        .subtract(1, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+    } else if (
+      range === '2h' ||
+      range === '6h' ||
+      range === '12h' ||
+      range === '1d'
+    ) {
+      if (range === '2h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(2, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 2 hours';
+      } else if (range === '6h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(6, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 6 hours';
+      } else if (range === '12h') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(12, 'hours')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 12 hours';
+      } else if (range === '1d') {
+        this.startDate = moment('2023-05-01 16:28:21')
+          .subtract(1, 'days')
+          .format('YYYY-MM-DD HH:mm');
+        this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        this.fullDate = 'Last 24 hours';
+      }
+    } else if (range === '6m') {
+      this.startDate = moment('2023-05-01 16:28:21')
+        .subtract(6, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      this.fullDate = 'Last 6 months';
+    } else if (range === '1y') {
+      this.startDate = moment('2023-05-01 16:28:21')
+        .subtract(12, 'months')
+        .format('YYYY-MM-DD HH:mm');
+      this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      this.fullDate = 'Last 12 months';
+    }
+    if (this.queryTextArea) {
+      this.getQueryResult();
+    } else {
+      this.chartData
+        .getTableData(this.currentSelectedTable, this.startDate, this.endDate)
+        .subscribe((res: any) => {
+          this.data = res;
+          this.columns = Object.keys(this.data[0]);
+        });
+    }
+
+    console.log(this.startDate, this.endDate);
+  }
+
+  toggleAnalysisOptionsContainer() {
+    this.isAnalysisOptionsContainerOpen = !this.isAnalysisOptionsContainerOpen;
+  }
+  showQueryWindow: boolean = false;
+
+  toggleQueryWindow() {
+    this.showQueryWindow = !this.showQueryWindow;
+  }
+
+  onColumnHeaderClick(column: any) {
+    if (!this.xAxisColumn) {
+      this.xAxisColumn = column;
+    } else if (!this.yAxisColumn) {
+      this.yAxisColumn = column;
+    } else if (this.xAxisColumn && this.yAxisColumn) {
+      this.yAxisColumn = column;
+    }
+
+    if (this.xAxisColumn && this.yAxisColumn) {
+      this.createChart();
+    }
+
+    console.log(this.xAxisColumn, this.yAxisColumn + 'clicked');
   }
 }

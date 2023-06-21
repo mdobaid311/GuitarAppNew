@@ -8,12 +8,13 @@ import { SalesComponent } from './components/sales-module/sales/sales.component'
 import { SettingsComponent } from './components/settings/settings.component';
 import { Orgchart2Component } from './components/charts/orgchart2/orgchart2.component';
 import { TimelineComponent } from './components/timeseries/timeline/timeline.component';
-import { HorizontalTimelineComponent } from './components/timeseries/horizontal-timeline/horizontal-timeline.component';
 import { UsMapComponent } from './components/charts/us-map/us-map.component';
 import { MapComponent } from './components/charts/map/map.component';
 import { ReturnsComponent } from './components/returns-module/returns/returns.component';
 import { Timeseries2Component } from './components/timeseries/timeseries2/timeseries2.component';
 import { Sales2Component } from './components/sales-module/sales2/sales2.component';
+import { Orgchart3Component } from './components/charts/orgchart3/orgchart3.component';
+import { AlertManagementComponent } from './components/alert-management/alert-management.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'area-chart', component: AreaSplineChartComponent },
   { path: 'org-chart', component: OrgChartComponent },
   { path: 'org-chart-1', component: Orgchart2Component },
+  { path: 'org-chart-2', component: Orgchart3Component },
   { path: 'sales-1', component: SalesComponent },
   { path: 'sales', component: Sales2Component },
   { path: 'settings', component: SettingsComponent },
@@ -28,6 +30,7 @@ const routes: Routes = [
   { path: 'timeseries', component: Timeseries2Component },
   { path: 'map', component: UsMapComponent },
   { path: 'map-2', component: MapComponent },
+  { path: 'alert', component: AlertManagementComponent },
   {
     path: 'returns',
     component: ReturnsComponent,

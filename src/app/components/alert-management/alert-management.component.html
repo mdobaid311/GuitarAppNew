@@ -1,0 +1,175 @@
+<div class="loader-container" *ngIf="">
+  <div class="loader"></div>
+</div>
+
+<div class="alert_management__screen">
+  <div class="alert_management_container">
+    <div class="alert_management__main_screen">
+      <!-- header -->
+      <app-custom-header></app-custom-header>
+      <div class="main_screen__main_container">
+        <div class="main_container__heading">
+          <h3>Alert Management</h3>
+          <!-- <h3>Edit</h3> -->
+        </div>
+        <div class="main_container__alert_management_container">
+          <div class="alert_management_container__tabs">
+            <div
+              class="tab"
+              (click)="toggleCreateUserForm()"
+              [ngClass]="{ active: showCreateAlertForm }"
+              *ngIf="user.role === 'admin'"
+            >
+              <fa-icon [icon]="faUser" class="icon"></fa-icon>
+              <span>Alerts</span>
+            </div>
+            <div
+              class="tab"
+              (click)="toggleSchedularForm()"
+              [ngClass]="{ active: showSchedularForm }"
+            >
+              <fa-icon [icon]="faUser" class="icon"></fa-icon>
+              <span>Schedular</span>
+            </div>
+          </div>
+
+          <form
+            class="create_user__form"
+            *ngIf="showCreateAlertForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <h2>Create New Alert</h2>
+            <div class="fields">
+              <div class="conditions">
+                <label>Condition: </label>
+                <select
+                  name="condition"
+                  (change)="conditionColumnChange($event)"
+                >
+                  <option value="original_order_total_amount">
+                    Original ordered total amount
+                  </option>
+                  <option value="line_ordered_qty">Line ordered qty</option>
+                </select>
+                <select (input)="conditionOperatorChange($event)">
+                  <option value="gt">></option>
+                  <option value="lt"><</option>
+                  <option value="between">Between</option>
+                </select>
+                <input type="number" *ngIf="!showBetweenInputs" />
+                <div class="between_inputs" *ngIf="showBetweenInputs">
+                  <input type="number" />
+                  <span>And</span>
+                  <input type="number" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="alert_text">Alert Text: </label>
+                <input
+                  type="text"
+                  id="alert_text"
+                  placeholder="Alert Text"
+                  [value]="alert_text"
+                  (input)="onChange('alert_text', $event)"
+                />
+              </div>
+              <div class="field">
+                <label for="alert_name">Alert Name: </label>
+                <input
+                  type="text"
+                  id="alert_name"
+                  placeholder="Alert Text"
+                  [value]="alert_name"
+                  (input)="onChange('alert_name', $event)"
+                />
+              </div>
+              <div class="email_or_sms">
+                <div class="email_or_sms_field">
+                  <label for="sendEmail">Send E-Mail: </label>
+                  <input
+                    type="checkbox"
+                    id="sendEmail"
+                    placeholder="Send E-Mail"
+                    [value]="sendEmail"
+                    (input)="onChange('sendEmail', $event)"
+                  />
+                </div>
+                <div class="email_or_sms_field">
+                  <label for="firstName">Send SMS: </label>
+                  <input
+                    type="checkbox"
+                    id="sendSMS"
+                    placeholder="Send SMS"
+                    [value]="sendSMS"
+                    (input)="onChange('sendSMS', $event)"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" (input)="onChange('firstName', $event)">
+              Create
+            </button>
+          </form>
+          <form
+            class="create_user__form"
+            *ngIf="showSchedularForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <h2>Schedule</h2>
+            <div class="fields">
+              <div class="field">
+                <label for="firstName">Query: </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="Query"
+                  (input)="onChange('firstName', $event)"
+                />
+              </div>
+              <div class="field">
+                <label for="firstName">Recipients: </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="Recipients"
+                  (input)="onChange('firstName', $event)"
+                />
+              </div>
+              <div class="field">
+                <label for="firstName">Subject: </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="Subject"
+                  (input)="onChange('firstName', $event)"
+                />
+              </div>
+
+              <div class="field">
+                <label for="firstName">Time: </label>
+                <input
+                  type="time"
+                  id="firstName"
+                  placeholder="Alert Text"
+                  (input)="onChange('firstName', $event)"
+                />
+              </div>
+              <div class="field">
+                <label for="firstName">Frequency: </label>
+                <select name="frequency">
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="biweekly">Biweekly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" (input)="onChange('firstName', $event)">
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

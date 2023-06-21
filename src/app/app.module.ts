@@ -52,7 +52,10 @@ import { MapComponent } from './components/charts/map/map.component';
 import { ReturnsComponent } from './components/returns-module/returns/returns.component';
 import { Timeseries2Component } from './components/timeseries/timeseries2/timeseries2.component';
 import { Sales2Component } from './components/sales-module/sales2/sales2.component';
-
+import { Orgchart3Component } from './components/charts/orgchart3/orgchart3.component';
+import { NgxOrgChartModule } from 'ngx-org-chart';
+import { AlertManagementComponent } from './components/alert-management/alert-management.component';
+import { CommonModule } from '@angular/common';
 MapModule(Highcharts);
 DrilldownModule(Highcharts);
 
@@ -89,6 +92,8 @@ DrilldownModule(Highcharts);
     ReturnsComponent,
     Timeseries2Component,
     Sales2Component,
+    Orgchart3Component,
+    AlertManagementComponent,
   ],
   imports: [
     FormsModule,
@@ -107,6 +112,8 @@ DrilldownModule(Highcharts);
     NgbAlertModule,
     NgbDatepickerModule,
     ToastrModule.forRoot(),
+    NgxOrgChartModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

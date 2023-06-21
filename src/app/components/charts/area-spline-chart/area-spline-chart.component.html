@@ -1,14 +1,33 @@
 <div class="sales_analysis__screen">
   <div class="sales_analysis_container">
     <div class="sales_analysis__main_screen">
-      <app-custom-header [showDateRangePicker]="true"></app-custom-header>
+      <app-custom-header
+        (onDateChanged)="onGlobalDateRangeChanged($event)"
+        (onRangeSelect)="onRangeSelect($event)"
+        [fullDate]="fullDate"
+        [showDateRangePicker]="true"
+      ></app-custom-header>
       <div class="main_container__heading">
         <div class="heading__flexbox">
           <h3>Sales - Analysis</h3>
-          <span routerLink="/sales">
-            <fa-icon [icon]="faCaretLeft"></fa-icon>
-            Back to Sales</span
-          >
+
+          <div class="view_selection_container">
+            <fa-icon
+              [icon]="faEllipsisVertical"
+              class="icon"
+              (click)="toggleAnalysisOptionsContainer()"
+            ></fa-icon>
+            <div class="view__options" *ngIf="isAnalysisOptionsContainerOpen">
+              <div class="view_option"  [ngClass]="showQueryWindow ? 'active' : ''">
+                <button
+
+                  (click)="toggleQueryWindow()"
+                >
+                  Query Tool
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="table_and_query__container">
@@ -16,13 +35,15 @@
           <app-custom-grid
             *ngIf="data"
             [dataArray]="data"
-
             (onTableSelectChange)="onTableSelectChange($event)"
+            [startDate]="startDate"
+            [endDate]="endDate"
+            (onColumnHeaderClick)="onColumnHeaderClick($event)"
           ></app-custom-grid>
         </div>
-        <div class="query__container">
+        <div class="query__container" *ngIf="showQueryWindow">
           <div class="query__container_header">
-            <div class="chart_columns_selection_container">
+            <!-- <div class="chart_columns_selection_container">
               <div class="column_selector">
                 <label for="x_axis">X-Axis:</label>
                 <select name="x_axis" (change)="onColumnChange('x', $event)">
@@ -44,17 +65,29 @@
               <button (click)="createChart()" [disabled]="queryError">
                 <fa-icon [icon]="faChartLine"></fa-icon> Create
               </button>
-              <button (click)="toggleSavedQueriesContainer()" [ngClass]="showSavedQueriesContainer ? 'active' : ''">
+              <button
+                (click)="toggleSavedQueriesContainer()"
+                [ngClass]="showSavedQueriesContainer ? 'active' : ''"
+              >
                 <fa-icon [icon]="faChartLine"></fa-icon> Queries
               </button>
-            </div>
-            <div class="run__query_button">
+            </div> -->
+            <div class="run_and_saved">
               <button (click)="getQueryResult()">
                 <fa-icon [icon]="faPlay"></fa-icon> Run
               </button>
+              <button
+              (click)="toggleSavedQueriesContainer()"
+              [ngClass]="showSavedQueriesContainer ? 'active' : ''"
+            >
+              <fa-icon [icon]="faChartLine"></fa-icon> Queries
+            </button>
             </div>
           </div>
-          <div class="query__text_box_container" *ngIf="!showSavedQueriesContainer">
+          <div
+            class="query__text_box_container"
+            *ngIf="!showSavedQueriesContainer"
+          >
             <textarea
               name=""
               id=""
@@ -62,14 +95,30 @@
               placeholder="Query..."
             ></textarea>
           </div>
-          <div class="saved__queries__container" *ngIf="showSavedQueriesContainer" >
-            <div class="saved_query__container" *ngFor="let query of userQueriesData ">
-              <span>{{query.name}}</span>
+          <div
+            class="saved__queries__container"
+            *ngIf="showSavedQueriesContainer"
+          >
+            <div
+              class="saved_query__container"
+              *ngFor="let query of userQueriesData"
+            >
+              <span>{{ query.name }}</span>
               <button (click)="onSavedQueryRun(query)">Run</button>
+              <button (click)="openQueryScheduleContainer(query)">
+                Schedule
+              </button>
             </div>
           </div>
-          <div class="query__save_container" *ngIf="showSaveQuery &&!showSavedQueriesContainer ">
-            <input type="text" placeholder="Enter Query Name" (input)="onQueryNameChange($event)" />
+          <div
+            class="query__save_container"
+            *ngIf="showSaveQuery && !showSavedQueriesContainer"
+          >
+            <input
+              type="text"
+              placeholder="Enter Query Name"
+              (input)="onQueryNameChange($event)"
+            />
             <button (click)="saveQuery()">Save</button>
           </div>
         </div>
@@ -81,6 +130,44 @@
       >
         <div class="chartContainer" #chartContainer></div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="schedular__container" *ngIf="showScheduleQueryContainer">
+  <div class="overlay" (click)="toggleScheduleQueryContainer()"></div>
+  <div class="modal">
+    <div class="tresholds__container">
+      <div class="tresholds__header">
+        <h1>Schedule Query</h1>
+        <fa-icon
+          [icon]="faTimes"
+          class="icon"
+          (click)="toggleScheduleQueryContainer()"
+        ></fa-icon>
+      </div>
+      <div class="schedular__inputs__container">
+        <div class="schedule_email_container">
+          <label for="email">Emails:</label>
+          <textarea
+            type="text"
+            name="email"
+            (input)="onEmailChange($event)"
+            placeholder="Enter Email Ids seperated by comma"
+            rows="4"
+            cols="50"
+          ></textarea>
+        </div>
+        <div class="schedule_query_container">
+          <label>Query:</label>
+          <span>{{ scheduledQuery }}</span>
+        </div>
+        <div class="schedule_date_container">
+          <label for="schedule_time">Schedule Time:</label>
+          <input type="time" name="schedule_time" />
+        </div>
+      </div>
+      <button (click)="onSavedQuerySchedule()">Save and Schedule</button>
     </div>
   </div>
 </div>

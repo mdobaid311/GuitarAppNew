@@ -338,6 +338,7 @@ export class Sales2Component {
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
             this.fullSalesData = Object.values(resp);
+            this.originalFullSalesData  = this.fullSalesData
           },
         });
       this.fullDate = 'Last 1 Month';
@@ -363,6 +364,7 @@ export class Sales2Component {
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
             this.fullSalesData = Object.values(resp);
+            this.originalFullSalesData  = this.fullSalesData
           },
         });
     } else if (range === '12h' || range === '1d') {
@@ -387,6 +389,7 @@ export class Sales2Component {
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
             this.fullSalesData = Object.values(resp);
+            this.originalFullSalesData  = this.fullSalesData
           },
         });
     } else if (range === '6m') {
@@ -401,6 +404,7 @@ export class Sales2Component {
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
             this.fullSalesData = Object.values(resp);
+            this.originalFullSalesData  = this.fullSalesData
           },
         });
       this.fullDate = 'Last 6 Months';
@@ -416,6 +420,7 @@ export class Sales2Component {
           next: (resp: any) => {
             console.log('ABC', Object.values(resp));
             this.fullSalesData = Object.values(resp);
+            this.originalFullSalesData  = this.fullSalesData
           },
         });
       this.fullDate = 'Last 1 Year';
@@ -467,6 +472,7 @@ export class Sales2Component {
             next: (resp: any) => {
               console.log('ABC', Object.values(resp));
               this.fullSalesData = Object.values(resp);
+              this.originalFullSalesData  = this.fullSalesData
             },
           });
       }
@@ -478,6 +484,7 @@ export class Sales2Component {
             next: (resp: any) => {
               console.log('ABC', Object.values(resp));
               this.fullSalesData = Object.values(resp);
+              this.originalFullSalesData  = this.fullSalesData
             },
           });
       } else {
@@ -487,6 +494,7 @@ export class Sales2Component {
             next: (resp: any) => {
               console.log('ABC', Object.values(resp));
               this.fullSalesData = Object.values(resp);
+              this.originalFullSalesData  = this.fullSalesData
             },
           });
       }
@@ -527,7 +535,9 @@ export class Sales2Component {
       .subscribe({
         next: (resp: any) => {
           console.log('ABC', Object.values(resp));
+          this.originalFullSalesData = Object.values(resp);
           this.fullSalesData = Object.values(resp);
+          this.originalFullSalesData  = this.fullSalesData
         },
       });
 
@@ -645,5 +655,20 @@ export class Sales2Component {
         .slice(0, 4);
     }
     return [];
+  }
+
+  originalFullSalesData: any;
+
+  onBrandSelect(event: any) {
+    if (event.target.value === 'ALL') {
+      this.fullSalesData = this.originalFullSalesData;
+
+      return;
+    } else {
+      const data = this.originalFullSalesData.filter(
+        (item: any) => item.name === event.target.value
+      );
+      this.fullSalesData = data;
+    }
   }
 }

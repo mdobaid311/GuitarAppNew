@@ -104,15 +104,21 @@
                 <td>{{ row.sum }}</td>
                 <td
                   class="milestone__value_box"
-                  *ngFor="let item of row.lineTotalSum"
+                  *ngFor="let item of row.lineTotalSum let i = index"
                 >
                   <div class="milestone">
                     <fa-icon [icon]="faArrowLeft" class="icon"></fa-icon>
-                    <span class="value_circle"
-                      >${{ item > 0 ? (item | shortNumber) : 0 }} |
+                    <span class="value_circle percentage"
+                      >
                       {{
                         (item / row.lineTotalSumTotal) * 100 | number : "1.0-2"
                       }}%</span
+                    >
+                    <span class="value_circle totals"
+                      >
+                      ${{ item > 0 ? (item | shortNumber) : 0 }} |
+                      {{ row.QtySum[i] > 0 ? (row.QtySum[i] | shortNumber) : 0 }}
+                      </span
                     >
                     <fa-icon [icon]="faArrowRight" class="icon"></fa-icon>
                   </div>

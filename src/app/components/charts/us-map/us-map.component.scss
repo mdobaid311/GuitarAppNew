@@ -225,14 +225,13 @@ fill: var(--primary-color-3) !important;
     border-radius: 20px;
     border: 6px solid #fff;
   }
-  .tresholds__container {
+  .thresholds__container {
     background: var(--primary-background-2);
     height: 100%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-
-    .tresholds__header {
+    .thresholds__header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -261,17 +260,18 @@ fill: var(--primary-color-3) !important;
       text-align: center;
     }
 
-    .tresholds {
+    .thresholds {
       display: flex;
       flex-direction: column;
 
-      .treshold {
-        // each treshold has an input and a label
+      .threshold {
+        // each threshold has an input and a label
         display: flex;
         align-items: center;
         margin: 10px 0;
         padding: 10px 5px;
         font-size: 20px;
+        justify-content: space-between;
 
         input {
           border: none;
