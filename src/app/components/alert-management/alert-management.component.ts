@@ -19,6 +19,14 @@ export class AlertManagementComponent {
   showCreateAlertForm: boolean = false;
   showSchedularForm: boolean = true;
 
+  frequency: string = '';
+  optionsArray: number[] = Array.from({ length: 31 }, (_, index) => index + 1);
+
+  onFrequencyChange(event: any) {
+    this.frequency = event.target.value;
+    console.log(this.frequency);
+  }
+
   constructor(
     private datetime: DatetimeService,
     private userService: UserService,
@@ -36,7 +44,6 @@ export class AlertManagementComponent {
   ngOnInit() {
     this.userService.user$.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
     });
 
     this.userService.getUsers().subscribe((res) => {
@@ -71,6 +78,4 @@ export class AlertManagementComponent {
       this.showBetweenInputs = false;
     }
   }
-
-
 }

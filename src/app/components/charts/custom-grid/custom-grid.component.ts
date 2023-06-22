@@ -101,7 +101,6 @@ export class CustomGridComponent {
   }
 
   onSelectTableChange(tableName: string) {
-    console.log(this.startDate, this.endDate);
     this.chartData
       .getTableData(tableName, this.startDate, this.endDate)
       .subscribe((res: any) => {
@@ -155,7 +154,6 @@ export class CustomGridComponent {
   onColumnSelectChange(columnName: string) {
     //  if column is not selected, remove column from data
     if (this.columns.find((column: any) => column === columnName)) {
-      console.log('column found');
       this.columns = this.columns.filter((column: string) => {
         return column !== columnName;
       });
@@ -193,7 +191,6 @@ export class CustomGridComponent {
         return column;
       });
 
-      console.log(this.originalData);
       const modifiedData = this.originalData.map((row: any) => {
         const newRow: any = {};
         this.columns.forEach((column: string) => {
@@ -239,17 +236,19 @@ export class CustomGridComponent {
   yColumn: any = '';
 
   headerClickHandler(header: string) {
-    this.selectedColumnHeader = header;
-    this.selectedColumnData = this.data.map((row: any) => row[header]);
-    this.onColumnHeaderClick.emit(header);
-
-    if (!this.xColumn) {
+    if (header === this.xColumn) {
+      this.xColumn = null;
+    } else if (header === this.yColumn) {
+      this.yColumn = null;
+    } else if (!this.xColumn) {
       this.xColumn = header;
     } else if (!this.yColumn) {
       this.yColumn = header;
     } else if (this.xColumn && this.yColumn) {
       this.yColumn = header;
     }
+
+    this.onColumnHeaderClick.emit(header);
   }
 
   theme = 'light';
@@ -269,7 +268,6 @@ export class CustomGridComponent {
   loader: boolean = false;
   columnsData: any = [];
   ngOnInit(): void {
-    console.log('data');
     this.originalData = this.dataArray;
     this.columns = Object.keys(this.dataArray[0]);
     this.columnsData = this.columns.map((column: string) => {

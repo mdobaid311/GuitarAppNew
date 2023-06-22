@@ -64,8 +64,8 @@ export class CustomTableComponent {
     this.data = this.customTableData.map((item: any) => {
       return Object.values(item);
     });
-    console.log(this.data)
-    console.log(this.columns);
+
+
     // this.chartData.booleanSubject.subscribe((permission) => {
     //   permission ? (this.loader = true) : null;
     // });

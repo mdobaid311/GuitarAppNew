@@ -58,7 +58,7 @@ export class PieChartComponent {
     });
 
     this.subscription = this.salesData.currentSalesData.subscribe((array) => {
-      console.log('Array', array);
+
       this.newDataArray = array;
       let pieDataArray: any = [];
       array.forEach((item) => {
@@ -185,7 +185,7 @@ export class PieChartComponent {
   }
 
   onPinToDashboard() {
-    console.log('pin to DB_pie', this.pinPieChart);
+
     this.chartData.pieChartPinToDB.next(this.pinPieChart);
   }
 

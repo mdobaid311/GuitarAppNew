@@ -177,7 +177,6 @@ export class AreaSplineChartComponent {
   }
 
   exportToExcel() {
-    console.log('export to excel');
     this.createExcelFile(this.data, this.excelFileName);
   }
 
@@ -188,7 +187,6 @@ export class AreaSplineChartComponent {
 
     this.userService.getUserConfigurationData(69).subscribe((res: any) => {
       this.userQueriesData = res.queriesData;
-      console.log(this.userQueriesData);
     });
 
     this.chartData
@@ -323,14 +321,11 @@ export class AreaSplineChartComponent {
   }
 
   getQueryResult() {
-    console.log('query', this.queryTextArea);
-
     this.chartData
       .getCustomQueryData(this.queryTextArea, this.startDate, this.endDate)
       .subscribe(
         (res: any) => {
           this.showSaveQuery = true;
-          console.log(res);
           if (Object.keys(res[0]).length === 1) {
             this.queryError = true;
             this.toastr.warning('Single column cannot be plotted');
@@ -378,11 +373,9 @@ export class AreaSplineChartComponent {
       return;
     }
     this.showChart = true;
-    console.log(this.showChart);
     const data = this.data.map((item: any) => {
       return [item[this.xAxisColumn], +item[this.yAxisColumn]];
     });
-    console.log(data);
     this.chartOptions.series[0].data = data;
     this.chartOptions.xAxis.labels.formatter = function (e: any): any {
       const interval = Math.round(data.length / 6);
@@ -425,7 +418,6 @@ export class AreaSplineChartComponent {
 
   onSavedQueryRun(query: any) {
     this.queryTextArea = query.query;
-    console.log(this.queryTextArea);
     this.getQueryResult();
   }
 
@@ -445,9 +437,7 @@ export class AreaSplineChartComponent {
       time: 12,
     };
 
-    this.userService.scheduleQuery(data).subscribe((res: any) => {
-      console.log('scheduled');
-    });
+    this.userService.scheduleQuery(data).subscribe((res: any) => {});
     this.toastr.success('Query Scheduled Successfully');
     this.showScheduleQueryContainer = false;
   }
@@ -497,8 +487,6 @@ export class AreaSplineChartComponent {
             this.columns = Object.keys(this.data[0]);
           });
       }
-
-      console.log(this.startDate, this.endDate);
     }
   }
 
@@ -562,8 +550,6 @@ export class AreaSplineChartComponent {
           this.columns = Object.keys(this.data[0]);
         });
     }
-
-    console.log(this.startDate, this.endDate);
   }
 
   toggleAnalysisOptionsContainer() {
@@ -576,18 +562,19 @@ export class AreaSplineChartComponent {
   }
 
   onColumnHeaderClick(column: any) {
-    if (!this.xAxisColumn) {
+    if (this.xAxisColumn === column) {
+      this.xAxisColumn = null;
+    } else if (this.yAxisColumn === column) {
+      this.yAxisColumn = null;
+    } else if (!this.xAxisColumn) {
       this.xAxisColumn = column;
     } else if (!this.yAxisColumn) {
       this.yAxisColumn = column;
-    } else if (this.xAxisColumn && this.yAxisColumn) {
+    } else {
       this.yAxisColumn = column;
     }
-
     if (this.xAxisColumn && this.yAxisColumn) {
       this.createChart();
     }
-
-    console.log(this.xAxisColumn, this.yAxisColumn + 'clicked');
   }
 }

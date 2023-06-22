@@ -37,7 +37,7 @@ export class SidebarComponent {
   openSidebar: boolean = false;
 
   expandSidebar() {
-    console.log('open sidebar');
+
     this.openSidebar = !this.openSidebar;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));

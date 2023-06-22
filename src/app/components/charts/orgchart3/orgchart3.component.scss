@@ -194,12 +194,14 @@
 
 :host ::ng-deep .ngx-org-name {
   color: var(--primary-color-3);
+  font-family: inherit;
   font-weight: 500;
   font-size: 22px;
   margin: 5px 0;
 }
 
 :host ::ng-deep .ngx-org-title {
+  font-family: inherit;
   font-weight: 500;
   font-size: 20px;
   margin: 5px 0;
@@ -209,3 +211,5 @@
   width: 100%;
   transform-origin: center;
 }
+
+

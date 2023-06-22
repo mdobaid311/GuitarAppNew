@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Subscription } from 'rxjs';
 import { ChartService } from 'src/app/services/chartData.service';
-
+import avgData from './data.json';
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
@@ -47,6 +47,7 @@ export class LineChartComponent {
     });
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
+      console.log(array);
       this.chartOptions = {
         chart: {
           type: 'line',
@@ -157,6 +158,11 @@ export class LineChartComponent {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           });
+
+          const avgDataSeries = avgData.map((item: any) => {
+            return [item.datetime, item.ordertotalavg];
+          });
+
           console.log(yearsData);
           this.chartOptions = {
             chart: {
@@ -237,6 +243,25 @@ export class LineChartComponent {
                 },
                 color: '#51FF14', // Change color of lines
               },
+              {
+                marker: {
+                  enabled: false,
+                },
+                name: 'Sales',
+                data: avgDataSeries,
+                lineWidth: 2,
+                dataLabels: {
+                  enabled: false, // Remove data labels from lines
+                  color: '#fff',
+                  style: {
+                    // height: '100px',
+                    color: '#fff',
+                    fontSize: '14px',
+                    fontFamily: 'Poppins, sans-serif',
+                  },
+                },
+                color: '#51FF14', // Change color of lines
+              },
             ],
             plotOptions: {
               line: {
@@ -264,7 +289,6 @@ export class LineChartComponent {
   }
 
   onPinToDashboard() {
-    console.log('pin to DB_line', this.pinLineChart);
     this.chartData.lineChartPinToDB.next(this.pinLineChart);
   }
 
@@ -277,10 +301,10 @@ export class LineChartComponent {
       this.theme === 'dark' ? '#0C274E' : '#fff';
     this.chartOptions.xAxis.labels.style.color =
       this.theme === 'dark' ? '#4AA4FF' : '#000';
-    this.chartOptions.xAxis.labels.style.textOverflow='allow',
-    this.chartOptions.xAxis.labels.style.width=100,
-    this.chartOptions.yAxis.labels.style.color =
-      this.theme === 'dark' ? '#fff' : '#000';
+    (this.chartOptions.xAxis.labels.style.textOverflow = 'allow'),
+      (this.chartOptions.xAxis.labels.style.width = 100),
+      (this.chartOptions.yAxis.labels.style.color =
+        this.theme === 'dark' ? '#fff' : '#000');
     this.chartOptions.title.style.color =
       this.theme === 'dark' ? '#fff' : '#000';
 

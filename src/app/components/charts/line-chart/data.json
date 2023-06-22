@@ -1,0 +1,194 @@
+[
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 00:00",
+    "ordertotalsum": 13812,
+    "lineqtysum": 47,
+    "ordertotalavg": 321,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 01:00",
+    "ordertotalsum": 70083,
+    "lineqtysum": 368,
+    "ordertotalavg": 190,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 02:00",
+    "ordertotalsum": 19064,
+    "lineqtysum": 38,
+    "ordertotalavg": 488,
+    "lineqtyavg": 0
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 03:00",
+    "ordertotalsum": 20242,
+    "lineqtysum": 50,
+    "ordertotalavg": 460,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 04:00",
+    "ordertotalsum": 13713,
+    "lineqtysum": 50,
+    "ordertotalavg": 279,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 05:00",
+    "ordertotalsum": 128038,
+    "lineqtysum": 777,
+    "ordertotalavg": 166,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 06:00",
+    "ordertotalsum": 131237,
+    "lineqtysum": 200,
+    "ordertotalavg": 666,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 07:00",
+    "ordertotalsum": 170574,
+    "lineqtysum": 283,
+    "ordertotalavg": 671,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 08:00",
+    "ordertotalsum": 228288,
+    "lineqtysum": 390,
+    "ordertotalavg": 650,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 09:00",
+    "ordertotalsum": 686961,
+    "lineqtysum": 812,
+    "ordertotalavg": 1233,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 10:00",
+    "ordertotalsum": 482962,
+    "lineqtysum": 629,
+    "ordertotalavg": 808,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 11:00",
+    "ordertotalsum": 571768,
+    "lineqtysum": 692,
+    "ordertotalavg": 928,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 12:00",
+    "ordertotalsum": 386922,
+    "lineqtysum": 699,
+    "ordertotalavg": 626,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 13:00",
+    "ordertotalsum": 386361,
+    "lineqtysum": 627,
+    "ordertotalavg": 691,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 14:00",
+    "ordertotalsum": 488314,
+    "lineqtysum": 634,
+    "ordertotalavg": 930,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 15:00",
+    "ordertotalsum": 366623,
+    "lineqtysum": 846,
+    "ordertotalavg": 759,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 16:00",
+    "ordertotalsum": 360508,
+    "lineqtysum": 605,
+    "ordertotalavg": 653,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 17:00",
+    "ordertotalsum": 289678,
+    "lineqtysum": 497,
+    "ordertotalavg": 594,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 18:00",
+    "ordertotalsum": 239069,
+    "lineqtysum": 341,
+    "ordertotalavg": 705,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 19:00",
+    "ordertotalsum": 135284,
+    "lineqtysum": 260,
+    "ordertotalavg": 526,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 20:00",
+    "ordertotalsum": 141169,
+    "lineqtysum": 254,
+    "ordertotalavg": 555,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 21:00",
+    "ordertotalsum": 44246,
+    "lineqtysum": 154,
+    "ordertotalavg": 316,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 22:00",
+    "ordertotalsum": 47712,
+    "lineqtysum": 216,
+    "ordertotalavg": 350,
+    "lineqtyavg": 1
+  },
+  {
+    "enterprise_key": "GC",
+    "datetime": "Mar-30 23:00",
+    "ordertotalsum": 96676,
+    "lineqtysum": 84,
+    "ordertotalavg": 1074,
+    "lineqtyavg": 0
+  }
+]

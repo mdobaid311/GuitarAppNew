@@ -63,7 +63,7 @@ export class HorizontalTimelineComponent {
     this.chartService
       .getTimeSeriesMilestones(this.timeseriesDate,69)
       .subscribe((res: any) => {
-        console.log(res);
+
 
         this.timeseriesTimelineData = res.mergedData;
         this.timeseriesTimelineDates = res.timeLineDates;
@@ -71,7 +71,7 @@ export class HorizontalTimelineComponent {
   }
 
   onDateChanged(event: IMyDateModel) {
-    console.log(event.singleDate?.formatted);
+
     // convert from this format 21.04.2023 to this format 2023-04-21
 
     const formattedDate = moment(
@@ -80,7 +80,7 @@ export class HorizontalTimelineComponent {
     ).format('YYYY-MM-DD');
 
     this.chartService.getTimeSeriesData(formattedDate).subscribe((res: any) => {
-      console.log(res);
+
       this.timeseriesDates = res.dates;
       this.timeseriesData = res.timeSeries;
     });

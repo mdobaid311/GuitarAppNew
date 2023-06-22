@@ -74,7 +74,7 @@ export class Timeseries2Component {
       }
     });
 
-    console.log(this.timeseriesData);
+
   }
 
   allSelected = true;
@@ -104,7 +104,7 @@ export class Timeseries2Component {
 
   toggleTimeSeriesModal() {
     this.timeSeriesModal = !this.timeSeriesModal;
-    console.log(this.timeSeriesModal);
+
   }
 
   statusSelectionContainer = false;
@@ -132,7 +132,7 @@ export class Timeseries2Component {
     this.selectedDate = formattedDate;
 
     this.chartService.getTimeSeriesData(formattedDate).subscribe((res: any) => {
-      console.log(res);
+
       this.timeseriesDates = res.dates;
       this.timeseriesData = res.timeSeries;
     });

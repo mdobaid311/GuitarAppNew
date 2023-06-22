@@ -1,30 +1,26 @@
 import {
-  Component,
-  ViewChild,
-  Renderer2,
-  HostListener,
-  ElementRef,
   ChangeDetectorRef,
+  Component,
+  ViewChild
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
-import * as moment from 'moment';
-import { ChartService } from 'src/app/services/chartData.service';
 import {
-  faCalendar,
-  faChartLine,
   faAngleDown,
-  faChartPie,
+  faCalendar,
   faChartBar,
   faChartColumn,
-  faTable,
+  faChartLine,
+  faChartPie,
   faEllipsisVertical,
-  faLineChart,
-  faThumbtack,
   faExpand,
+  faLineChart,
+  faTable,
+  faThumbtack,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
+import * as moment from 'moment';
+import { ChartService } from 'src/app/services/chartData.service';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
@@ -296,7 +292,7 @@ export class SalesComponent {
               100,
           };
 
-          console.log(this.customGoalProgressPercent);
+
 
           this.cdr.detectChanges();
         },
@@ -305,7 +301,7 @@ export class SalesComponent {
   }
 
   onRangeSelect(range: any) {
-    console.log('Range Selected', range);
+
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -322,7 +318,7 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -347,7 +343,7 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 15 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -371,7 +367,7 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -385,7 +381,7 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -400,7 +396,7 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -451,7 +447,7 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 15 * 60)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -462,7 +458,7 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -471,7 +467,7 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 172800)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -509,11 +505,13 @@ export class SalesComponent {
 
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
+    console.log("hello")
+
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
       .subscribe({
         next: (resp: any) => {
-          console.log('ABC', Object.values(resp));
+
           this.fullSalesData = Object.values(resp);
         },
       });
@@ -556,7 +554,7 @@ export class SalesComponent {
               100,
           };
 
-          console.log(this.customGoalProgressPercent);
+
 
           this.cdr.detectChanges();
         },
@@ -564,12 +562,12 @@ export class SalesComponent {
   }
 
   onSelectChartChange(event: any) {
-    console.log('currentRange', this.currentRange);
-    console.log(event);
+
+
     this.selectedChart = event;
     this.onRangeSelect(this.currentRange);
 
-    // console.log('selectedChart', this.selectedChart);
+    //
 
     if (this.chartData.barChartPinToDB.value && this.selectedChart === 'bar') {
       this.pinActive = true;

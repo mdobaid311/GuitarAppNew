@@ -138,7 +138,7 @@ export class UsMapComponent {
           second: sortedArrayForThreshold[threshold2].value,
           third: sortedArrayForThreshold[threshold3 - 1].value,
         };
-        console.log(thresholds + 'thresholds');
+
 
         this.chartOptions = {
           chart: {
@@ -674,7 +674,7 @@ export class UsMapComponent {
         compactDisplay: 'short',
       }).format(+d.value);
     });
-    console.log(data);
+
     const sortedArrayForThreshold = data.sort((a: any, b: any) => {
       return b.value - a.value;
     });
@@ -975,8 +975,8 @@ export class UsMapComponent {
   statesRemaingingForThreshold = 51;
 
   changeThreshold(event: any, threshold: any) {
-    console.log(event.target.value);
-    console.log(this.threshold1, this.threshold2, this.threshold3);
+
+
 
     if (threshold == 1) {
       this.threshold1 = event.target.value;
@@ -1007,7 +1007,7 @@ export class UsMapComponent {
 
     this.userService.setThresholds(thresholdData).subscribe((res: any) => {
       this.toastr.success('Thresholds saved successfully');
-      console.log(res);
+
     });
     this.showThresholdsModal = false;
 

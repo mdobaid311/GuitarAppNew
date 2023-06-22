@@ -51,9 +51,9 @@ export class ColumnChartComponent {
       this.pinColChart = pintoDb;
     });
 
-    console.log('enwDAtaARry', this.newDataArray);
+
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-      console.log('Array', array);
+
       this.newDataArray = array;
 
       this.chartOptions = {
@@ -264,7 +264,7 @@ export class ColumnChartComponent {
   }
 
   onPinToDashboard() {
-    console.log('pin to DB_col', this.pinColChart);
+
     this.chartData.colChartPinToDB.next(this.pinColChart);
   }
 

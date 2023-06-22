@@ -310,7 +310,7 @@ export class Sales2Component {
               100,
           };
 
-          console.log(this.customGoalProgressPercent);
+
 
           this.cdr.detectChanges();
         },
@@ -319,7 +319,7 @@ export class Sales2Component {
   }
 
   onRangeSelect(range: any) {
-    console.log('Range Selected', range);
+
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -336,7 +336,7 @@ export class Sales2Component {
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
             this.originalFullSalesData  = this.fullSalesData
           },
@@ -362,7 +362,7 @@ export class Sales2Component {
         .getFullSalesDataByRange(startDate, endDate, 15 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
             this.originalFullSalesData  = this.fullSalesData
           },
@@ -387,7 +387,7 @@ export class Sales2Component {
         .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
             this.originalFullSalesData  = this.fullSalesData
           },
@@ -402,7 +402,7 @@ export class Sales2Component {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
             this.originalFullSalesData  = this.fullSalesData
           },
@@ -418,7 +418,7 @@ export class Sales2Component {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
             this.originalFullSalesData  = this.fullSalesData
           },
@@ -470,7 +470,7 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 15 * 60)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
               this.originalFullSalesData  = this.fullSalesData
             },
@@ -482,7 +482,7 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
               this.originalFullSalesData  = this.fullSalesData
             },
@@ -492,7 +492,7 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 172800)
           .subscribe({
             next: (resp: any) => {
-              console.log('ABC', Object.values(resp));
+
               this.fullSalesData = Object.values(resp);
               this.originalFullSalesData  = this.fullSalesData
             },
@@ -530,11 +530,18 @@ export class Sales2Component {
 
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
+    this.chartData.getFullAvgSalesDataByRange('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900).subscribe(
+      {
+        next: (resp: any) => {
+          console.log(Object.values(resp))
+        }
+      }
+    )
     this.chartData
       .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
       .subscribe({
         next: (resp: any) => {
-          console.log('ABC', Object.values(resp));
+          console.log(resp)
           this.originalFullSalesData = Object.values(resp);
           this.fullSalesData = Object.values(resp);
           this.originalFullSalesData  = this.fullSalesData
@@ -578,21 +585,18 @@ export class Sales2Component {
                 this.fullSalesData[1].totalStats.original_order_total_amount) *
               100,
           };
-
-          console.log(this.customGoalProgressPercent);
-
           this.cdr.detectChanges();
         },
       });
   }
 
   onSelectChartChange(event: any) {
-    console.log('currentRange', this.currentRange);
-    console.log(event);
+
+
     this.selectedChart = event;
     this.onRangeSelect(this.currentRange);
 
-    // console.log('selectedChart', this.selectedChart);
+    //
 
     if (this.chartData.barChartPinToDB.value && this.selectedChart === 'bar') {
       this.pinActive = true;

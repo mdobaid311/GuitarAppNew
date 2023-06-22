@@ -136,7 +136,7 @@ export class MapComponent {
 
   ngOnInit() {
     const data = Highcharts.geojson(USMap);
-    console.log(data);
+
 
     data.forEach((d, i) => {
       d.drilldown = d.properties['hc-key'];
@@ -144,14 +144,14 @@ export class MapComponent {
       d.value = Math.floor(+this.data[index][1]);
     });
 
-    console.log(data);
+
 
     this.chartOptions = {
       chart: {
         map: USMap as any,
         events: {
           drilldown: (e: any) => {
-            console.log(e.point.drilldown);
+
             if (!e.seriesOptions) {
               const chart = e.target,
                 mapKey = (e.point as any).drilldown,
@@ -187,7 +187,7 @@ export class MapComponent {
                   data.forEach((d, i) => {
                     d.value = Math.floor(Math.random() * 1000000);
                   });
-                  console.log(data);
+
 
                   // const drillDownData = Highcharts.geojson(mapData);
                   Highcharts.maps[mapKey] = data;
@@ -312,7 +312,7 @@ export class MapComponent {
             format: '{point.value}',
             // format : '{point.name}', to abbreviate the value
             formatter: function () {
-              console.log('first');
+
               return '0';
             },
             color: '#fff',
@@ -479,7 +479,7 @@ export class MapComponent {
 
   updateChart(res: any) {
     const data = Highcharts.geojson(USMap);
-    console.log(data);
+
 
     data.forEach((d, i) => {
       d.drilldown = d.properties['hc-key'];
@@ -489,14 +489,14 @@ export class MapComponent {
       }
     });
 
-    console.log(data);
+
 
     this.chartOptions = {
       chart: {
         map: USMap as any,
         events: {
           drilldown: (e: any) => {
-            console.log(e.point.drilldown);
+
             if (!e.seriesOptions) {
               const chart = e.target,
                 mapKey = (e.point as any).drilldown,
@@ -531,7 +531,7 @@ export class MapComponent {
                   data.forEach((d, i) => {
                     d.value = Math.floor(Math.random() * 1000000);
                   });
-                  console.log(data);
+
 
                   // const drillDownData = Highcharts.geojson(mapData);
                   Highcharts.maps[mapKey] = data;
@@ -564,7 +564,7 @@ export class MapComponent {
                       format: '{point.value}',
                       // format : '{point.name}', to abbreviate the value
                       formatter: function () {
-                        console.log('first');
+
                       },
                       color: '#fff',
                       style: {

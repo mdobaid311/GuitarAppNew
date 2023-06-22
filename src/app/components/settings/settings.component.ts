@@ -33,7 +33,7 @@ export class SettingsComponent {
   ngOnInit() {
     this.userService.user$.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+
     });
 
     this.userService.getUsers().subscribe((res) => {
@@ -62,7 +62,7 @@ export class SettingsComponent {
   }
 
   onSubmit() {
-    console.log('submit');
+
     const data = {
       firstname: this.firstName,
       lastname: this.lastName,
@@ -70,9 +70,9 @@ export class SettingsComponent {
       role: this.role,
       password: this.password,
     };
-    console.log(data);
+
     this.userService.register(data).subscribe((res) => {
-      console.log(res);
+
       if (res) {
         this.toggleCreateUserForm();
         this.toastr.success('New User Created Successfully');

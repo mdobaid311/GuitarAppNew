@@ -19,7 +19,7 @@ import { DatetimeService } from 'src/app/services/datetime.service';
 export class DashboardComponent implements OnInit {
 
   fullSalesData: any;
-  
+
   showColChart: any;
   showBarChart: any;
   showPieChart: any;
@@ -213,7 +213,7 @@ export class DashboardComponent implements OnInit {
   //   this.loader = false;
   // }
   onRangeSelect(range: any) {
-    console.log('Range Selected', range);
+
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -228,7 +228,7 @@ export class DashboardComponent implements OnInit {
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -253,7 +253,7 @@ export class DashboardComponent implements OnInit {
         .getFullSalesDataByRange(startDate, endDate, 15 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -277,7 +277,7 @@ export class DashboardComponent implements OnInit {
         .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -291,7 +291,7 @@ export class DashboardComponent implements OnInit {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -306,7 +306,7 @@ export class DashboardComponent implements OnInit {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-            console.log('ABC', Object.values(resp));
+
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -397,7 +397,7 @@ export class DashboardComponent implements OnInit {
 
     this.chartData.getOrderTotalForRange(beginDate, endDate).subscribe({
       next: (resp: any) => {
-        console.log('dateChangeResp', resp);
+
         this.customGoal = resp[0].original_orders_total;
         this.customGoalAbbr = Intl.NumberFormat('en-US', {
           notation: 'compact',
@@ -427,19 +427,19 @@ export class DashboardComponent implements OnInit {
 
   toggleChangeModal() {
     this.showChangeModal = !this.showChangeModal;
-    console.log('showChangeModal', this.showChangeModal);
+
   }
 
   onSelectCompareYearChange(event: any) {
     this.selectCompareYear = event.target.value;
-    console.log('selectCompareYear', this.selectCompareYear);
+
   }
 
   ngOnInit(): void {
     let rangeAlreadySelected;
     this.chartData.booleanSubject.next(false);
     this.chartData.selectedRange.subscribe(selectedRange => {
-      console.log('selected range Dashboard', selectedRange)
+
       rangeAlreadySelected = selectedRange;
     })
 
@@ -453,27 +453,27 @@ export class DashboardComponent implements OnInit {
     // to show or hide chart on dashboard
 
     this.chartData.colChartPinToDB.subscribe(pinToDB => {
-      console.log('DB_PintoDB_Col', pinToDB)
+
       this.showColChart = pinToDB;
     })
     this.chartData.barChartPinToDB.subscribe(pinToDB => {
-      console.log('DB_PintoDB_Bar', pinToDB)
+
       this.showBarChart = pinToDB;
     })
     this.chartData.pieChartPinToDB.subscribe(pinToDB => {
-      console.log('DB_PintoDB_Pie', pinToDB)
+
       this.showPieChart = pinToDB;
     })
     this.chartData.lineChartPinToDB.subscribe(pinToDB => {
-      console.log('DB_PintoDB_Line', pinToDB)
+
       this.showLineChart = pinToDB;
     })
 
     this.chartData.selectedRange.subscribe(selectedRange => {
-      console.log('selected range Dashboard', selectedRange)
+
       rangeAlreadySelected = selectedRange;
     })
-    
+
     if (rangeAlreadySelected) {
       this.onRangeSelect(rangeAlreadySelected);
     } else {
@@ -482,7 +482,7 @@ export class DashboardComponent implements OnInit {
 
       this.chartData.getOrderTotalForRange('2023-01-31', '2023-01-31').subscribe({
         next: (resp: any) => {
-          console.log('dateChangeResp', resp);
+
           this.originalOrdersTotalToday = resp[0].original_orders_total;
           this.originalOrdersTotalTodayAbbr = Intl.NumberFormat('en-US', {
             notation: 'compact',
@@ -496,7 +496,7 @@ export class DashboardComponent implements OnInit {
 
       this.chartData.getOrderTotalForRange('2023-01-30', '2023-01-30').subscribe({
         next: (resp: any) => {
-          console.log('dateChangeResp', resp);
+
           this.customGoal = resp[0].original_orders_total;
           this.customGoalAbbr = Intl.NumberFormat('en-US', {
             notation: 'compact',
@@ -539,13 +539,13 @@ export class DashboardComponent implements OnInit {
 
   onSelectYearChange(event: any) {
     this.selectedYear = event.target.value;
-    console.log('selectedYear', this.selectedYear);
+
     this.loader = true;
 
     this.chartData.getOrderTotalForYear(this.selectedYear).subscribe({
       next: (resp: any) => {
         this.yearData = [];
-        console.log('Year data', resp);
+
         const monthNames = [
           'January',
           'February',
@@ -566,12 +566,12 @@ export class DashboardComponent implements OnInit {
             monthName: item.monthName,
           };
         });
-        console.log('monthList', this.monthList);
+
         resp.forEach((item: IItem) => {
           const itemData = [item.monthName, item.total];
           this.yearData.push(itemData);
         });
-        console.log('yearDATA', this.yearData);
+
         this.chartData.dataArray.next(this.yearData);
         this.loader = false;
       },
@@ -580,7 +580,7 @@ export class DashboardComponent implements OnInit {
 
   onSelectMonthChange(event: any) {
     this.selectedMonth = event.target.value;
-    console.log('selectedMonth', this.selectedMonth);
+
 
     this.loader = true;
 
@@ -589,13 +589,13 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (resp: any) => {
           let monthData: any = [];
-          console.log('month Data', resp);
+
           this.dayList = resp.map((item: any) => item.day);
           resp.forEach((item: IDay) => {
             const itemData = [item.day, item.total];
             monthData.push(itemData);
           });
-          console.log('New month data', monthData);
+
           this.chartData.dataArray.next(monthData);
           this.loader = false;
         },
@@ -604,7 +604,7 @@ export class DashboardComponent implements OnInit {
 
   onSelectDayChange(event: any) {
     this.selectedDay = event.target.value;
-    console.log('selectedDay', this.selectedDay);
+
     this.loader = true;
 
     this.chartData
@@ -616,13 +616,13 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (resp: any) => {
           let hourData: any = [];
-          console.log('hour Data', resp);
+
           this.hourList = resp.map((item: any) => item.hour);
           resp.forEach((item: IHour) => {
             const itemData = [item.hour, item.total];
             hourData.push(itemData);
           });
-          console.log('New month data', hourData);
+
           this.chartData.dataArray.next(hourData);
           this.loader = false;
         },

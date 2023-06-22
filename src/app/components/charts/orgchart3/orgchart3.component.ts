@@ -182,7 +182,35 @@ export class Orgchart3Component {
     },
   ];
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    const total = this.nodes[0].title
+
+    this.nodes.forEach((node: any) => {
+      node.percentage = ((node.title / total) * 100).toFixed(2);
+      node.title = Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        compactDisplay: 'short',
+      }).format(+node.title);
+      node.title = node.title + ' (' + node.percentage + '%)';
+      node.childs.forEach((child: any) => {
+        child.percentage = ((child.title / total) * 100).toFixed(2);
+        child.title = Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(+child.title);
+        child.title = child.title + ' (' + child.percentage + '%)';
+        child.childs.forEach((child2: any) => {
+          child2.percentage = ((child2.title / total) * 100).toFixed(2);
+          child2.title = Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            compactDisplay: 'short',
+          }).format(+child2.title);
+          child2.title = child2.title + ' (' + child2.percentage + '%)';
+        });
+      });
+    });
+  }
 
   generateNode(children: any) {
     return children.map((node: any) => {
@@ -385,6 +413,5 @@ export class Orgchart3Component {
 
   onZoom(event: any) {
     this.orgChartScale = 50 + +event.target.value;
-    console.log(this.orgChartScale);
   }
 }

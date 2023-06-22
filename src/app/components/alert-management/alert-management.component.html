@@ -56,7 +56,11 @@
                   <option value="lt"><</option>
                   <option value="between">Between</option>
                 </select>
-                <input type="number" *ngIf="!showBetweenInputs" />
+                <input
+                  type="number"
+                  *ngIf="!showBetweenInputs"
+                  placeholder="value"
+                />
                 <div class="between_inputs" *ngIf="showBetweenInputs">
                   <input type="number" />
                   <span>And</span>
@@ -64,17 +68,17 @@
                 </div>
               </div>
               <div class="field">
-                <label for="alert_text">Alert Text: </label>
+                <label for="alert_text">Alert Name: </label>
                 <input
                   type="text"
                   id="alert_text"
-                  placeholder="Alert Text"
+                  placeholder="Alert Name"
                   [value]="alert_text"
                   (input)="onChange('alert_text', $event)"
                 />
               </div>
               <div class="field">
-                <label for="alert_name">Alert Name: </label>
+                <label for="alert_name">Alert Text: </label>
                 <input
                   type="text"
                   id="alert_name"
@@ -144,23 +148,34 @@
                   (input)="onChange('firstName', $event)"
                 />
               </div>
-
               <div class="field">
-                <label for="firstName">Time: </label>
-                <input
-                  type="time"
-                  id="firstName"
-                  placeholder="Alert Text"
-                  (input)="onChange('firstName', $event)"
-                />
-              </div>
-              <div class="field">
-                <label for="firstName">Frequency: </label>
-                <select name="frequency">
+                <label for="frequency">Frequency: </label>
+                <select name="frequency" (input)="onFrequencyChange($event)">
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
                   <option value="biweekly">Biweekly</option>
                   <option value="monthly">Monthly</option>
+                </select>
+              </div>
+              <div class="field" *ngIf="frequency === 'weekly'">
+                <label for="weekday">Time: </label>
+                <select name="weekday">
+                  <option value="monday">Monday</option>
+                  <option value="tuesday">Tuesday</option>
+                  <option value="wednesday">Wednesday</option>
+                  <option value="thursday">Thursday</option>
+                  <option value="friday">Friday</option>
+                  <option value="saturday">Saturday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+              </div>
+              <div class="field" *ngIf="frequency === 'monthly'">
+                <label for="monthdate">Time: </label>
+                <select name="monthdate">
+                  <option *ngFor="let i of optionsArray" [value]="i">
+                    {{ i }}
+                  </option>
+
                 </select>
               </div>
             </div>

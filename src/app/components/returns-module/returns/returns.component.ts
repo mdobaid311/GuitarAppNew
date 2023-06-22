@@ -25,7 +25,7 @@ export class ReturnsComponent {
   ngOnInit(): void {
     // this.loader = true;
     // this.returnsServices.getReturnsData('2023-03-22','2023-03-26').subscribe((res) => {
-    //   console.log(res);
+    //
     //   this.returnsData = res;
     //   this.loader = false;
     // });
@@ -42,7 +42,7 @@ export class ReturnsComponent {
   fullSalesData: any;
 
   onGlobalDateRangeChanged(date: NgbDate) {
-    console.log(date);
+
     if (!this.globalFromDate && !this.globalToDate) {
       this.globalFromDate = date;
     } else if (
@@ -55,7 +55,7 @@ export class ReturnsComponent {
       this.globalToDate = null;
       this.globalFromDate = date;
     }
-    console.log('date');
+
     const beginDate =
       this.globalFromDate.year +
       '-' +
@@ -79,7 +79,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(beginDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });
@@ -100,7 +100,7 @@ export class ReturnsComponent {
   }
 
   onRangeSelect(range: any) {
-    console.log('Range Selected', range);
+
 
     this.loader = true;
 
@@ -113,7 +113,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(startDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });
@@ -138,7 +138,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(startDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });
@@ -162,7 +162,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(startDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });
@@ -176,7 +176,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(startDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });
@@ -191,7 +191,7 @@ export class ReturnsComponent {
       this.returnsServices
         .getReturnsData(startDate, endDate)
         .subscribe((res) => {
-          console.log(res);
+
           this.returnsData = res;
           this.loader = false;
         });

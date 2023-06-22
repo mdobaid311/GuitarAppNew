@@ -117,7 +117,16 @@ export class ChartService {
     endDate: any,
     intervaltime: any
   ) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}`;
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getFullSalesData?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
+    return this.httpClient.get<any[]>(url);
+  }
+
+  public getFullAvgSalesDataByRange(
+    startDate: any,
+    endDate: any,
+    intervaltime: any
+  ) {
+    const url = `${APP_CONSTANTS.URI}/v2/tables/getSalesAvgData?startDate=2023-03-30&endDate=2023-03-31&timeInterval=3600`;
     return this.httpClient.get<any[]>(url);
   }
 

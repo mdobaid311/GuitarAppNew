@@ -243,6 +243,6 @@ export class OrgChartComponent {
 
   onZoom(event: any) {
     this.orgChartScale = 50 + +event.target.value;
-    console.log(this.orgChartScale);
+
   }
 }

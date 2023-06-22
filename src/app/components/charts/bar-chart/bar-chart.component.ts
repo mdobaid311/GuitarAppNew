@@ -56,7 +56,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
     });
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-      console.log('Array', array);
+
       this.newDataArray = array;
 
       this.chartOptions = {
@@ -237,7 +237,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
   }
 
   onPinToDashboard() {
-    console.log('pin to DB_bar', this.pinBarChart);
+
     this.pinBarChart = true;
     this.chartData.barChartPinToDB.next(this.pinBarChart);
   }

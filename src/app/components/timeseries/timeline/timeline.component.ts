@@ -60,7 +60,7 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesMilestones(this.selectedDate, 69)
         .subscribe((res: any) => {
-          console.log(res);
+
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
           this.originalData = res.mergedData;
@@ -71,7 +71,7 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesData(this.selectedDate)
         .subscribe((res: any) => {
-          console.log(res);
+
           this.timeseriesDates = res.dates;
           this.originalData = res.timeSeries;
           this.timeseriesData = res.timeSeries;
@@ -86,12 +86,12 @@ export class TimelineComponent {
         this.user = user;
 
         const userid = this?.user.id;
-        console.log('first');
+
         this.chartService
           .getTimeSeriesMilestones('2023-01-28', userid)
           .subscribe((res: any) => {
             this.loader = true;
-            console.log(res);
+
             this.timeseriesDates = res.timeLineDates;
             this.timeseriesData = res.mergedData;
             this.originalData = res.mergedData;
@@ -180,7 +180,7 @@ export class TimelineComponent {
 
   toggleTimeSeriesModal() {
     this.timeSeriesModal = !this.timeSeriesModal;
-    console.log(this.timeSeriesModal);
+
   }
 
   statusSelectionContainer = false;
@@ -220,7 +220,7 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesData(formattedDate)
         .subscribe((res: any) => {
-          console.log(res);
+
           this.timeseriesDates = res.dates;
           this.timeseriesData = res.timeSeries;
         });
@@ -337,7 +337,7 @@ export class TimelineComponent {
   milestone4 = 0;
 
   changeMilestone(event: any, milestone: any) {
-    console.log(event.target.value);
+
     if (milestone == 1) {
       this.milestone1 = event.target.value;
     }
@@ -363,7 +363,7 @@ export class TimelineComponent {
       mssix: 1,
     };
 
-    console.log(milestoneData);
+
     const userid = this.user?.id;
     this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
       this.toastr.success(res.message);
@@ -372,7 +372,7 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesMilestones('2023-01-28', userid)
         .subscribe((res: any) => {
-          console.log(res);
+
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
           this.originalData = res.mergedData;

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     if (this.username.length > 0 && this.password.length > 0) {
       this.userService.login(this.username, this.password).subscribe(
         (data) => {
-          console.log(data);
+
           if (data) {
             this.loginError = false;
             this.userService.setUser(data);
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           this.loginError = true;
-          console.log('error');
+
         }
       );
     }
