@@ -243,25 +243,25 @@ export class LineChartComponent {
                 },
                 color: '#51FF14', // Change color of lines
               },
-              {
-                marker: {
-                  enabled: false,
-                },
-                name: 'Sales',
-                data: avgDataSeries,
-                lineWidth: 2,
-                dataLabels: {
-                  enabled: false, // Remove data labels from lines
-                  color: '#fff',
-                  style: {
-                    // height: '100px',
-                    color: '#fff',
-                    fontSize: '14px',
-                    fontFamily: 'Poppins, sans-serif',
-                  },
-                },
-                color: '#51FF14', // Change color of lines
-              },
+              // {
+              //   marker: {
+              //     enabled: false,
+              //   },
+              //   name: 'Sales',
+              //   data: avgDataSeries,
+              //   lineWidth: 2,
+              //   dataLabels: {
+              //     enabled: false, // Remove data labels from lines
+              //     color: '#fff',
+              //     style: {
+              //       // height: '100px',
+              //       color: '#fff',
+              //       fontSize: '14px',
+              //       fontFamily: 'Poppins, sans-serif',
+              //     },
+              //   },
+              //   color: '#51FF14', // Change color of lines
+              // },
             ],
             plotOptions: {
               line: {
