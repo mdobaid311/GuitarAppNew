@@ -41,9 +41,16 @@ export class AlertManagementComponent {
   sendEmail: string = '';
   sendSMS: string = '';
 
+  userQueriesData: any;
+
   ngOnInit() {
     this.userService.user$.subscribe((user) => {
       this.user = user;
+    });
+
+    this.userService.getUserConfigurationData(69).subscribe((res: any) => {
+      this.userQueriesData = res.queriesData;
+      console.log(this.userQueriesData);
     });
 
     this.userService.getUsers().subscribe((res) => {
@@ -76,6 +83,20 @@ export class AlertManagementComponent {
       this.showBetweenInputs = true;
     } else {
       this.showBetweenInputs = false;
+    }
+  }
+
+  savedQuerySelect: any = '';
+
+  showCustomQuery: boolean = false;
+
+  savedQueryChange(event: any) {
+    this.savedQuerySelect = event.target.value;
+
+    if (this.savedQuerySelect == 'custom') {
+      this.showCustomQuery = true;
+    } else {
+      this.showCustomQuery = false;
     }
   }
 }

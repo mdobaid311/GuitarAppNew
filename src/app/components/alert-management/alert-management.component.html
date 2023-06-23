@@ -122,6 +122,14 @@
             <h2>Schedule</h2>
             <div class="fields">
               <div class="field">
+                <label for="savedQuery">Saved Queries: </label>
+                <select name="savedQuery" (input)="savedQueryChange($event)">
+                  <option disabled selected>Select Query</option>
+                  <option *ngFor="let query of userQueriesData" value="daily">{{query.name}}</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div class="field" *ngIf="showCustomQuery">
                 <label for="firstName">Query: </label>
                 <input
                   type="text"
@@ -158,7 +166,7 @@
                 </select>
               </div>
               <div class="field" *ngIf="frequency === 'weekly'">
-                <label for="weekday">Time: </label>
+                <label for="weekday">Day: </label>
                 <select name="weekday">
                   <option value="monday">Monday</option>
                   <option value="tuesday">Tuesday</option>
@@ -170,7 +178,7 @@
                 </select>
               </div>
               <div class="field" *ngIf="frequency === 'monthly'">
-                <label for="monthdate">Time: </label>
+                <label for="monthdate">Date: </label>
                 <select name="monthdate">
                   <option *ngFor="let i of optionsArray" [value]="i">
                     {{ i }}
