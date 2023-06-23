@@ -96,7 +96,7 @@
         </div>
       </div>
       <p>Remaining states: <span>{{statesRemaingingForThreshold}}</span></p>
-      <button (click)="saveThresholds()">Save and run</button>
+      <button (click)="saveThresholds()" [disabled]="disableThresholdSaveButton">Save and run</button>
       <!-- <span>{{ savethresholdMessage }}</span> -->
     </div>
   </div>

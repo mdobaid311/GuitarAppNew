@@ -396,6 +396,11 @@ export class AreaSplineChartComponent {
     const xaxis = this.xAxisColumn;
     const yaxis = this.yAxisColumn;
 
+    if(!xaxis || !yaxis) {
+      this.toastr.error('Please select x and y axis columns');
+      return;
+    }
+
     if (!queryName || !query || !xaxis || !yaxis) {
       this.toastr.error('Please fill all the fields');
       return;
@@ -408,6 +413,10 @@ export class AreaSplineChartComponent {
       yaxis,
     };
     this.userService.saveQuery(data).subscribe((res: any) => {
+      this.userQueriesData.push({
+        query: query,
+        name: queryName,
+      });
       this.toastr.success('Query Saved Successfully');
     });
   }

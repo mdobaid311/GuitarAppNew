@@ -88,7 +88,7 @@ export class TimelineComponent {
         const userid = this?.user.id;
 
         this.chartService
-          .getTimeSeriesMilestones('2023-01-28', userid)
+          .getTimeSeriesMilestones('2023-01-28', 45)
           .subscribe((res: any) => {
             this.loader = true;
 

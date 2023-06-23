@@ -111,7 +111,12 @@ DrilldownModule(Highcharts);
     NgbPaginationModule,
     NgbAlertModule,
     NgbDatepickerModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      preventDuplicates: true,
+      progressBar: true,
+      toastClass: 'ngx-toastr',
+    }),
     NgxOrgChartModule,
     CommonModule,
   ],

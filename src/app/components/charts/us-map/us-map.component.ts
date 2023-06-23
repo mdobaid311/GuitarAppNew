@@ -139,7 +139,6 @@ export class UsMapComponent {
           third: sortedArrayForThreshold[threshold3 - 1].value,
         };
 
-
         this.chartOptions = {
           chart: {
             marker: {
@@ -974,10 +973,9 @@ export class UsMapComponent {
 
   statesRemaingingForThreshold = 51;
 
+  disableThresholdSaveButton: boolean = false;
+
   changeThreshold(event: any, threshold: any) {
-
-
-
     if (threshold == 1) {
       this.threshold1 = event.target.value;
     }
@@ -993,6 +991,12 @@ export class UsMapComponent {
       Number(this.threshold1) -
       Number(this.threshold2) -
       Number(this.threshold3);
+
+    if (this.statesRemaingingForThreshold === 0) {
+      this.disableThresholdSaveButton = false;
+    } else {
+      this.disableThresholdSaveButton = true;
+    }
   }
 
   saveThresholdMessage: string = '';
@@ -1007,7 +1011,6 @@ export class UsMapComponent {
 
     this.userService.setThresholds(thresholdData).subscribe((res: any) => {
       this.toastr.success('Thresholds saved successfully');
-
     });
     this.showThresholdsModal = false;
 

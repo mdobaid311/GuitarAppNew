@@ -313,6 +313,12 @@ fill: var(--primary-color-3) !important;
       }
     }
 
+    button:disabled {
+      background: var(--primary-background-2);
+      color: var(--primary-color-1);
+      cursor: not-allowed;
+    }
+
     p{
       margin-bottom: 10px;
       text-align: center;
