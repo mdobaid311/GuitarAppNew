@@ -1,27 +1,5 @@
 <app-custom-guitar-loader *ngIf="loader"></app-custom-guitar-loader>
 
-<div *ngIf="showChangeModal">
-  <app-custom-modal>
-    <ngb-datepicker
-      #dp
-      [displayMonths]="1"
-      [dayTemplate]="t"
-      outsideDays="hidden"
-    >
-    </ngb-datepicker>
-
-    <ng-template #t let-date let-focused="focused">
-      <span class="custom-day" [class.focused]="focused">
-        {{ date.day }}
-      </span>
-    </ng-template>
-    <div class="custom_value__buttons">
-      <button class="cancel" (click)="toggleChangeModal()">Cancel</button>
-      <button class="apply">Apply</button>
-    </div>
-  </app-custom-modal>
-</div>
-
 <div class="dashboard__screen">
   <div class="dashboard_container">
     <div class="dashboard__main_screen">
@@ -38,17 +16,20 @@
           <!-- <h3>Edit</h3> -->
         </div>
 
-        <div class="main_container__charts_container" *ngFor="let item of fullSalesData; let i = index">
+        <div
+          class="main_container__charts_container"
+          *ngFor="let item of fullSalesData; let i = index"
+        >
           <div class="charts_container__chart" *ngIf="showColChart">
             <app-column-chart
-            *ngIf="i == 0"
-            [columnChartData]="
-              item?.chartSeries?.series.length > 0
-                ? item?.chartSeries?.series
-                : []
-            "
-          ></app-column-chart>
-          <!-- <app-column-chart
+              *ngIf="i == 0"
+              [columnChartData]="
+                item?.chartSeries?.series.length > 0
+                  ? item?.chartSeries?.series
+                  : []
+              "
+            ></app-column-chart>
+            <!-- <app-column-chart
             *ngIf="i == 1"
             [columnChartData]="
               item?.chartSeries?.series.length > 0
@@ -59,14 +40,14 @@
           </div>
           <div class="charts_container__chart" *ngIf="showBarChart">
             <app-bar-chart
-            *ngIf="i == 0"
-            [barChartData]="
-              item?.chartSeries?.series.length > 0
-                ? item?.chartSeries?.series
-                : []
-            "
-          ></app-bar-chart>
-          <!-- <app-bar-chart
+              *ngIf="i == 0"
+              [barChartData]="
+                item?.chartSeries?.series.length > 0
+                  ? item?.chartSeries?.series
+                  : []
+              "
+            ></app-bar-chart>
+            <!-- <app-bar-chart
             *ngIf="i == 1"
             [barChartData]="
               item?.chartSeries?.series.length > 0
@@ -77,14 +58,14 @@
           </div>
           <div class="charts_container__chart" *ngIf="showPieChart">
             <app-pie-chart
-            *ngIf="i == 0"
-            [pieChartData]="
-              item?.chartSeries?.series.length > 0
-                ? item?.chartSeries?.series
-                : []
-            "
-          ></app-pie-chart>
-          <!-- <app-pie-chart
+              *ngIf="i == 0"
+              [pieChartData]="
+                item?.chartSeries?.series.length > 0
+                  ? item?.chartSeries?.series
+                  : []
+              "
+            ></app-pie-chart>
+            <!-- <app-pie-chart
             *ngIf="i == 1"
             [pieChartData]="
               item?.chartSeries?.series.length > 0
@@ -95,14 +76,14 @@
           </div>
           <div class="charts_container__chart" *ngIf="showLineChart">
             <app-line-chart
-                  *ngIf="i == 0"
-                  [lineChartData]="
-                    item?.chartSeries?.series.length > 0
-                      ? item?.chartSeries?.series
-                      : []
-                  "
-                ></app-line-chart>
-                <!-- <app-line-chart
+              *ngIf="i == 0"
+              [lineChartData]="
+                item?.chartSeries?.series.length > 0
+                  ? item?.chartSeries?.series
+                  : []
+              "
+            ></app-line-chart>
+            <!-- <app-line-chart
                   *ngIf="i == 1"
                   [lineChartData]="
                     item?.chartSeries?.series.length > 0
