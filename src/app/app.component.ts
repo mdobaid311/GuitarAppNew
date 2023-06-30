@@ -26,13 +26,12 @@ export class AppComponent {
   user: any;
 
   ngOnInit() {
-    // const user = localStorage.getItem('user');
-    // if (user) {
-    //   this.user = JSON.parse(user);
-    //   this._router.navigate(['/dashboard']);
-    // } else {
-    //   this._router.navigate(['/login']);
-    //   this._router.navigate(['/ ']);
-    // }
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.user = JSON.parse(user);
+      this._router.navigate(['/dashboard']);
+    } else {
+      this._router.navigate(['/']);
+    }
   }
 }
