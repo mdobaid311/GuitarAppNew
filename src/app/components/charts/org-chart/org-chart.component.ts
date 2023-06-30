@@ -27,11 +27,11 @@ export class OrgChartComponent {
   faMagnifyingGlassPlus = faMagnifyingGlassPlus;
   faSitemap = faSitemap;
 
-  viewType = 'vertical';
+  viewType = 'horizontal';
 
   nodes: any;
 
-  activeType = 'item_info';
+  activeType = 'order_capture_channel';
 
   startDate: any = '2023-05-05 00:00:00';
   endDate: any = '2023-05-05 23:59:59';
@@ -51,7 +51,7 @@ export class OrgChartComponent {
     this.getDataForRange(
       '2023-05-05 00:00:00',
       '2023-05-05 23:59:59',
-      'item_info'
+      'order_capture_channel'
     );
   }
 
