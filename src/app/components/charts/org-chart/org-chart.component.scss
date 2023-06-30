@@ -21,6 +21,7 @@
         margin: 10px;
         padding: 10px 15px;
         height: 100%;
+        overflow: hidden;
 
         .main_container__heading {
           display: flex;
@@ -86,10 +87,52 @@
               }
             }
 
-            .zoom_range {
+            .zoom_and_view_range {
               display: flex;
               justify-content: flex-end;
               align-items: center;
+
+              .view_type {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 10px;
+                gap: 10px;
+
+                button {
+                  background: var(--primary-background-3);
+                  color: var(--primary-color-1);
+                  border: none;
+                  border-radius: 6px;
+                  padding: 10px 20px;
+                  font-size: 15px;
+                  font-weight: 600;
+                  cursor: pointer;
+                  box-shadow: var(--primary-boxshadow);
+                  transition: all 0.3s ease;
+                  &:hover {
+                    background: var(--primary-background-2);
+                    color: var(--primary-color-3);
+                  }
+                }
+
+                .active {
+                  background: var(--primary-background-1);
+                  color: #fff;
+
+                  &:hover {
+                    background: var(--primary-background-1);
+                    color: #fff;
+                  }
+                }
+
+                button:last-child {
+                  .icon {
+                    display: block;
+                    transform: rotate(-90deg);
+                  }
+                }
+              }
 
               .icon {
                 font-size: 22px;
@@ -184,7 +227,36 @@
   background: var(--primary-color-1);
 }
 
-.org_chart__org_chart{
+
+:host ::ng-deep .ngx-org-box {
+  background: var(--primary-background-3);
+  color: var(--primary-color-1);
+  border-radius: 5%;
+  padding: 15px;
+  border: 1px solid var(--primary-color-1);
+}
+
+:host ::ng-deep .ngx-org-name {
+  color: var(--primary-color-3);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 22px;
+  margin: 5px 0;
+}
+
+:host ::ng-deep .ngx-org-title {
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.org_chart__org_chart {
   width: 100%;
   transform-origin: center;
+}
+
+.org_chart__horizontal{
+  height: 100%;
+
 }

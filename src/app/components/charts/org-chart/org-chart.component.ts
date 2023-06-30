@@ -6,6 +6,7 @@ import {
   faCaretLeft,
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
+  faSitemap,
 } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-org-chart',
@@ -24,24 +25,33 @@ export class OrgChartComponent {
   faCaretLeft = faCaretLeft;
   faMagnifyingGlassMinus = faMagnifyingGlassMinus;
   faMagnifyingGlassPlus = faMagnifyingGlassPlus;
+  faSitemap = faSitemap;
 
-  activeType = 'fulfillment';
+  viewType = 'vertical';
+
+  nodes: any;
+
+  activeType = 'item_info';
 
   startDate: any = '2023-05-05 00:00:00';
   endDate: any = '2023-05-05 23:59:59';
+
+  changeViewType(type: string) {
+    this.viewType = type;
+  }
 
   changeType(type: string) {
     this.activeType = type;
     this.getDataForRange(this.startDate, this.endDate, type);
   }
 
-  data: any
+  data: any;
 
   ngOnInit() {
     this.getDataForRange(
       '2023-05-05 00:00:00',
       '2023-05-05 23:59:59',
-      'fulfillment'
+      'item_info'
     );
   }
 
@@ -84,7 +94,6 @@ export class OrgChartComponent {
 
   globalFromDate: NgbDate;
   globalToDate: NgbDate | null = null;
-
 
   todaysDate = moment(new Date()).format('YYYY-MM-DD');
   fullDate: any = moment(new Date()).format('YYYY-MM-DD');
@@ -151,25 +160,25 @@ export class OrgChartComponent {
           .subtract(2, 'hours')
           .format('YYYY-MM-DD HH:mm');
         this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-        this.fullDate = 'Last 2 hours'
+        this.fullDate = 'Last 2 hours';
       } else if (range === '6h') {
         this.startDate = moment('2023-05-01 16:28:21')
           .subtract(6, 'hours')
           .format('YYYY-MM-DD HH:mm');
         this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-        this.fullDate = 'Last 6 hours'
+        this.fullDate = 'Last 6 hours';
       } else if (range === '12h') {
         this.startDate = moment('2023-05-01 16:28:21')
           .subtract(12, 'hours')
           .format('YYYY-MM-DD HH:mm');
         this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-        this.fullDate = 'Last 12 hours'
+        this.fullDate = 'Last 12 hours';
       } else if (range === '1d') {
         this.startDate = moment('2023-05-01 16:28:21')
           .subtract(1, 'days')
           .format('YYYY-MM-DD HH:mm');
         this.endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-        this.fullDate = 'Last 24 hours'
+        this.fullDate = 'Last 24 hours';
       }
       this.getDataForRange(this.startDate, this.endDate, this.activeType);
     } else if (range === '6m') {
@@ -177,14 +186,14 @@ export class OrgChartComponent {
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-      this.fullDate = 'Last 6 months'
+      this.fullDate = 'Last 6 months';
       this.getDataForRange(startDate, endDate, this.activeType);
     } else if (range === '1y') {
       const startDate = moment('2023-05-01 16:28:21')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
       const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
-      this.fullDate = 'Last 12 months'
+      this.fullDate = 'Last 12 months';
       this.getDataForRange(startDate, endDate, this.activeType);
     }
   }
@@ -233,6 +242,7 @@ export class OrgChartComponent {
           return calculateWidth(topLevelNode, ancestorTotal);
         });
         this.data = this.generateNode(updatedData);
+        this.convertToVerticalNodes(this.data);
         this.loader = false;
       },
       error: (error) => {},
@@ -243,6 +253,42 @@ export class OrgChartComponent {
 
   onZoom(event: any) {
     this.orgChartScale = 50 + +event.target.value;
+  }
 
+  convertToVerticalNodes(inputArray: any) {
+    const outputArray: any = [];
+
+    const totalValue = inputArray[0].data.value;
+
+    function convertNode(node: any, outputNode: any) {
+      outputNode.name = node.label;
+      const percentage = (node.data.value / totalValue) * 100;
+
+      outputNode.title =
+        '$' +
+        Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          compactDisplay: 'short',
+        }).format(node.data.value) +
+        ' (' +
+        percentage.toFixed(2) +
+        '%)';
+
+      outputNode.cssClass = 'ngx-org-ceo';
+      outputNode.childs = [];
+
+      if (node.children && node.children.length > 0) {
+        for (const child of node.children) {
+          const childNode = {};
+          convertNode(child, childNode);
+          outputNode.childs.push(childNode);
+        }
+      }
+    }
+
+    convertNode(inputArray[0], outputArray);
+    this.nodes = [outputArray];
+
+    return outputArray;
   }
 }

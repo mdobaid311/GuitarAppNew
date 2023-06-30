@@ -403,6 +403,7 @@ export class Orgchart3Component {
           return calculateWidth(topLevelNode, ancestorTotal);
         });
         this.data = this.generateNode(updatedData);
+
         this.loader = false;
       },
       error: (error) => {},
