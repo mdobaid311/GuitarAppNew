@@ -1,8 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import {
   faAngleDown,
   faCalendar,
@@ -206,7 +202,6 @@ export class SalesComponent {
     this.isEditable = true;
   }
 
-
   constructor(
     private chartData: ChartService,
     private cdr: ChangeDetectorRef,
@@ -292,16 +287,13 @@ export class SalesComponent {
               100,
           };
 
-
-
           this.cdr.detectChanges();
         },
       });
-      this.loader = false;
+    this.loader = false;
   }
 
   onRangeSelect(range: any) {
-
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -318,7 +310,6 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -343,7 +334,6 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 15 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -367,7 +357,6 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -381,7 +370,6 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -396,7 +384,6 @@ export class SalesComponent {
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
           },
         });
@@ -447,7 +434,6 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 15 * 60)
           .subscribe({
             next: (resp: any) => {
-
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -458,7 +444,6 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
           .subscribe({
             next: (resp: any) => {
-
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -467,7 +452,6 @@ export class SalesComponent {
           .getFullSalesDataByRange(beginDate, endDate, 172800)
           .subscribe({
             next: (resp: any) => {
-
               this.fullSalesData = Object.values(resp);
             },
           });
@@ -475,7 +459,6 @@ export class SalesComponent {
       this.loader = false;
     }
     this.loader = false;
-
   }
 
   makeNonEditable() {
@@ -505,16 +488,13 @@ export class SalesComponent {
 
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
-    console.log("hello")
+    console.log('hello');
 
-    this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
-      .subscribe({
-        next: (resp: any) => {
-
-          this.fullSalesData = Object.values(resp);
-        },
-      });
+    this.chartData.getFullSalesData('2023-01-01', '2023-01-01', 900).subscribe({
+      next: (resp: any) => {
+        this.fullSalesData = Object.values(resp);
+      },
+    });
 
     if (this.chartData.barChartPinToDB.value && this.selectedChart === 'bar') {
       this.pinActive = true;
@@ -533,7 +513,7 @@ export class SalesComponent {
     }
 
     this.chartData
-      .getFullSalesDataByRange('2023-03-01', '2023-03-02 ', 1440 * 60)
+      .getFullSalesDataByRange('2023-01-01', '2023-01-01 ', 1440 * 60)
       .subscribe({
         next: (resp: any) => {
           const data: any = Object.values(resp);
@@ -554,16 +534,12 @@ export class SalesComponent {
               100,
           };
 
-
-
           this.cdr.detectChanges();
         },
       });
   }
 
   onSelectChartChange(event: any) {
-
-
     this.selectedChart = event;
     this.onRangeSelect(this.currentRange);
 

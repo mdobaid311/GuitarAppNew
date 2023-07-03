@@ -219,6 +219,14 @@ export class CustomGridComponent {
   @HostListener('document:click', ['$event.target'])
   onClick(targetElement: HTMLElement) {
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+
+    if (
+      !targetElement.tagName.includes('svg') &&
+      !targetElement.tagName.includes('path')
+    ) {
+      this.isViewSelectContainerOpen = false;
+    }
+
     if (!clickedInside) {
       this.isViewSelectContainerOpen = false;
     }

@@ -122,12 +122,20 @@ export class AreaSplineChartComponent {
   @HostListener('document:click', ['$event.target'])
   onClick(targetElement: HTMLElement) {
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+
+    if (
+      !targetElement.tagName.includes('svg') &&
+      !targetElement.tagName.includes('path')
+    ) {
+      this.isAnalysisOptionsContainerOpen = false;
+    }
+
     if (!clickedInside) {
       this.isAnalysisOptionsContainerOpen = false;
     }
   }
 
-  lineChartData: any
+  lineChartData: any;
 
   createExcelFile(data: any[], fileName: string): void {
     const worksheet: any = utils.json_to_sheet(data);
@@ -371,7 +379,7 @@ export class AreaSplineChartComponent {
     const xaxis = this.xAxisColumn;
     const yaxis = this.yAxisColumn;
 
-    if(!xaxis || !yaxis) {
+    if (!xaxis || !yaxis) {
       this.toastr.error('Please select x and y axis columns');
       return;
     }

@@ -56,7 +56,6 @@ export class BarChartComponent implements OnInit, OnDestroy {
     });
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-
       this.newDataArray = array;
 
       this.chartOptions = {
@@ -80,7 +79,8 @@ export class BarChartComponent implements OnInit, OnDestroy {
           labels: {
             formatter: function (e: any): any {
               const interval = array.length / 6;
-              if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
+              if (e.isFirst || e.isLast || e.pos % interval === 0)
+                return e.value;
               else return '';
             },
             enabled: true,
@@ -145,99 +145,114 @@ export class BarChartComponent implements OnInit, OnDestroy {
       permission ? null : (this.loader = true);
     });
     this.chartData
-    .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
-    .subscribe({
-      next: (resp: any) => {
-                  let yearsData: any = [];
-        this.barChartData.forEach((item: any) => {
-          const itemData = [item.datetime, item.original_order_total_amount];
-          yearsData.push(itemData);
-        });
-        this.chartOptions = {
-          chart: {
-            type: 'bar',
-          },
-          title: {
-            text: 'Sales',
-            style: {
-              color: '#000',
-              fontFamily: 'Verdana, sans-serif',
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
+      .subscribe({
+        next: (resp: any) => {
+          let yearsData: any = [];
+          this.barChartData.forEach((item: any) => {
+            const itemData = [item.datetime, item.original_order_total_amount];
+            yearsData.push(itemData);
+          });
+          this.chartOptions = {
+            chart: {
+              type: 'bar',
             },
-          },
-          xAxis: {
-            type: 'category',
-            labels: {
-              formatter: function (e: any): any {
-                const interval = Math.round(yearsData.length / 6);
-                if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
-                else return '';
-              },
-              enabled: true,
-              rotation: 0,
-              style: {
-                color: '#0C274E',
-                fontSize: '18px',
-                fontFamily: 'Poppins, sans-serif',
-                width: '40px',
-              },
-              step: 1,
-            },
-          },
-          yAxis: {
-            min: 0,
             title: {
-              text: 'Dollars in 1000' + "'" + 's',
-            },
-            labels: {
-              rotation: 0,
+              text: 'Sales',
               style: {
-                // height: '100px',
                 color: '#000',
-                fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif',
               },
             },
-          },
-          // legend: {
-          //   layout: 'vertical', // changed to vertical layout
-          //   align: 'right', // moved to the right
-          //   verticalAlign: 'top', // moved to the top
-          //   x: -10, // adjust x position to align with chart
-          //   reversed: true
-          // },
-          plotOptions: {
-            series: {
-              stacking: 'normal',
-              dataLabels: {
-                enabled: true,
+            xAxis: {
+              type: 'category',
+              labels: {
+                formatter: function (e: any): any {
+                  const interval = Math.round(yearsData.length / 6);
+                  if (e.isFirst || e.isLast || e.pos % interval === 0)
+                    return e.value;
+                  else return '';
+                },
+                enabled: false,
+                rotation: 0,
+                style: {
+                  color: '#0C274E',
+                  fontSize: '18px',
+                  fontFamily: 'Poppins, sans-serif',
+                  width: '40px',
+                },
+                step: 1,
               },
             },
-          },
-          series: [
-            {
-              name: 'Sales',
-              data: yearsData,
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Dollars in 1000' + "'" + 's',
+              },
+              labels: {
+                rotation: 0,
+                style: {
+                  // height: '100px',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontFamily: 'Verdana, sans-serif',
+                },
+              },
+            },
+            // legend: {
+            //   layout: 'vertical', // changed to vertical layout
+            //   align: 'right', // moved to the right
+            //   verticalAlign: 'top', // moved to the top
+            //   x: -10, // adjust x position to align with chart
+            //   reversed: true
+            // },
+            plotOptions: {
+              series: {
+                stacking: 'normal',
+                dataLabels: {
+                  enabled: true,
+                },
+              },
+            },
+            series: [
+              {
+                name: 'Sales',
+                data: yearsData,
 
-              dataLabels: {
-                enabled: true, // Remove data labels from columns
-                color: '#fff',
+                dataLabels: {
+                  enabled: true, // Remove data labels from columns
+                  color: '#fff',
+                },
+                color: '#4aa4ff', // Change color of columns
+                pointWidth: 25, // Reduce width of columns
+                backgroundColor: '#FCFFC5',
               },
-              color: '#2f7ed8', // Change color of columns
-              pointWidth: 25, // Reduce width of columns
-              backgroundColor: '#FCFFC5',
-            },
-          ],
-        };
-        Highcharts.chart(this.chartContainer.nativeElement, this.chartOptions);
-        this.updateChartTheme();
-        this.loader = false;
-      },
-      error: (error) => {},
-    });
+              {
+                name: 'Sales',
+                data: yearsData,
+
+                dataLabels: {
+                  enabled: true, // Remove data labels from columns
+                  color: '#fff',
+                },
+                color: '#393787', // Change color of columns
+                pointWidth: 25, // Reduce width of columns
+                backgroundColor: '#fff',
+              },
+            ],
+          };
+          Highcharts.chart(
+            this.chartContainer.nativeElement,
+            this.chartOptions
+          );
+          this.updateChartTheme();
+          this.loader = false;
+        },
+        error: (error) => {},
+      });
   }
 
   onPinToDashboard() {
-
     this.pinBarChart = true;
     this.chartData.barChartPinToDB.next(this.pinBarChart);
   }

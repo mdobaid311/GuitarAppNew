@@ -1,15 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  SimpleChanges,
-  ViewChild,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { ChartService } from 'src/app/services/chartData.service';
 import { Subscription } from 'rxjs';
+import { ChartService } from 'src/app/services/chartData.service';
+import avgData from './data.json';
 
 @Component({
   selector: 'app-column-chart',
@@ -51,9 +44,7 @@ export class ColumnChartComponent {
       this.pinColChart = pintoDb;
     });
 
-
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-
       this.newDataArray = array;
 
       this.chartOptions = {
@@ -74,7 +65,8 @@ export class ColumnChartComponent {
           labels: {
             formatter: function (e: any): any {
               const interval = Math.round(array.length / 6);
-              if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
+              if (e.isFirst || e.isLast || e.pos % interval === 0)
+                return e.value;
               else return '';
             },
             enabled: true,
@@ -144,7 +136,7 @@ export class ColumnChartComponent {
     });
 
     this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00',900)
+      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
       .subscribe({
         next: (resp: any) => {
           let yearsData: any = [];
@@ -152,6 +144,11 @@ export class ColumnChartComponent {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           });
+
+          const avgDataSeries = avgData.series.GC.map((item: any) => {
+            return [item.datetime, item.original_order_total_amount];
+          });
+
           this.chartOptions = {
             chart: {
               type: 'column',
@@ -170,7 +167,8 @@ export class ColumnChartComponent {
               labels: {
                 formatter: function (e: any): any {
                   const interval = Math.round(yearsData.length / 6);
-                  if (e.isFirst || e.isLast || e.pos % interval === 0) return e.value;
+                  if (e.isFirst || e.isLast || e.pos % interval === 0)
+                    return e.value;
                   else return '';
                 },
                 enabled: true,
@@ -222,13 +220,13 @@ export class ColumnChartComponent {
             series: [
               {
                 name: 'Population',
-                data: yearsData,
+                data: avgDataSeries,
 
                 dataLabels: {
                   enabled: true, // Remove data labels from columns
                   color: '#fff',
                 },
-                color: '#A5D7E8', // Change color of columns
+                color: '#2f7ed8', // Change color of columns
               },
               {
                 name: 'Population',
@@ -238,7 +236,7 @@ export class ColumnChartComponent {
                   enabled: true, // Remove data labels from columns
                   color: '#fff',
                 },
-                color: '#2f7ed8', // Change color of columns
+                color: '#A5D7E8', // Change color of columns
               },
             ],
             plotOptions: {
@@ -264,7 +262,6 @@ export class ColumnChartComponent {
   }
 
   onPinToDashboard() {
-
     this.chartData.colChartPinToDB.next(this.pinColChart);
   }
 

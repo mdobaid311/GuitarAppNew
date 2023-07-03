@@ -27,6 +27,20 @@
           margin-bottom: 20px;
 
           .type_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .total_qty_number {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 15px;
+              font-weight: 600;
+              margin-bottom: 10px;
+              color: var(--primary-color-3);
+            }
+
             button {
               background: var(--primary-background-3);
               color: var(--primary-color-1);

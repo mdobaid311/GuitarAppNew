@@ -22,7 +22,7 @@ export class UsMapComponent {
 
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
 
-  columns = ['State', 'Total', 'Count', 'Percentage'];
+  columns = ['State', 'Total $ Value', 'Order Count ', 'Percentage'];
   filteredData: any;
 
   globalFromDate: NgbDate;
@@ -73,6 +73,8 @@ export class UsMapComponent {
 
   userThresholds: any;
 
+  enableSetThresholdButton = false;
+
   ngOnInit() {
     this.stateNamesMap = stateNamesMap;
     this.data = mapData;
@@ -89,7 +91,7 @@ export class UsMapComponent {
       };
     });
 
-    this.filteredData = tableData.slice(0, 10);
+    this.filteredData = tableData;
 
     const data = Highcharts.geojson(USMap);
 
@@ -147,6 +149,7 @@ export class UsMapComponent {
             map: USMap as any,
             events: {
               drilldown: (e: any) => {
+                this.enableSetThresholdButton = true;
                 if (!e.seriesOptions) {
                   const chart = e.target,
                     mapKey = (e.point as any).drilldown,
@@ -285,6 +288,7 @@ export class UsMapComponent {
                 }
               },
               drillup: (e: any) => {
+                this.enableSetThresholdButton = false;
                 this.filteredData = tableData.slice(0, 10);
               },
             },
@@ -444,10 +448,13 @@ export class UsMapComponent {
         this.globalToDate.day
       : null;
     if (beginDate && endDate) {
+      this.loader = true;
+
       this.fullDate = beginDate + ' to ' + endDate;
       this.chartData.getMapData(beginDate, endDate).subscribe((res: any) => {
         this.data1 = res;
         this.updateChart(res);
+        this.loader = false;
       });
     }
   }
@@ -463,6 +470,7 @@ export class UsMapComponent {
   }
 
   onRangeSelect(range: any) {
+    this.loader = true;
     if (range === '1m') {
       const startDate = moment('2023-05-01 16:28:21')
         .subtract(1, 'months')
@@ -484,6 +492,7 @@ export class UsMapComponent {
         this.newData = tableData;
         this.filteredData = tableData;
         this.updateChart(res);
+        this.loader = false;
       });
     } else if (
       range === '2h' ||
@@ -514,6 +523,7 @@ export class UsMapComponent {
             this.newData = tableData;
             this.filteredData = tableData;
             this.updateChart(res);
+            this.loader = false;
           });
 
         this.fullDate = 'Last 2 hours';
@@ -540,6 +550,7 @@ export class UsMapComponent {
             this.newData = tableData;
             this.filteredData = tableData;
             this.updateChart(res);
+            this.loader = false;
           });
         this.fullDate = 'Last 6 hours';
       } else if (range === '12h') {
@@ -565,6 +576,7 @@ export class UsMapComponent {
             this.newData = tableData;
             this.filteredData = tableData;
             this.updateChart(res);
+            this.loader = false;
           });
         this.fullDate = 'Last 12 hours';
       } else if (range === '1d') {
@@ -590,6 +602,7 @@ export class UsMapComponent {
             this.newData = tableData;
             this.filteredData = tableData;
             this.updateChart(res);
+            this.loader = false;
           });
         this.fullDate = 'Last 24 hours';
       }
@@ -614,6 +627,7 @@ export class UsMapComponent {
         this.newData = tableData;
         this.filteredData = tableData;
         this.updateChart(res);
+        this.loader = false;
       });
       this.fullDate = 'Last 6 months';
     } else if (range === '1y') {
@@ -637,6 +651,7 @@ export class UsMapComponent {
         this.newData = tableData;
         this.filteredData = tableData;
         this.updateChart(res);
+        this.loader = false;
       });
       this.fullDate = 'Last 12 months';
     }

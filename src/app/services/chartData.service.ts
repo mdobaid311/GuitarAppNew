@@ -112,6 +112,7 @@ export class ChartService {
     const url = `${APP_CONSTANTS.URI}/v2/alsd/get-full-sales-data?start_date=${startDate}&end_date=${endDate}&intervaltime=${intervaltime}`;
     return this.httpClient.get<any[]>(url);
   }
+
   public getFullSalesDataByRange(
     startDate: any,
     endDate: any,
@@ -121,14 +122,13 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getFullAvgSalesDataByRange(
-    startDate: any,
-    endDate: any,
-    intervaltime: any
-  ) {
-    const url = `${APP_CONSTANTS.URI}/v2/tables/getSalesAvgData?startDate=2023-03-30&endDate=2023-03-31&timeInterval=3600`;
+  public getSalesAverage(date: any) {
+    const url = `${APP_CONSTANTS.URI}/v2/sales/getSalesAverage?date=${date}`;
+    console.log(url)
     return this.httpClient.get<any[]>(url);
   }
+
+
 
   public getTableData(tableName: any, startDate: any, endDate: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables?table=${tableName}&startDate=${startDate}&endDate=${endDate}`;
@@ -145,12 +145,12 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getCustomQueryData(query: string,startDate: any, endDate: any) {
+  public getCustomQueryData(query: string, startDate: any, endDate: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables/query`;
     const requestBody = {
       query: query,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
     };
     return this.httpClient.post<any[]>(url, requestBody);
   }

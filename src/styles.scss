@@ -114,3 +114,9 @@ option {
   background-color: var(--primary-background-2);
   color: var(--primary-color-1);
 }
+
+
+button:disabled{
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}

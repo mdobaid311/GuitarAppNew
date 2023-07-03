@@ -310,8 +310,6 @@ export class Sales2Component {
               100,
           };
 
-
-
           this.cdr.detectChanges();
         },
       });
@@ -319,7 +317,6 @@ export class Sales2Component {
   }
 
   onRangeSelect(range: any) {
-
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
     this.loader = true;
@@ -328,17 +325,16 @@ export class Sales2Component {
     this.chartData.selectedRange.next(range);
 
     if (range === '1m') {
-      const startDate = moment('2023-05-01 16:28:21')
+      const startDate = moment('2023-03-30 16:28:21')
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
-            this.originalFullSalesData  = this.fullSalesData
+            this.originalFullSalesData = this.fullSalesData;
           },
         });
       this.fullDate = 'Last 1 Month';
@@ -346,81 +342,98 @@ export class Sales2Component {
       let startDate = '';
       let endDate = '';
       if (range === '2h') {
-        startDate = moment('2023-05-01 16:28:21')
+        startDate = moment('2023-03-30 16:28:21')
           .subtract(2, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 2 Hours';
       } else if (range === '6h') {
-        startDate = moment('2023-05-01 16:28:21')
+        startDate = moment('2023-03-30 16:28:21')
           .subtract(6, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 6 Hours';
       }
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 15 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
-            this.originalFullSalesData  = this.fullSalesData
+            this.originalFullSalesData = this.fullSalesData;
           },
         });
     } else if (range === '12h' || range === '1d') {
       let startDate = '';
       let endDate = '';
       if (range === '12h') {
-        startDate = moment('2023-05-01 16:28:21')
+        startDate = moment('2023-03-30 16:28:21')
           .subtract(12, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 12 Hours';
       } else if (range === '1d') {
-        startDate = moment('2023-05-01 16:28:21')
+        startDate = moment('2023-03-30')
           .subtract(1, 'days')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 24 Hours';
       }
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 60 * 60)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
-            this.originalFullSalesData  = this.fullSalesData
+            this.originalFullSalesData = this.fullSalesData;
           },
         });
+      this.chartData.getSalesAverage('2023-03-29').subscribe({
+        next: (resp: any) => {
+          this.averageSeries = resp.series;
+          this.compareValue = {
+            MF: Math.round(resp.total.MF * 100) / 100,
+            GC: Math.round(resp.total.GC * 100) / 100,
+          };
+
+          this.customGoalProgressPercent = {
+            MF:
+              (this.fullSalesData[0].totalStats.original_order_total_amount /
+                resp.total.MF) *
+              100,
+            GC:
+              (this.fullSalesData[1].totalStats.original_order_total_amount /
+                resp.total.GC) *
+              100,
+          };
+          this.cdr.detectChanges();
+        },
+      });
     } else if (range === '6m') {
-      const startDate = moment('2023-05-01 16:28:21')
+      const startDate = moment('2023-03-30 16:28:21')
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
-            this.originalFullSalesData  = this.fullSalesData
+            this.originalFullSalesData = this.fullSalesData;
           },
         });
       this.fullDate = 'Last 6 Months';
     } else if (range === '1y') {
-      const startDate = moment('2023-05-01 16:28:21')
+      const startDate = moment('2023-03-30 16:28:21')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-05-01 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
         .subscribe({
           next: (resp: any) => {
-
             this.fullSalesData = Object.values(resp);
-            this.originalFullSalesData  = this.fullSalesData
+            this.originalFullSalesData = this.fullSalesData;
           },
         });
       this.fullDate = 'Last 1 Year';
@@ -429,7 +442,6 @@ export class Sales2Component {
   }
 
   onGlobalDateRangeChanged(date: NgbDate) {
-    this.loader = true;
     if (!this.globalFromDate && !this.globalToDate) {
       this.globalFromDate = date;
     } else if (
@@ -470,9 +482,10 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 15 * 60)
           .subscribe({
             next: (resp: any) => {
-
+              this.loader = true;
               this.fullSalesData = Object.values(resp);
-              this.originalFullSalesData  = this.fullSalesData
+              this.originalFullSalesData = this.fullSalesData;
+              this.loader = false;
             },
           });
       }
@@ -482,9 +495,10 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 1440 * 60)
           .subscribe({
             next: (resp: any) => {
-
+              this.loader = true;
               this.fullSalesData = Object.values(resp);
-              this.originalFullSalesData  = this.fullSalesData
+              this.originalFullSalesData = this.fullSalesData;
+              this.loader = false;
             },
           });
       } else {
@@ -492,15 +506,14 @@ export class Sales2Component {
           .getFullSalesDataByRange(beginDate, endDate, 172800)
           .subscribe({
             next: (resp: any) => {
-
+              this.loader = true;
               this.fullSalesData = Object.values(resp);
-              this.originalFullSalesData  = this.fullSalesData
+              this.originalFullSalesData = this.fullSalesData;
+              this.loader = false;
             },
           });
       }
-      this.loader = false;
     }
-    this.loader = false;
   }
 
   makeNonEditable() {
@@ -528,23 +541,18 @@ export class Sales2Component {
 
   fullSalesData: any;
 
+  averageSeries: any;
+
   ngOnInit(): void {
     this.chartData.booleanSubject.next(false);
-    this.chartData.getFullAvgSalesDataByRange('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900).subscribe(
-      {
-        next: (resp: any) => {
-          console.log(Object.values(resp))
-        }
-      }
-    )
+
     this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
+      .getFullSalesData('2023-03-30 00:00:20', '2023-03-30 23:59:00', 900)
       .subscribe({
         next: (resp: any) => {
-          console.log(resp)
           this.originalFullSalesData = Object.values(resp);
           this.fullSalesData = Object.values(resp);
-          this.originalFullSalesData  = this.fullSalesData
+          this.originalFullSalesData = this.fullSalesData;
         },
       });
 
@@ -564,35 +572,30 @@ export class Sales2Component {
       this.pinActive = false;
     }
 
-    this.chartData
-      .getFullSalesDataByRange('2023-03-01', '2023-03-02 ', 1440 * 60)
-      .subscribe({
-        next: (resp: any) => {
-          const data: any = Object.values(resp);
+    this.chartData.getSalesAverage('2023-03-30').subscribe({
+      next: (resp: any) => {
+        this.averageSeries = resp.series;
+        this.compareValue = {
+          MF: Math.round(resp.total.MF * 100) / 100,
+          GC: Math.round(resp.total.GC * 100) / 100,
+        };
 
-          this.compareValue = {
-            MF: data[0].totalStats.original_order_total_amount,
-            GC: data[1].totalStats.original_order_total_amount,
-          };
-
-          this.customGoalProgressPercent = {
-            MF:
-              (data[0].totalStats.original_order_total_amount /
-                this.fullSalesData[0].totalStats.original_order_total_amount) *
-              100,
-            GC:
-              (data[1].totalStats.original_order_total_amount /
-                this.fullSalesData[1].totalStats.original_order_total_amount) *
-              100,
-          };
-          this.cdr.detectChanges();
-        },
-      });
+        this.customGoalProgressPercent = {
+          MF:
+            (this.fullSalesData[0].totalStats.original_order_total_amount /
+              resp.total.MF) *
+            100,
+          GC:
+            (this.fullSalesData[1].totalStats.original_order_total_amount /
+              resp.total.GC) *
+            100,
+        };
+        this.cdr.detectChanges();
+      },
+    });
   }
 
   onSelectChartChange(event: any) {
-
-
     this.selectedChart = event;
     this.onRangeSelect(this.currentRange);
 

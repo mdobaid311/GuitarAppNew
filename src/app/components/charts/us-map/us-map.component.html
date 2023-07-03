@@ -12,7 +12,12 @@
       <div class="main_container__heading">
         <div class="heading__flexbox">
           <h3>Sales - By Region</h3>
-          <button (click)="toggleShowThresholdsModal()">Set Thresholds</button>
+          <button
+            (click)="toggleShowThresholdsModal()"
+            [disabled]="enableSetThresholdButton"
+          >
+            Set Thresholds
+          </button>
         </div>
       </div>
       <div class="us_chart_container">
@@ -38,9 +43,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of filteredData">
-                <td>{{nameMap(row[0])}}</td>
-                <td>{{ row[1] | shortNumber }}</td>
-                <td>{{ row[3] | shortNumber }} Orders</td>
+                <td>{{ nameMap(row[0]) }}</td>
+                <td>${{ row[1] | shortNumber }}</td>
+                <td>{{ row[3] | shortNumber }}</td>
                 <td>{{ row[2] }} %</td>
               </tr>
             </tbody>
@@ -69,8 +74,9 @@
           <input
             type="number"
             name="High"
+            min="0"
             placeholder="Enter High"
-            [value]="userThresholds.tsone"
+            [value]="threshold1"
             (input)="changeThreshold($event, 1)"
           />
         </div>
@@ -79,8 +85,9 @@
           <input
             type="number"
             name="Medium"
+            min="0"
             placeholder="Low Medium"
-            [value]="userThresholds.tstwo"
+            [value]="threshold2"
             (input)="changeThreshold($event, 2)"
           />
         </div>
@@ -89,14 +96,22 @@
           <input
             type="number"
             name="Low"
+            min="0"
             placeholder="Enter Low"
-            [value]="userThresholds.tsthree"
-            (input)="changeThreshold($event,3)"
+            [value]="threshold3"
+            (input)="changeThreshold($event, 3)"
           />
         </div>
       </div>
-      <p>Remaining states: <span>{{statesRemaingingForThreshold}}</span></p>
-      <button (click)="saveThresholds()" [disabled]="disableThresholdSaveButton">Save and run</button>
+      <p>
+        Remaining states: <span>{{ statesRemaingingForThreshold }}</span>
+      </p>
+      <button
+        (click)="saveThresholds()"
+        [disabled]="disableThresholdSaveButton"
+      >
+        Save and run
+      </button>
       <!-- <span>{{ savethresholdMessage }}</span> -->
     </div>
   </div>

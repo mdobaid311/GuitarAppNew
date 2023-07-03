@@ -30,7 +30,11 @@
               </div>
             </div> -->
             <div class="brand_selection_container">
-              <select name="brand_selection" id="" (input)="onBrandSelect($event)">
+              <select
+                name="brand_selection"
+                id=""
+                (input)="onBrandSelect($event)"
+              >
                 <option value="ALL">All</option>
                 <option value="GC">GC</option>
                 <option value="MF">MF</option>
@@ -211,7 +215,7 @@
 
                   <div class="div_1_progress_details__date_change">
                     <span (dblclick)="makeEditable()" *ngIf="!isEditable">
-                      ${{ compareValue[item.name] }}
+                      ${{ compareValue[item.name] | shortNumber }}
                     </span>
                     <input
                       type="number"
@@ -332,6 +336,8 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                  [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
                 ></app-line-chart>
                 <app-line-chart
                   *ngIf="selectedChart == 'line' && i == 1"
@@ -340,6 +346,8 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                  [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
                 ></app-line-chart>
               </div>
             </div>

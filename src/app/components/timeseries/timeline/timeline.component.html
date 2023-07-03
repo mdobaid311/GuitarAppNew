@@ -23,6 +23,9 @@
             >
               Milestones
             </button>
+            <div class="total_qty_number">
+              <h1>Total Qty: {{ totalQtyOnDate |shortNumber}}</h1>
+            </div>
           </div>
 
           <div class="date_picker">
@@ -99,27 +102,30 @@
                   {{ row.status_name }}
                 </td>
                 <td class="status__total">
-                  {{ row.lineTotalSumTotal | shortNumber }}
+                  {{ row.QtySumTotal | shortNumber }}
                 </td>
                 <td>{{ row.sum }}</td>
+
                 <td
                   class="milestone__value_box"
-                  *ngFor="let item of row.lineTotalSum let i = index"
+                  *ngFor="let item of row.QtySum; let i = index"
                 >
                   <div class="milestone">
                     <fa-icon [icon]="faArrowLeft" class="icon"></fa-icon>
-                    <span class="value_circle percentage"
-                      >
+                    <span class="value_circle percentage">
                       {{
-                        (item / row.lineTotalSumTotal) * 100 | number : "1.0-2"
+                        (item / row.QtySumTotal) * 100 | number : "1.0-2"
                       }}%</span
                     >
-                    <span class="value_circle totals"
-                      >
-                      ${{ item > 0 ? (item | shortNumber) : 0 }} |
-                      {{ row.QtySum[i] > 0 ? (row.QtySum[i] | shortNumber) : 0 }}
-                      </span
-                    >
+                    <span class="value_circle totals">
+                      ${{
+                        row.lineTotalSum[i] > 0
+                          ? (row.lineTotalSum[i] | shortNumber)
+                          : 0
+                      }}
+                      |
+                      {{ item > 0 ? (item | shortNumber) : 0 }}
+                    </span>
                     <fa-icon [icon]="faArrowRight" class="icon"></fa-icon>
                   </div>
                 </td>
@@ -210,7 +216,6 @@
         </div>
       </div>
       <button (click)="saveMilestone()">Save and run</button>
-
     </div>
   </div>
 </div>

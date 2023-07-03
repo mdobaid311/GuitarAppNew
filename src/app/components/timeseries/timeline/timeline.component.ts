@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  Input,
+} from '@angular/core';
 import {
   faClock,
   faCalendar,
@@ -23,7 +30,8 @@ export class TimelineComponent {
   constructor(
     private chartService: ChartService,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private elementRef: ElementRef
   ) {}
 
   faClock = faClock;
@@ -53,6 +61,24 @@ export class TimelineComponent {
   activeType: string = 'milestones';
   loader: boolean = false;
 
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+
+    if (
+      !targetElement.tagName.includes('svg') &&
+      !targetElement.tagName.includes('path')
+    ) {
+      this.statusSelectionContainer = false;
+    }
+
+    if (!clickedInside) {
+      this.statusSelectionContainer = false;
+    }
+  }
+
+  totalQtyOnDate: any = 0;
+
   changeActiveType(type: string) {
     this.activeType = type;
     this.loader = true;
@@ -60,9 +86,9 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesMilestones(this.selectedDate, 69)
         .subscribe((res: any) => {
-
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
+          this.totalQtyOnDate = res.totalQtySum;
           this.originalData = res.mergedData;
           this.userMileStone = res.userMilestones;
           this.loader = false;
@@ -71,10 +97,10 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesData(this.selectedDate)
         .subscribe((res: any) => {
-
           this.timeseriesDates = res.dates;
           this.originalData = res.timeSeries;
           this.timeseriesData = res.timeSeries;
+
           this.loader = false;
         });
     }
@@ -91,7 +117,7 @@ export class TimelineComponent {
           .getTimeSeriesMilestones('2023-01-28', userid)
           .subscribe((res: any) => {
             this.loader = true;
-
+            this.totalQtyOnDate = res.totalQtySum;
             this.timeseriesDates = res.timeLineDates;
             this.timeseriesData = res.mergedData;
             this.originalData = res.mergedData;
@@ -180,7 +206,6 @@ export class TimelineComponent {
 
   toggleTimeSeriesModal() {
     this.timeSeriesModal = !this.timeSeriesModal;
-
   }
 
   statusSelectionContainer = false;
@@ -204,7 +229,7 @@ export class TimelineComponent {
       event.singleDate?.formatted,
       'DD.MM.YYYY'
     ).format('YYYY-MM-DD');
-
+    this.loader = true;
     this.selectedDate = formattedDate;
 
     if (this.activeType === 'milestones') {
@@ -215,14 +240,15 @@ export class TimelineComponent {
           this.timeseriesData = res.mergedData;
           this.originalData = res.mergedData;
           this.userMileStone = res.userMilestones;
+          this.loader = false;
         });
     } else if (this.activeType === 'fullseries') {
       this.chartService
         .getTimeSeriesData(formattedDate)
         .subscribe((res: any) => {
-
           this.timeseriesDates = res.dates;
           this.timeseriesData = res.timeSeries;
+          this.loader = false;
         });
     }
   }
@@ -337,7 +363,6 @@ export class TimelineComponent {
   milestone4 = 0;
 
   changeMilestone(event: any, milestone: any) {
-
     if (milestone == 1) {
       this.milestone1 = event.target.value;
     }
@@ -363,7 +388,6 @@ export class TimelineComponent {
       mssix: 1,
     };
 
-
     const userid = this.user?.id;
     this.chartService.setUserMilestones(milestoneData).subscribe((res: any) => {
       this.toastr.success(res.message);
@@ -372,7 +396,6 @@ export class TimelineComponent {
       this.chartService
         .getTimeSeriesMilestones('2023-01-28', userid)
         .subscribe((res: any) => {
-
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
           this.originalData = res.mergedData;

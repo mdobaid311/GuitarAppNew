@@ -11,20 +11,21 @@
         <div class="heading__flexbox">
           <h3>Sales - Analysis</h3>
 
-          <div class="view_selection_container">
-            <fa-icon
-              [icon]="faEllipsisVertical"
-              class="icon"
-              (click)="toggleAnalysisOptionsContainer()"
-            ></fa-icon>
+          <div class="view_selection_container" id="query_tool_button">
+            <span id="query_tool_button">
+              <fa-icon
+                [icon]="faEllipsisVertical"
+                class="icon"
+                (click)="toggleAnalysisOptionsContainer()"
+                id="query_tool_button"
+              ></fa-icon
+            ></span>
             <div class="view__options" *ngIf="isAnalysisOptionsContainerOpen">
-              <div class="view_option"  [ngClass]="showQueryWindow ? 'active' : ''">
-                <button
-
-                  (click)="toggleQueryWindow()"
-                >
-                  Query Tool
-                </button>
+              <div
+                class="view_option"
+                [ngClass]="showQueryWindow ? 'active' : ''"
+              >
+                <button (click)="toggleQueryWindow()">Query Tool</button>
               </div>
             </div>
           </div>
@@ -77,11 +78,11 @@
                 <fa-icon [icon]="faPlay"></fa-icon> Run
               </button>
               <button
-              (click)="toggleSavedQueriesContainer()"
-              [ngClass]="showSavedQueriesContainer ? 'active' : ''"
-            >
-              <fa-icon [icon]="faChartLine"></fa-icon> Queries
-            </button>
+                (click)="toggleSavedQueriesContainer()"
+                [ngClass]="showSavedQueriesContainer ? 'active' : ''"
+              >
+                <fa-icon [icon]="faChartLine"></fa-icon> Queries
+              </button>
             </div>
           </div>
           <div

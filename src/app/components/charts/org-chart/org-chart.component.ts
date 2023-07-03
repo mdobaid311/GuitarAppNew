@@ -241,7 +241,20 @@ export class OrgChartComponent {
           const ancestorTotal = totalAmounts[topLevelNode.key];
           return calculateWidth(topLevelNode, ancestorTotal);
         });
-        this.data = this.generateNode(updatedData);
+
+        const unsortedChildrenData = this.generateNode(updatedData);
+
+        function sortChildrenByValue(node: any) {
+          if (node.children && node.children.length > 0) {
+            node.children.sort((a: any, b: any) => b.data.value - a.data.value);
+
+            node.children.forEach((child: any) => sortChildrenByValue(child));
+          }
+        }
+        unsortedChildrenData.forEach(sortChildrenByValue);
+
+        this.data = unsortedChildrenData;
+
         this.convertToVerticalNodes(this.data);
         this.loader = false;
       },

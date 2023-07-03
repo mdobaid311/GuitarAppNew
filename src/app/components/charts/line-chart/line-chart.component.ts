@@ -2,7 +2,6 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Subscription } from 'rxjs';
 import { ChartService } from 'src/app/services/chartData.service';
-import avgData from './data.json';
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
@@ -11,6 +10,8 @@ import avgData from './data.json';
 export class LineChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   @Input() lineChartData: any;
+  @Input() avgChartData: any;
+  @Input() brandName: any;
 
   chartOptions: any;
 
@@ -55,7 +56,7 @@ export class LineChartComponent {
         },
 
         title: {
-          text: 'Sales',
+          text: `Sales - ${this.brandName? this.brandName:''}`,
           style: {
             color: '#fff',
             fontFamily: 'Poppins, sans-serif',
@@ -111,7 +112,7 @@ export class LineChartComponent {
             marker: {
               enabled: false,
             },
-            name: 'Sales',
+            name: `Sales - ${this.brandName? this.brandName:''}`,
             data: array,
             dataLabels: {
               enabled: true, // Remove data labels from lines
@@ -148,9 +149,14 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
+    console.log(this.brandName? this.brandName:'');
 
     this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
+      .getFullSalesDataByRange(
+        '2023-03-30 00:00:20',
+        '2023-03-30 23:59:00',
+        900
+      )
       .subscribe({
         next: (resp: any) => {
           let yearsData: any = [];
@@ -159,18 +165,16 @@ export class LineChartComponent {
             yearsData.push(itemData);
           });
 
-          const avgDataSeries = avgData.map((item: any) => {
-            return [item.datetime, item.ordertotalavg];
+          const avgDataSeries = this.avgChartData.map((item: any) => {
+            return [item.datetime, item.original_order_total_amount];
           });
-
-          console.log(yearsData);
           this.chartOptions = {
             chart: {
               type: 'spline',
             },
 
             title: {
-              text: 'Sales',
+              text: `Sales - ${this.brandName? this.brandName:''}`,
               style: {
                 color: '#fff',
                 fontFamily: 'Poppins, sans-serif',
@@ -228,9 +232,28 @@ export class LineChartComponent {
                 marker: {
                   enabled: false,
                 },
+                name: `Sales - ${this.brandName? this.brandName:''}`,
+                data: avgDataSeries,
+                lineWidth: 4,
+                dataLabels: {
+                  enabled: false, // Remove data labels from lines
+                  color: '#fff',
+                  style: {
+                    // height: '100px',
+                    color: '#fff',
+                    fontSize: '14px',
+                    fontFamily: 'Poppins, sans-serif',
+                  },
+                },
+                color: '#fff', // Change color of lines
+              },
+              {
+                marker: {
+                  enabled: false,
+                },
                 name: 'Sales',
                 data: yearsData,
-                lineWidth: 2,
+                lineWidth: 4,
                 dataLabels: {
                   enabled: false, // Remove data labels from lines
                   color: '#fff',
@@ -243,25 +266,6 @@ export class LineChartComponent {
                 },
                 color: '#51FF14', // Change color of lines
               },
-              // {
-              //   marker: {
-              //     enabled: false,
-              //   },
-              //   name: 'Sales',
-              //   data: avgDataSeries,
-              //   lineWidth: 2,
-              //   dataLabels: {
-              //     enabled: false, // Remove data labels from lines
-              //     color: '#fff',
-              //     style: {
-              //       // height: '100px',
-              //       color: '#fff',
-              //       fontSize: '14px',
-              //       fontFamily: 'Poppins, sans-serif',
-              //     },
-              //   },
-              //   color: '#51FF14', // Change color of lines
-              // },
             ],
             plotOptions: {
               line: {
