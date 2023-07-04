@@ -338,6 +338,7 @@
                   "
                   [avgChartData]="averageSeries[item.name]"
                   [brandName]="item.name ? item.name : ''"
+                  [interval] = "rangeInterval"
                 ></app-line-chart>
                 <app-line-chart
                   *ngIf="selectedChart == 'line' && i == 1"
@@ -348,6 +349,7 @@
                   "
                   [avgChartData]="averageSeries[item.name]"
                   [brandName]="item.name ? item.name : ''"
+                  [interval] = "rangeInterval"
                 ></app-line-chart>
               </div>
             </div>

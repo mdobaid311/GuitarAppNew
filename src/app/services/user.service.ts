@@ -64,7 +64,7 @@ export class UserService {
   }
 
   public getUserConfigurationData(userId:any) {
-    const url = `${APP_CONSTANTS.URI}/v2/returns/getUserConfigurations?userid=${userId}`;
+    const url = `${APP_CONSTANTS.URI}/v2/returns/getUserConfigurations?id=${userId}`;
     return this.httpClient.get<any[]>(url);
   }
 

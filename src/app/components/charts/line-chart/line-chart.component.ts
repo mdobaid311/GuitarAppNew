@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ChartService } from 'src/app/services/chartData.service';
 @Component({
@@ -12,6 +13,7 @@ export class LineChartComponent {
   @Input() lineChartData: any;
   @Input() avgChartData: any;
   @Input() brandName: any;
+  @Input() interval: any;
 
   chartOptions: any;
 
@@ -38,6 +40,7 @@ export class LineChartComponent {
   }
 
   ngOnInit() {
+    console.log(this.interval);
     this.loader = true;
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? (this.loader = true) : null;
@@ -56,7 +59,7 @@ export class LineChartComponent {
         },
 
         title: {
-          text: `Sales - ${this.brandName? this.brandName:''}`,
+          text: `Sales - ${this.brandName ? this.brandName : ''}`,
           style: {
             color: '#fff',
             fontFamily: 'Poppins, sans-serif',
@@ -112,7 +115,7 @@ export class LineChartComponent {
             marker: {
               enabled: false,
             },
-            name: `Sales - ${this.brandName? this.brandName:''}`,
+            name: `Sales - ${this.brandName ? this.brandName : ''}`,
             data: array,
             dataLabels: {
               enabled: true, // Remove data labels from lines
@@ -149,7 +152,7 @@ export class LineChartComponent {
     this.chartData.booleanSubject.subscribe((permission) => {
       permission ? null : (this.loader = true);
     });
-    console.log(this.brandName? this.brandName:'');
+    console.log(this.brandName ? this.brandName : '');
 
     this.chartData
       .getFullSalesDataByRange(
@@ -165,16 +168,39 @@ export class LineChartComponent {
             yearsData.push(itemData);
           });
 
-          const avgDataSeries = this.avgChartData.map((item: any) => {
+          let avgDataSeries = this.avgChartData.map((item: any) => {
             return [item.datetime, item.original_order_total_amount];
           });
+
+          if (this.interval === '1h') {
+            // if the same key is present in yeardata than keep it in avgDataSeries or remove it from avgDataSeries
+
+            avgDataSeries = avgDataSeries.filter((item: any) => {
+              return yearsData.some((item2: any) => {
+                return item[0] === item2[0];
+              });
+            });
+          } else {
+            avgDataSeries = null;
+          }
+          function compareDates(a: any, b: any) {
+            const dateA: any = new Date(a[0]);
+            const dateB: any = new Date(b[0]);
+            return dateA - dateB;
+          }
+
+          yearsData = yearsData.sort(compareDates);
+          avgDataSeries = avgDataSeries
+            ? avgDataSeries.sort(compareDates)
+            : null;
+
           this.chartOptions = {
             chart: {
               type: 'spline',
             },
 
             title: {
-              text: `Sales - ${this.brandName? this.brandName:''}`,
+              text: `Sales - ${this.brandName ? this.brandName : ''}`,
               style: {
                 color: '#fff',
                 fontFamily: 'Poppins, sans-serif',
@@ -232,7 +258,7 @@ export class LineChartComponent {
                 marker: {
                   enabled: false,
                 },
-                name: `Sales - ${this.brandName? this.brandName:''}`,
+                name: `Sales - ${this.brandName ? this.brandName : ''}`,
                 data: avgDataSeries,
                 lineWidth: 4,
                 dataLabels: {

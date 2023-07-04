@@ -122,8 +122,8 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getSalesAverage(date: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/sales/getSalesAverage?date=${date}`;
+  public getSalesAverage(date: any,interval:any) {
+    const url = `${APP_CONSTANTS.URI}/v2/sales/getSalesAverage?date=${date}&interval=${interval}`;
     console.log(url)
     return this.httpClient.get<any[]>(url);
   }

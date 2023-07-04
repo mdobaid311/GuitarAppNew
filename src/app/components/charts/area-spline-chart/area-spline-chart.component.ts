@@ -20,7 +20,7 @@ import * as Highcharts from 'highcharts';
 import { ChartService } from 'src/app/services/chartData.service';
 import { WorkBook, utils, write } from 'xlsx';
 import { saveAs } from 'file-saver';
-import { Subject } from 'rxjs';
+import { Subject, switchMap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -168,9 +168,17 @@ export class AreaSplineChartComponent {
       this.user = res;
     });
 
-    this.userService.getUserConfigurationData(69).subscribe((res: any) => {
-      this.userQueriesData = res.queriesData;
-    });
+    this.userService.user$
+      .pipe(
+        switchMap((user: any) => {
+          this.user = user;
+          return this.userService.getUserConfigurationData(+this.user?.id);
+        })
+      )
+      .subscribe((res: any) => {
+        this.userQueriesData = res.queriesData;
+      });
+
 
     this.chartData
       .getTableData(this.currentSelectedTable, this.startDate, this.endDate)

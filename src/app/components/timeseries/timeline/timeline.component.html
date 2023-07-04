@@ -24,7 +24,7 @@
               Milestones
             </button>
             <div class="total_qty_number">
-              <h1>Total Qty: {{ totalQtyOnDate |shortNumber}}</h1>
+              <h1>Total Qty: {{ totalQtyOnDate | shortNumber }}</h1>
             </div>
           </div>
 
@@ -84,7 +84,15 @@
               <tr>
                 <th></th>
                 <th>Total</th>
-                <th></th>
+                <th>
+                  <div class="milestone__header m0">
+                    <div class="milestone_detail">
+                      <span>t</span>
+                      <span>s</span>
+                    </div>
+                    <span class="milestone__number">M0</span>
+                  </div>
+                </th>
                 <th *ngFor="let date of timeseriesDates; let index = index">
                   <div class="milestone__header">
                     <div class="milestone_detail">
@@ -92,6 +100,18 @@
                       <span>{{ date.date }}</span>
                     </div>
                     <span class="milestone__number">M{{ index + 1 }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="milestone__header">
+                    <div class="milestone_detail">
+                      <span
+                        >> {{
+                          timeseriesDates[timeseriesDates.length - 1].milestone
+                        }} days</span
+                      >
+                      <span></span>
+                    </div>
                   </div>
                 </th>
               </tr>

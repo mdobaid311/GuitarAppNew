@@ -316,6 +316,8 @@ export class Sales2Component {
     this.loader = false;
   }
 
+  rangeInterval: any = '1h';
+
   onRangeSelect(range: any) {
     this.chartData.selectedRange.next(range);
     this.chartData.booleanSubject.next(true);
@@ -325,10 +327,10 @@ export class Sales2Component {
     this.chartData.selectedRange.next(range);
 
     if (range === '1m') {
-      const startDate = moment('2023-03-30 16:28:21')
+      const startDate = moment('2023-03-30 00:00:00')
         .subtract(1, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-03-30 00:00:00').format('YYYY-MM-DD HH:mm');
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 1440 * 60)
         .subscribe({
@@ -337,21 +339,22 @@ export class Sales2Component {
             this.originalFullSalesData = this.fullSalesData;
           },
         });
+      this.rangeInterval = 'day';
       this.fullDate = 'Last 1 Month';
     } else if (range === '2h' || range === '6h') {
       let startDate = '';
       let endDate = '';
       if (range === '2h') {
-        startDate = moment('2023-03-30 16:28:21')
+        startDate = moment('2023-03-30 00:00:00')
           .subtract(2, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 00:00:00').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 2 Hours';
       } else if (range === '6h') {
-        startDate = moment('2023-03-30 16:28:21')
+        startDate = moment('2023-03-30 00:00:00')
           .subtract(6, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 00:00:00').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 6 Hours';
       }
       this.chartData
@@ -362,14 +365,35 @@ export class Sales2Component {
             this.originalFullSalesData = this.fullSalesData;
           },
         });
+      this.chartData.getSalesAverage('2023-03-29', 'quarter-hour').subscribe({
+        next: (resp: any) => {
+          this.averageSeries = resp.series;
+          this.compareValue = {
+            MF: Math.round(resp.total.MF * 100) / 100,
+            GC: Math.round(resp.total.GC * 100) / 100,
+          };
+
+          this.customGoalProgressPercent = {
+            MF:
+              (this.fullSalesData[0].totalStats.original_order_total_amount /
+                resp.total.MF) *
+              100,
+            GC:
+              (this.fullSalesData[1].totalStats.original_order_total_amount /
+                resp.total.GC) *
+              100,
+          };
+          this.cdr.detectChanges();
+        },
+      });
     } else if (range === '12h' || range === '1d') {
       let startDate = '';
       let endDate = '';
       if (range === '12h') {
-        startDate = moment('2023-03-30 16:28:21')
+        startDate = moment('2023-03-30 00:00:00')
           .subtract(12, 'hours')
           .format('YYYY-MM-DD HH:mm');
-        endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+        endDate = moment('2023-03-30 00:00:00').format('YYYY-MM-DD HH:mm');
         this.fullDate = 'Last 12 Hours';
       } else if (range === '1d') {
         startDate = moment('2023-03-30')
@@ -386,7 +410,7 @@ export class Sales2Component {
             this.originalFullSalesData = this.fullSalesData;
           },
         });
-      this.chartData.getSalesAverage('2023-03-29').subscribe({
+      this.chartData.getSalesAverage('2023-03-29', 'hourly').subscribe({
         next: (resp: any) => {
           this.averageSeries = resp.series;
           this.compareValue = {
@@ -408,10 +432,10 @@ export class Sales2Component {
         },
       });
     } else if (range === '6m') {
-      const startDate = moment('2023-03-30 16:28:21')
+      const startDate = moment('2023-05-30 00:00:00')
         .subtract(6, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-30 00:00:00').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
@@ -421,12 +445,13 @@ export class Sales2Component {
             this.originalFullSalesData = this.fullSalesData;
           },
         });
+      this.rangeInterval = 'day';
       this.fullDate = 'Last 6 Months';
     } else if (range === '1y') {
-      const startDate = moment('2023-03-30 16:28:21')
+      const startDate = moment('2023-05-30 00:00:00')
         .subtract(12, 'months')
         .format('YYYY-MM-DD HH:mm');
-      const endDate = moment('2023-03-30 16:28:21').format('YYYY-MM-DD HH:mm');
+      const endDate = moment('2023-05-30 00:00:00').format('YYYY-MM-DD HH:mm');
 
       this.chartData
         .getFullSalesDataByRange(startDate, endDate, 172800)
@@ -436,6 +461,7 @@ export class Sales2Component {
             this.originalFullSalesData = this.fullSalesData;
           },
         });
+      this.rangeInterval = 'day';
       this.fullDate = 'Last 1 Year';
     }
     this.loader = false;
@@ -572,7 +598,7 @@ export class Sales2Component {
       this.pinActive = false;
     }
 
-    this.chartData.getSalesAverage('2023-03-30').subscribe({
+    this.chartData.getSalesAverage('2023-03-30', 'hourly').subscribe({
       next: (resp: any) => {
         this.averageSeries = resp.series;
         this.compareValue = {
