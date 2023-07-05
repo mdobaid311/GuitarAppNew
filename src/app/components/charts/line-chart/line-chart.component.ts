@@ -51,7 +51,34 @@ export class LineChartComponent {
     });
 
     this.subscription = this.chartData.dataArray.subscribe((array) => {
-      console.log(array);
+
+      let avgDataSeries = this.avgChartData.map((item: any) => {
+        return [item.datetime, item.original_order_total_amount];
+      });
+
+      if (this.interval === '1h') {
+        // if the same key is present in yeardata than keep it in avgDataSeries or remove it from avgDataSeries
+
+        avgDataSeries = avgDataSeries.filter((item: any) => {
+          return array.some((item2: any) => {
+            return item[0] === item2[0];
+          });
+        });
+      } else {
+        avgDataSeries = null;
+      }
+      function compareDates(a: any, b: any) {
+        const dateA: any = new Date(a[0]);
+        const dateB: any = new Date(b[0]);
+        return dateA - dateB;
+      }
+
+      array = array.sort(compareDates);
+      avgDataSeries = avgDataSeries
+        ? avgDataSeries.sort(compareDates)
+        : null;
+
+
       this.chartOptions = {
         chart: {
           type: 'line',
@@ -117,6 +144,17 @@ export class LineChartComponent {
             },
             name: `Sales - ${this.brandName ? this.brandName : ''}`,
             data: array,
+            dataLabels: {
+              enabled: true, // Remove data labels from lines
+            },
+            color: '#51FF14', // Change color of lines
+          },
+          {
+            marker: {
+              enabled: false,
+            },
+            name: `Sales - ${this.brandName ? this.brandName : ''}`,
+            data: avgDataSeries,
             dataLabels: {
               enabled: true, // Remove data labels from lines
             },
