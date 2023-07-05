@@ -289,7 +289,7 @@ export class UsMapComponent {
               },
               drillup: (e: any) => {
                 this.enableSetThresholdButton = false;
-                this.filteredData = tableData.slice(0, 10);
+                this.filteredData = tableData;
               },
             },
           },
