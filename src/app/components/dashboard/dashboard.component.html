@@ -28,6 +28,8 @@
                   ? item?.chartSeries?.series
                   : []
               "
+              [avgChartData]="averageSeries[item.name]"
+              [brandName]="item.name ? item.name : ''"
             ></app-column-chart>
             <!-- <app-column-chart
             *ngIf="i == 1"
@@ -46,6 +48,8 @@
                   ? item?.chartSeries?.series
                   : []
               "
+              [avgChartData]="averageSeries[item.name]"
+              [brandName]="item.name ? item.name : ''"
             ></app-bar-chart>
             <!-- <app-bar-chart
             *ngIf="i == 1"
@@ -82,7 +86,10 @@
                   ? item?.chartSeries?.series
                   : []
               "
+              [avgChartData]="averageSeries[item.name]"
+              [brandName]="item.name ? item.name : ''"
             ></app-line-chart>
+
             <!-- <app-line-chart
                   *ngIf="i == 1"
                   [lineChartData]="

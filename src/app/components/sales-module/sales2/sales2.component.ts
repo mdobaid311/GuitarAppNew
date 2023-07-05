@@ -1,30 +1,22 @@
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import {
-  Component,
-  ViewChild,
-  Renderer2,
-  HostListener,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
-import * as moment from 'moment';
-import { ChartService } from 'src/app/services/chartData.service';
-import {
-  faCalendar,
-  faChartLine,
   faAngleDown,
-  faChartPie,
+  faCalendar,
   faChartBar,
   faChartColumn,
-  faTable,
+  faChartLine,
+  faChartPie,
   faEllipsisVertical,
-  faLineChart,
-  faThumbtack,
   faExpand,
+  faLineChart,
+  faTable,
+  faThumbtack,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
+import * as moment from 'moment';
+import { ChartService } from 'src/app/services/chartData.service';
 @Component({
   selector: 'app-sales2',
   templateUrl: './sales2.component.html',
@@ -242,7 +234,10 @@ export class Sales2Component {
   pinColumnChart: any;
   pinActive: any = false;
 
-  onPinToDashboard() {
+  onPinToDashboard(currentData: any, avgData: any) {
+
+    this.chartData.pinnedChartData.next([currentData, avgData]);
+
     if (this.selectedChart === 'bar') {
       this.pinActive = !this.pinActive;
       this.chartData.barChartPinToDB.next(this.pinActive);

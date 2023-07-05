@@ -31,6 +31,7 @@ export class ChartService {
   pieChartPinToDB = new BehaviorSubject<boolean>(false);
   lineChartPinToDB = new BehaviorSubject<boolean>(false);
   selectedRange = new Subject<any>();
+  pinnedChartData = new BehaviorSubject<any>(null);
 
   constructor(
     private httpClient: HttpClient,
@@ -122,13 +123,11 @@ export class ChartService {
     return this.httpClient.get<any[]>(url);
   }
 
-  public getSalesAverage(date: any,interval:any) {
+  public getSalesAverage(date: any, interval: any) {
     const url = `${APP_CONSTANTS.URI}/v2/sales/getSalesAverage?date=${date}&interval=${interval}`;
-    console.log(url)
+    console.log(url);
     return this.httpClient.get<any[]>(url);
   }
-
-
 
   public getTableData(tableName: any, startDate: any, endDate: any) {
     const url = `${APP_CONSTANTS.URI}/v2/tables?table=${tableName}&startDate=${startDate}&endDate=${endDate}`;

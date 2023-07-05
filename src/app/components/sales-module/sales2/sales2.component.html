@@ -245,7 +245,17 @@
               </div>
               <div class="row_1_div_2">
                 <div class="chart__header">
-                  <div class="pintab" (click)="onPinToDashboard()">
+                  <div
+                    class="pintab"
+                    (click)="
+                      onPinToDashboard(
+                        item?.chartSeries?.series.length > 0
+                          ? item?.chartSeries?.series
+                          : [],
+                        averageSeries[item.name]
+                      )
+                    "
+                  >
                     <fa-icon
                       [icon]="faThumbtack"
                       [ngClass]="pinActive ? 'cckd' : ''"
@@ -272,6 +282,9 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                     [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
+                  [interval]="rangeInterval"
                 ></app-bar-chart>
                 <app-bar-chart
                   *ngIf="selectedChart == 'bar' && i == 1"
@@ -280,6 +293,9 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                     [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
+                  [interval]="rangeInterval"
                 ></app-bar-chart>
                 <app-column-chart
                   *ngIf="selectedChart == 'column' && i == 0"
@@ -288,6 +304,9 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                  [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
+                  [interval]="rangeInterval"
                 ></app-column-chart>
                 <app-column-chart
                   *ngIf="selectedChart == 'column' && i == 1"
@@ -296,6 +315,9 @@
                       ? item?.chartSeries?.series
                       : []
                   "
+                  [avgChartData]="averageSeries[item.name]"
+                  [brandName]="item.name ? item.name : ''"
+                  [interval]="rangeInterval"
                 ></app-column-chart>
                 <app-pie-chart
                   *ngIf="selectedChart == 'pie' && i == 0"
@@ -338,7 +360,7 @@
                   "
                   [avgChartData]="averageSeries[item.name]"
                   [brandName]="item.name ? item.name : ''"
-                  [interval] = "rangeInterval"
+                  [interval]="rangeInterval"
                 ></app-line-chart>
                 <app-line-chart
                   *ngIf="selectedChart == 'line' && i == 1"
@@ -349,7 +371,7 @@
                   "
                   [avgChartData]="averageSeries[item.name]"
                   [brandName]="item.name ? item.name : ''"
-                  [interval] = "rangeInterval"
+                  [interval]="rangeInterval"
                 ></app-line-chart>
               </div>
             </div>

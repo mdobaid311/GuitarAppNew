@@ -12,6 +12,9 @@ import avgData from './data.json';
 export class ColumnChartComponent {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   @Input() columnChartData: any;
+  @Input() avgChartData: any;
+  @Input() brandName: any;
+  @Input() interval: any;
 
   chartOptions: any;
 
@@ -145,9 +148,31 @@ export class ColumnChartComponent {
             yearsData.push(itemData);
           });
 
-          const avgDataSeries = avgData.series.GC.map((item: any) => {
+          let avgDataSeries = this.avgChartData.map((item: any) => {
             return [item.datetime, item.original_order_total_amount];
           });
+
+          if (this.interval === '1h') {
+            // if the same key is present in yeardata than keep it in avgDataSeries or remove it from avgDataSeries
+
+            avgDataSeries = avgDataSeries.filter((item: any) => {
+              return yearsData.some((item2: any) => {
+                return item[0] === item2[0];
+              });
+            });
+          } else {
+            avgDataSeries = null;
+          }
+          function compareDates(a: any, b: any) {
+            const dateA: any = new Date(a[0]);
+            const dateB: any = new Date(b[0]);
+            return dateA - dateB;
+          }
+
+          yearsData = yearsData.sort(compareDates);
+          avgDataSeries = avgDataSeries
+            ? avgDataSeries.sort(compareDates)
+            : null;
 
           this.chartOptions = {
             chart: {
@@ -219,7 +244,7 @@ export class ColumnChartComponent {
             },
             series: [
               {
-                name: 'Population',
+                name: `Sales - ${this.brandName ? this.brandName : ''}`,
                 data: avgDataSeries,
 
                 dataLabels: {
@@ -229,7 +254,7 @@ export class ColumnChartComponent {
                 color: '#2f7ed8', // Change color of columns
               },
               {
-                name: 'Population',
+                name: `Sales - ${this.brandName ? this.brandName : ''}`,
                 data: yearsData,
 
                 dataLabels: {

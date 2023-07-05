@@ -20,6 +20,9 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 export class BarChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
   @Input() barChartData: any;
+  @Input() avgChartData: any;
+  @Input() brandName: any;
+  @Input() interval: any;
 
   chartOptions: any;
 
@@ -153,6 +156,32 @@ export class BarChartComponent implements OnInit, OnDestroy {
             const itemData = [item.datetime, item.original_order_total_amount];
             yearsData.push(itemData);
           });
+
+          let avgDataSeries = this.avgChartData.map((item: any) => {
+            return [item.datetime, item.original_order_total_amount];
+          });
+
+          if (this.interval === '1h') {
+            // if the same key is present in yeardata than keep it in avgDataSeries or remove it from avgDataSeries
+
+            avgDataSeries = avgDataSeries.filter((item: any) => {
+              return yearsData.some((item2: any) => {
+                return item[0] === item2[0];
+              });
+            });
+          } else {
+            avgDataSeries = null;
+          }
+          function compareDates(a: any, b: any) {
+            const dateA: any = new Date(a[0]);
+            const dateB: any = new Date(b[0]);
+            return dateA - dateB;
+          }
+
+          yearsData = yearsData.sort(compareDates);
+          avgDataSeries = avgDataSeries
+            ? avgDataSeries.sort(compareDates)
+            : null;
           this.chartOptions = {
             chart: {
               type: 'bar',
@@ -216,7 +245,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
             },
             series: [
               {
-                name: 'Sales',
+                name: `Sales - ${this.brandName ? this.brandName : ''}`,
                 data: yearsData,
 
                 dataLabels: {
@@ -228,7 +257,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
                 backgroundColor: '#FCFFC5',
               },
               {
-                name: 'Sales',
+                name: `Sales - ${this.brandName ? this.brandName : ''}`,
                 data: yearsData,
 
                 dataLabels: {

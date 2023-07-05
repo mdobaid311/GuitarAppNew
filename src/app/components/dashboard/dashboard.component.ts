@@ -173,7 +173,6 @@ export class DashboardComponent implements OnInit {
     this.loader = false;
   }
 
-
   constructor(
     private chartData: ChartService,
     private router: Router,
@@ -262,6 +261,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  averageSeries: any;
+  fullSeries: any;
+
   ngOnInit(): void {
     let rangeAlreadySelected;
     this.chartData.booleanSubject.next(false);
@@ -269,13 +271,23 @@ export class DashboardComponent implements OnInit {
       rangeAlreadySelected = selectedRange;
     });
 
-    this.chartData
-      .getFullSalesData('2023-01-01 00:00:20', '2023-01-01 23:59:00', 900)
-      .subscribe({
-        next: (resp: any) => {
-          this.fullSalesData = Object.values(resp);
-        },
-      });
+    this.chartData.getFullSalesData('2023-03-30', '2023-03-30', 900).subscribe({
+      next: (resp: any) => {
+        this.fullSalesData = Object.values(resp);
+
+        this.chartData.pinnedChartData.subscribe((pinnedChartData) => {
+          this.fullSeries = pinnedChartData[0];
+          this.averageSeries = pinnedChartData[1];
+        });
+      },
+    });
+
+    this.chartData.getSalesAverage('2023-03-30', 'hourly').subscribe({
+      next: (resp: any) => {
+        this.averageSeries = resp.series;
+      },
+    });
+
     // to show or hide chart on dashboard
 
     this.chartData.colChartPinToDB.subscribe((pinToDB) => {
