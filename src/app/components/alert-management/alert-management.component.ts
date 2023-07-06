@@ -14,6 +14,45 @@ export class AlertManagementComponent {
   faPlus = faPlus;
   onChange(fieldName: string, event: any) {}
 
+  scheduleFields: any = {};
+
+  onScheduleFieldsChange(fieldName: string, event: any) {
+    console.log(this.scheduleFields);
+    this.scheduleFields[fieldName] = event.target.value;
+    console.log(this.scheduleFields);
+  }
+
+  savedQueryChange(event: any) {
+    this.savedQuerySelect = event.target.value;
+    this.scheduleFields['query'] = this.savedQuerySelect;
+    console.log(this.scheduleFields);
+    if (this.savedQuerySelect == 'custom') {
+      this.showCustomQuery = true;
+    } else {
+      this.showCustomQuery = false;
+    }
+  }
+
+  onScheduleSubmit() {
+    const userid = this.user.id;
+
+    const data = {
+      ...this.scheduleFields,
+      userid,
+      day: null,
+      month: null,
+      year: null,
+      timezone: 'Asia/Kolkata',
+    };
+
+    this.userService.scheduleQuery(data).subscribe((res) => {
+      console.log(res);
+      this.toastr.success('Query Scheduled Successfully');
+    });
+
+    console.log(data);
+  }
+
   onSubmit() {}
   user: any;
   showCreateAlertForm: boolean = false;
@@ -89,14 +128,4 @@ export class AlertManagementComponent {
   savedQuerySelect: any = '';
 
   showCustomQuery: boolean = false;
-
-  savedQueryChange(event: any) {
-    this.savedQuerySelect = event.target.value;
-
-    if (this.savedQuerySelect == 'custom') {
-      this.showCustomQuery = true;
-    } else {
-      this.showCustomQuery = false;
-    }
-  }
 }

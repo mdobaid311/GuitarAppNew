@@ -58,10 +58,13 @@ export class UserService {
   }
 
   public scheduleQuery(queryData: any) {
-    const url = `${APP_CONSTANTS.URI}/v2/returns/scheduleExportData`;
+    const url = `${APP_CONSTANTS.URI}/v2/returns/createScheduledQueriesInfo`;
     const requestBody =  queryData
     return this.httpClient.post<any[]>(url, requestBody);
   }
+
+
+
 
   public getUserConfigurationData(userId:any) {
     const url = `${APP_CONSTANTS.URI}/v2/returns/getUserConfigurations?id=${userId}`;

@@ -89,6 +89,7 @@ export class TimelineComponent {
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
           this.totalQtyOnDate = res.totalQtySum;
+          console.log(res.totalQtySum)
           this.originalData = res.mergedData;
           this.userMileStone = res.userMilestones;
           this.loader = false;
@@ -118,6 +119,7 @@ export class TimelineComponent {
           .subscribe((res: any) => {
             this.loader = true;
             this.totalQtyOnDate = res.totalQtySum;
+            console.log(res.totalQtySum)
             this.timeseriesDates = res.timeLineDates;
             this.timeseriesData = res.mergedData;
             this.originalData = res.mergedData;
@@ -238,6 +240,8 @@ export class TimelineComponent {
         .subscribe((res: any) => {
           this.timeseriesDates = res.timeLineDates;
           this.timeseriesData = res.mergedData;
+          console.log(res)
+          this.totalQtyOnDate = res.totalQtySum;
           this.originalData = res.mergedData;
           this.userMileStone = res.userMilestones;
           this.loader = false;

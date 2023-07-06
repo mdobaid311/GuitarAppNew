@@ -125,41 +125,47 @@
                 <label for="savedQuery">Saved Queries: </label>
                 <select name="savedQuery" (input)="savedQueryChange($event)">
                   <option disabled selected>Select Query</option>
-                  <option *ngFor="let query of userQueriesData" value="daily">{{query.name}}</option>
+                  <option
+                    *ngFor="let query of userQueriesData"
+                    [value]="query.query"
+                  >
+                    {{ query.name }}
+                  </option>
                   <option value="custom">Custom</option>
                 </select>
               </div>
               <div class="field" *ngIf="showCustomQuery">
-                <label for="firstName">Query: </label>
+                <label for="query">Query: </label>
                 <input
                   type="text"
-                  id="firstName"
+                  id="query"
                   placeholder="Query"
-                  (input)="onChange('firstName', $event)"
+                  (input)="onScheduleFieldsChange('query', $event)"
                 />
               </div>
               <div class="field">
-                <label for="firstName">Recipients: </label>
+                <label for="recipients">Recipients: </label>
                 <input
                   type="text"
-                  id="firstName"
+                  id="recipients"
                   placeholder="Recipients"
-                  (input)="onChange('firstName', $event)"
+                  (input)="onScheduleFieldsChange('emails', $event)"
                 />
               </div>
               <div class="field">
-                <label for="firstName">Subject: </label>
+                <label for="subject">Subject: </label>
                 <input
                   type="text"
-                  id="firstName"
+                  id="subject"
                   placeholder="Subject"
-                  (input)="onChange('firstName', $event)"
+                  (input)="onScheduleFieldsChange('name', $event)"
                 />
               </div>
               <div class="field">
                 <label for="frequency">Frequency: </label>
                 <select name="frequency" (input)="onFrequencyChange($event)">
                   <option value="daily">Daily</option>
+                  <option value="5min">5 Min</option>
                   <option value="weekly">Weekly</option>
                   <option value="biweekly">Biweekly</option>
                   <option value="monthly">Monthly</option>
@@ -183,11 +189,10 @@
                   <option *ngFor="let i of optionsArray" [value]="i">
                     {{ i }}
                   </option>
-
                 </select>
               </div>
             </div>
-            <button type="submit" (input)="onChange('firstName', $event)">
+            <button type="submit" (click)="onScheduleSubmit()">
               Create
             </button>
           </form>
